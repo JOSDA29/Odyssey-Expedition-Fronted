@@ -6,6 +6,7 @@ import { ModalLoginComponent } from './components/modal-login/modal-login/modal-
 import { ModalRecoverPasswordComponent } from './components/modal-recover-password/modal-recover-password/modal-recover-password.component';
 import { FeatureARoutingModule } from './home-routing.module';
 import { HomeComponent } from './pages/home/home.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -20,7 +21,8 @@ import { HomeComponent } from './pages/home/home.component';
   ],
   imports: [
     CommonModule,
-    FeatureARoutingModule
+    FeatureARoutingModule,
+    SharedModule
   ]
 })
 export class FeatureAModule { }

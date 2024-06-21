@@ -1,0 +1,9 @@
+@import '../../../../../styles/variables.scss';
+
+.text-span {
+    font-family: $font-family-poppins;
+    font-weight: $font-weight-regular;
+    color:$primary-color-text;
+    font-size:$font-size-simple ;
+    letter-spacing: $global-spacing;
+}

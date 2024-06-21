@@ -1,0 +1,13 @@
+@import '../../../../../styles/variables.scss';
+
+.status-principal{
+    font-family: $font-family-poppins;
+    font-size: $status-principal;
+    font-weight: $font-weight-semibold;
+}
+
+.status-secondary{
+    font-family: $font-family-poppins;
+    font-size: $status-secundary;
+    font-weight: $font-weight-regular;
+}

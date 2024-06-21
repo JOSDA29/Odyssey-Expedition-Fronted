@@ -1,0 +1,12 @@
+@import '../../../../../styles/variables.scss';
+
+.subtitle-principal{
+    font-family: $font-family-poppins;
+    font-size: $subtitle-pricipal;
+    font-weight: $font-weight-regular;
+}
+.subtitle-secundary{
+    font-family: $font-family-poppins;
+    font-size: $subtitle-secondary;
+    font-weight: $font-weight-medium;
+}

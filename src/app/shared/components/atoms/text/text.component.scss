@@ -1,0 +1,20 @@
+@import '../../../../../styles/variables.scss';
+
+.text-normal{
+    font-family: $font-family-poppins;
+    font-size: $text-normal;
+    font-weight: $font-weight-regular;
+}
+
+.text-secundary{
+    font-family: $font-family-poppins;
+    font-size: $text-secondary;
+    font-weight: $font-weight-regular;
+}
+
+.info-normal{
+    font-family: $font-family-poppins;
+    font-size: $info-normal;
+    font-weight: $font-weight-medium;
+}
+

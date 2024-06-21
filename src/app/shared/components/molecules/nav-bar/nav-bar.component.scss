@@ -1,0 +1,13 @@
+.nav-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0rem 1rem 0rem;
+    background-color:#EEEE;
+
+    .menu{
+        display: flex;
+        margin-right: 20rem;       
+    }
+}
+

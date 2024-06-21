@@ -9,6 +9,8 @@ import { TeamInfoComponent } from './features/about-us/components/team-info/team
 import { AboutUsComponent } from './features/about-us/pages/about-us/about-us.component';
 import { RegisterFormComponent } from './features/register/components/register-form/register-form.component';
 import { RegisterComponent } from './features/register/pages/register/register.component';
+import { SharedModule } from './shared/shared.module';
+import { FeatureAModule } from './features/home/home.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { RegisterComponent } from './features/register/pages/register/register.c
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule,
+    FeatureAModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
