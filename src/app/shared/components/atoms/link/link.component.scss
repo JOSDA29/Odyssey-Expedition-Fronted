@@ -4,6 +4,7 @@
 .conten{
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 155px;
     height: 100px;
     position: relative; 
@@ -14,13 +15,12 @@
     font-weight: $font-weight-medium;
     text-decoration: none;
     color: $leters-color-basic;
-    margin-right: 4rem;
     letter-spacing: $global-spacing;
 }
 
 .conten .line {
     position: absolute;
-    top: 100%;
+    top: 96.5%;
     left: 0px;
     right: 0px;
     width: 100%;

@@ -1,1 +1,4 @@
-<p>button works!</p>
+<button [class]="style" [class.selected]="isSelected">
+    <ng-content></ng-content>
+    <span class="text">{{ text }}</span>
+</button>

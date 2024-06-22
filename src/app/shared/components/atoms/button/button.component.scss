@@ -1,0 +1,41 @@
+@import '../../../../../styles/variables.scss';
+
+.share-button{
+    display: flex;
+    align-items: center;
+    width: 11.7rem;
+    height: 4.9rem;
+    border: none;
+    background-color: $button-shared-color;
+    cursor: pointer;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}
+
+.share-button.selected {
+    transition: 100ms;
+    background-color: $primary-color; 
+}
+
+.search-button{
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:$button-shared-color ;
+    cursor: pointer;
+    width: 9.375rem;
+    height: 4.063rem;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}

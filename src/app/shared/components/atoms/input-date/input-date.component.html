@@ -1,0 +1,7 @@
+<div class="input-text-wrapper">
+    <div class="input-text-container">
+        <img [src]="src" [alt]="alt" class="input-icon" (click)="openCalendar(calendarInput)">
+        <input type="date" class="input-date" #calendarInput (input)="updateText($event)" [min]="getCurrentDate()">
+    </div>
+    <span class="input-text">{{ txt }}</span>
+</div>

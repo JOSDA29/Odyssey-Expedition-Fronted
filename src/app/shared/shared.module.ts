@@ -30,6 +30,13 @@ import { StatusComponent } from './components/atoms/status/status.component';
 import { LinkComponent } from './components/atoms/link/link.component';
 import { LogoComponent } from './components/atoms/logo/logo.component';
 import { NavBarComponent } from './components/molecules/nav-bar/nav-bar.component';
+import { MultifacetedSearchComponent } from './components/organisms/multifaceted-search/multifaceted-search.component';
+import { ContenMultifacetedComponent } from './components/molecules/miltufaceted-search/conten-multifaceted/conten-multifaceted.component';
+import { CheckBoxComponent } from './components/atoms/check-box/check-box.component';
+import { ShareButtonComponent } from './components/molecules/miltufaceted-search/share-button/share-button.component';
+import { InputTextComponent } from './components/atoms/input-text/input-text.component';
+import { InputDateComponent } from './components/atoms/input-date/input-date.component';
+import { ImagesComponent } from './components/atoms/images/images.component';
 
 
 
@@ -65,6 +72,13 @@ import { NavBarComponent } from './components/molecules/nav-bar/nav-bar.componen
     LinkComponent,
     LogoComponent,
     NavBarComponent,
+    ShareButtonComponent,
+    MultifacetedSearchComponent,
+    ContenMultifacetedComponent,
+    CheckBoxComponent,
+    InputTextComponent,
+    InputDateComponent,
+    ImagesComponent,
   ],
   imports: [
     CommonModule,

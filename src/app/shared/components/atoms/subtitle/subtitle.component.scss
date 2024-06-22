@@ -2,11 +2,15 @@
 
 .subtitle-principal{
     font-family: $font-family-poppins;
-    font-size: $subtitle-pricipal;
+    font-size: $subtitle-principal;
     font-weight: $font-weight-regular;
+    letter-spacing: $global-spacing;
+    line-height: $global-line-spacing;
 }
 .subtitle-secundary{
     font-family: $font-family-poppins;
     font-size: $subtitle-secondary;
     font-weight: $font-weight-medium;
+    letter-spacing: $global-spacing;
+    line-height: $global-line-spacing;
 }

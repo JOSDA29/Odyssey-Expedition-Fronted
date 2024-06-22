@@ -1,0 +1,21 @@
+@import '../../../../../styles/variables.scss';
+
+.container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+.image-top {
+    display: block;
+    width: 98vw;
+    height: 37.188rem;
+    object-fit: cover;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $background-contens-image; 
+}

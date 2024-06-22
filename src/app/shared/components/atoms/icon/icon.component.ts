@@ -10,6 +10,6 @@ export class IconComponent {
 @Input() alt:string = '';
 @Input() href:string = '';
 
-@Input() style: 'primary' | 'icons-top-nab-bar' | 'profile' = 'primary';
+@Input() style: 'primary' | 'icons-top-nab-bar' | 'shared-icon' | 'profile' = 'primary';
 
 }

@@ -1,0 +1,11 @@
+<div class="shared-buttons" >
+    <div class="butons" *ngFor="let conten of contens; let i = index">
+            <app-button 
+            [style]="'share-button'" 
+            [text]="conten.text"
+            [isSelected]="selectedLinkIndex === i"
+         (click)="selectLink(i)">
+            <app-icon [src]="conten.src" [alt]="conten.alt" [style]="'shared-icon'"></app-icon>
+        </app-button>
+    </div>
+</div>

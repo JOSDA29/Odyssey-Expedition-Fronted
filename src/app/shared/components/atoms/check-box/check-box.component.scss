@@ -1,0 +1,22 @@
+@import '../../../../../styles/variables.scss';
+
+.check-box-container {
+    display: flex;
+    align-items: center;
+  
+    input[type="checkbox"] {
+      margin: 0rem 0.4rem 0rem 0.8rem;
+      width: 1rem;
+      height: 1rem;
+      transform: scale(1);
+  }
+  
+    label {
+        font-family: $font-family-poppins;
+        font-weight:$font-weight-extralight;
+        line-height: $global-line-spacing;
+        font-size:  $text-normal;
+        letter-spacing: $global-spacing;
+    }
+  }
+  

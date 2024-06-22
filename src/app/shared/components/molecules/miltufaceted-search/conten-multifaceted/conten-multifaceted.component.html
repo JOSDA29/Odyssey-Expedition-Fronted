@@ -1,0 +1,37 @@
+<div class="conten-multifaceted" *ngFor="let conten of contensSection">
+    <app-subtitle [style]="'subtitle-principal'" [text]="conten.title" ></app-subtitle>
+    <div class="checkboxes">
+        <div *ngFor="let checkbox of checkboxes">
+          <app-check-box [label]="checkbox.label" [isChecked]="checkbox.isChecked"></app-check-box>
+        </div>
+    </div>
+    <div class="conten-dates">
+
+      <div class="text">
+        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.origin"></app-subtitle>
+        <app-input-text type="text" src="assets/icons/ubication.png" alt="Search Icon" placeholder="Ingrese una ciudad"></app-input-text>    
+      </div>
+
+      <div class="text">
+        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.destination"></app-subtitle>
+        <app-input-text type="text" src="assets/icons/ubication.png" alt="Search Icon" placeholder="Ingrese una ciudad"></app-input-text>    
+      </div>  
+
+      <div class="text">
+        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.dates ? conten.dates:'' "></app-subtitle>
+        <div class="dates">
+          <app-input-date class="date1" src="assets/icons/date.png" [txt]="conten.ida ? conten.ida: ''"></app-input-date> 
+        <app-input-date src="assets/icons/date.png" [txt]="conten.vuelta ? conten.vuelta: ''"></app-input-date>
+        </div>
+           
+      </div>
+
+      <div class="text">
+        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.peopple ? conten.peopple:'' "></app-subtitle>
+        <app-input-text type="number" src="assets/icons/peopple.png" alt="Search Icon" placeholder="1"></app-input-text>    
+      </div> 
+
+      <app-button [text]="textbutton" [style]="'search-button'"></app-button>
+    </div>
+    
+</div>

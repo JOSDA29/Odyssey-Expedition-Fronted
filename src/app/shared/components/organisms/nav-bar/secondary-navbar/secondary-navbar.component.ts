@@ -9,6 +9,7 @@ export class SecondaryNavbarComponent {
   navLinks = [
     { href: '', text: 'Inicio' },
     { href: '/nosotros', text: 'Nosotros' },
-    { href: '/ayuda', text: 'Ayuda' }
+    { href: '/ayuda', text: 'Ayuda' },
+
   ];
 }
