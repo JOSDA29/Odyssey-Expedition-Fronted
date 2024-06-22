@@ -37,6 +37,7 @@ import { ShareButtonComponent } from './components/molecules/miltufaceted-search
 import { InputTextComponent } from './components/atoms/input-text/input-text.component';
 import { InputDateComponent } from './components/atoms/input-date/input-date.component';
 import { ImagesComponent } from './components/atoms/images/images.component';
+import { LinkListComponent } from './components/molecules/link-list/link-list.component';
 
 
 
@@ -79,6 +80,7 @@ import { ImagesComponent } from './components/atoms/images/images.component';
     InputTextComponent,
     InputDateComponent,
     ImagesComponent,
+    LinkListComponent,
   ],
   imports: [
     CommonModule,

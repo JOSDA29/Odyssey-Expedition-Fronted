@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './over-footer.component.scss'
 })
 export class OverFooterComponent {
-
+  
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
