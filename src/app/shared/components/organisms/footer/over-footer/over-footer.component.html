@@ -1,1 +1,14 @@
-<p>over-footer works!</p>
+<div class="footer-over">
+    <div class="arrowUp" (click)="scrollToTop()">
+        <img src="../../../../../../assets/icons/arrowUp.png" alt="">
+    </div>
+    <div class="social-icons">
+        <app-icon href="#" src="../../../../../../assets/icons/facebook.png" alt="Facebook"  [style]="'icons-top-nab-bar'"></app-icon>
+        <app-icon href="#" src="../../../../../../assets/icons/instagram.png" alt="Instagram"  [style]="'icons-top-nab-bar'"></app-icon>
+        <app-icon href="#" src="../../../../../../assets/icons/twiter.png" alt="Twitter"  [style]="'icons-top-nab-bar'"></app-icon>
+        <app-icon href="#" src="../../../../../../assets/icons/whatsApp.png" alt="WhatsApp"  [style]="'icons-top-nab-bar'"></app-icon>
+    </div>
+    <div class="text">
+        <app-text [style]="'text-normal'" text="&#64; All Copyright 2024"> </app-text>
+    </div>
+</div>

@@ -1,1 +1,17 @@
-<p>principal-footer works!</p>
+<footer>
+    <div class="principal">
+        <div class="content-list">
+            <app-subtitle [style]="'subtitle-principal'" text="Acerca de Odyssey expedition"></app-subtitle>
+            <app-link-list [links]="approachLinks"></app-link-list>
+        </div>
+        <div class="content-list">
+            <app-subtitle [style]="'subtitle-principal'" text="Informacion de interes"></app-subtitle>
+            <app-link-list [links]="informationLinks"></app-link-list>
+        </div>
+        <div class="content-list">
+            <app-subtitle [style]="'subtitle-principal'" text="Informacion Legal"></app-subtitle>
+            <app-link-list [links]="legalLinks"></app-link-list>
+        </div>
+    </div>
+    <app-over-footer></app-over-footer>
+  </footer>  

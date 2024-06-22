@@ -30,6 +30,7 @@ import { StatusComponent } from './components/atoms/status/status.component';
 import { LinkComponent } from './components/atoms/link/link.component';
 import { LogoComponent } from './components/atoms/logo/logo.component';
 import { NavBarComponent } from './components/molecules/nav-bar/nav-bar.component';
+import { LinkListComponent } from './components/molecules/link-list/link-list.component';
 
 
 
@@ -65,6 +66,7 @@ import { NavBarComponent } from './components/molecules/nav-bar/nav-bar.componen
     LinkComponent,
     LogoComponent,
     NavBarComponent,
+    LinkListComponent,
   ],
   imports: [
     CommonModule,

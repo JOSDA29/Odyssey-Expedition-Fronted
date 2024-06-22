@@ -17,7 +17,7 @@ import { SharedModule } from '../../shared/shared.module';
     CardsServiceComponent,
     ModalLoginComponent,
     ModalRecoverPasswordComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     CommonModule,

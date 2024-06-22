@@ -1,0 +1,39 @@
+app-icon{
+    filter: invert(100%);
+    
+}
+
+.social-icons{
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+}
+.footer-over{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F1F1F1; 
+    color: black;
+    width: 90rem;
+    height: 11rem;
+    margin-top: 2rem;
+    border-radius: 1rem 0 0 0;
+    padding-right: 2rem;
+}
+
+.arrowUp{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 11rem;
+    height: 11rem;
+    margin-right: 3rem;
+    background-color: black;
+    border-radius: 1rem 0px 0px 0px;
+    cursor: pointer;
+}
+
+.text {
+    margin-left: auto; 
+}
+

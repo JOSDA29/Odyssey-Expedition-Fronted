@@ -1,0 +1,23 @@
+@import '../../../../../styles/variables.scss';
+
+.link-list-footer {
+  color: $primary-color-text;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-family: $font-family-poppins;
+  font-weight: $font-weight-light;
+  font-size: $font-weight-regular;
+}
+
+.link-list-footer:hover {
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+
+  li {
+    margin: 5px 0;
+  }
+}
