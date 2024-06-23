@@ -45,6 +45,9 @@ import { ImageInputTextComponent } from './components/molecules/image-input-text
 import { LinkNormalComponent } from './components/atoms/link-normal/link-normal.component';
 import { RegisterFormComponent } from './components/molecules/register-form/register-form.component';
 import { RegisterComponent } from './components/organisms/register/register.component';
+import { IconTextComponent } from './components/molecules/icon-text/icon-text.component';
+import { CardsServicesListComponent } from './components/organisms/cards-services-list/cards-services-list.component';
+import { TitleSectionComponent } from './components/molecules/title-section/title-section.component';
 
 
 
@@ -95,6 +98,9 @@ import { RegisterComponent } from './components/organisms/register/register.comp
     LinkNormalComponent,
     RegisterFormComponent,
     RegisterComponent,
+    IconTextComponent,
+    CardsServicesListComponent,
+    TitleSectionComponent,
   ],
   imports: [
     CommonModule,

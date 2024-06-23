@@ -1,0 +1,8 @@
+<div class="container">
+    <app-title-section title="Vuelos" subtitle="Encuentra lo mas relevante"></app-title-section>
+    <div class="container-cards">
+        <div *ngFor="let flight of flights; let i = index">
+            <app-cards-service [title]="flight.title" [cant]="flight.priceDescription" [price]="flight.price" [src]="flight.imageSrc" [departure]="flight.departure"></app-cards-service>
+        </div>
+    </div>
+</div>

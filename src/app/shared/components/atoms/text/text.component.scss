@@ -1,5 +1,9 @@
 @import '../../../../../styles/variables.scss';
 
+*{
+    margin: 0;
+}
+
 .text-normal{
     font-family: $font-family-poppins;
     font-size: $text-normal;

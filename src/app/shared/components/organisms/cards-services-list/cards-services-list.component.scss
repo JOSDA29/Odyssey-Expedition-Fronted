@@ -1,0 +1,14 @@
+.container-cards{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    width: 98vw;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;    
+}

@@ -1,0 +1,32 @@
+{
+    "flights": [
+        {
+            "imageSrc": "../../../../../../assets/images/bogota.png",
+            "title": "Bogota",
+            "departure": "Medellin",
+            "price": 200.000,
+            "priceDescription": "pareja"
+        },
+        {
+            "imageSrc": "../../../../../../assets/images/medellin.png",
+            "title": "Medellin",
+            "departure": "Bogota",
+            "price": 300.000,
+            "priceDescription": "pareja"
+        },
+        {
+            "imageSrc": "../../../../../../assets/images/barranquilla.png",
+            "title": "Barranquilla",
+            "departure": "Medellin",
+            "price": 400.000,
+            "priceDescription": "pareja"
+        },
+        {
+            "imageSrc": "../../../../../../assets/images/cali.png",
+            "title": "Cali",
+            "departure": "Armenia",
+            "price": 500.000,
+            "priceDescription": "persona"
+        }
+    ]
+  }
