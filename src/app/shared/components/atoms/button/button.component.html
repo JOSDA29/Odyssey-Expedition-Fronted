@@ -1,4 +1,4 @@
-<button [class]="style" [class.selected]="isSelected">
+<button [class]="style" [class.selected]="isSelected" [disabled]="disabled">
     <ng-content></ng-content>
     <span class="text">{{ text }}</span>
 </button>

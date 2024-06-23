@@ -43,6 +43,8 @@ import { LoginFormComponent } from './components/molecules/login-form/login-form
 import { ModalLoginComponents } from './components/organisms/modal-login/modal-login.component';
 import { ImageInputTextComponent } from './components/molecules/image-input-text/image-input-text.component';
 import { LinkNormalComponent } from './components/atoms/link-normal/link-normal.component';
+import { RegisterFormComponent } from './components/molecules/register-form/register-form.component';
+import { RegisterComponent } from './components/organisms/register/register.component';
 
 
 
@@ -91,12 +93,17 @@ import { LinkNormalComponent } from './components/atoms/link-normal/link-normal.
     ModalLoginComponents,
     ImageInputTextComponent,
     LinkNormalComponent,
+    RegisterFormComponent,
+    RegisterComponent,
   ],
   imports: [
     CommonModule,
   ],
   exports:[
     TemplateHomeComponent,
+    MultifacetedSearchComponent,
+    PrincipalFooterComponent,
+    RegisterComponent,
     ModalLoginComponents
   ]
 })
