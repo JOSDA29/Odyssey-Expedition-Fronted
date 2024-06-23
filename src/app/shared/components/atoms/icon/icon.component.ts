@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class IconComponent {
   @Input() src: string = '';
   @Input() alt: string = '';
-  @Input() style: 'primary' | 'icons-top-nab-bar' | 'input-icon' | 'ubication-icon' | 'shared-icon' | 'icon-close' | 'icon-google' | 'profile' = 'primary';
+  @Input() style: 'primary' | 'icons-top-nab-bar' | 'input-icon' | 'ubication-icon' | 'shared-icon' | 'icon-close' | 'icon-google' | 'profile'| 'icon-text' = 'primary';
   @Input() navigateTo: string = ''; 
 
   constructor(private router: Router) { }
