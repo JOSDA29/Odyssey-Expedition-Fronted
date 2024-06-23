@@ -1,0 +1,46 @@
+form{
+    display: flex;
+
+    .register-form{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 2rem ;
+        width: 33.75rem;
+
+        .line{
+            display: flex;
+            align-items: center;
+            margin: 2rem 0rem;
+            hr{
+                border: solid 0.063rem  black;
+                width: 11.375rem;
+              }
+              p{
+                font-size: 24px;
+                font-weight: 300;
+                margin: 0px 10px;
+              }
+        }
+       
+        .text{
+            display: flex;
+            flex-direction: column;
+            margin:1rem 0rem 1rem 0rem ;
+        }
+
+        app-button{
+            margin: 2rem 0rem 0rem 0rem;
+        }
+
+        .text-footer{
+            margin-top: 1rem;
+            display: flex;
+        }
+
+    }
+    .fondo{
+        width: 65rem;
+        height: 75rem;
+    }
+}

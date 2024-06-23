@@ -9,4 +9,5 @@ export class ButtonComponent {
 @Input() text:string = '';
 @Input() style:'share-button' | 'search-button' | 'other-button' | 'registerGoogle' = 'share-button';
 @Input() isSelected: boolean = false;
+@Input() disabled: boolean = false;
 }

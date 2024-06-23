@@ -12,6 +12,7 @@ import { RegisterComponent } from './features/register/pages/register/register.c
 import { SharedModule } from './shared/shared.module';
 import { FeatureAModule } from './features/home/home.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     AppRoutingModule,
     SharedModule,
     FeatureAModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync()
