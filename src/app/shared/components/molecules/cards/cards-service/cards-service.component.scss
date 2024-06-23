@@ -1,0 +1,31 @@
+.container{
+    width: 19.688rem;
+    height: 21.3750rem;
+    margin-bottom: 6rem;
+    border: 0.063rem solid #9e9b9b;
+    transition: box-shadow 0.3s ease;
+    border-radius: 1rem ;
+    cursor: pointer;
+}
+
+.container:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.container-info {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 47%;
+    background-color: #FFF;
+    border-radius: 0 0 1rem 1rem, ;
+}
+
+.container-info  * {
+    margin-bottom: 0.25rem;
+}
+
+
+
+

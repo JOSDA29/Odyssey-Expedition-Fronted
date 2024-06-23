@@ -38,6 +38,9 @@ import { InputTextComponent } from './components/atoms/input-text/input-text.com
 import { InputDateComponent } from './components/atoms/input-date/input-date.component';
 import { ImagesComponent } from './components/atoms/images/images.component';
 import { LinkListComponent } from './components/molecules/link-list/link-list.component';
+import { IconTextComponent } from './components/molecules/icon-text/icon-text.component';
+import { CardsServicesListComponent } from './components/organisms/cards-services-list/cards-services-list.component';
+import { TitleSectionComponent } from './components/molecules/title-section/title-section.component';
 
 
 
@@ -81,6 +84,9 @@ import { LinkListComponent } from './components/molecules/link-list/link-list.co
     InputDateComponent,
     ImagesComponent,
     LinkListComponent,
+    IconTextComponent,
+    CardsServicesListComponent,
+    TitleSectionComponent,
   ],
   imports: [
     CommonModule,

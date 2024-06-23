@@ -1,1 +1,10 @@
-<p>cards-service works!</p>
+<div class="container">
+    <app-images [style]="'image-card'" [styleOverlay]="'image-card-overlay'" [src]="src" ></app-images>
+    <div class="container-info">
+        <app-subtitle [style]="'subtitle-principal'" [text]="title"></app-subtitle>
+        <app-icon-text src="../../../../../../assets/icons/ubication.png" alt="ubicacion" text="Salida desde {{departure}}"></app-icon-text>
+        <app-text [style]="'text-secundary'" text="Desde"></app-text>
+        <app-subtitle [style]="'subtitle-secundary'" text="${{price}}"></app-subtitle>
+        <app-text [style]="'text-secundary'" text="Precio por {{cant}}"></app-text>
+    </div>
+</div>
