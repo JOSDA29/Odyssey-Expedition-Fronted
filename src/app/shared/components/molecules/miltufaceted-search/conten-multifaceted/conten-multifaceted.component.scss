@@ -6,30 +6,30 @@
     background-color:$background-light-contens ;
     border: solid 1px $color-borders;
     border-radius: 0px 10px 10px 10px;
-    width: 92rem;
-    height: 15.25rem;
+    width: 95rem;
+    height: 16.688rem;
     padding: 1rem 0rem 2rem 2rem;
 }
 .checkboxes{
     display: flex;
-    margin: 3rem 0rem 2rem 0rem;
+    margin: 2rem 0rem 1rem 0rem;
 }
 
 .conten-dates{
     position: relative;
     display: flex;
     .text{
-        margin: 1rem 1rem 0rem 0rem;
+        margin: 1.5em 1.5rem 0rem 0rem;
         .dates{
             display: flex;
             .date1{
-                margin-right: 1rem;
+                margin-right: 1.5rem;
             }
         }
     }
     app-button{
         position: absolute;
-        top: 2.9rem;
+        top: 4.3rem;
         left: 87%;
     }
 }

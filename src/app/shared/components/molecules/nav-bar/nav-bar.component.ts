@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ModalService } from '../../../../features/home/services/modal-login.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -27,4 +28,12 @@ selectLink(index: number) {
   this.selectedLinkIndex = index;
 }
 
+isModalOpen = false;
+
+constructor(public modalService: ModalService) { }
+
+openLoginModal(): void {
+  console.log('open modal');
+  this.modalService.openModal();
+}
 }

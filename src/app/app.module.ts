@@ -11,6 +11,7 @@ import { RegisterFormComponent } from './features/register/components/register-f
 import { RegisterComponent } from './features/register/pages/register/register.component';
 import { SharedModule } from './shared/shared.module';
 import { FeatureAModule } from './features/home/home.module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { FeatureAModule } from './features/home/home.module';
     SharedModule,
     FeatureAModule,
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

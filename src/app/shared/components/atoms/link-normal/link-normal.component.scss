@@ -1,0 +1,18 @@
+@import '../../../../../styles/variables.scss';
+
+.link-normal-all{
+    color: $primary-color;
+    font-size: $text-normal;
+    font-weight: $font-weight-bold;
+    line-height: $global-line-spacing;
+    text-decoration: none;
+    margin-left:1rem ;
+}
+
+.text-link{
+    color: $leters-color-basic;
+    font-family: $font-family-poppins;
+    font-size: $text-normal;
+    font-weight: $font-weight-extralight;
+    text-decoration: none;
+}

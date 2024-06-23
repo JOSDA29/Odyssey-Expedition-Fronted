@@ -1,0 +1,23 @@
+@import '../../../../../styles/variables.scss';
+
+.image-top-home{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    .text-content{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute;
+        z-index: 1000;
+        top: 11rem;
+        color:$primary-color-text;
+        app-subtitle .subtitle-principal{
+            font-weight: $font-weight-semibold;
+            margin-top: 0.5rem;
+        }
+    }
+}

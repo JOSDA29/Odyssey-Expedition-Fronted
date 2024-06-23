@@ -1,0 +1,34 @@
+    <div class="header">
+        <div class="titles">
+            <app-title [text]="title" [style]="'title-third'"></app-title>
+            <app-icon [src]="srcclose" [alt]="altclose" [style]="'icon-close'" (click)="closeModal()"></app-icon>
+        </div>
+        <app-button [text]="textGoogle" [style]="'registerGoogle'">
+            <app-icon [src]="srcicon" [alt]="alticon" [style]="'icon-google'"></app-icon>
+        </app-button>
+        <div class="line">
+            <hr><p>o</p><hr>
+        </div>
+        <div class="text" *ngFor="let conten of contensSection">
+            <app-subtitle 
+                [style]="'subtitle-register'" 
+                [text]="conten.title">
+            </app-subtitle>
+            <app-input-text 
+                type="text"  
+                [placeholder]="conten.placeholder"
+                [style]="'input-register'">
+            </app-input-text>    
+          </div>
+          <div class="footer">
+            <div class="option">
+                <app-check-box label="Recuerdame" [isChecked]="true"></app-check-box>
+                <app-link-normal [text]="textlink" [style]="'text-link'"></app-link-normal>
+            </div>
+            <app-button [text]="textContin" [style]="'other-button'"></app-button>
+            <div class="text-footer">
+                <app-text [text]="textfooter" [style]="'text-normal'"></app-text>
+                <app-link-normal [text]="textfooter1" [href]="href" [style]="'link-normal-all'"></app-link-normal>
+            </div>
+          </div>
+    </div>

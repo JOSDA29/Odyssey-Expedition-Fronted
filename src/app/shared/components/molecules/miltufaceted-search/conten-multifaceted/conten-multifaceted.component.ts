@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './conten-multifaceted.component.scss'
 })
 export class ContenMultifacetedComponent {
+  @Input() min: number = 1;
   @Input() textbutton:string = '';
   @Input() contensSection: { 
     title: string,

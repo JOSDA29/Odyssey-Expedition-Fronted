@@ -9,12 +9,12 @@
 
       <div class="text">
         <app-subtitle [style]="'subtitle-secundary'" [text]="conten.origin"></app-subtitle>
-        <app-input-text type="text" src="assets/icons/ubication.png" alt="Search Icon" placeholder="Ingrese una ciudad"></app-input-text>    
+        <app-image-input-text [styleinput]="'input-text'" type="text" src="assets/icons/ubication.png" alt="Search Icon" placeholder="Ingrese una ciudad"></app-image-input-text>    
       </div>
 
       <div class="text">
-        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.destination"></app-subtitle>
-        <app-input-text type="text" src="assets/icons/ubication.png" alt="Search Icon" placeholder="Ingrese una ciudad"></app-input-text>    
+        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.origin"></app-subtitle>
+        <app-image-input-text [styleinput]="'input-text'" type="text" src="assets/icons/ubication.png" alt="Search Icon" placeholder="Ingrese una ciudad"></app-image-input-text>    
       </div>  
 
       <div class="text">
@@ -28,7 +28,7 @@
 
       <div class="text">
         <app-subtitle [style]="'subtitle-secundary'" [text]="conten.peopple ? conten.peopple:'' "></app-subtitle>
-        <app-input-text type="number" src="assets/icons/peopple.png" alt="Search Icon" placeholder="1"></app-input-text>    
+        <app-image-input-text [styleinput]="'input-number'" type="number" src="assets/icons/peopple.png" alt="Search Icon" placeholder="1"></app-image-input-text>    
       </div> 
 
       <app-button [text]="textbutton" [style]="'search-button'"></app-button>

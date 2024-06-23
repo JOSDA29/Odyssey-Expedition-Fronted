@@ -20,7 +20,7 @@
 
 .conten .line {
     position: absolute;
-    top: 96.5%;
+    top: 97%;
     left: 0px;
     right: 0px;
     width: 100%;
@@ -35,6 +35,18 @@
 
 .link-normal{
     font-family: $font-family-poppins;
-    font-size: $link-normal;
-    font-weight: $font-weight-medium;
+    font-size: $text-normal;
+    font-weight: $font-weight-extralight;
+    text-decoration: none;
+    color: $leters-color-basic;
+    letter-spacing: $global-spacing;
+}
+
+.link-register{
+    font-family: $font-family-poppins;
+    font-size: $text-normal;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    color: $primary-color;
+    letter-spacing: $global-spacing;
 }

@@ -1,5 +1,5 @@
 <div class="check-box-container">
-    <input type="checkbox" [checked]="isChecked" />
+    <input type="checkbox" [checked]="isChecked" (change)="onCheckboxChange()"/>
     <label>{{ label }}</label>
   </div>
   

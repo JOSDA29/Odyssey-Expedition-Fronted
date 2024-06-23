@@ -1,3 +1,5 @@
+@import '../../../../../styles/variables.scss';
+
 .multifaceted-search{
     display: flex;
     align-items: center;
@@ -8,5 +10,4 @@
         z-index: 1000;
         top: 75%;
     }
-   
 }

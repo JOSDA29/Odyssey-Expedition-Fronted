@@ -10,6 +10,5 @@ export class SecondaryNavbarComponent {
     { href: '', text: 'Inicio' },
     { href: '/nosotros', text: 'Nosotros' },
     { href: '/ayuda', text: 'Ayuda' },
-
   ];
 }

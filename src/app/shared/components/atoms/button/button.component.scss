@@ -30,7 +30,44 @@
     background-color:$button-shared-color ;
     cursor: pointer;
     width: 9.375rem;
+    height: 3.125rem;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}
+
+.registerGoogle{
+    display: flex;
+    background-color: $primary-color;
+    border-radius: 0.625rem;
+    border: none;
+    width: 25.5rem;
     height: 4.063rem;
+    cursor: pointer;
+    align-items: center;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}
+
+.other-button{
+    display: flex;
+    background-color: $primary-color;
+    border-radius: 0.625rem;
+    border: none;
+    width: 25.5rem;
+    height: 4.063rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
     .text{
         font-family: $font-family-poppins;
         font-weight: $font-weight-regular;

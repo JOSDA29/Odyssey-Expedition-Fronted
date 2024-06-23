@@ -1,37 +1,36 @@
 @import '../../../../../styles/variables.scss';
 
-.input-text-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    
-    .input-icon {
-      position: absolute;
-      left: 0.625rem; 
-      width: 1rem; 
-      height: 1.25rem; 
-    }
-  
-    .input-text {
-      padding-left: 2.5rem; 
-      width: 15rem; 
-      height: 4.063rem; 
-      border-color: $color-borders;
-      box-sizing: border-box;
-      border-radius: 5px; 
-      font-size: $text-normal; 
-      margin-top: 0.4rem;
-    }
-    .input-number {
-      width: 12.5rem; 
-      height: 4.063rem; 
-      border: 1px solid $color-borders; 
-      border-radius: 5px; 
-      padding: 5px; 
-      font-size: $text-normal; 
-      border-color: $color-borders; 
-      box-sizing: border-box;
-      text-align: right;
-       margin-top: 0.4rem;
-    }  
+.input-register{
+  padding-left: 1rem; 
+  width: 25.25rem; 
+  height: 4.063rem; 
+  border-color: $color-borders;
+  box-sizing: border-box;
+  border-radius: 5px; 
+  font-size: $text-normal; 
+  margin-top: 1rem;
 }
+
+.input-text {
+  padding-left: 2.5rem; 
+  width: 15rem; 
+  height: 4.063rem; 
+  border-color: $color-borders;
+  box-sizing: border-box;
+  border-radius: 5px; 
+  font-size: $text-normal; 
+  margin-top: 0.4rem;
+}
+.input-number {
+  width: 12.5rem; 
+  height: 4.063rem; 
+  border: 1px solid $color-borders; 
+  border-radius: 5px; 
+  padding: 5px; 
+  font-size: $text-normal; 
+  border-color: $color-borders; 
+  box-sizing: border-box;
+  text-align: right;
+    margin-top: 0.4rem;
+}  
+

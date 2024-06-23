@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
 @Input() text:string = '';
-@Input() style:'share-button' | 'search-button' = 'share-button';
+@Input() style:'share-button' | 'search-button' | 'other-button' | 'registerGoogle' = 'share-button';
 @Input() isSelected: boolean = false;
 }
