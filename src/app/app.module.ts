@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { FeatureAModule } from './features/home/home.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     FeatureAModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     provideAnimationsAsync()

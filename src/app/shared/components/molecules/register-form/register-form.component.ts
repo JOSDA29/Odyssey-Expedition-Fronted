@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AuthGoogleService } from '../../../../core/services/auth-google.service';
 
 @Component({
   selector: 'app-register-form',
@@ -6,22 +7,28 @@ import { Component, Input } from '@angular/core';
   styleUrl: './register-form.component.scss'
 })
 export class RegisterFormComponent {
-@Input() srclogo: string = '';
-@Input() altlogo: string = '';
-@Input() srcfondo: string = '';
-@Input() altfodo: string = '';
-@Input() srcicon: string = '';
-@Input() alticon: string = '';
-@Input() textGoogle: string = '';
-@Input() href: string = '';
-@Input() textContin: string = '';
-@Input() textfooter: string = '';
-@Input() textfooter1: string = '';
 
-@Input()  contens:{
-  title: string,
-  placeholder:string,
-} [] = [];
+  constructor(private authGoogleService: AuthGoogleService){}
 
+  @Input() srclogo: string = '';
+  @Input() altlogo: string = '';
+  @Input() srcfondo: string = '';
+  @Input() altfodo: string = '';
+  @Input() srcicon: string = '';
+  @Input() alticon: string = '';
+  @Input() textGoogle: string = '';
+  @Input() href: string = '';
+  @Input() textContin: string = '';
+  @Input() textfooter: string = '';
+  @Input() textfooter1: string = '';
+
+  @Input()  contens:{
+    title: string,
+    placeholder:string,
+  } [] = [];
+
+  logInWithGoogle(){
+    this.authGoogleService.login();
+  }
 
 }
