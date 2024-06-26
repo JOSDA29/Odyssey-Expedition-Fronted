@@ -45,6 +45,7 @@ import { ImageInputTextComponent } from './components/molecules/image-input-text
 import { LinkNormalComponent } from './components/atoms/link-normal/link-normal.component';
 import { RegisterFormComponent } from './components/molecules/register-form/register-form.component';
 import { RegisterComponent } from './components/organisms/register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -98,6 +99,8 @@ import { RegisterComponent } from './components/organisms/register/register.comp
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     TemplateHomeComponent,

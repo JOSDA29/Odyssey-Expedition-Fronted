@@ -1,2 +1,7 @@
-  <input [type]="type" [class]="style" [placeholder]="placeholder">
-
+<input
+  [type]="type"
+  [class]="style"
+  [placeholder]="placeholder"
+  [(ngModel)]="value"
+  (blur)="onTouched()"
+>

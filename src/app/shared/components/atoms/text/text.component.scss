@@ -1,20 +1,56 @@
 @import '../../../../../styles/variables.scss';
 
-.text-normal{
+
+.text-normal {
     font-family: $font-family-poppins;
     font-size: $text-normal;
     font-weight: $font-weight-regular;
-}
-
-.text-secundary{
+  }
+  
+  .text-secundary {
     font-family: $font-family-poppins;
     font-size: $text-secondary;
     font-weight: $font-weight-regular;
-}
-
-.info-normal{
+  }
+  
+  .info-normal {
     font-family: $font-family-poppins;
     font-size: $info-normal;
     font-weight: $font-weight-medium;
-}
+  }
+  
+  .textError1 {
+    font-family: $font-family-poppins;
+    font-size: $text-normal;
+    font-weight: $font-weight-extralight;
+    position: absolute;
+    color: $message-error;
+  }
+  
+  .textError2 {
+    font-family: $font-family-poppins;
+    font-size: $text-normal;
+    font-weight: $font-weight-extralight;
+    max-height: 7.5rem;
+    position: relative;
+    color: $message-error;
+  }
 
+  .errortext1{
+    color: $primary-color;
+    font-size: $text-normal;
+    font-weight: $font-weight-bold;
+    line-height: $global-line-spacing;
+    text-decoration: none;
+    margin-left:1rem ;
+  }
+  
+  .errortext {
+    color: $message-error;
+    font-size: $text-normal;
+    font-weight: $font-weight-bold;
+    line-height: $global-line-spacing;
+    text-decoration: none;
+    margin-left:1rem ;
+  }
+  

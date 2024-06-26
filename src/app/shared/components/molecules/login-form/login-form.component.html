@@ -1,3 +1,5 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form"> 
+    
     <div class="header">
         <div class="titles">
             <app-title [text]="title" [style]="'title-third'"></app-title>
@@ -10,25 +12,68 @@
             <hr><p>o</p><hr>
         </div>
         <div class="text" *ngFor="let conten of contensSection">
-            <app-subtitle 
-                [style]="'subtitle-register'" 
-                [text]="conten.title">
-            </app-subtitle>
-            <app-input-text 
-                type="text"  
+            <app-subtitle [style]="'subtitle-register'" [text]="conten.title"></app-subtitle>
+            <div class="input-container" [ngClass]="{'has-error': loginForm.get(conten.field)?.errors && loginForm.get(conten.field)?.touched}">
+              <app-input-text 
+                [type]="conten.type === 'password' && !showPassword ? 'password' : 'text'"
                 [placeholder]="conten.placeholder"
-                [style]="'input-register'">
-            </app-input-text>    
+                [style]="'input-register'"
+                [formControlName]="conten.field">
+              </app-input-text>
+    
+              <app-text text="Mostrar" [style]="loginForm.get(conten.field)?.errors && conten.type === 'password' ? 'errortext' : 'errortext1'"
+             *ngIf="conten.type === 'password'" (click)="togglePasswordVisibility()" class="toggle-password-btn">
+            </app-text>
+    
+    
+              <i class="error-icon" *ngIf="conten.type !== 'password' && loginForm.get(conten.field)?.errors && loginForm.get(conten.field)?.touched">
+                <img src="assets/icons/iconError.png" alt="">
+              </i>
+            </div>
+            
+            <div *ngIf="loginForm.get(conten.field)?.errors && loginForm.get(conten.field)?.touched" class="error-message">
+              <div *ngIf="loginForm.get(conten.field)?.hasError('required')">
+                <app-text [style]="'textError1'" text="Este campo es obligatorio"></app-text>
+              </div>
+              <div *ngIf="loginForm.get(conten.field)?.hasError('maxlength') && conten.type === 'text'" class="error-message">
+                <app-text [style]="'textError1'" text="El contenido excede los 100 caracteres permitidos"></app-text>
+              </div>
+              <div *ngIf="loginForm.get(conten.field)?.hasError('minlength') && conten.type === 'text'" class="error-message">
+                <app-text [style]="'textError1'" text="El contenido debe tener al menos 5 caracteres"></app-text>
+              </div>
+              <div *ngIf="loginForm.get(conten.field)?.hasError('email') && conten.type === 'email'">
+                <app-text [style]="'textError1'" text="Ingrese un correo electrónico válido"></app-text>
+              </div>
+              <div *ngIf="loginForm.get(conten.field)?.hasError('maxlength') && conten.type === 'email'">
+                <app-text [style]="'textError1'" text="El contenido excede los 150 caracteres permitidos"></app-text>
+              </div>
+              <div *ngIf="loginForm.get(conten.field)?.hasError('weakPassword') && conten.type === 'password'" class="error-message">
+                <app-text [style]="'textError2'"
+                text="La contraseña no cumple los requisitos mínimos:<br>
+                - Al menos 8 caracteres<br>
+                - Una mayúscula<br>
+                - Una minúscula<br>
+                - Un número<br>
+                - Un carácter especial"></app-text>              
+              </div>
+              <div *ngIf="loginForm.get(conten.field)?.hasError('maxlength') && conten.type === 'password'">
+                <app-text [style]="'textError1'" text="El contenido excede los 50 caracteres permitidos"></app-text>
+              </div>
+              <div *ngIf="loginForm.get(conten.field)?.hasError('mismatch') && conten.field === 'confirmarContrasena'" class="error-message">
+                <app-text [style]="'textError2'" text="Las contraseñas no coinciden"></app-text>
+              </div>
+            </div>
           </div>
           <div class="footer">
             <div class="option">
                 <app-check-box label="Recuerdame" [isChecked]="true"></app-check-box>
                 <app-link-normal [text]="textlink" [style]="'text-link'"></app-link-normal>
             </div>
-            <app-button [text]="textContin" [style]="'other-button'"></app-button>
+            <app-button type="submit" [disabled]="loginForm.invalid" [text]="textContin" [style]="'other-button'"></app-button>
             <div class="text-footer">
                 <app-text [text]="textfooter" [style]="'text-normal'"></app-text>
                 <app-link-normal [text]="textfooter1" [href]="href" [style]="'link-normal-all'"></app-link-normal>
             </div>
           </div>
     </div>
+</form>
