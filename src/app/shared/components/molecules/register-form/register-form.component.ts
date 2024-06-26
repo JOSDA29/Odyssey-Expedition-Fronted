@@ -1,27 +1,81 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.scss'
+  styleUrls: ['./register-form.component.scss']
 })
-export class RegisterFormComponent {
-@Input() srclogo: string = '';
-@Input() altlogo: string = '';
-@Input() srcfondo: string = '';
-@Input() altfodo: string = '';
-@Input() srcicon: string = '';
-@Input() alticon: string = '';
-@Input() textGoogle: string = '';
-@Input() href: string = '';
-@Input() textContin: string = '';
-@Input() textfooter: string = '';
-@Input() textfooter1: string = '';
+export class RegisterFormComponent implements OnInit {
+  loginForm: FormGroup = new FormGroup({});
+  showPassword: boolean = true; 
 
-@Input()  contens:{
-  title: string,
-  placeholder:string,
-} [] = [];
+  constructor(private router: Router,
+    private fb: FormBuilder,
+    private passwordValidator: PasswordValidatorService) { }
 
+  @Input() srclogo: string = '';
+  @Input() altlogo: string = '';
+  @Input() srcfondo: string = '';
+  @Input() altfodo: string = '';
+  @Input() srcicon: string = '';
+  @Input() alticon: string = '';
+  @Input() textGoogle: string = '';
+  @Input() href: string = '';
+  @Input() textContin: string = '';
+  @Input() textfooter: string = '';
+  @Input() textfooter1: string = '';
 
+  @Input() contensSection: { 
+    title: string,
+    placeholder: string,
+    field: string,
+    type: string
+  }[] = [];
+
+  formValues: { [key: string]: string } = {};
+
+  ngOnInit(): void {
+    this.createForm();
+  }
+
+  createForm() {
+    const group: any = {};
+    this.contensSection.forEach((conten) => {
+      if (conten.type === 'email') {
+        group[conten.field] = ['', [Validators.required, Validators.email, Validators.maxLength(150)]];
+      } else if (conten.type === 'password') {
+        group[conten.field] = ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50), this.passwordValidator.strongPassword()]];
+      } else if (conten.type === 'text') {
+        group[conten.field] = ['', [Validators.required,Validators.maxLength(100), Validators.minLength(5)]];
+      } else {
+        group[conten.field] = ['', Validators.required]; 
+      }
+    });
+
+    this.loginForm = this.fb.group(group, {
+      validators: this.passwordValidator.matchPasswords('contrasena', 'confirmarContrasena')
+    });
+
+    this.loginForm.get('contrasena')?.valueChanges.subscribe(() => {
+      this.loginForm.updateValueAndValidity();
+    });
+
+    this.loginForm.get('confirmarContrasena')?.valueChanges.subscribe(() => {
+      this.loginForm.updateValueAndValidity();
+    });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.router.navigate(['']);
+      console.log('Form Submitted', this.loginForm.value);
+    }
+  }
 }

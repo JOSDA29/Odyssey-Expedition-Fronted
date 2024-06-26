@@ -48,6 +48,7 @@ import { RegisterComponent } from './components/organisms/register/register.comp
 import { IconTextComponent } from './components/molecules/icon-text/icon-text.component';
 import { CardsServicesListComponent } from './components/organisms/cards-services-list/cards-services-list.component';
 import { TitleSectionComponent } from './components/molecules/title-section/title-section.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -104,6 +105,8 @@ import { TitleSectionComponent } from './components/molecules/title-section/titl
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     TemplateHomeComponent,
