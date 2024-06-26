@@ -97,7 +97,6 @@ export class LoginFormComponent {
       } else {
         // Manejar el caso donde los datos no coinciden
         console.log('Usuario y/o contraseña incorrectos');
-        // Aquí podrías mostrar un mensaje de error al usuario
       }
     }
   }
@@ -106,5 +105,8 @@ export class LoginFormComponent {
 logInWithGoogle(){
   this.authGoogleService.login();    
 }
-
+closeModal(): void {
+  console.log('Cerrar modal');
+  this.modalService.closeModal();
+}
 }
