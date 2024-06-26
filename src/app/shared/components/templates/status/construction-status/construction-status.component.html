@@ -1,1 +1,8 @@
-<p>construction-status works!</p>
+<app-principal-navbar ></app-principal-navbar>
+<app-secondary-navbar [srcicon]="srcicon"></app-secondary-navbar>
+<div class="container">
+    <img src="https://s3-alpha-sig.figma.com/img/41bb/a065/0c3a8cd4d19af5b55164f7eb76d20cee?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Zo3j322czDr4hvdwpXzDdRrpX8ChfIAUa5pH1OjJyKRPVpmJvZnkHJpJ0LNi077rfPojPhpcpsGZN1Du5cQ-YBH4VVCipjLJCb2hGYf2zD6BjlFvYB3-9hpply2tTnClbQRXiLZLAzMzQRY19UyunaCRdD~2BTc-ANqZoKKMfRzqx9LzzeDAnHOcROPsvvHZ-jmnrHCK2czWmGKkplIfVQSCF~fwZPsY5~lwk3-yH4c4IiN8fw54BPB0khpSEfqQI4JHl57HkNJ4FAvdTkspTBCNpv6Nb2t~9Vv4RYNUaBsUJevVQvbvrYqHYvzCZHmDfFfdUUB2IfIvsDG01Wbxig__" alt="Mantenimiento" class="fondo">
+    <app-title [style]="'title-secondary'" text="Hola {{name}} lo sentimos, estamos en mantenimiento" (click)="showData()"></app-title>
+    <app-subtitle [style]="'subtitle-principal'" text="Nuestro sitio web se encuentra actualmente en mantenimiento"></app-subtitle>
+</div>
+<app-principal-footer></app-principal-footer>

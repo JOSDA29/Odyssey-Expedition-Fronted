@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthConfig, OAuthService } from 'angular-oauth2-oidc'
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AuthGoogleService {
       issuer: 'https://accounts.google.com',
       strictDiscoveryDocumentValidation: false,
       clientId: '1045420781443-ffksmd1a6cfcvlf3fdllrrfr11m8rkt4.apps.googleusercontent.com',
-      redirectUri: window.location.origin,
+      redirectUri: window.location.origin + '/clientProfile',
       scope: 'openid profile email',
     }
 
@@ -25,7 +25,8 @@ export class AuthGoogleService {
   }
 
   login() {
-    this.oauthService.initLoginFlowInPopup();
+    // Utiliza initLoginFlow() en lugar de initLoginFlowInPopup()
+    this.oauthService.initLoginFlow();
   }
 
   logout() {

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalService } from '../../../../features/home/services/modal-login.service';
+import { AuthGoogleService } from '../../../../core/services/auth-google.service';
+
 
 @Component({
   selector: 'app-login-form',
@@ -24,11 +26,15 @@ export class LoginFormComponent {
   placeholder:string,
 }[] = [];
 
-constructor(public modalService: ModalService) { }
+constructor(public modalService: ModalService, private authGoogleService:AuthGoogleService) { }
 
 closeModal(): void {
   console.log('open modal');
   this.modalService.closeModal();
+}
+
+logInWithGoogle(){
+  this.authGoogleService.login();    
 }
 
 }

@@ -7,6 +7,7 @@ import { PersonalInfoComponent } from './page/client-profile/personal-info/perso
 import { SecurityComponentComponent } from './page/client-profile/security.component/security.component.component';
 import { BookingHistoryComponent } from './page/client-profile/booking-history/booking-history.component';
 import { DisableProfileComponent } from './page/client-profile/disable-profile/disable-profile.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DisableProfileComponent } from './page/client-profile/disable-profile/d
   ],
   imports: [
     CommonModule,
-    ClientProfileRoutingModule
+    ClientProfileRoutingModule,
+    SharedModule
   ]
 })
 export class ClientProfileModule { }

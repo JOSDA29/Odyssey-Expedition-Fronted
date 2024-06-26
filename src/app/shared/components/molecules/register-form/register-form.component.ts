@@ -29,6 +29,7 @@ export class RegisterFormComponent {
 
   logInWithGoogle(){
     this.authGoogleService.login();
+    
   }
 
 }
