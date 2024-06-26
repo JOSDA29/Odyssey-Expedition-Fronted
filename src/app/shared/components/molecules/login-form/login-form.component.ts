@@ -3,6 +3,8 @@ import { ModalService } from '../../../../features/home/services/modal-login.ser
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
+import { AuthGoogleService } from '../../../../core/services/auth-google.service';
+
 
 @Component({
   selector: 'app-login-form',
@@ -22,7 +24,8 @@ export class LoginFormComponent {
     public modalService: ModalService,
     private fb: FormBuilder,
     private router: Router,
-    private passwordValidator: PasswordValidatorService
+    private passwordValidator: PasswordValidatorService,
+    private authGoogleService:AuthGoogleService
   ) { }
 
   @Input() title: string = '';
@@ -99,8 +102,9 @@ export class LoginFormComponent {
     }
   }
 
-  closeModal(): void {
-    console.log('Cerrar modal');
-    this.modalService.closeModal();
-  }
+
+logInWithGoogle(){
+  this.authGoogleService.login();    
+}
+
 }

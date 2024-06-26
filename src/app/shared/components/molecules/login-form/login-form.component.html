@@ -5,7 +5,7 @@
             <app-title [text]="title" [style]="'title-third'"></app-title>
             <app-icon [src]="srcclose" [alt]="altclose" [style]="'icon-close'" (click)="closeModal()"></app-icon>
         </div>
-        <app-button [text]="textGoogle" [style]="'registerGoogle'">
+        <app-button [text]="textGoogle" [style]="'registerGoogle'" (click)="logInWithGoogle()">
             <app-icon [src]="srcicon" [alt]="alticon" [style]="'icon-google'"></app-icon>
         </app-button>
         <div class="line">

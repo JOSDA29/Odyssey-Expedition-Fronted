@@ -49,6 +49,7 @@ import { IconTextComponent } from './components/molecules/icon-text/icon-text.co
 import { CardsServicesListComponent } from './components/organisms/cards-services-list/cards-services-list.component';
 import { TitleSectionComponent } from './components/molecules/title-section/title-section.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserProfileComponent } from './components/organisms/user-profile/user-profile.component';
 
 
 
@@ -102,6 +103,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     IconTextComponent,
     CardsServicesListComponent,
     TitleSectionComponent,
+    UserProfileComponent,
   ],
   imports: [
     CommonModule,
@@ -113,6 +115,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MultifacetedSearchComponent,
     PrincipalFooterComponent,
     RegisterComponent,
+    ConstructionStatusComponent,
     ModalLoginComponents
   ]
 })

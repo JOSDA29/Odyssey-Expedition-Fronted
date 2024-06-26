@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
 import { Router } from '@angular/router';
+import { AuthGoogleService } from '../../../../core/services/auth-google.service';
 
 @Component({
   selector: 'app-register-form',
@@ -14,7 +15,8 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder,
-    private passwordValidator: PasswordValidatorService) { }
+    private passwordValidator: PasswordValidatorService,
+    private authGoogleService: AuthGoogleService) { }
 
   @Input() srclogo: string = '';
   @Input() altlogo: string = '';
@@ -27,6 +29,16 @@ export class RegisterFormComponent implements OnInit {
   @Input() textContin: string = '';
   @Input() textfooter: string = '';
   @Input() textfooter1: string = '';
+
+  @Input()  contens:{
+    title: string,
+    placeholder:string,
+  } [] = [];
+
+  logInWithGoogle(){
+    this.authGoogleService.login();
+    
+  }
 
   @Input() contensSection: { 
     title: string,

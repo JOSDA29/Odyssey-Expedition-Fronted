@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-secondary-navbar',
@@ -11,4 +11,6 @@ export class SecondaryNavbarComponent {
     { href: '/nosotros', text: 'Nosotros' },
     { href: '/ayuda', text: 'Ayuda' },
   ];
+
+  @Input() srcicon:string = 'assets/icons/profile.png'
 }

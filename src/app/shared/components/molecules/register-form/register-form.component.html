@@ -3,7 +3,7 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form"> 
   <div class="register-form">
     <app-logo [src]="srclogo" [alt]="altlogo"></app-logo>
-    <app-button [text]="textGoogle" [style]="'registerGoogle'">
+    <app-button [text]="textGoogle" [style]="'registerGoogle'" (click)="logInWithGoogle()">
       <app-icon [src]="srcicon" [alt]="alticon" [style]="'icon-google'"></app-icon>
     </app-button>
 
