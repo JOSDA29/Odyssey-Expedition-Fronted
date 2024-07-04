@@ -1,5 +1,3 @@
-
-
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form"> 
   <div class="register-form">
     <app-logo [src]="srclogo" [alt]="altlogo"></app-logo>
@@ -13,56 +11,25 @@
 
     <div class="text" *ngFor="let conten of contensSection">
       <app-subtitle [style]="'subtitle-register'" [text]="conten.title"></app-subtitle>
-      <div class="input-container" [ngClass]="{'has-error': loginForm.get(conten.field)?.errors && loginForm.get(conten.field)?.touched}">
-        <app-input-text 
-          [type]="conten.type === 'password' && !showPassword ? 'password' : 'text'"
-          [placeholder]="conten.placeholder"
-          [style]="'input-register'"
-          [formControlName]="conten.field">
-        </app-input-text>
-
-        <app-text text="Mostrar" [style]="loginForm.get(conten.field)?.errors && conten.type === 'password' ? 'errortext' : 'errortext1'"
-       *ngIf="conten.type === 'password'" (click)="togglePasswordVisibility()" class="toggle-password-btn">
+      <app-input-error
+      [control]="getFormControl(conten.field)"
+      [placeholder]="conten.placeholder"
+      [type]="conten.type === 'password' && !showPassword ? 'password' : 'text'"
+      [errors]="{
+        required: 'Este campo es obligatorio',
+        maxlength: conten.type === 'text' ? 'El contenido excede los 100 caracteres permitidos' : (conten.type === 'email' ? 'El contenido excede los 150 caracteres permitidos' : 'El contenido excede los 50 caracteres permitidos'),
+        minlength: conten.type === 'password' ? weakPassword1 : 'El contenido debe tener al menos 5 caracteres',
+        email: 'Ingrese un correo electrónico válido',
+        weakPassword: weakPassword1,
+        mismatch: 'Las contraseñas no coinciden'
+      }">
+    </app-input-error>
+      <app-text [text]="'Mostrar'" 
+                [style]="isPasswordError(conten.field) || isPasswordMismatch() ? 'errortext' : 'errortext1'"
+                *ngIf="conten.type === 'password'" 
+                (click)="togglePasswordVisibility()" 
+                class="toggle-password-btn">
       </app-text>
-
-
-        <i class="error-icon" *ngIf="conten.type !== 'password' && loginForm.get(conten.field)?.errors && loginForm.get(conten.field)?.touched">
-          <img src="assets/icons/iconError.png" alt="">
-        </i>
-      </div>
-      
-      <div *ngIf="loginForm.get(conten.field)?.errors && loginForm.get(conten.field)?.touched" class="error-message">
-        <div *ngIf="loginForm.get(conten.field)?.hasError('required')">
-          <app-text [style]="'textError1'" text="Este campo es obligatorio"></app-text>
-        </div>
-        <div *ngIf="loginForm.get(conten.field)?.hasError('maxlength') && conten.type === 'text'" class="error-message">
-          <app-text [style]="'textError1'" text="El contenido excede los 100 caracteres permitidos"></app-text>
-        </div>
-        <div *ngIf="loginForm.get(conten.field)?.hasError('minlength') && conten.type === 'text'" class="error-message">
-          <app-text [style]="'textError1'" text="El contenido debe tener al menos 5 caracteres"></app-text>
-        </div>
-        <div *ngIf="loginForm.get(conten.field)?.hasError('email') && conten.type === 'email'">
-          <app-text [style]="'textError1'" text="Ingrese un correo electrónico válido"></app-text>
-        </div>
-        <div *ngIf="loginForm.get(conten.field)?.hasError('maxlength') && conten.type === 'email'">
-          <app-text [style]="'textError1'" text="El contenido excede los 150 caracteres permitidos"></app-text>
-        </div>
-        <div *ngIf="loginForm.get(conten.field)?.hasError('weakPassword') && conten.type === 'password'" class="error-message">
-          <app-text [style]="'textError2'"
-          text="La contraseña no cumple los requisitos mínimos:<br>
-          - Al menos 8 caracteres<br>
-          - Una mayúscula<br>
-          - Una minúscula<br>
-          - Un número<br>
-          - Un carácter especial"></app-text>              
-        </div>
-        <div *ngIf="loginForm.get(conten.field)?.hasError('maxlength') && conten.type === 'password'">
-          <app-text [style]="'textError1'" text="El contenido excede los 50 caracteres permitidos"></app-text>
-        </div>
-        <div *ngIf="loginForm.get(conten.field)?.hasError('mismatch') && conten.field === 'confirmarContrasena'" class="error-message">
-          <app-text [style]="'textError2'" text="Las contraseñas no coinciden"></app-text>
-        </div>
-      </div>
     </div>
 
     <app-button type="submit" [disabled]="loginForm.invalid" [text]="textContin" [style]="'other-button'" (click)="onSubmit()"></app-button>
@@ -74,4 +41,3 @@
   </div>
   <img [src]="srcfondo" [alt]="altfodo" class="fondo">
 </form>
-

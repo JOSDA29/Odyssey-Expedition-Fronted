@@ -1,0 +1,9 @@
+<div class="input-container" [ngClass]="{'has-error': control.errors && control.touched}">
+  <app-input-text [control]="control" [placeholder]="placeholder" [style]="'input-register'" [type]="type"></app-input-text>
+  <ng-container *ngIf="type !== 'password' && control.errors && control.touched">
+    <i class="error-icon">
+      <img src="assets/icons/iconError.png" alt="Error">
+    </i>
+  </ng-container>
+  <app-error-text *ngIf="control.errors && control.touched" [text]="getErrorText()" [style]="'textError1'"></app-error-text>
+</div>

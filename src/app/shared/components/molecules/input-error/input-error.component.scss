@@ -1,0 +1,24 @@
+.input-container {
+  position: relative;
+
+
+  .error-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    display: none;
+
+    img {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
+  
+
+  &.has-error .error-icon {
+    display: block;
+    transform: translateY(-10px);
+    margin-right: .6rem;
+  }
+}

@@ -50,6 +50,8 @@ import { CardsServicesListComponent } from './components/organisms/cards-service
 import { TitleSectionComponent } from './components/molecules/title-section/title-section.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './components/organisms/user-profile/user-profile.component';
+import { ErrorTextComponent } from './components/atoms/error-text/error-text.component';
+import { InputErrorComponent } from './components/molecules/input-error/input-error.component';
 
 
 
@@ -104,6 +106,8 @@ import { UserProfileComponent } from './components/organisms/user-profile/user-p
     CardsServicesListComponent,
     TitleSectionComponent,
     UserProfileComponent,
+    ErrorTextComponent,
+    InputErrorComponent,
   ],
   imports: [
     CommonModule,

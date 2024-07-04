@@ -1,33 +1,16 @@
-import { Component, Input } from '@angular/core';
-import { ModalService } from '../../../../features/home/services/modal-login.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
-
+import { ModalService } from '../../../../features/home/services/modal-login.service';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent {
-
-  arreglo = [
-    { correo: 'jeffer@gmail.com', contrasena: 'J£tr1f;&76U2' }
-  ];
-
-  loginForm: FormGroup = new FormGroup({});
-  showPassword: boolean = true;
-
-  constructor(
-    public modalService: ModalService,
-    private fb: FormBuilder,
-    private router: Router,
-    private passwordValidator: PasswordValidatorService,
-    private authGoogleService:AuthGoogleService
-  ) { }
-
+export class LoginFormComponent implements OnInit {
   @Input() title: string = '';
   @Input() srcclose: string = '';
   @Input() altclose: string = '';
@@ -47,7 +30,21 @@ export class LoginFormComponent {
     type: string
   }[] = [];
 
+  logInWithGoogle(){
+    this.authGoogleService.login(); 
+  }
 
+  loginForm!: FormGroup;
+  showPassword: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private passwordValidator: PasswordValidatorService,
+    private authGoogleService: AuthGoogleService,
+    public modalService: ModalService,
+   
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -57,15 +54,14 @@ export class LoginFormComponent {
     const group: any = {};
     this.contensSection.forEach((conten) => {
       if (conten.type === 'email') {
-        group[conten.field] = ['', [Validators.required, Validators.email, Validators.maxLength(150)]];
+        group[conten.field] = new FormControl('', [Validators.required, Validators.email, Validators.maxLength(150)]);
       } else if (conten.type === 'password') {
-        group[conten.field] = ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50), this.passwordValidator.strongPassword()]];
-      } else if (conten.type === 'text') {
-        group[conten.field] = ['', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]];
+        group[conten.field] = new FormControl('', [Validators.required, Validators.maxLength(50), this.passwordValidator.strongPassword()]);
       } else {
-        group[conten.field] = ['', Validators.required]; 
+        group[conten.field] = new FormControl('', Validators.required); 
       }
     });
+
 
     this.loginForm = this.fb.group(group, {
       validators: this.passwordValidator.matchPasswords('contrasena', 'confirmarContrasena')
@@ -75,9 +71,10 @@ export class LoginFormComponent {
       this.loginForm.updateValueAndValidity();
     });
 
-    this.loginForm.get('confirmarContrasena')?.valueChanges.subscribe(() => {
-      this.loginForm.updateValueAndValidity();
-    });
+  }
+
+  getFormControl(field: string) {
+    return this.loginForm.get(field) as FormControl;
   }
 
   togglePasswordVisibility() {
@@ -85,26 +82,28 @@ export class LoginFormComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      // Comparar con los datos del arreglo
-      const formData = this.loginForm.value;
-      const foundUser = this.arreglo.find(user => user.correo === formData.email && user.contrasena === formData.password);
-
-      if (foundUser) {
-        // Redireccionar a la página de inicio si los datos coinciden
-        this.router.navigate(['']);
-        console.log('Form Submitted', formData);
-      } else {
-        // Manejar el caso donde los datos no coinciden
-        console.log('Usuario y/o contraseña incorrectos');
-        // Aquí podrías mostrar un mensaje de error al usuario
-      }
+    if (this.loginForm.valid ) {
+      console.log('Form Submitted', this.loginForm.value);
+      alert('Formulario enviado exitosamente');
+      this.router.navigate(['/']);
+      this.closeModal()
+    } else {
+      alert('Por favor, complete el formulario correctamente');
     }
   }
 
+  closeModal(): void {
+    this.modalService.closeModal();
+  }
 
-logInWithGoogle(){
-  this.authGoogleService.login();    
-}
+  isPasswordError(field: string): boolean {
+    const control = this.loginForm.get(field);
+    return control && control.errors && control.errors['weakPassword'];
+  }
+
+  isPasswordMismatch(): boolean {
+    const contrasena = this.loginForm.get('contrasena');
+    return contrasena?.errors?.['mismatch'] && contrasena;
+  }
 
 }
