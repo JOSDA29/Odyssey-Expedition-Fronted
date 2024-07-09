@@ -52,4 +52,23 @@
     text-decoration: none;
     margin-left:1rem ;
   }
+
+  .info{
+    color: $color-info;
+    font-size: $text-normal;
+    font-family: $font-family-poppins;
+    font-weight: $font-weight-light;
+    line-height: $global-line-spacing;
+  }
+
+  .text-link{
+    letter-spacing: 1px;
+    font-family: $font-family-poppins;
+    font-size: $text-normal;
+    font-weight: $font-weight-extralight;
+    text-decoration: none;
+    color: $leters-color-basic;
+    letter-spacing: $global-spacing;
+    cursor: pointer;
+}
   

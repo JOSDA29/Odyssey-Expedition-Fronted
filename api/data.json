@@ -28,5 +28,13 @@
             "price": 500.000,
             "priceDescription": "persona"
         }
+    ],
+
+    "users": [
+        { 
+        "id": 1, 
+        "email": "jeffer@gmail.com", 
+        "password": "123Qq@qwe" 
+        }
     ]
   }

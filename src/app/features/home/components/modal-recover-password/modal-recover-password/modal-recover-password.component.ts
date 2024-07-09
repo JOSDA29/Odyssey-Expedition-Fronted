@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './modal-recover-password.component.scss'
 })
 export class ModalRecoverPasswordComponent {
-
+  conten = [
+    {title: 'Correo registrado', placeholder:'Ingrese el correo registrado', field:'email', type:'email'},
+  ]
 }

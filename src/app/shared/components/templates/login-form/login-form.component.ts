@@ -4,13 +4,25 @@ import { Router } from '@angular/router';
 import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
 import { ModalService } from '../../../../features/home/services/modal-login.service';
-
+import { ModalServiceRecover } from '../../../../features/home/services/modal-recover-password.service';
+import { ApiService } from '../../../../core/services/api.service';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private passwordValidator: PasswordValidatorService,
+    private authGoogleService: AuthGoogleService,
+    private modalService: ModalService,
+    private ModalServiceRecover: ModalServiceRecover,
+   private apiService: ApiService,
+  ) {}
+
   @Input() title: string = '';
   @Input() srcclose: string = '';
   @Input() altclose: string = '';
@@ -22,6 +34,11 @@ export class LoginFormComponent implements OnInit {
   @Input() textfooter1: string = '';
   @Input() textlink: string = '';
   @Input() href: string = '';
+  @Input() info: string = '';
+  @Input() srcretorned: string | null = null;
+  @Input() altretorned: string | null = null;
+  errorMessage: string = '';
+
 
   @Input() contensSection: {
     title: string,
@@ -37,14 +54,7 @@ export class LoginFormComponent implements OnInit {
   loginForm!: FormGroup;
   showPassword: boolean = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private passwordValidator: PasswordValidatorService,
-    private authGoogleService: AuthGoogleService,
-    public modalService: ModalService,
-   
-  ) {}
+
 
   ngOnInit(): void {
     this.createForm();
@@ -82,15 +92,31 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.loginForm.valid ) {
-      console.log('Form Submitted', this.loginForm.value);
-      alert('Formulario enviado exitosamente');
-      this.router.navigate(['/']);
-      this.closeModal()
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
+      this.apiService.getUsers().subscribe(
+        users => {
+          const isAuthenticated = users.some(user => user.email === email && user.password === password);
+          if (isAuthenticated) {
+            console.log("correcto");
+            this.router.navigate(['/clientProfile']);
+            this.closeModal();
+            this.closeModalRecovery();
+          } else {
+            this.errorMessage = 'Correo o contraseña incorrectos'; 
+            console.log(this.errorMessage,this.loginForm.value);
+          }
+        },
+        error => {
+          console.error('Error obteniendo usuarios:', error);
+          this.errorMessage = 'Ocurrió un error al autenticar. Por favor, intenta nuevamente.';
+        }
+      );
     } else {
       alert('Por favor, complete el formulario correctamente');
     }
   }
+  
 
   closeModal(): void {
     this.modalService.closeModal();
@@ -104,6 +130,14 @@ export class LoginFormComponent implements OnInit {
   isPasswordMismatch(): boolean {
     const contrasena = this.loginForm.get('contrasena');
     return contrasena?.errors?.['mismatch'] && contrasena;
+  }
+
+  closeModalRecovery():void{
+    this.ModalServiceRecover.closeModal();
+  }
+
+  openModalRecovery():void{
+    this.ModalServiceRecover.openModal();
   }
 
 }

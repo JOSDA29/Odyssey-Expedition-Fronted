@@ -8,6 +8,7 @@
     width: 155px;
     height: 100px;
     position: relative; 
+    cursor: pointer;
 }
 .info-normal {
     font-family: $font-family-poppins;
@@ -27,8 +28,13 @@
     height: 3px;
 }
 
-.conten.selected .line {
+.conten.selected{
+    #a{
+    color: $primary-color; 
+    }
+    .line {
     background-color: $primary-color; 
+    }
 }
 
 

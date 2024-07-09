@@ -7,16 +7,24 @@ import { FormControl } from '@angular/forms';
   styleUrl: './input-error.component.scss'
 })
 export class InputErrorComponent {
-  @Input() control: FormControl = new FormControl();
-  @Input() placeholder: string = '';
+  @Input() control!: FormControl;
+  @Input() placeholder!: string;
   @Input() type: string = 'text';
   @Input() errors: { [key: string]: string } = {};
+  @Input() errorMessage: string = '';
+
 
   getErrorText(): string {
-    if (this.control.errors) {
-      const errorKey = Object.keys(this.control.errors)[0];
-      return this.errors[errorKey] || 'Error';
+    if (this.errorMessage) {
+      return this.errorMessage; 
     }
-    return '';
+    if (this.control && this.control.errors) {
+      for (const errorKey in this.errors) {
+        if (this.control.errors[errorKey]) {
+          return this.errors[errorKey];
+        }
+      }
+    }
+    return ''; 
   }
 }

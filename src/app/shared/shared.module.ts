@@ -39,8 +39,7 @@ import { InputDateComponent } from './components/atoms/input-date/input-date.com
 import { ImagesComponent } from './components/atoms/images/images.component';
 import { LinkListComponent } from './components/molecules/link-list/link-list.component';
 import { ImageTopComponent } from './components/molecules/image-top/image-top.component';
-import { LoginFormComponent } from './components/molecules/login-form/login-form.component';
-import { ModalLoginComponents } from './components/organisms/modal-login/modal-login.component';
+import { LoginFormComponent } from './components/templates/login-form/login-form.component';
 import { ImageInputTextComponent } from './components/molecules/image-input-text/image-input-text.component';
 import { LinkNormalComponent } from './components/atoms/link-normal/link-normal.component';
 import { RegisterFormComponent } from './components/molecules/register-form/register-form.component';
@@ -97,7 +96,6 @@ import { InputErrorComponent } from './components/molecules/input-error/input-er
     LinkListComponent,
     ImageTopComponent,
     LoginFormComponent,
-    ModalLoginComponents,
     ImageInputTextComponent,
     LinkNormalComponent,
     RegisterFormComponent,
@@ -120,7 +118,8 @@ import { InputErrorComponent } from './components/molecules/input-error/input-er
     PrincipalFooterComponent,
     RegisterComponent,
     ConstructionStatusComponent,
-    ModalLoginComponents
+    CardsServicesListComponent,
+    LoginFormComponent
   ]
 })
 export class SharedModule { }

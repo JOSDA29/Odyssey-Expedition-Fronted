@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModalService } from '../../../../features/home/services/modal-login.service';
+import { AuthGoogleService } from '../../../../core/services/auth-google.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,33 +9,47 @@ import { ModalService } from '../../../../features/home/services/modal-login.ser
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
-@Input() srclogo:string = '';
-@Input() altlogo:string =  '';
-@Input() srcicon:string = '';
-@Input() alticon:string =  '';
-@Input() links: { href: string, text: string }[] = [];
-@Input() text:string = '';
 
-selectedLinkIndex: number | null = null;
+  constructor(
+    public modalService: ModalService,
+    private authGoogleService: AuthGoogleService,
+    private router: Router,
+  ) { }
 
-ngOnInit() {
-  this.selectDefaultLink();
-}
+  @Input() srclogo: string = '';
+  @Input() altlogo: string = '';
+  @Input() srcicon: string = '';
+  @Input() alticon: string = '';
+  @Input() links: { href: string, text: string }[] = [];
+  @Input() text: string = '';
 
-selectDefaultLink() {
-  this.selectedLinkIndex = 0;
-}
+  selectedLinkIndex: number | null = null;
 
-selectLink(index: number) {
-  this.selectedLinkIndex = index;
-}
+  ngOnInit() {
+    this.selectDefaultLink();
+  }
 
-isModalOpen = false;
+  selectDefaultLink() {
+    const savedIndex = localStorage.getItem('selectedLinkIndex');
+    if (savedIndex !== null) {
+      this.selectedLinkIndex = parseInt(savedIndex, 10);
+    } else {
+      this.selectedLinkIndex = 0;
+    }
+  }
 
-constructor(public modalService: ModalService) { }
+  selectLink(index: number) {
+    this.selectedLinkIndex = index;
+    localStorage.setItem('selectedLinkIndex', index.toString());
+  }
 
-openLoginModal(): void {
-  console.log('open modal');
-  this.modalService.openModal();
-}
+  isModalOpen = false;
+
+  openLoginModal(): void {
+    if (this.authGoogleService.isAuthenticated()) {
+      this.router.navigate(['/clientProfile']);
+      return;
+    }
+    this.modalService.openModal();
+  }
 }

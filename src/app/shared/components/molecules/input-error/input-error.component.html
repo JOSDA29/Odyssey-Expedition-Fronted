@@ -5,5 +5,5 @@
       <img src="assets/icons/iconError.png" alt="Error">
     </i>
   </ng-container>
-  <app-error-text *ngIf="control.errors && control.touched" [text]="getErrorText()" [style]="'textError1'"></app-error-text>
+  <app-error-text *ngIf="control.errors && control.touched || errorMessage" [text]="getErrorText()" [style]="'textError1'"></app-error-text>
 </div>

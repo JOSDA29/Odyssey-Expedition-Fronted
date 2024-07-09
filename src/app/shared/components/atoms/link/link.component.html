@@ -1,7 +1,6 @@
-<div class="conten" [class.selected]="isSelected">
-    <a [href]="href"  [class]="style">
-        {{text}}
-      <span class="line"></span>
-    </a>
+<div class="conten" (click)="navigate()" [class.selected]="isSelected">
+  <span id="a" [class]="style">
+    {{text}}
+    <span class="line"></span>
+  </span>
 </div>
-
