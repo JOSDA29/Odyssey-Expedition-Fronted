@@ -57,8 +57,15 @@ export class LoginFormComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+      this.router.navigate(['/clientProfile']);
+      return; 
+    }
+ 
     this.createForm();
   }
+  
 
   createForm() {
     const group: any = {};
@@ -71,18 +78,16 @@ export class LoginFormComponent implements OnInit {
         group[conten.field] = new FormControl('', Validators.required); 
       }
     });
-
-
+  
     this.loginForm = this.fb.group(group, {
       validators: this.passwordValidator.matchPasswords('contrasena', 'confirmarContrasena')
     });
-
+  
     this.loginForm.get('contrasena')?.valueChanges.subscribe(() => {
       this.loginForm.updateValueAndValidity();
     });
-
   }
-
+  
   getFormControl(field: string) {
     return this.loginForm.get(field) as FormControl;
   }
@@ -99,12 +104,13 @@ export class LoginFormComponent implements OnInit {
           const isAuthenticated = users.some(user => user.email === email && user.password === password);
           if (isAuthenticated) {
             console.log("correcto");
+            sessionStorage.setItem('isLoggedIn', 'true');
             this.router.navigate(['/clientProfile']);
             this.closeModal();
             this.closeModalRecovery();
           } else {
             this.errorMessage = 'Correo o contraseña incorrectos'; 
-            console.log(this.errorMessage,this.loginForm.value);
+            console.log(this.errorMessage, this.loginForm.value);
           }
         },
         error => {
@@ -116,7 +122,7 @@ export class LoginFormComponent implements OnInit {
       alert('Por favor, complete el formulario correctamente');
     }
   }
-  
+     
 
   closeModal(): void {
     this.modalService.closeModal();

@@ -1,15 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
 import { Router } from '@angular/router';
+import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
+import { RegisterForm } from '../../../../features/register/models/register-form-info.model';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss']
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent {
   loginForm: FormGroup = new FormGroup({});
   showPassword: boolean = false;
 
@@ -50,7 +51,7 @@ export class RegisterFormComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
   }
-
+ 
   createForm() {
     const group: any = {};
     this.contensSection.forEach((conten) => {
@@ -84,8 +85,14 @@ export class RegisterFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.loginForm.valid ) {
-      console.log('Form Submitted', this.loginForm.value);
+    if (this.loginForm.valid) {
+      const registerForm: RegisterForm = {
+        Nombres: this.loginForm.value.nombres,
+        Apellidos: this.loginForm.value.apellidos,
+        Correo: this.loginForm.value.correo,
+        Contraseña: this.loginForm.value.contrasena
+      };
+      console.log('Form Submitted', registerForm);
       alert('Formulario enviado exitosamente');
       this.router.navigate(['/']);
     } else {
@@ -97,7 +104,7 @@ export class RegisterFormComponent implements OnInit {
     return this.loginForm.get(field) as FormControl;
   }
 
-  logInWithGoogle(){
+  logInWithGoogle() {
     this.authGoogleService.login(); 
   }
 

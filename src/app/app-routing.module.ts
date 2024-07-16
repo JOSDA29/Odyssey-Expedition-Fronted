@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'clientProfile',
-    component: ConstructionStatusComponent,
+    component: ClientProfileComponent,
   },
   {
     path: 'nosotros',

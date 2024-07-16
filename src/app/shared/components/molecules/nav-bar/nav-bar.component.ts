@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalService } from '../../../../features/home/services/modal-login.service';
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
 import { Router } from '@angular/router';
@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.scss'
+  styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
 
   constructor(
     public modalService: ModalService,
@@ -46,7 +46,10 @@ export class NavBarComponent {
   isModalOpen = false;
 
   openLoginModal(): void {
-    if (this.authGoogleService.isAuthenticated()) {
+    // Verificar la bandera de sesión en sessionStorage
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+      // Si el usuario ya está autenticado, redirigir a la página de perfil del cliente
       this.router.navigate(['/clientProfile']);
       return;
     }
