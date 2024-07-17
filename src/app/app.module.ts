@@ -15,6 +15,7 @@ import { FeatureAModule } from './features/home/home.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { ClientProfileModule } from './features/client-profile/client-profile.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     FeatureAModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ClientProfileModule,
     OAuthModule.forRoot()
   ],
   providers: [

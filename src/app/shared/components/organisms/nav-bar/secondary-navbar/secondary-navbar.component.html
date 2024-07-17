@@ -1,7 +1,8 @@
 <div class="nav-bar">
     <app-nav-bar
-     srclogo="assets/images/logo.png" altlogo="logo"
-     [links]="navLinks" 
-     [srcicon]="srcicon" alticon="profile"
-     ></app-nav-bar>
-</div>
+      srclogo="assets/images/logo.png" altlogo="logo"
+      [links]="showLinks ? navLinks : []"  
+      [srcicon]="srcicon" alticon="profile">
+    </app-nav-bar>
+  </div>
+  

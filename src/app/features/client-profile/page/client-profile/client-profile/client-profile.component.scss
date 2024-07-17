@@ -1,0 +1,19 @@
+.conten-profile{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 4rem;
+    .contend{
+        margin: 3rem 0rem 20rem 0rem;
+    }
+    .conten-card{
+        app-template-cards{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 60px 0px 60px 0px;
+        }
+    }
+}
+
+

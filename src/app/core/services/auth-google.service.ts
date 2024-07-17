@@ -37,4 +37,9 @@ export class AuthGoogleService {
     return this.oauthService.getIdentityClaims();
   }
 
+  //valida el token del usuario si ya se ha autenticado
+  isAuthenticated(): boolean {
+    return this.oauthService.hasValidAccessToken();
+  }
+
 }

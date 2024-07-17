@@ -14,8 +14,9 @@
 
 .profile{
     margin-right: 5rem;
-    width: 60px;
-    height: 60px;
+    width: 3.75rem;
+    border-radius: 100%;
+    height: 3.75rem;
     cursor: pointer;
     border-radius: 100%;
 }
@@ -49,4 +50,9 @@
 .icon-text{
     width: 0.541rem;
     height: 0.625rem;
+}
+
+.icon-nosotros{
+    width: 5rem;
+    height: 4.375rem;
 }

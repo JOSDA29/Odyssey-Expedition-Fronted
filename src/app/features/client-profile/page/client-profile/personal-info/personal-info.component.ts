@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './personal-info.component.scss'
 })
 export class PersonalInfoComponent {
-
+  conten = [
+    {  title: 'Nombre completo', text: 'Joseph David Quintero Vargas', altIcon: '', srcIcon: '', link:'', textUpdate:'Editar'},
+    {  title: 'Documento de identidad', text: 'No proporcionado', altIcon: '', srcIcon: '', link:'', textUpdate:'Agregar'},
+    {  title: 'Numero telefonico', text: 'No proporcionado', altIcon: '', srcIcon: '', link:'',  textUpdate:'Agregar'},
+    {  title: 'Dirección', text: 'No proporcionado', altIcon: '', srcIcon: '', link:'',  textUpdate:'Agregar'}
+  ]
 }

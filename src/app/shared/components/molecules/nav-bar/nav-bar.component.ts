@@ -1,39 +1,62 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalService } from '../../../../features/home/services/modal-login.service';
+import { AuthGoogleService } from '../../../../core/services/auth-google.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.scss'
+  styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent {
-@Input() srclogo:string = '';
-@Input() altlogo:string =  '';
-@Input() srcicon:string = '';
-@Input() alticon:string =  '';
-@Input() links: { href: string, text: string }[] = [];
-@Input() text:string = '';
+export class NavBarComponent implements OnInit {
 
-selectedLinkIndex: number | null = null;
+  constructor(
+    public modalService: ModalService,
+    private authGoogleService: AuthGoogleService,
+    private router: Router,
+  ) { }
 
-ngOnInit() {
-  this.selectDefaultLink();
-}
+  @Input() srclogo: string = '';
+  @Input() altlogo: string = '';
+  @Input() srcicon: string = '';
+  @Input() alticon: string = '';
+  @Input() links: { href: string, text: string }[] = [];
+  @Input() text: string = '';
 
-selectDefaultLink() {
-  this.selectedLinkIndex = 0;
-}
+  selectedLinkIndex: number | null = null;
 
-selectLink(index: number) {
-  this.selectedLinkIndex = index;
-}
+  ngOnInit() {
+    this.selectDefaultLink();
+  }
 
-isModalOpen = false;
+  selectDefaultLink() {
+    const savedIndex = localStorage.getItem('selectedLinkIndex');
+    if (savedIndex !== null) {
+      this.selectedLinkIndex = parseInt(savedIndex, 10);
+    } else {
+      this.selectedLinkIndex = 0;
+    }
+  }
 
-constructor(public modalService: ModalService) { }
+  selectLink(index: number) {
+    this.selectedLinkIndex = index;
+    localStorage.setItem('selectedLinkIndex', index.toString());
+  }
 
-openLoginModal(): void {
-  console.log('open modal');
-  this.modalService.openModal();
-}
+  isModalOpen = false;
+
+  openLoginModal(): void {
+    // Verificar la bandera de sesión en sessionStorage
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    const isLoggedInGoogle = this.authGoogleService.isAuthenticated();
+  
+    if (isLoggedIn === 'true' || isLoggedInGoogle) {
+      // Si el usuario ya está autenticado, redirigir a la página de perfil del cliente
+      this.router.navigate(['/clientProfile']);
+      return;
+    }
+  
+    this.modalService.openModal();
+  }
+  
 }

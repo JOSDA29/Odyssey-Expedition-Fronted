@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class TextComponent {
   @Input() text: string = '';
-  @Input() style: 'text-normal' | 'text-link' | 'text-secundary' | 'textError1' | 'textsecundary' | 'errortext' | 'errortext1' | 'textError2' | 'info-normal' = 'text-normal';
+  @Input() style: 'text-normal' | 'text-nostros-profile' | 'text-link' | 'text-secundary' | 'textError1' | 'textsecundary' | 'errortext' | 'errortext1' | 'textError2' | 'info' | 'info-normal' = 'text-normal';
 }

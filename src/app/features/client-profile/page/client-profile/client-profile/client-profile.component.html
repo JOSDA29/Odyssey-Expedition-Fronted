@@ -1,0 +1,17 @@
+<app-secondary-navbar [showLinks]="false"></app-secondary-navbar>
+
+<div class="conten-profile">
+    <div class="contend">
+        <app-title text="Cuenta" [style]="'title-nosotros-profile'"></app-title>
+        <div class="conten-card">
+            <app-template-cards
+            [contend]="'card-profile'"
+            styleIcon="profile"
+            [contens]="conten"
+            ></app-template-cards>
+        </div>
+    </div>
+    <app-text  text="¿Necesitas desactivar la cuenta?" [style]="'text-nostros-profile'"></app-text>
+    <app-link-normal text="Ocúpate de esto ahora" [style]="'link-normal-all'"></app-link-normal>
+</div>
+<app-principal-footer></app-principal-footer>

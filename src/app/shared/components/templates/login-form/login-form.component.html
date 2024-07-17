@@ -1,0 +1,46 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form"> 
+  <div class="header">
+    <div class="titles">
+      <app-title *ngIf="title" [text]="title" [style]="'title-third'"></app-title>
+      <app-icon *ngIf="srcclose && altclose" [src]="srcclose" [alt]="altclose" [style]="'icon-close'" (click)="closeModal()"></app-icon>
+      <app-icon *ngIf="srcretorned && altretorned" [src]="srcretorned || ''" [alt]="altretorned || ''" [style]="'icon-close'" (click)="closeModalRecovery()"></app-icon>
+    </div>
+    <app-button *ngIf="textGoogle && srcicon && alticon" [text]="textGoogle" [style]="'registerGoogle'" (click)="logInWithGoogle()">
+      <app-icon [src]="srcicon" [alt]="alticon" [style]="'icon-google'"></app-icon>
+    </app-button>
+    <div class="line" *ngIf="textGoogle || srcicon || alticon">
+      <hr><p>o</p><hr>
+    </div>
+    <div class="text" *ngFor="let conten of contensSection">
+      <app-subtitle *ngIf="conten.title" [style]="'subtitle-register'" [text]="conten.title"></app-subtitle>
+      <app-input-error *ngIf="conten.placeholder && conten.type" 
+        [control]="getFormControl(conten.field)"
+        [placeholder]="conten.placeholder"
+        [type]="conten.type === 'password' && !showPassword ? 'password' : 'text'"
+        [errors]="{
+          required: 'Este campo es obligatorio',
+          email: 'Ingrese un correo electrónico válido',
+          weakPassword: 'La contraseña no cumple los requisitos mínimos',
+        }"
+        [errorMessage]='errorMessage'>
+      </app-input-error>
+      <app-text *ngIf="conten.type === 'password'" [text]="'Mostrar'" 
+        [style]="isPasswordError(conten.field) || isPasswordMismatch() ? 'errortext' : 'errortext1'"
+        (click)="togglePasswordVisibility()" 
+        class="toggle-password-btn">
+      </app-text>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="option">
+      <app-check-box *ngIf="textlink" label="Recuérdame" [isChecked]="true"></app-check-box>
+      <app-text *ngIf="textlink" [text]="textlink" [style]="'text-link'" (click)="openModalRecovery()"></app-text>
+    </div>
+    <app-text *ngIf="info" [text]="info" [style]="'info'"></app-text>
+    <app-button type="submit" [disabled]="loginForm.invalid" *ngIf="textContin" [text]="textContin" [style]="'other-button'"></app-button>
+    <div class="text-footer" *ngIf="textfooter || textfooter1 || href">
+      <app-text *ngIf="textfooter" [text]="textfooter" [style]="'text-normal'"></app-text>
+      <app-link-normal *ngIf="textfooter1 && href" [text]="textfooter1" [href]="href" [style]="'link-normal-all'"></app-link-normal>
+    </div>
+  </div>
+</form>

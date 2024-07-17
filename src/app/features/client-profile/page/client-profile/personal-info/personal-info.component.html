@@ -1,1 +1,20 @@
-<p>personal-info works!</p>
+<app-secondary-navbar [showLinks]="false"></app-secondary-navbar>
+
+
+<div class="container">
+    <section class="links">
+        <app-link-normal text="Cuenta >" [style]="'text-link'" href="/clientProfile"></app-link-normal>
+        <app-link-normal text="Datos personales" [style]="'text-link'" href="/personalInfo"></app-link-normal>
+        <app-title text="Información personal" [style]="'title-nosotros-profile'"></app-title>
+    </section>
+
+    <section class="cards">
+                <app-template-cards
+                [contend]="'persona-info'"
+                styleIcon="profile"
+                [contens]="conten"
+                ></app-template-cards>
+    </section>
+
+</div>
+<app-principal-footer></app-principal-footer>

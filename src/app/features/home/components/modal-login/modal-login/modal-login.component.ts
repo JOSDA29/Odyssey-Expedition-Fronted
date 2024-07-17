@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ModalLoginComponent {
   conten = [
-    {title: 'Correo', placeholder:'Ingrese su correo',},
-    {title: 'Contraseña', placeholder:'Ingrese su contraseña',}
+    {title: 'Correo', placeholder:'Ingrese su correo', field:'email', type:'email'},
+    {title: 'Contraseña', placeholder:'Ingrese su contraseña',field:'password',type:'password'}
   ]
 }

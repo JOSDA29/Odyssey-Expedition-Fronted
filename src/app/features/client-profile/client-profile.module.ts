@@ -16,7 +16,7 @@ import { SharedModule } from '../../shared/shared.module';
     PersonalInfoComponent,
     SecurityComponentComponent,
     BookingHistoryComponent,
-    DisableProfileComponent
+    DisableProfileComponent,
   ],
   imports: [
     CommonModule,

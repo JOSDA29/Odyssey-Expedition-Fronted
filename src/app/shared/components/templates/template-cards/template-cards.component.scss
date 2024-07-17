@@ -1,0 +1,29 @@
+@import '../../../../../styles/variables.scss';
+
+.card-profile section{
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    padding: 2rem 1.5rem;
+    width: 25rem;
+    height: 15.75rem;
+    border: solid 1px $color-borders;
+    border-radius: 0.625rem;
+    cursor: pointer;
+    app-icon{
+        margin-bottom: 1rem ;
+    }
+    app-subtitle{
+        margin-bottom: 1rem;
+    }
+}
+
+.persona-info{
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 3rem;
+    width:  49rem;
+    height: 7.5rem;
+    border: solid 1px $color-borders;
+    border-radius: 0.625rem;
+}
