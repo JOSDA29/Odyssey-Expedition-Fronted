@@ -1,0 +1,10 @@
+<div [ngClass]="contend" *ngFor="let conten of contens" (click)="onCardClick(conten.link)">
+    <section>
+        <ng-container *ngIf="conten.srcIcon && conten.altIcon">
+            <app-icon [style]="styleIcon" [src]="conten.srcIcon" [alt]="conten.altIcon"></app-icon>
+        </ng-container>
+        <app-subtitle [text]="conten.title" [style]="'subtitle-register'"></app-subtitle>
+        <app-text [text]="conten.text" [style]="'text-nostros-profile'"></app-text>
+    </section>
+    <app-subtitle [text]="conten.textUpdate" [style]="'textUpdate'"></app-subtitle>
+</div>

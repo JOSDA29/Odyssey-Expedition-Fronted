@@ -34,3 +34,11 @@
     letter-spacing: $global-spacing;
     line-height: $global-line-spacing;
 }
+
+.textUpdate{
+    color: $primary-color;
+    font-size: $text-normal;
+    font-weight: $font-weight-bold;
+    line-height: $global-line-spacing;
+    text-decoration: underline;
+}

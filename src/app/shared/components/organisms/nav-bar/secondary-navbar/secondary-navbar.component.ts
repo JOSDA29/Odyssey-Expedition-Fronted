@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-secondary-navbar',
   templateUrl: './secondary-navbar.component.html',
-  styleUrl: './secondary-navbar.component.scss'
+  styleUrls: ['./secondary-navbar.component.scss']
 })
 export class SecondaryNavbarComponent {
   navLinks = [
@@ -12,5 +12,6 @@ export class SecondaryNavbarComponent {
     { href: '/ayuda', text: 'Ayuda' },
   ];
 
-  @Input() srcicon:string = 'assets/icons/profile.png'
+  @Input() srcicon: string = 'assets/icons/profile.png';
+  @Input() showLinks: boolean = true;  // Nueva propiedad para controlar la visibilidad de los enlaces
 }

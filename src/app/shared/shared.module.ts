@@ -51,6 +51,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserProfileComponent } from './components/organisms/user-profile/user-profile.component';
 import { ErrorTextComponent } from './components/atoms/error-text/error-text.component';
 import { InputErrorComponent } from './components/molecules/input-error/input-error.component';
+import { TemplateCardsComponent } from './components/templates/template-cards/template-cards.component';
 
 
 
@@ -106,6 +107,7 @@ import { InputErrorComponent } from './components/molecules/input-error/input-er
     UserProfileComponent,
     ErrorTextComponent,
     InputErrorComponent,
+    TemplateCardsComponent,
   ],
   imports: [
     CommonModule,
@@ -119,7 +121,13 @@ import { InputErrorComponent } from './components/molecules/input-error/input-er
     RegisterComponent,
     ConstructionStatusComponent,
     CardsServicesListComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    SecondaryNavbarComponent,
+    TemplateCardsComponent,
+    TitleComponent,
+    TextComponent,
+    LinkNormalComponent,
+    LinkNormalComponent
   ]
 })
 export class SharedModule { }

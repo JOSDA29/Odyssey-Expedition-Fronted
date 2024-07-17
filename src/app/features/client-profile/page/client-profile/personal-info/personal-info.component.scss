@@ -1,0 +1,14 @@
+
+
+.container{
+    margin: 5rem 4rem;
+
+    .cards{
+        app-template-cards{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 60px 0px 60px 0px;
+        }
+    }
+}

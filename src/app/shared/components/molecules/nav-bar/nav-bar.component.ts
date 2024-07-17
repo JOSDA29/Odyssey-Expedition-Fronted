@@ -48,11 +48,15 @@ export class NavBarComponent implements OnInit {
   openLoginModal(): void {
     // Verificar la bandera de sesión en sessionStorage
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
+    const isLoggedInGoogle = this.authGoogleService.isAuthenticated();
+  
+    if (isLoggedIn === 'true' || isLoggedInGoogle) {
       // Si el usuario ya está autenticado, redirigir a la página de perfil del cliente
       this.router.navigate(['/clientProfile']);
       return;
     }
+  
     this.modalService.openModal();
   }
+  
 }

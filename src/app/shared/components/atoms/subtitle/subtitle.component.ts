@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class SubtitleComponent {
 @Input() text:string = '';
-@Input() style: 'subtitle-principal' | 'subtitle-secundary' | 'subtitle-register' | 'subtitle-theird' = 'subtitle-principal'
+@Input() style: 'subtitle-principal' | 'textUpdate' | 'subtitle-secundary' | 'subtitle-register' | 'subtitle-theird' = 'subtitle-principal'
 }

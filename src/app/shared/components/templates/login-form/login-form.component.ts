@@ -6,6 +6,10 @@ import { AuthGoogleService } from '../../../../core/services/auth-google.service
 import { ModalService } from '../../../../features/home/services/modal-login.service';
 import { ModalServiceRecover } from '../../../../features/home/services/modal-recover-password.service';
 import { ApiService } from '../../../../core/services/api.service';
+import { Login } from '../../../../features/home/models/login-modal-model';
+
+
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -101,6 +105,10 @@ export class LoginFormComponent implements OnInit {
       const { email, password } = this.loginForm.value;
       this.apiService.getUsers().subscribe(
         users => {
+          const loginF: Login ={
+            Email: this.loginForm.value.email,
+            Password: this.loginForm.value.password
+          }
           const isAuthenticated = users.some(user => user.email === email && user.password === password);
           if (isAuthenticated) {
             console.log("correcto");
@@ -108,6 +116,8 @@ export class LoginFormComponent implements OnInit {
             this.router.navigate(['/clientProfile']);
             this.closeModal();
             this.closeModalRecovery();
+            console.log(loginF);
+            
           } else {
             this.errorMessage = 'Correo o contraseña incorrectos'; 
             console.log(this.errorMessage, this.loginForm.value);
