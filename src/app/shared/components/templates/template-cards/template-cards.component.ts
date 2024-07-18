@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,11 +12,16 @@ export class TemplateCardsComponent {
   @Input() contens: {
     title: string,
     text: string,
+    info?: string ,
     altIcon: string,
     srcIcon: string,
     link: string,
-    textUpdate:string
+    textUpdate: string,
+    isEditing: boolean
   }[] = [];
+
+  @Output() save = new EventEmitter<{ newText: string, index: number }>();
+  @Output() cancel = new EventEmitter<number>();
 
   constructor(private router: Router) {}
 
@@ -24,5 +29,18 @@ export class TemplateCardsComponent {
     if (link) {
       this.router.navigate([link]);
     }
+  }
+
+  onEditClicked(index: number) {
+    this.contens[index].isEditing = true;
+  }
+
+  onSaveClicked(newText: string, index: number) {
+    this.contens[index].text = newText;
+    this.contens[index].isEditing = false;
+  }
+
+  onCancelClicked(index: number) {
+    this.contens[index].isEditing = false;
   }
 }

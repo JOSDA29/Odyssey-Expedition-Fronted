@@ -8,8 +8,6 @@ import { ModalServiceRecover } from '../../../../features/home/services/modal-re
 import { ApiService } from '../../../../core/services/api.service';
 import { Login } from '../../../../features/home/models/login-modal-model';
 
-
-
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -23,8 +21,8 @@ export class LoginFormComponent implements OnInit {
     private passwordValidator: PasswordValidatorService,
     private authGoogleService: AuthGoogleService,
     private modalService: ModalService,
-    private ModalServiceRecover: ModalServiceRecover,
-   private apiService: ApiService,
+    private modalServiceRecover: ModalServiceRecover,
+    private apiService: ApiService,
   ) {}
 
   @Input() title: string = '';
@@ -43,7 +41,6 @@ export class LoginFormComponent implements OnInit {
   @Input() altretorned: string | null = null;
   errorMessage: string = '';
 
-
   @Input() contensSection: {
     title: string,
     placeholder: string,
@@ -51,25 +48,22 @@ export class LoginFormComponent implements OnInit {
     type: string
   }[] = [];
 
-  logInWithGoogle(){
-    this.authGoogleService.login(); 
+  logInWithGoogle() {
+    this.authGoogleService.login();
   }
 
   loginForm!: FormGroup;
   showPassword: boolean = false;
 
-
-
   ngOnInit(): void {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn');
     if (isLoggedIn === 'true') {
       this.router.navigate(['/clientProfile']);
-      return; 
+      return;
     }
- 
+
     this.createForm();
   }
-  
 
   createForm() {
     const group: any = {};
@@ -79,19 +73,19 @@ export class LoginFormComponent implements OnInit {
       } else if (conten.type === 'password') {
         group[conten.field] = new FormControl('', [Validators.required, Validators.maxLength(50), this.passwordValidator.strongPassword()]);
       } else {
-        group[conten.field] = new FormControl('', Validators.required); 
+        group[conten.field] = new FormControl('', Validators.required);
       }
     });
-  
+
     this.loginForm = this.fb.group(group, {
       validators: this.passwordValidator.matchPasswords('contrasena', 'confirmarContrasena')
     });
-  
+
     this.loginForm.get('contrasena')?.valueChanges.subscribe(() => {
       this.loginForm.updateValueAndValidity();
     });
   }
-  
+
   getFormControl(field: string) {
     return this.loginForm.get(field) as FormControl;
   }
@@ -105,21 +99,21 @@ export class LoginFormComponent implements OnInit {
       const { email, password } = this.loginForm.value;
       this.apiService.getUsers().subscribe(
         users => {
-          const loginF: Login ={
+          const loginF: Login = {
             Email: this.loginForm.value.email,
             Password: this.loginForm.value.password
-          }
-          const isAuthenticated = users.some(user => user.email === email && user.password === password);
-          if (isAuthenticated) {
+          };
+          const user = users.find(user => user.email === email && user.password === password);
+          if (user) {
             console.log("correcto");
             sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('userId', user.id.toString());
             this.router.navigate(['/clientProfile']);
             this.closeModal();
             this.closeModalRecovery();
             console.log(loginF);
-            
           } else {
-            this.errorMessage = 'Correo o contraseña incorrectos'; 
+            this.errorMessage = 'Correo o contraseña incorrectos';
             console.log(this.errorMessage, this.loginForm.value);
           }
         },
@@ -132,7 +126,6 @@ export class LoginFormComponent implements OnInit {
       alert('Por favor, complete el formulario correctamente');
     }
   }
-     
 
   closeModal(): void {
     this.modalService.closeModal();
@@ -148,12 +141,11 @@ export class LoginFormComponent implements OnInit {
     return contrasena?.errors?.['mismatch'] && contrasena;
   }
 
-  closeModalRecovery():void{
-    this.ModalServiceRecover.closeModal();
+  closeModalRecovery(): void {
+    this.modalServiceRecover.closeModal();
   }
 
-  openModalRecovery():void{
-    this.ModalServiceRecover.openModal();
+  openModalRecovery(): void {
+    this.modalServiceRecover.openModal();
   }
-
 }

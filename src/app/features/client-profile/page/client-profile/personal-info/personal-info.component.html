@@ -1,20 +1,28 @@
 <app-secondary-navbar [showLinks]="false"></app-secondary-navbar>
 
-
 <div class="container">
-    <section class="links">
-        <app-link-normal text="Cuenta >" [style]="'text-link'" href="/clientProfile"></app-link-normal>
-        <app-link-normal text="Datos personales" [style]="'text-link'" href="/personalInfo"></app-link-normal>
-        <app-title text="Información personal" [style]="'title-nosotros-profile'"></app-title>
-    </section>
+  <section class="links">
+    <app-link-normal text="Cuenta >" [style]="'text-link'" href="/clientProfile"></app-link-normal>
+    <app-link-normal text="Datos personales" [style]="'text-link'" href="/personalInfo"></app-link-normal>
+    <app-title text="Información personal" [style]="'title-nosotros-profile'"></app-title>
+  </section>
 
-    <section class="cards">
-                <app-template-cards
-                [contend]="'persona-info'"
-                styleIcon="profile"
-                [contens]="conten"
-                ></app-template-cards>
+  <section class="cards">
+      <app-template-cards
+        [contend]="'persona-info'"
+        styleIcon="profile"
+        [contens]="conten"
+        (save)="onSaveClicked($event.newText, $event.index)"
+        (cancel)="onCancelClicked($event)">
+      </app-template-cards>
+    
+    <section class="info">
+      <app-subtitle text="Nombre Completo" [style]="'subtitle-register'"></app-subtitle>
+      <app-icon [style]="'icon-profile'" [src]="icon" alt="profile"></app-icon>
+      <app-subtitle text="Cambiar" [style]="'textUpdate'" ></app-subtitle>
+      <app-text [text]="info" [style]="'text-nostros-profile'"></app-text>
     </section>
-
+  </section>
 </div>
+
 <app-principal-footer></app-principal-footer>

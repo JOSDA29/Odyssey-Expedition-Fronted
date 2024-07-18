@@ -52,6 +52,7 @@ import { UserProfileComponent } from './components/organisms/user-profile/user-p
 import { ErrorTextComponent } from './components/atoms/error-text/error-text.component';
 import { InputErrorComponent } from './components/molecules/input-error/input-error.component';
 import { TemplateCardsComponent } from './components/templates/template-cards/template-cards.component';
+import { FormUpdatesComponent } from './components/organisms/form-updates/form-updates.component';
 
 
 
@@ -108,6 +109,7 @@ import { TemplateCardsComponent } from './components/templates/template-cards/te
     ErrorTextComponent,
     InputErrorComponent,
     TemplateCardsComponent,
+    FormUpdatesComponent,
   ],
   imports: [
     CommonModule,
@@ -127,7 +129,9 @@ import { TemplateCardsComponent } from './components/templates/template-cards/te
     TitleComponent,
     TextComponent,
     LinkNormalComponent,
-    LinkNormalComponent
+    LinkNormalComponent,
+    SubtitleComponent,
+    IconComponent
   ]
 })
 export class SharedModule { }

@@ -1,10 +1,23 @@
-<div [ngClass]="contend" *ngFor="let conten of contens" (click)="onCardClick(conten.link)">
-    <section>
-        <ng-container *ngIf="conten.srcIcon && conten.altIcon">
-            <app-icon [style]="styleIcon" [src]="conten.srcIcon" [alt]="conten.altIcon"></app-icon>
-        </ng-container>
-        <app-subtitle [text]="conten.title" [style]="'subtitle-register'"></app-subtitle>
-        <app-text [text]="conten.text" [style]="'text-nostros-profile'"></app-text>
-    </section>
-    <app-subtitle [text]="conten.textUpdate" [style]="'textUpdate'"></app-subtitle>
-</div>
+<div *ngFor="let item of contens; let i = index" (click)="onCardClick(item.link)">
+    <ng-container *ngIf="item.isEditing">
+      <app-form-updates
+        [title]="item.title"
+        [info]="item.info ?? ''"
+        (save)="onSaveClicked($event, i)"
+        (cancel)="onCancelClicked(i)">
+      </app-form-updates>
+    </ng-container>
+    <ng-container *ngIf="!item.isEditing">
+      <div [ngClass]="contend" (click)="onCardClick(item.link)">
+        <section>
+          <ng-container *ngIf="item.srcIcon && item.altIcon">
+            <app-icon [style]="styleIcon" [src]="item.srcIcon" [alt]="item.altIcon"></app-icon>
+          </ng-container>
+          <app-subtitle [text]="item.title" [style]="'subtitle-register'"></app-subtitle>
+          <app-text [text]="item.text" [style]="'text-nostros-profile'"></app-text>
+        </section>
+        <app-subtitle [text]="item.textUpdate" [style]="'textUpdate'" (click)="onEditClicked(i)"></app-subtitle>
+      </div>
+    </ng-container>
+  </div>
+  

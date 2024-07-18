@@ -1,0 +1,33 @@
+@import '../../../../../styles/variables.scss'; 
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+  width: 49rem;
+  border: solid 1px $color-borders;  
+  border-radius: 0.625rem;
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  form {
+    .inputs {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .error-message {
+      position: absolute;
+    }
+  }
+  app-button {
+    width: fit-content;
+    margin-top: 2rem;
+  }
+}

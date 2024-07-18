@@ -1,5 +1,8 @@
 <input 
-[type]="type" 
-[placeholder]="placeholder" 
-[ngClass]="style" 
-[formControl]="control" />
+  [type]="type" 
+  [placeholder]="placeholder" 
+  [ngClass]="style" 
+  [formControl]="control" 
+  [(ngModel)]="newText"
+  (ngModelChange)="onInput($event)"
+/>

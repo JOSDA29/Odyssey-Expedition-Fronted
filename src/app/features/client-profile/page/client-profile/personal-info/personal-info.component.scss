@@ -1,14 +1,36 @@
+@import '../../../../../../styles/variables.scss';
 
+.container {
+    margin: 5rem 6rem;
 
-.container{
-    margin: 5rem 4rem;
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding: 60px 0;
 
-    .cards{
-        app-template-cards{
+        app-template-cards {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
-            padding: 60px 0px 60px 0px;
+            gap: 2rem;
+            flex: 1;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            justify-content: space-evenly;
+            border: solid 1px $color-borders;
+            border-radius: 0.625rem;
+            width: 25rem;
+            height: 25.625rem;
+            padding: 1.5rem 2rem;
+            flex-shrink: 0; 
+            app-icon, app-text{
+                margin: 1rem 0rem;
+            }
         }
     }
 }

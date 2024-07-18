@@ -12,6 +12,5 @@ export class SecondaryNavbarComponent {
     { href: '/ayuda', text: 'Ayuda' },
   ];
 
-  @Input() srcicon: string = 'assets/icons/profile.png';
-  @Input() showLinks: boolean = true;  // Nueva propiedad para controlar la visibilidad de los enlaces
+  @Input() showLinks: boolean = true;  
 }
