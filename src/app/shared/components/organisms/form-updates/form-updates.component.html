@@ -8,12 +8,11 @@
   </section>
   <form>
     <div class="inputs">
-      <app-input-text [style]="'input-update'" [(ngModel)]="newText1" name="newText1" placeholder="Escribir..."></app-input-text>
-      <app-input-text [style]="'input-update'" [(ngModel)]="newText2" name="newText2" placeholder="Escribir nuevamente..."></app-input-text>
+      <app-input-text [style]="'input-update'" [(ngModel)]="newText" name="newText" placeholder="Escribir..."></app-input-text>
+      <app-button [style]="'search-button'" text="Guardar" (click)="onSave()"></app-button>
     </div>
     <div *ngIf="errorMessage" class="error-message">
   <app-error-text  [text]="errorMessage" [style]="'textError1'"></app-error-text>
     </div>
   </form>
-  <app-button [style]="'search-button'" text="Guardar" (click)="onSave()"></app-button>
 </div>

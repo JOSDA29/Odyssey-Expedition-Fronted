@@ -2,6 +2,7 @@
     <ng-container *ngIf="item.isEditing">
       <app-form-updates
         [title]="item.title"
+        [text]="item.text"
         [info]="item.info ?? ''"
         (save)="onSaveClicked($event, i)"
         (cancel)="onCancelClicked(i)">

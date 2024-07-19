@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../../../core/services/api.service'; // Asegúrate de ajustar la ruta correcta
+import { ApiService } from '../../../../../core/services/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -19,36 +19,44 @@ export class ClientProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserProfile();
-    const fallbackImage = 'assets/icons/profile.png';
-    this.updateUserIcons(fallbackImage);
   }
 
   loadUserProfile(): void {
-    const userId = sessionStorage.getItem('userId');
-    if (userId) {
-      this.fetchUserProfile(+userId);
+    const userEmail = sessionStorage.getItem('userEmail');
+    if (userEmail) {
+      this.fetchUserProfile(userEmail);
+    } else {
+      console.error('User email not found in sessionStorage');
+      // Use a fallback image in case user email is not found
+      this.updateUserIcons('assets/icons/profile.png');
     }
   }
 
-  fetchUserProfile(userId: number): void {
-    this.apiService.getUserInfo(userId).subscribe(userInfo => {
-      const userImage = userInfo.image || 'assets/icons/profile.png';
+  fetchUserProfile(userEmail: string): void {
+    this.apiService.getUserInfo(userEmail).subscribe(userInfo => {
+      const userImage = userInfo.image ? this.arrayBufferToBase64(userInfo.image.data) : 'assets/icons/profile.png';
       this.updateUserIcons(userImage);
     }, (error: HttpErrorResponse) => {
       console.error('Error fetching user info:', error);
       // Use a fallback image in case of an error
-      const fallbackImage = 'assets/icons/profile.png';
-      this.updateUserIcons(fallbackImage);
+      this.updateUserIcons('assets/icons/profile.png');
     });
   }
 
   updateUserIcons(userImage: string): void {
-    this.conten = this.conten.map((item) => {
-      const updatedItem = {
-        ...item,
-        srcIcon: userImage
-      };
-      return updatedItem;
-    });
+    this.conten = this.conten.map((item) => ({
+      ...item,
+      srcIcon: userImage
+    }));
+  }
+
+  arrayBufferToBase64(buffer: number[]): string {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return 'data:image/png;base64,' + window.btoa(binary);
   }
 }

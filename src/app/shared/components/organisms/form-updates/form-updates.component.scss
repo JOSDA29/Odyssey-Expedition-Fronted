@@ -19,6 +19,8 @@
   form {
     .inputs {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 1rem;
     }
 
@@ -28,6 +30,5 @@
   }
   app-button {
     width: fit-content;
-    margin-top: 2rem;
   }
 }

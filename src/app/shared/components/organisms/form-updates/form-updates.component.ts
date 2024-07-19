@@ -11,26 +11,26 @@ export class FormUpdatesComponent {
   @Input() text: string = '';
   @Output() save = new EventEmitter<string>();
   @Output() cancel = new EventEmitter<void>();
-  newText1: string = '';
-  newText2: string = '';
+  newText: string  ;
   errorMessage: string = '';
 
 
   constructor() {
-    this.newText1 = this.text;
+    this.newText = this.text;
   }
 
-
+  ngOnInit() {
+    this.newText = this.text;
+  }
+  
   onSave() {
-    if (this.newText1 === '' || this.newText2 === '') {
-      this.errorMessage = 'Los campos no pueden estar vacíos.';
-    }else if (this.newText1.length < 5  || this.newText2.length < 5) {
+    if (this.newText === '') {
+      this.errorMessage = 'El campo no pueden estar vacio.';
+    }else if (this.newText.length < 5 ) {
       this.errorMessage = 'El contenido debe tener al menos 5 caracteres';
     } 
-    else if (this.newText1 !== this.newText2) {
-      this.errorMessage = 'Los valores no coinciden.';
-    } else {
-      this.save.emit(this.newText1);
+ else {
+      this.save.emit(this.newText);
       this.errorMessage = '';
     }
   }

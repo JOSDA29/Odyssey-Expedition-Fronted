@@ -97,28 +97,21 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      this.apiService.getUsers().subscribe(
-        users => {
-          const loginF: Login = {
-            Email: this.loginForm.value.email,
-            Password: this.loginForm.value.password
-          };
-          const user = users.find(user => user.email === email && user.password === password);
+      this.apiService.login(email, password).subscribe(
+        user => {
           if (user) {
-            console.log("correcto");
             sessionStorage.setItem('isLoggedIn', 'true');
-            sessionStorage.setItem('userId', user.id.toString());
+            sessionStorage.setItem('userEmail', email);
             this.router.navigate(['/clientProfile']);
             this.closeModal();
             this.closeModalRecovery();
-            console.log(loginF);
           } else {
             this.errorMessage = 'Correo o contraseña incorrectos';
             console.log(this.errorMessage, this.loginForm.value);
           }
         },
         error => {
-          console.error('Error obteniendo usuarios:', error);
+          console.error('Error obteniendo información del usuario:', error);
           this.errorMessage = 'Ocurrió un error al autenticar. Por favor, intenta nuevamente.';
         }
       );
@@ -126,6 +119,7 @@ export class LoginFormComponent implements OnInit {
       alert('Por favor, complete el formulario correctamente');
     }
   }
+
 
   closeModal(): void {
     this.modalService.closeModal();

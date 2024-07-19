@@ -63,19 +63,29 @@ export class NavBarComponent implements OnInit {
   }
 
   loadUserProfile(): void {
-    const userId = sessionStorage.getItem('userId');
-    if (userId) {
-      this.fetchUserProfile(+userId);
+    const userEmail = sessionStorage.getItem('userEmail');
+    if (userEmail) {
+      this.fetchUserProfile(userEmail);
     }
   }
 
-  fetchUserProfile(userId: number): void {
-    this.apiService.getUserInfo(userId).subscribe(userInfo => {
-      console.log('User info:', userInfo);
-      this.userProfilePicture = userInfo.image || 'assets/icons/profile.png'; 
+  fetchUserProfile(userEmail: string): void {
+    this.apiService.getUserInfo(userEmail).subscribe(userInfo => {
+      console.log('User info:', userInfo.email);
+      this.userProfilePicture = userInfo.image ? this.arrayBufferToBase64(userInfo.image.data) : 'assets/icons/profile.png'; 
       console.log('User profile picture:', this.userProfilePicture);
     }, error => {
       console.error('Error fetching user info:', error);
     });
+  }
+
+  arrayBufferToBase64(buffer: number[]): string {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return 'data:image/png;base64,' + window.btoa(binary);
   }
 }

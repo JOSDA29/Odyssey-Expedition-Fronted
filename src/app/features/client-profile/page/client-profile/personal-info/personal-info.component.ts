@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../../../../../core/services/api.service';
+import { Client } from '../../../models/profile-info.model';
 
 @Component({
   selector: 'app-personal-info',
@@ -21,23 +22,34 @@ export class PersonalInfoComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    const userId = sessionStorage.getItem('userId'); // Obtener el ID del usuario desde sessionStorage
-    if (userId) {
-      this.apiService.getUserInfo(+userId).subscribe(
-        (user) => {
-          this.conten[0].text = `${user.firstName} ${user.lastName}`;
-          this.conten[1].text = user.identityDocument || 'No proporcionado';
-          this.conten[2].text = user.phoneNumber || 'No proporcionado';
-          this.conten[3].text = user.address || 'No proporcionado';
-          this.icon = user.image || 'assets/icons/profile.png'
+    const userEmail = sessionStorage.getItem('userEmail');
+    if (userEmail) {
+      this.apiService.getUserInfo(userEmail).subscribe(
+        (response) => {
+          const user = response;  
+          this.conten[0].text = `${user.firstname} ${user.lastname}`;
+          this.conten[1].text = user.clientid || 'No proporcionado';
+          this.conten[2].text = user.phone || 'No proporcionado';
+          this.conten[3].text = 'No proporcionado';
+          this.icon = user.image ? this.arrayBufferToBase64(user.image.data) : 'assets/icons/profile.png';
         },
         (error) => {
           console.error('Error fetching user details:', error);
         }
       );
     } else {
-      console.error('User ID not found in sessionStorage');
+      console.error('User email not found in sessionStorage');
     }
+  }
+  
+  arrayBufferToBase64(buffer: number[]): string {
+    let binary = '';
+    let bytes = new Uint8Array(buffer);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return 'data:image/png;base64,' + window.btoa(binary);
   }
 
   onEditClicked(index: number) {
