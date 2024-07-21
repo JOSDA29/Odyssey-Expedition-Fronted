@@ -71,7 +71,7 @@ export class NavBarComponent implements OnInit {
 
   fetchUserProfile(userEmail: string): void {
     this.apiService.getUserInfo(userEmail).subscribe(userInfo => {
-      console.log('User info:', userInfo.email);
+      console.log('User info:', userInfo);
       this.userProfilePicture = userInfo.image ? this.arrayBufferToBase64(userInfo.image.data) : 'assets/icons/profile.png'; 
       console.log('User profile picture:', this.userProfilePicture);
     }, error => {

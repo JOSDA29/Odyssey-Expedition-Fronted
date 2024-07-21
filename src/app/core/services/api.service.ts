@@ -20,8 +20,8 @@ export class ApiService {
   }
 
   
-  getUserInfo(userEmail: string): Observable<Client> {
-    return this.http.get<Client>(`${this.apiUrl}/client/getByEmail/${userEmail}`);
+  getUserInfo(userEmail: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/client/getByEmail/${userEmail}`);
   }
 
   login(email: string, password: string): Observable<Login> {

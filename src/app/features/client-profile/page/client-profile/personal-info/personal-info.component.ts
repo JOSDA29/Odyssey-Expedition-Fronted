@@ -9,7 +9,7 @@ import { Client } from '../../../models/profile-info.model';
 })
 export class PersonalInfoComponent implements OnInit {
 
-  @Input() info: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.'
+  @Input() info: string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet.';
 
   conten = [
     { title: 'Nombre completo', text: '', altIcon: '', srcIcon: '', link: '', textUpdate: 'Editar', isEditing: false, info: 'Asegurate de escribir tu nombre sin errores ortograficos.' },
@@ -26,12 +26,19 @@ export class PersonalInfoComponent implements OnInit {
     if (userEmail) {
       this.apiService.getUserInfo(userEmail).subscribe(
         (response) => {
-          const user = response;  
+          const user = response.client;
           this.conten[0].text = `${user.firstname} ${user.lastname}`;
           this.conten[1].text = user.clientid || 'No proporcionado';
           this.conten[2].text = user.phone || 'No proporcionado';
           this.conten[3].text = 'No proporcionado';
-          this.icon = user.image ? this.arrayBufferToBase64(user.image.data) : 'assets/icons/profile.png';
+
+          if (user.image && user.image.data && user.image.data.length > 0) {
+            console.log('User image data:', user.image.data);
+            this.icon = this.arrayBufferToBase64(user.image.data);
+          } else {
+            console.log('No user image, using default icon');
+            this.icon = 'assets/icons/profile.png';
+          }
         },
         (error) => {
           console.error('Error fetching user details:', error);
@@ -41,7 +48,7 @@ export class PersonalInfoComponent implements OnInit {
       console.error('User email not found in sessionStorage');
     }
   }
-  
+
   arrayBufferToBase64(buffer: number[]): string {
     let binary = '';
     let bytes = new Uint8Array(buffer);
@@ -49,7 +56,9 @@ export class PersonalInfoComponent implements OnInit {
     for (let i = 0; i < len; i++) {
       binary += String.fromCharCode(bytes[i]);
     }
-    return 'data:image/png;base64,' + window.btoa(binary);
+    const base64String = window.btoa(binary);
+    console.log('Base64 string:', base64String);
+    return 'data:image/png;base64,' + base64String;
   }
 
   onEditClicked(index: number) {
