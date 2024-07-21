@@ -9,5 +9,5 @@ export class ImageTopComponent {
 @Input() topsubtitle: string = '';
 @Input() imagestyle: string = '';
 @Input() toptitle: string = '';
-@Input() style:'image-top-home' ='image-top-home';
+@Input() style:'image-top-home' | 'image-top' ='image-top-home';
 }

@@ -1,0 +1,47 @@
+<app-principal-navbar></app-principal-navbar>
+<app-secondary-navbar></app-secondary-navbar>
+
+<div class="conten">
+  <div class="conten-top">
+    <app-conten-top
+      [style]="'image-top'"
+      [toptitle]="toptitle"
+    ></app-conten-top>
+    <app-images [src]="topImage" [style]="'image-top-nosotros'"></app-images>
+  </div>
+
+  <section class="target">
+    <app-title-section [style]="'container-nosotros'" title="Contamos Con" subtitle=""></app-title-section>
+    <section class="services">
+    <section class="cards" *ngIf="container.length">
+      <app-template-cards
+        [contend]="'card-nosotros'"
+        styleIcon="icon-nosotros"
+        [contens]="container"
+      ></app-template-cards>
+    </section>
+    </section>
+
+    <app-title-section [style]="'container-nosotros'" title="Nuestra Historia" subtitle=""></app-title-section>
+
+    <section class="history">
+      <img src="https://s3-alpha-sig.figma.com/img/b1b8/b32f/81a11ee7f7ad8d13d826ebaf16fd378e?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VOjLoVSJBd5f9hLajE5~XSqtZ-yXXEY3uYC8RgffOCFQ58UJuGKC67~0JKyy9eAX5~7tYAX1-lrxu1Dz6ix50ByBRc-6owlx1kpeHd7ZzSvPDpZTs6fQCVRkhnjxGlIr~DMkvKTJ1TBVf2WhMpGSU3Ta1rhSY4EM4pa8Z0oanxIpPYlsO2kDH~9c6nGRgA4xlOIowPrUY11o~FIt0NB5Gppk~zO3E8IQOpmQaImCjhju5hhpJd6plOb7O~Kiw6Gykx6aVF9qXyZ1SRGRFzPPAK31eKY7KLsIf6iqiuZYQLAyU~gph0dgxvq8B22-u5g0Hu7vATzGhfopOMnaWJ5UoA__" alt="history">
+      <div class="text">
+        <app-text [text]="history1" [style]="'text-nostros-profile'"></app-text>
+        <app-text [text]="history2" [style]="'text-nostros-profile'"></app-text>
+      </div>
+    </section>
+
+    <app-title-section [style]="'container-nosotros'" title="Nuestro Equipo" subtitle=""></app-title-section>
+
+    <section class="tem">
+      <img src="https://s3-alpha-sig.figma.com/img/6221/be51/f05e2786c21936f395bbc8128af4c249?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=pdlIrjD9evwsWyuhEBhRcMtotolRtV~vikYlpJR9hWaoYPIyAFNMJtdNaAt68vU18147urz1MDq0ds6Cm9B4C94weL5pL0YnynygT7U-Fet9pv-zum89k8NlsXmno-fOqMMG3ViwV2vE6dYLu4a0fmZ8ltJn48526OpyAN7AO4FmmiHHCguOhqXXjMJAgzmfe-6bgaHEf9nYYQhvgfml48I~JNBwi1DqRF9hO6wXhjuVK1uhZ6fz9FKBqI-Z8JYQMBlPKrtLDUOYIzBzf91INBssLo~v9ujZJVAk0zhUMwYbJUtH~Sh0468-ghn0gPG0eR8-0Fd9bEZWLy8PoqoA5g__" alt="tem">
+      <app-text [text]="infoTem" [style]="'text-nostros-profile'"></app-text>
+    </section>
+
+  </section>
+  
+
+</div>
+
+<app-principal-footer></app-principal-footer>

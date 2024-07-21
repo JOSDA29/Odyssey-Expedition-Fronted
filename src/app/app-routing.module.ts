@@ -5,6 +5,7 @@ import { RegisterComponent } from './features/register/pages/register/register.c
 import { ClientProfileComponent } from './features/client-profile/page/client-profile/client-profile/client-profile.component';
 import { ConstructionStatusComponent } from './shared/components/templates/status/construction-status/construction-status.component';
 import { PersonalInfoComponent } from './features/client-profile/page/client-profile/personal-info/personal-info.component';
+import { NosotrosComponent } from './features/nosotros/nosotros.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'nosotros',
-    component: ConstructionStatusComponent,
+    component: NosotrosComponent,
   },{
     path: 'ayuda',
     component: ConstructionStatusComponent,

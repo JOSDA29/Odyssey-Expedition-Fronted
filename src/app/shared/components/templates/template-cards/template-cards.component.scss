@@ -1,6 +1,8 @@
 @import '../../../../../styles/variables.scss';
 
-.card-profile section{
+
+
+.card-profile .card{
     display: flex;
     flex-direction: column;
     text-decoration: none;
@@ -27,3 +29,25 @@
     border: solid 1px $color-borders;
     border-radius: 0.625rem;
 }
+
+.card-nosotros {
+    .card{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        padding: 2rem 1rem;
+        width: 25rem;
+        height: 19.75rem;
+        border: solid 1px $color-borders;
+        border-radius: 0.625rem;
+        background-color: $background-light-contens;
+        app-icon{
+            margin-bottom: 1rem ;
+        }
+        app-subtitle{
+            margin-bottom: 1rem;
+        }
+}
+}
+

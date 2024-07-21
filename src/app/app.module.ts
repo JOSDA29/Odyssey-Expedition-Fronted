@@ -16,6 +16,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ReactiveFormsModule } from '@angular/forms';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { ClientProfileModule } from './features/client-profile/client-profile.module';
+import { NosotrosComponent } from './features/nosotros/nosotros.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ClientProfileModule } from './features/client-profile/client-profile.mo
     AboutUsComponent,
     RegisterFormComponent,
     RegisterComponent,
+    NosotrosComponent,
   ],
   imports: [
     BrowserModule,

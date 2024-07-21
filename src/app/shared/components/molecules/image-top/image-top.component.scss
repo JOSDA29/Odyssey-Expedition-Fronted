@@ -21,3 +21,18 @@
         }
     }
 }
+
+
+.image-top{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    .text-content{
+        position: absolute;
+        z-index: 1000;
+        top: 7rem;
+        color:$primary-color-text;
+    }
+}

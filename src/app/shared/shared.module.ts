@@ -53,6 +53,7 @@ import { ErrorTextComponent } from './components/atoms/error-text/error-text.com
 import { InputErrorComponent } from './components/molecules/input-error/input-error.component';
 import { TemplateCardsComponent } from './components/templates/template-cards/template-cards.component';
 import { FormUpdatesComponent } from './components/organisms/form-updates/form-updates.component';
+import { TemplateNosotAyudaComponent } from './components/templates/template-nosot-ayuda/template-nosot-ayuda.component';
 
 
 
@@ -110,6 +111,7 @@ import { FormUpdatesComponent } from './components/organisms/form-updates/form-u
     InputErrorComponent,
     TemplateCardsComponent,
     FormUpdatesComponent,
+    TemplateNosotAyudaComponent,
   ],
   imports: [
     CommonModule,
@@ -131,7 +133,8 @@ import { FormUpdatesComponent } from './components/organisms/form-updates/form-u
     LinkNormalComponent,
     LinkNormalComponent,
     SubtitleComponent,
-    IconComponent
+    IconComponent,
+    TemplateNosotAyudaComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,61 @@
+.conten{
+    .target{
+        margin: 10rem 0rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .services{
+            margin: 6rem 0rem;
+            .cards {
+                app-template-cards {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 2rem;
+                    justify-content: center;
+                }
+            }
+        }
+        .history{
+            display: flex;
+            margin: 6rem 0rem;
+            width: 100%;
+            height: 23.125rem;
+            justify-content: space-evenly;
+            align-items: flex-start;
+            img{
+                width: 40rem;
+                height: 23.125rem;
+                border-radius: 0.625rem;
+            }
+            .text{
+                display: flex;
+                gap: 2rem;
+                width: 38rem;
+                flex-wrap: wrap;
+            }
+        }
+
+        .tem{
+            width: 55.25rem;
+            height: 28.875rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            margin: 6rem 0rem;
+            img{
+                width: 100%;
+                height: 100%;
+                border-radius: 0.625rem;
+                object-fit: cover; 
+                margin-bottom: 2rem;
+            }
+            app-text{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+    }
+}

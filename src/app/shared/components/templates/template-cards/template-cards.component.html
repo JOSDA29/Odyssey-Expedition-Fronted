@@ -10,7 +10,7 @@
     </ng-container>
     <ng-container *ngIf="!item.isEditing">
       <div [ngClass]="contend" (click)="onCardClick(item.link)">
-        <section>
+        <section class="card">
           <ng-container *ngIf="item.srcIcon && item.altIcon">
             <app-icon [style]="styleIcon" [src]="item.srcIcon" [alt]="item.altIcon"></app-icon>
           </ng-container>

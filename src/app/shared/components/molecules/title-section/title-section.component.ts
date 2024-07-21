@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class TitleSectionComponent {
 @Input() title:string = '';
 @Input() subtitle:string = '';
+@Input() style : 'container' | 'container-nosotros' = 'container'
 }
