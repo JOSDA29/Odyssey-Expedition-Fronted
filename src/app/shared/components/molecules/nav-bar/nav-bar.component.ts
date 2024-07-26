@@ -30,7 +30,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
     this.selectDefaultLink();
-    this.loadUserProfile();
+    this.fetchUserProfile();
   }
 
   selectDefaultLink() {
@@ -50,30 +50,23 @@ export class NavBarComponent implements OnInit {
   isModalOpen = false;
 
   openLoginModal(): void {
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
     const isLoggedInGoogle = this.authGoogleService.isAuthenticated();
   
     if (isLoggedIn === 'true' || isLoggedInGoogle) {
       this.router.navigate(['/clientProfile']);
-      this.loadUserProfile(); 
       return;
     }
   
     this.modalService.openModal();
   }
 
-  loadUserProfile(): void {
-    const userEmail = sessionStorage.getItem('userEmail');
-    if (userEmail) {
-      this.fetchUserProfile(userEmail);
-    }
-  }
 
-  fetchUserProfile(userEmail: string): void {
-    this.apiService.getUserInfo(userEmail).subscribe(userInfo => {
-      console.log('User info:', userInfo);
+  fetchUserProfile(): void {
+    this.apiService.getUserInfo().subscribe(userInfo => {
       this.userProfilePicture = userInfo.image ? this.arrayBufferToBase64(userInfo.image.data) : 'assets/icons/profile.png'; 
-      console.log('User profile picture:', this.userProfilePicture);
+    console.log("info user:", this.userProfilePicture);
+    
     }, error => {
       console.error('Error fetching user info:', error);
     });

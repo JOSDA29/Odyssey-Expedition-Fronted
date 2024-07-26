@@ -1,3 +1,4 @@
+// template-cards.component.ts
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,7 +13,7 @@ export class TemplateCardsComponent {
   @Input() contens: {
     title: string,
     text: string,
-    info?: string ,
+    info?: string,
     altIcon: string,
     srcIcon: string,
     link: string,
@@ -36,11 +37,13 @@ export class TemplateCardsComponent {
   }
 
   onSaveClicked(newText: string, index: number) {
+    this.save.emit({ newText, index });
     this.contens[index].text = newText;
     this.contens[index].isEditing = false;
   }
 
   onCancelClicked(index: number) {
+    this.cancel.emit(index);
     this.contens[index].isEditing = false;
   }
 }

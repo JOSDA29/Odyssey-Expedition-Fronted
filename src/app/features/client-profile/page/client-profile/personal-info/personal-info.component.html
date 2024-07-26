@@ -8,13 +8,13 @@
   </section>
 
   <section class="cards">
-      <app-template-cards
-        [contend]="'persona-info'"
-        styleIcon="profile"
-        [contens]="conten"
-        (save)="onSaveClicked($event.newText, $event.index)"
-        (cancel)="onCancelClicked($event)">
-      </app-template-cards>
+    <app-template-cards
+  [contend]="'persona-info'"
+  styleIcon="profile"
+  [contens]="conten"
+  (save)="onSaveClicked($event)"
+  (cancel)="onCancelClicked($event)">
+</app-template-cards>
     
     <section class="info">
       <app-subtitle text="Nombre Completo" [style]="'subtitle-register'"></app-subtitle>

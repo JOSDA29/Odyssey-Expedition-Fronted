@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CardsInfoComponent } from './features/about-us/components/cards-info/cards-info.component';
@@ -17,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { ClientProfileModule } from './features/client-profile/client-profile.module';
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
+import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,11 @@ import { NosotrosComponent } from './features/nosotros/nosotros.component';
     OAuthModule.forRoot()
   ],
   providers: [
+    {
+  provide: HTTP_INTERCEPTORS,
+  useClass: AuthInterceptorService,
+  multi: true
+},
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

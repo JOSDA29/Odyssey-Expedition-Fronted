@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
-import { RegisterForm } from '../../../../features/register/models/register-form-info.model';
+import { ApiService } from '../../../../core/services/api.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-form',
@@ -13,6 +14,13 @@ import { RegisterForm } from '../../../../features/register/models/register-form
 export class RegisterFormComponent {
   loginForm: FormGroup = new FormGroup({});
   showPassword: boolean = false;
+  errorMessage: any = {};
+  weakPassword1: string = `La contraseña no cumple los requisitos mínimos:
+  - Al menos 8 caracteres
+  - Una mayúscula
+  - Una minúscula
+  - Un número
+  - Un carácter especial`;
 
   @Input() srclogo: string = '';
   @Input() altlogo: string = '';
@@ -27,13 +35,6 @@ export class RegisterFormComponent {
   @Input() textfooter: string = '';
   @Input() textfooter1: string = '';
 
-  weakPassword1: string = `La contraseña no cumple los requisitos mínimos:
-  - Al menos 8 caracteres
-  - Una mayúscula
-  - Una minúscula
-  - Un número
-  - Un carácter especial`;
-
   @Input() contensSection: { 
     title: string,
     placeholder: string,
@@ -45,7 +46,8 @@ export class RegisterFormComponent {
     private router: Router,
     private fb: FormBuilder,
     private passwordValidator: PasswordValidatorService,
-    private authGoogleService: AuthGoogleService
+    private authGoogleService: AuthGoogleService,
+    private apiService: ApiService,
   ) {}
 
   ngOnInit(): void {
@@ -77,7 +79,6 @@ export class RegisterFormComponent {
     this.loginForm.get('confirmarContrasena')?.valueChanges.subscribe(() => {
       this.loginForm.updateValueAndValidity();
     });
-    
   }
 
   togglePasswordVisibility() {
@@ -85,18 +86,37 @@ export class RegisterFormComponent {
   }
 
   onSubmit() {
+    this.clearErrorMessages();
+
     if (this.loginForm.valid) {
-      const registerForm: RegisterForm = {
-        Nombres: this.loginForm.value.nombres,
-        Apellidos: this.loginForm.value.apellidos,
-        Correo: this.loginForm.value.correo,
-        Contraseña: this.loginForm.value.contrasena
-      };
-      console.log('Form Submitted', registerForm);
-      alert('Formulario enviado exitosamente');
-      this.router.navigate(['/']);
+      const { name, lastName, email, password } = this.loginForm.value;
+      this.apiService.Register(name, lastName, email, password).subscribe(
+        userRegister => {
+          if (userRegister) {
+            alert('Formulario enviado exitosamente');
+            this.router.navigate(['/']);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          this.handleErrorResponse(error);
+        }
+      );
     } else {
       alert('Por favor, complete el formulario correctamente');
+    }
+  }
+
+  clearErrorMessages() {
+    this.errorMessage = {};
+  }
+
+  handleErrorResponse(error: HttpErrorResponse) {
+    if (error.status === 400) {
+      this.errorMessage.general = 'Solicitud incorrecta. Por favor, revise los datos ingresados.';
+    } else if (error.status === 409) {
+      this.errorMessage.email = 'Correo electrónico ya registrado.';
+    } else {
+      this.errorMessage.general = 'Ocurrió un error al registrar. Por favor, intenta nuevamente.';
     }
   }
 
@@ -105,7 +125,8 @@ export class RegisterFormComponent {
   }
 
   logInWithGoogle() {
-    this.authGoogleService.login(); 
+    this.authGoogleService.login();
+    
   }
 
   isPasswordError(field: string): boolean {
@@ -119,3 +140,4 @@ export class RegisterFormComponent {
     return confirmarContrasena?.errors?.['mismatch'] && confirmarContrasena;
   }
 }
+

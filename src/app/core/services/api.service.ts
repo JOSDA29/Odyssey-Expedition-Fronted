@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Client } from '../../features/client-profile/models/profile-info.model';
 import { Login } from '../../features/home/models/login-modal-model';
+import { RegisterForm } from '../../features/register/models/register-form-info.model';
+import { updateClient } from '../../features/client-profile/models/update-info.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +21,20 @@ export class ApiService {
     return this.http.get<any[]>(`http://localhost:/flights`);
   }
 
-  
-  getUserInfo(userEmail: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/client/getByEmail/${userEmail}`);
+  Register(name:string, lastName: string, email:string, password: string): Observable<RegisterForm> {
+    return this.http.post<RegisterForm>(`${this.apiUrl}/client/register`,{name,lastName,email,password});
   }
-
+  
   login(email: string, password: string): Observable<Login> {
     return this.http.post<Login>( `${this.apiUrl}/auth`,{ email, password });
   }
+
+  getUserInfo(): Observable<Client> {
+    return this.http.get<Client>(`${this.apiUrl}/client/getByEmail`);
+  }
+
+  updateClient(name: string,lastName: string,phoneNumber: string,image: string ):Observable<updateClient>{
+    return this.http.put<updateClient>(`${this.apiUrl}/client/update`,{name,lastName,phoneNumber,image})
+  }
+
 }

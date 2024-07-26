@@ -18,22 +18,13 @@ export class ClientProfileComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.loadUserProfile();
+    this.fetchUserProfile();
   }
 
-  loadUserProfile(): void {
-    const userEmail = sessionStorage.getItem('userEmail');
-    if (userEmail) {
-      this.fetchUserProfile(userEmail);
-    } else {
-      console.error('User email not found in sessionStorage');
-      // Use a fallback image in case user email is not found
-      this.updateUserIcons('assets/icons/profile.png');
-    }
-  }
 
-  fetchUserProfile(userEmail: string): void {
-    this.apiService.getUserInfo(userEmail).subscribe(userInfo => {
+
+  fetchUserProfile(): void {
+    this.apiService.getUserInfo().subscribe(userInfo => {
       const userImage = userInfo.image ? this.arrayBufferToBase64(userInfo.image.data) : 'assets/icons/profile.png';
       this.updateUserIcons(userImage);
     }, (error: HttpErrorResponse) => {

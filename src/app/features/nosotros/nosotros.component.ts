@@ -8,11 +8,11 @@ import { Component } from '@angular/core';
 export class NosotrosComponent {
 
   conten = [
-    { title: '+1000 Clientes', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '1', srcIcon: 'assets/icons/profile.png', link: '', textUpdate: '', isEditing: false },
-    { title: '+300 Locaciones', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '2', srcIcon: 'assets/icons/profile.png', link: '', textUpdate: '', isEditing: false },
-    { title: 'Seguridad en los pagos', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '3', srcIcon: 'assets/icons/profile.png', link: '', textUpdate: '', isEditing: false },
-    { title: 'Ayuda en linea directa', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '4', srcIcon: 'assets/icons/profile.png', link: '', textUpdate: '', isEditing: false },
-    { title: 'Asistencia a través del chat', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '4', srcIcon: 'assets/icons/profile.png', link: '', textUpdate: '', isEditing: false }
+    { title: '+1000 Clientes', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '1', srcIcon: 'assets/icons/persons.png', link: '', textUpdate: '', isEditing: false, type:'' },
+    { title: '+300 Locaciones', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '2', srcIcon: 'assets/icons/mapa.png', link: '', textUpdate: '', isEditing: false, type:'' },
+    { title: 'Seguridad en los pagos', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '3', srcIcon: 'assets/icons/card.png', link: '', textUpdate: '', isEditing: false, type:'' },
+    { title: 'Ayuda en linea directa', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '4', srcIcon: 'assets/icons/audifonos.png', link: '', textUpdate: '', isEditing: false, type:'' },
+    { title: 'Asistencia a través del chat', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ', altIcon: '4', srcIcon: 'assets/icons/chat.png', link: '', textUpdate: '', isEditing: false, type:'' }
   ];
 
 }

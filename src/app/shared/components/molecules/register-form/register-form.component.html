@@ -12,18 +12,19 @@
     <div class="text" *ngFor="let conten of contensSection">
       <app-subtitle [style]="'subtitle-register'" [text]="conten.title"></app-subtitle>
       <app-input-error
-      [control]="getFormControl(conten.field)"
-      [placeholder]="conten.placeholder"
-      [type]="conten.type === 'password' && !showPassword ? 'password' : 'text'"
-      [errors]="{
-        required: 'Este campo es obligatorio',
-        maxlength: conten.type === 'text' ? 'El contenido excede los 100 caracteres permitidos' : (conten.type === 'email' ? 'El contenido excede los 150 caracteres permitidos' : 'El contenido excede los 50 caracteres permitidos'),
-        minlength: conten.type === 'password' ? weakPassword1 : 'El contenido debe tener al menos 5 caracteres',
-        email: 'Ingrese un correo electrónico válido',
-        weakPassword: weakPassword1,
-        mismatch: 'Las contraseñas no coinciden'
-      }">
-    </app-input-error>
+        [control]="getFormControl(conten.field)"
+        [placeholder]="conten.placeholder"
+        [type]="conten.type === 'password' && !showPassword ? 'password' : 'text'"
+        [errors]="{
+          required: 'Este campo es obligatorio',
+          maxlength: conten.type === 'text' ? 'El contenido excede los 100 caracteres permitidos' : (conten.type === 'email' ? 'El contenido excede los 150 caracteres permitidos' : 'El contenido excede los 50 caracteres permitidos'),
+          minlength: conten.type === 'password' ? weakPassword1 : 'El contenido debe tener al menos 5 caracteres',
+          email: 'Ingrese un correo electrónico válido',
+          weakPassword: weakPassword1,
+          mismatch: 'Las contraseñas no coinciden'
+        }"
+        [errorMessage]="errorMessage[conten.field]">
+      </app-input-error>
       <app-text [text]="'Mostrar'" 
                 [style]="isPasswordError(conten.field) || isPasswordMismatch() ? 'errortext' : 'errortext1'"
                 *ngIf="conten.type === 'password'" 
@@ -32,7 +33,11 @@
       </app-text>
     </div>
 
-    <app-button type="submit" [disabled]="loginForm.invalid" [text]="textContin" [style]="'other-button'" (click)="onSubmit()"></app-button>
+    <div *ngIf="errorMessage.general" class="error-message">
+      <app-text [text]="errorMessage.general" [style]="'textError1'"></app-text>
+    </div>
+
+    <app-button type="submit" [disabled]="loginForm.invalid" [text]="textContin" [style]="'other-button'"></app-button>
 
     <div class="text-footer">
       <app-text [text]="textfooter" [style]="'text-normal'"></app-text>

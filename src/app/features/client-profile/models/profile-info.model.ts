@@ -1,12 +1,12 @@
-// profile-info.model.ts
 export interface Client {
-  clientid: string;
-  firstname: string;
-  lastname: string;
+  clientid?: string;
   email: string;
-  phone: string;
-  image: {
+  firstname: string;
+  image?: {
     type: string;
     data: number[];
   };
+  lastname: string;
+  password?: string; // Puede que no necesites este campo
+  phone: string;
 }

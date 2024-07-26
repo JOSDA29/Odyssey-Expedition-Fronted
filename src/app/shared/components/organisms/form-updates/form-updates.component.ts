@@ -11,13 +11,10 @@ export class FormUpdatesComponent {
   @Input() text: string = '';
   @Output() save = new EventEmitter<string>();
   @Output() cancel = new EventEmitter<void>();
-  newText: string  ;
+  newText: string = ''  ;
   errorMessage: string = '';
 
 
-  constructor() {
-    this.newText = this.text;
-  }
 
   ngOnInit() {
     this.newText = this.text;
@@ -40,5 +37,4 @@ export class FormUpdatesComponent {
     console.log('Cancelled');
     this.cancel.emit();
   }
-
 }

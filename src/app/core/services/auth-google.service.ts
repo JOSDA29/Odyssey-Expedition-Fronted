@@ -25,7 +25,6 @@ export class AuthGoogleService {
   }
 
   login() {
-    // Utiliza initLoginFlow() en lugar de initLoginFlowInPopup()
     this.oauthService.initLoginFlow();
   }
 
@@ -37,9 +36,11 @@ export class AuthGoogleService {
     return this.oauthService.getIdentityClaims();
   }
 
-  //valida el token del usuario si ya se ha autenticado
   isAuthenticated(): boolean {
     return this.oauthService.hasValidAccessToken();
   }
 
+  getEvents() {
+    return this.oauthService.events;
+  }
 }

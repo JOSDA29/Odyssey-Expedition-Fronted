@@ -20,5 +20,6 @@ export class TemplateNosotAyudaComponent {
     link: string,
     textUpdate: string,
     isEditing: boolean,
+    type:string
   }[] = [];
 }

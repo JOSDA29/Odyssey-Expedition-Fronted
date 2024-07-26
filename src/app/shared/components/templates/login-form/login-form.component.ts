@@ -7,6 +7,7 @@ import { ModalService } from '../../../../features/home/services/modal-login.ser
 import { ModalServiceRecover } from '../../../../features/home/services/modal-recover-password.service';
 import { ApiService } from '../../../../core/services/api.service';
 import { Login } from '../../../../features/home/models/login-modal-model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -99,26 +100,26 @@ export class LoginFormComponent implements OnInit {
       const { email, password } = this.loginForm.value;
       this.apiService.login(email, password).subscribe(
         user => {
-          if (user) {
-            sessionStorage.setItem('isLoggedIn', 'true');
-            sessionStorage.setItem('userEmail', email);
+          if (user && user.AccessToken) {
+            const { AccessToken } = user;
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('token', AccessToken)
             this.router.navigate(['/clientProfile']);
             this.closeModal();
             this.closeModalRecovery();
-          } else {
-            this.errorMessage = 'Correo o contraseña incorrectos';
-            console.log(this.errorMessage, this.loginForm.value);
-          }
+          } 
         },
-        error => {
-          console.error('Error obteniendo información del usuario:', error);
-          this.errorMessage = 'Ocurrió un error al autenticar. Por favor, intenta nuevamente.';
+        (error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            this.errorMessage = 'Correo o contraseña incorrectos';
+          } 
         }
       );
     } else {
       alert('Por favor, complete el formulario correctamente');
     }
   }
+  
 
 
   closeModal(): void {
