@@ -1,17 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasswordValidatorService } from '../../../../features/home/services/passwordValidator.service';
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
 import { ApiService } from '../../../../core/services/api.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandlingService } from '../../../../core/services/error-handling.service';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss']
 })
-export class RegisterFormComponent {
+export class RegisterFormComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
   showPassword: boolean = false;
   errorMessage: any = {};
@@ -48,6 +48,7 @@ export class RegisterFormComponent {
     private passwordValidator: PasswordValidatorService,
     private authGoogleService: AuthGoogleService,
     private apiService: ApiService,
+    private errorHandlingService: ErrorHandlingService
   ) {}
 
   ngOnInit(): void {
@@ -97,7 +98,7 @@ export class RegisterFormComponent {
             this.router.navigate(['/']);
           }
         },
-        (error: HttpErrorResponse) => {
+        (error) => {
           this.handleErrorResponse(error);
         }
       );
@@ -110,14 +111,10 @@ export class RegisterFormComponent {
     this.errorMessage = {};
   }
 
-  handleErrorResponse(error: HttpErrorResponse) {
-    if (error.status === 400) {
-      this.errorMessage.general = 'Solicitud incorrecta. Por favor, revise los datos ingresados.';
-    } else if (error.status === 409) {
-      this.errorMessage.email = 'Correo electrónico ya registrado.';
-    } else {
-      this.errorMessage.general = 'Ocurrió un error al registrar. Por favor, intenta nuevamente.';
-    }
+  handleErrorResponse(error: any) {
+    const errorMessage = this.errorHandlingService.handleError(error);
+    console.error('Error al registrar:', errorMessage);
+    alert(errorMessage);
   }
 
   getFormControl(field: string) {
@@ -126,7 +123,6 @@ export class RegisterFormComponent {
 
   logInWithGoogle() {
     this.authGoogleService.login();
-    
   }
 
   isPasswordError(field: string): boolean {
@@ -140,4 +136,3 @@ export class RegisterFormComponent {
     return confirmarContrasena?.errors?.['mismatch'] && confirmarContrasena;
   }
 }
-

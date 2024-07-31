@@ -6,8 +6,7 @@ import { AuthGoogleService } from '../../../../core/services/auth-google.service
 import { ModalService } from '../../../../features/home/services/modal-login.service';
 import { ModalServiceRecover } from '../../../../features/home/services/modal-recover-password.service';
 import { ApiService } from '../../../../core/services/api.service';
-import { Login } from '../../../../features/home/models/login-modal-model';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandlingService } from '../../../../core/services/error-handling.service';
 
 @Component({
   selector: 'app-login-form',
@@ -24,6 +23,7 @@ export class LoginFormComponent implements OnInit {
     private modalService: ModalService,
     private modalServiceRecover: ModalServiceRecover,
     private apiService: ApiService,
+    private errorHandlingService: ErrorHandlingService,
   ) {}
 
   @Input() title: string = '';
@@ -109,13 +109,15 @@ export class LoginFormComponent implements OnInit {
             this.closeModalRecovery();
           } 
         },
-        (error: HttpErrorResponse) => {
+        (error) => {
           if (error.status === 401) {
-            this.errorMessage = 'Correo o contraseña incorrectos';
+            const errorMessage = this.errorHandlingService.handleError(error);
+            this.errorMessage = errorMessage;
           } 
         }
       );
     } else {
+      
       alert('Por favor, complete el formulario correctamente');
     }
   }

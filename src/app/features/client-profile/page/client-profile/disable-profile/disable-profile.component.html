@@ -1,1 +1,77 @@
-<p>disable-profile works!</p>
+<div class="container">
+  <section class="header">
+    <a href="/clientProfile">
+      <app-logo src="assets/images/shortLogo.png" alt="" [style]="'shortLogo'"></app-logo>
+    </a>
+    <section class="text">
+      <app-text *ngFor="let text of texts; let i = index" [text]="text.textConten" [style]="text.styleText" href="/clientProfile" (click)="updateCurrentText(i)"></app-text>
+    </section>
+  </section>
+
+  <!-- Barra de progreso -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" [style.width.%]="progress"></div>
+  </div>
+
+  <div class="questions">
+
+    <ng-container *ngIf="currentText =='3. Listo'">
+      <img src="assets/icons/cheketGreen.png" alt="cheketGreen" class="cheketGreen">
+    </ng-container>
+
+    <app-title [text]="title" [style]="'title-third2'"></app-title>
+    <ng-container *ngIf="currentText =='2. Confirmar >'">
+      <app-text [text]="subtitle" [style]="'disaible'"></app-text>
+    </ng-container>
+
+    <section class="targets">
+      <ng-container *ngIf="currentText =='1. Selecciona un motivo >'">
+        <div class="target" *ngFor="let target of targets">
+          <div class="checkbox-container">
+            <app-text [text]="target.text" [style]="'disaible'"></app-text>
+            <input type="checkbox" [id]="target.text" (change)="toggleCheckbox($event)">
+          </div>
+          <ng-container *ngIf="target.text === 'Otra' && isOtherSelected">
+            <div class="other-reason">
+              <app-line [style]="'line-disaible'"></app-line>
+              <app-text text="Motivo"></app-text>
+              <app-input-text (ngModel)="otherReason" placeholder="¿Por qué nos dejas?" [style]="'input-desible'"></app-input-text>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="currentText =='2. Confirmar >'">
+        <div class="target" *ngFor="let target of targets2">
+          <div class="info">
+            <img src="assets/icons/checkBlak.png" alt="checkBlak">
+            <app-text [text]="target.text" [style]="'disaible'"></app-text>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="currentText !=='3. Listo'">
+        <div class="buttons" [ngClass]="{'custom-style': currentText !== '1. Selecciona un motivo'}">
+          <app-text *ngIf="currentText !== '1. Selecciona un motivo >'" text="< atras" [style]="'reversDisaible'" (click)="goBack()"></app-text>
+          <app-button
+            [text]="textButton"
+            [style]="isButtonDisabled ? 'disaible-button' : 'button-disaible'"
+            [disabled]="isButtonDisabled"
+            (click)="continue()"
+          ></app-button>
+        </div>
+      </ng-container>
+    </section>
+
+    <ng-container *ngIf="currentText =='3. Listo'">
+      <div class="confirmation">
+        <app-text [text]="subtitle" [style]="'disaible'"></app-text>
+        <app-button
+        [text]="textButton"
+        [style]="'button-disaible'"
+        (click)="return()"
+      ></app-button>
+      </div>
+    </ng-container>
+  </div>
+</div>

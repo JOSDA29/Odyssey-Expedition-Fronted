@@ -134,7 +134,12 @@ import { TemplateNosotAyudaComponent } from './components/templates/template-nos
     LinkNormalComponent,
     SubtitleComponent,
     IconComponent,
-    TemplateNosotAyudaComponent
+    TemplateNosotAyudaComponent,
+    ButtonComponent,
+    LogoComponent,
+    TitleComponent,
+    InputTextComponent,
+    LineComponent
   ]
 })
 export class SharedModule { }

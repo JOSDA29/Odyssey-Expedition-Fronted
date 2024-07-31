@@ -33,8 +33,14 @@ export class ApiService {
     return this.http.get<Client>(`${this.apiUrl}/client/getByEmail`);
   }
 
-  updateClient(name: string,lastName: string,phoneNumber: string,image: string ):Observable<updateClient>{
-    return this.http.put<updateClient>(`${this.apiUrl}/client/update`,{name,lastName,phoneNumber,image})
+  updateClient(name?: string,lastName?: string,phoneNumber?: string ):Observable<updateClient>{
+    return this.http.put<updateClient>(`${this.apiUrl}/client/update`,{name,lastName,phoneNumber})
+  }
+
+  updateImage(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, 'image.png'); 
+    return this.http.post<any>(`${this.apiUrl}/client/uploadImage`, formData);
   }
 
 }

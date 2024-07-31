@@ -17,7 +17,7 @@ export class InputTextComponent implements ControlValueAccessor {
   @Input() control: FormControl = new FormControl();
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
-  @Input() style: 'input-text' | 'input-number' | 'input-update' | 'input-register' = 'input-text';
+  @Input() style: 'input-text' | 'input-desible' | 'input-number' | 'input-update' | 'input-register' = 'input-text';
 
   newText: string = '';
 

@@ -6,4 +6,11 @@
     background-color:$primary-color;
     margin: 0 auto; 
 }
-  
+
+
+.line-disaible{    
+    width: 31.5%;
+    height: 1px;
+    position: absolute;
+    background-color: $color-borders;
+}

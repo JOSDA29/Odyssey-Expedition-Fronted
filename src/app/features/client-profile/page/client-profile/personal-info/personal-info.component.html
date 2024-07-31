@@ -19,7 +19,7 @@
     <section class="info">
       <app-subtitle text="Nombre Completo" [style]="'subtitle-register'"></app-subtitle>
       <app-icon [style]="'icon-profile'" [src]="icon" alt="profile"></app-icon>
-      <app-subtitle text="Cambiar" [style]="'textUpdate'" ></app-subtitle>
+      <app-subtitle text="Cambiar" [style]="'textUpdate'" (click)="openModalImage()"></app-subtitle>
       <app-text [text]="info" [style]="'text-nostros-profile'"></app-text>
     </section>
   </section>

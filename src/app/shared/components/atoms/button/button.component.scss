@@ -40,6 +40,65 @@
     }
 }
 
+
+.button-cancel{
+    border-radius: 1.25rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $message-error;
+    cursor: pointer;
+    width: 9.375rem;
+    height: 3.125rem;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}
+
+.disaible-button{
+    border-radius: 1.25rem;
+    display: flex;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-borders;
+    width: auto;
+    height: 3.125rem;
+    padding: 1rem;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}
+
+.button-disaible{
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #242424;
+    cursor: pointer;
+    width: auto;
+    height: 3.125rem;
+    padding: 1rem;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}
+
+
 .registerGoogle{
     display: flex;
     background-color: $primary-color;

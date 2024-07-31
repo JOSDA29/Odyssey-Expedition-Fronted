@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class TitleComponent {
 @Input() text:string = '';
-@Input() style: 'title-principal' | 'title-nosotros-profile' | 'title-secondary' | 'title-third' = 'title-principal';
+@Input() style: 'title-principal' | 'title-third2' | 'title-nosotros-profile' | 'title-secondary' | 'title-third' = 'title-principal';
 }

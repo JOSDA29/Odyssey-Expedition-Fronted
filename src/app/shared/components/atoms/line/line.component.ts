@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './line.component.scss'
 })
 export class LineComponent {
-@Input() style: 'line-title-section' = 'line-title-section';
+@Input() style: 'line-title-section' | 'line-disaible' = 'line-title-section';
 }

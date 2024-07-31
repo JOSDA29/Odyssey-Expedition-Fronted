@@ -1,0 +1,36 @@
+@import '../../../../../styles/variables.scss';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $background-light;
+    width: 62.5rem;
+    height: 40rem;
+    border: 10px;
+
+    .images {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem 3rem;
+        height: auto;
+
+        app-icon {
+            flex: 1 0 21%;
+            max-width: calc(25% - 1rem);
+            height: auto;
+            transition: filter 0.3s ease; // Transición suave para el filtro
+    
+            &.selected {
+                filter: brightness(60%); // Oscurece la imagen
+            }
+        }
+    }
+    .buttons{
+        display: flex;
+        width: 24rem;
+        justify-content: space-between;
+    }
+}

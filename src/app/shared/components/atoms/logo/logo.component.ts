@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class LogoComponent {
 @Input() src:string = '';
 @Input() alt:string = '';
+@Input() style:'logo'| 'shortLogo' = 'logo'
 }

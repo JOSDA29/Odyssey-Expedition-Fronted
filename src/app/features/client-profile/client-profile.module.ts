@@ -8,6 +8,7 @@ import { SecurityComponentComponent } from './page/client-profile/security.compo
 import { BookingHistoryComponent } from './page/client-profile/booking-history/booking-history.component';
 import { DisableProfileComponent } from './page/client-profile/disable-profile/disable-profile.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ModalUpdateImageComponent } from './components/modal-update-image/modal-update-image.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SharedModule } from '../../shared/shared.module';
     SecurityComponentComponent,
     BookingHistoryComponent,
     DisableProfileComponent,
+    ModalUpdateImageComponent,
   ],
   imports: [
     CommonModule,

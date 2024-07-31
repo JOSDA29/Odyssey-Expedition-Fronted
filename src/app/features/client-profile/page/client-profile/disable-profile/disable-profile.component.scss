@@ -1,0 +1,156 @@
+@import '../../../../../../styles/variables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 6.25rem;
+    border-bottom: solid 1px $color-borders;
+
+    .text {
+      display: flex;
+      margin-left: 1rem;
+      app-text {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  .progress-bar-container {
+    width: 96%;
+    height: 1rem;
+    background-color: #D8D8D8;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: $primary-color;
+    width: 0;
+    transition: width 0.3s ease;
+  }
+
+  .questions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 34.375rem;
+    margin-top: 4rem;
+
+    app-title {
+      margin-bottom: 1rem;
+    }
+    .cheketGreen{
+      width: 3.75rem;
+      height: 3.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .targets {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+      margin: 2rem 0rem;
+
+      .target {
+        display: flex;
+        flex-direction: column;
+        border: solid 1px $color-borders;
+        border-radius: 1.25rem;
+        padding: 1.5rem;
+
+        .other-reason{
+            app-text{
+                margin-top: 1rem;
+            }
+        }
+
+        .checkbox-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          img{
+            width: 1.25rem;
+            height: 1.25rem;
+          }
+
+          input[type="checkbox"] {
+            appearance: none;
+            background-color: $colo-radio;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #000000;
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+          }
+          input[type="checkbox"]:checked::before {
+            content: '';
+            width: .5rem;
+            height: .5rem;
+            border-radius: 50%;
+            border: none;
+            background-color: $primary-color;
+            position: absolute;
+            margin: 5px;
+          }
+        }
+        .info{
+          display: flex;
+
+          img{
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-top: .4rem;
+          }
+        }
+        
+        .other-reason {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          margin-top: 1rem;
+
+          label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+          }
+
+          .input-desible {
+            width: 100%;
+            height: 4rem;
+            border: 1px solid $color-borders;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            resize: none;
+          }
+        }
+      }
+
+      .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .confirmation{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -4rem;
+      app-button{
+        margin-top: 4rem;
+      }
+    }
+
+  }
+}

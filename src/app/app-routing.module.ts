@@ -6,6 +6,7 @@ import { ClientProfileComponent } from './features/client-profile/page/client-pr
 import { ConstructionStatusComponent } from './shared/components/templates/status/construction-status/construction-status.component';
 import { PersonalInfoComponent } from './features/client-profile/page/client-profile/personal-info/personal-info.component';
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
+import { DisableProfileComponent } from './features/client-profile/page/client-profile/disable-profile/disable-profile.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
     path: 'personalInfo',
     component: PersonalInfoComponent,
   },
+ { path: 'desactivarCuenta',
+  component: DisableProfileComponent,
+ },
+  
 ];
 
 @NgModule({

@@ -1,0 +1,17 @@
+<div class="container">
+  <app-title text="Selecciona una foto de perfil" [style]="'title-nosotros-profile'"></app-title>
+  <section class="images">
+    <app-icon 
+      *ngFor="let image of images" 
+      [src]="image.srcImage" 
+      [alt]="image.altImage" 
+      [class.selected]="image.selected"
+      (click)="selectImage(image)"
+      [style]="'imgeUpdate'">
+    </app-icon>
+  </section>
+  <section class="buttons">
+    <app-button [style]="'search-button'" text="Guardar" (click)="saveImageUpdate()"></app-button>
+    <app-button [style]="'button-cancel'" text="Cancelar" (click)="cancelImageUpdate()"></app-button>
+  </section>
+</div>
