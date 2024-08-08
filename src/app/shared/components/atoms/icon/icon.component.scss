@@ -70,3 +70,27 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
+.iconChatIA{
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.sheartIA{   
+    position: absolute;
+    margin-top: -0.5rem;
+    right: 1rem; 
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+}
+.responseIA{
+    width: 1.8rem;
+    height: 1.8rem;
+}
+.icon-closeIA{
+    cursor: pointer;
+    width: 1rem ;
+    height: 1rem;
+}

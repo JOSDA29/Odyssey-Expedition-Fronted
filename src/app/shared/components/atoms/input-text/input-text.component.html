@@ -5,4 +5,5 @@
   [formControl]="control" 
   [(ngModel)]="newText"
   (ngModelChange)="onInput($event)"
+  (keydown.enter)="onEnter($event)"
 />

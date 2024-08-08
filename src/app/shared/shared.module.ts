@@ -54,6 +54,7 @@ import { InputErrorComponent } from './components/molecules/input-error/input-er
 import { TemplateCardsComponent } from './components/templates/template-cards/template-cards.component';
 import { FormUpdatesComponent } from './components/organisms/form-updates/form-updates.component';
 import { TemplateNosotAyudaComponent } from './components/templates/template-nosot-ayuda/template-nosot-ayuda.component';
+import { TemplateChatIAComponent } from './components/templates/template-chat-ia/template-chat-ia.component';
 
 
 
@@ -112,6 +113,7 @@ import { TemplateNosotAyudaComponent } from './components/templates/template-nos
     TemplateCardsComponent,
     FormUpdatesComponent,
     TemplateNosotAyudaComponent,
+    TemplateChatIAComponent,
   ],
   imports: [
     CommonModule,
@@ -139,7 +141,8 @@ import { TemplateNosotAyudaComponent } from './components/templates/template-nos
     LogoComponent,
     TitleComponent,
     InputTextComponent,
-    LineComponent
+    LineComponent,
+    TemplateChatIAComponent
   ]
 })
 export class SharedModule { }

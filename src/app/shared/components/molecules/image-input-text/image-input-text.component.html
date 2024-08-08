@@ -1,5 +1,10 @@
 <div class="input-text-container">
-    <app-icon [src]="src" [alt]="alt" [style]="'input-icon'"></app-icon>
-    <app-input-text [type]="type" [style]="styleinput" [placeholder]="placeholder"></app-input-text>
- </div>
-  
+  <app-icon [src]="src" [alt]="alt" [style]="styleIcon"></app-icon>
+  <app-input-text
+    [control]="inputControl"
+    [type]="type"
+    [placeholder]="placeholder"
+    [style]="styleinput"
+    (enterPressed)="onEnterPressed()">
+  </app-input-text>
+</div>

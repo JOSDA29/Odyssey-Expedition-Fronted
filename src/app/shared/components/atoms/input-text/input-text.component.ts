@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,9 @@ export class InputTextComponent implements ControlValueAccessor {
   @Input() control: FormControl = new FormControl();
   @Input() placeholder: string = '';
   @Input() type: string = 'text';
-  @Input() style: 'input-text' | 'input-desible' | 'input-number' | 'input-update' | 'input-register' = 'input-text';
+  @Input() style: 'input-text' | 'input-desible' | 'inputIA' | 'input-number' | 'input-update' | 'input-register' = 'input-text';
+
+  @Output() enterPressed = new EventEmitter<void>();
 
   newText: string = '';
 
@@ -27,7 +29,9 @@ export class InputTextComponent implements ControlValueAccessor {
 
   writeValue(value: any): void {
     this.newText = value;
-    this.control.setValue(value);
+    if (this.control.value !== value) {
+      this.control.setValue(value, { emitEvent: false });
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -48,8 +52,18 @@ export class InputTextComponent implements ControlValueAccessor {
 
   // Sync the control value and newText
   onInput(value: string): void {
-    this.newText = value;
-    this.control.setValue(value);
-    this.onChange(value);
+    if (this.newText !== value) {
+      this.newText = value;
+      this.control.setValue(value, { emitEvent: false });
+      this.onChange(value);
+    }
+  }
+
+  // Handle Enter key press
+  onEnter(event: Event): void {
+    if (event instanceof KeyboardEvent && event.key === 'Enter') {
+      event.preventDefault();
+      this.enterPressed.emit();
+    }
   }
 }

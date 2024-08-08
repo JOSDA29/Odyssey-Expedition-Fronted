@@ -1,0 +1,101 @@
+@import '../../../../../styles/variables.scss';
+
+.container {
+  margin: 2rem;
+  right: 0rem;
+  bottom: 0rem;
+  position: fixed;
+  z-index: 1000;
+
+  .containerIA {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $button-shared-color;
+    border-radius: 50%;
+    width: 5.25rem;
+    height: 5.25rem;
+  }
+
+  .container-chat {
+    display: flex;
+    flex-direction: column;
+    width: 24rem;
+    height: 33rem;
+    border-radius: 10px;
+    position: fixed;
+    bottom: 0rem;
+    z-index: 1000;
+    right: 0rem;
+    margin: 2rem;
+    background-color: $background-light-contens;
+    box-shadow: 0px 0px 15px 10px $color-borders;
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 10px 10px 0 0;
+      background-color: $button-shared-color;
+      padding: 0 1rem;
+      width: 100%;
+      height: 3.313rem;
+    }
+
+    .menssageChat {
+      flex-grow: 1; /* Ocupa el espacio disponible */
+      overflow-y: auto;
+      width: 100%;
+      padding: 2rem 1rem 0rem 1rem;
+
+      .IAresponse {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        margin: 1rem 0;
+
+        .imageRespo {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: $button-shared-color;
+          border-radius: 50%;
+          width: 2.8rem;
+          height: 2.8rem;
+          margin-right: 1rem;
+        }
+
+        .ai-message {
+          max-width: 17rem;
+          border: solid 1px $color-borders;
+          padding: 0.8rem;
+          border-radius: 0.625rem;
+          align-self: flex-start;
+          background-color: $background-light-contens;
+        }
+      }
+     
+      .menssageChatClient{
+        display: flex;
+        justify-content: flex-end;
+
+        .client-message {
+          display: inline-block;
+          max-width: 20.4rem;
+          border: solid 1px $color-borders;
+          padding: 0.8rem;
+          border-radius: 0.625rem;
+          margin-bottom: 0.5rem;
+          background-color: $button-shared-color;
+          color: white;
+        }
+      }
+      
+    }
+
+    app-image-input-text {
+      margin: auto;
+      margin-bottom: 1rem;
+    }
+  }
+}

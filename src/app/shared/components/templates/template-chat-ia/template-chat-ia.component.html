@@ -1,0 +1,51 @@
+<div class="container" *ngFor="let chat of chat">
+  <ng-container *ngIf="chat.select !== true">
+    <div class="containerIA">
+      <app-icon [src]="chat.srcChat" [alt]="chat.altChat" (click)="openChat()" [style]="'iconChatIA'"></app-icon>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="chat.select === true">
+    <section class="container-chat">
+      <header>
+        <app-title text="Asistente virtual" [style]="'titleIA'"></app-title>
+        <app-icon src="assets/icons/closeWhite.png" alt="close" [style]="'icon-closeIA'" (click)="closeChat()"></app-icon>
+      </header>
+      <section class="menssageChat" #messageContainer>
+        <div *ngFor="let message of combinedMessages" [ngClass]="{'menssageChatClient': message.isClient}">
+          <div *ngIf="message.isClient; else aiMessage" class="message client-message"> 
+            <app-text [style]="'chatIaClient'" [text]="message.text"></app-text>
+          </div>
+          <ng-template #aiMessage>
+            <div class="IAresponse">
+              <div class="imageRespo">
+                <app-icon [src]="chatResponse[0].srcResponse" [alt]="chatResponse[0].altResponse" [style]="'responseIA'"></app-icon>
+              </div>
+              <div class="message ai-message">
+                <app-text [style]="'chatIA'" [text]="message.text"></app-text>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <div *ngIf="isWaitingForResponse" class="IAresponse">
+          <div class="imageRespo">
+            <app-icon [src]="chatResponse[0].srcResponse2" [alt]="chatResponse[0].altResponse" [style]="'responseIA'"></app-icon>
+          </div>
+          <div class="message ai-message">
+            <app-text [style]="'chatIA'" text="Esperando respuesta..."></app-text>
+          </div>
+        </div>
+      </section>      
+      <app-image-input-text
+        [styleinput]="'inputIA'"
+        type="text"
+        src="assets/icons/sheart.png"
+        (click)="sendUserMessage()"
+        alt="shear"
+        [styleIcon]="'sheartIA'"
+        placeholder="Escribe tu pregunta"
+        (textChanged)="onUserInputChange($event)"
+        (enterPressed)="onEnterPressed()">
+      </app-image-input-text>
+    </section>
+  </ng-container>
+</div>

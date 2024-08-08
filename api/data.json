@@ -28,30 +28,5 @@
             "price": 500.000,
             "priceDescription": "persona"
         }
-    ],
-
-    "users": [
-        { 
-        "id": 1, 
-        "image":"https://s3-alpha-sig.figma.com/img/57c3/9a99/4a6f226c540b8250ee08cf86ead58b57?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=A5Sa9N2Mq15vVJDLz0yJKywVc7LPhkeNuhtbG~fS10Ufdxj65oJSNJ2ycXsxfjhw3sF7XJ9an3u7VB6Rp6Kq2qa~2Zou-~w-q66MpFUxazJCLIaiXGAe0n1MJJg3dFncavgqzX7a2FoVfDRjtAwHgL0RcicnpyvmrqBgIxZ722dnT0o81apg5pUwgPnPUH6maGlKuPNCuprWU99Gih-crZvpxHJUizfA~B1QLjJbOzxmzvO~DhhNvnIbCcSI5HAVGcyHe-v-hCgHDBN3va2rECh5ZWxsmKMtJ5LULcr3GK4Hlbo5qrEajVwftrHIPTZRftA3CuBJQoaRw~sea~hlcA__",
-        "firstName": "Jefferson David",
-        "lastName":"Condiza Quintero",
-        "email": "jeffer@gmail.com", 
-        "password": "123Qq@qwe",
-        "identityDocument": "1234567890",
-        "phoneNumber": "+123456789",
-        "address": "123 Main St"
-        },
-        { 
-            "id": 2, 
-            "image":"",
-            "firstName": "Juan Migel",
-            "lastName":"Condiza Quintero",
-            "email": "juan@gmail.com", 
-            "password": "123Qq@qwe",
-            "identityDocument": "1234567890",
-            "phoneNumber": "+123456789",
-            "address": "123 Main St"
-            }
     ]
   }
