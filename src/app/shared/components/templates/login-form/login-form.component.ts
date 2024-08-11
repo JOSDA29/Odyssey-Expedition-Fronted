@@ -112,7 +112,7 @@ export class LoginFormComponent implements OnInit {
         (error) => {
           if (error.status === 401) {
             const errorMessage = this.errorHandlingService.handleError(error);
-            this.errorMessage = errorMessage;
+            return errorMessage;
           } 
         }
       );

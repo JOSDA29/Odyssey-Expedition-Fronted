@@ -113,8 +113,7 @@ export class RegisterFormComponent implements OnInit {
 
   handleErrorResponse(error: any) {
     const errorMessage = this.errorHandlingService.handleError(error);
-    console.error('Error al registrar:', errorMessage);
-    alert(errorMessage);
+    return errorMessage;
   }
 
   getFormControl(field: string) {

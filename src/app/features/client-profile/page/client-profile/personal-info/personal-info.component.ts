@@ -4,6 +4,7 @@ import { Client } from '../../../models/profile-info.model';
 import { ErrorHandlingService } from '../../../../../core/services/error-handling.service';
 import { ModalServiceUpdateImage } from '../../../services/edit-section-info.service';
 import Swal from 'sweetalert2';
+import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
 
 @Component({
   selector: 'app-personal-info',
@@ -24,6 +25,7 @@ export class PersonalInfoComponent implements OnInit {
     private apiService: ApiService,
     private errorHandlingService: ErrorHandlingService,
     private modalServiceUpdateImage: ModalServiceUpdateImage,
+    private sweetAlertService: SweetAlertService,
   ) { }
 
   ngOnInit() {
@@ -33,6 +35,10 @@ export class PersonalInfoComponent implements OnInit {
         this.conten[1].text = `${user.lastname}`;
         this.conten[2].text = user.clientid || 'No proporcionado';
         this.conten[3].text = user.phone || 'No proporcionado';
+        if (this.conten[3].text !=='No proporcionado' || this.conten[2].text !=='No proporcionado') {
+          this.conten[3].textUpdate = 'Editar'
+          this.conten[2].textUpdate = 'Editar'
+        }
         if (user.imageurl != null) {
           this.icon = user.imageurl;
         }
@@ -61,7 +67,7 @@ export class PersonalInfoComponent implements OnInit {
       phoneNumber: phoneNumber,
     };
   
-    if (updatedClientData.phoneNumber !== undefined) {
+    if (updatedClientData.phoneNumber !== undefined ) {
       this.conten[3].textUpdate = 'Editar'
     }
   
@@ -73,11 +79,10 @@ export class PersonalInfoComponent implements OnInit {
       updatedClientData.phoneNumber,
     ).subscribe(
       (response) => {
-        console.log('Client updated successfully:', response);
-        // Si necesitas actualizar el Documento de Identidad, llama a updateIdClient aquí
+        this.sweetAlertService.showSuccess('Datos actualizados correctamente')
         this.apiService.updateIdClient(this.conten[2].text).subscribe(
           idResponse => {
-            console.log('ID updated successfully:', idResponse);
+            this.sweetAlertService.showSuccess('Datos actualizados correctamente')
           },
           error => {
             console.error('Error updating ID:', error);
@@ -88,16 +93,8 @@ export class PersonalInfoComponent implements OnInit {
       (error) => {
         const errorMessage = this.errorHandlingService.handleError(error);
         console.error('Error updating client details:', errorMessage);
-        Swal.fire({
-          title: 'Oops...',
-          text: errorMessage,
-          icon: 'error',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload(); 
-          }
-        });
-        
+        return errorMessage;
+       
       }
     );
 }

@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { ModalService } from '../../../../features/home/services/modal-login.service';
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../core/services/api.service'; 
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-nav-bar',

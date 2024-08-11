@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { SweetAlertService } from './sweet-alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorHandlingService {
 
-  constructor() { }
+  constructor(
+    private sweetAlertService: SweetAlertService,
+  ) { }
 
-  handleError(error: HttpErrorResponse): string {
+  handleError(error: HttpErrorResponse): void {
     let errorMessage = '';
 
-    
     if (error.error instanceof ErrorEvent) {
-      // Error del lado del cliente
+      // Client-side error
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Error del lado del servidor
+      // Server-side error
       switch (error.status) {
         case 400:
           errorMessage = 'Por favor verifica los datos enviados.';
@@ -31,10 +34,10 @@ export class ErrorHandlingService {
           errorMessage = 'Recurso no encontrado. Por favor verifica la URL.';
           break;
         case 409:
-            errorMessage = 'Correo electrónico ya registrado.'
-            break;
+          errorMessage = 'Correo electrónico ya registrado.';
+          break;
         case 422:
-          errorMessage = 'Verifica que el numero de telefono tenga 10 digitos y sean numeros';
+          errorMessage = 'Verifica que el número de teléfono tenga 10 dígitos y sean números.';
           break;
         case 500:
           errorMessage = 'Error interno del servidor. Por favor intenta nuevamente más tarde.';
@@ -44,6 +47,7 @@ export class ErrorHandlingService {
       }
     }
 
-    return errorMessage;
+    this.sweetAlertService.showError(errorMessage);
+
   }
 }
