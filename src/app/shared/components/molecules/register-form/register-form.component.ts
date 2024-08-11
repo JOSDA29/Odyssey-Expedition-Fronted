@@ -5,6 +5,7 @@ import { PasswordValidatorService } from '../../../../features/home/services/pas
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
 import { ApiService } from '../../../../core/services/api.service';
 import { ErrorHandlingService } from '../../../../core/services/error-handling.service';
+import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
 
 @Component({
   selector: 'app-register-form',
@@ -48,7 +49,8 @@ export class RegisterFormComponent implements OnInit {
     private passwordValidator: PasswordValidatorService,
     private authGoogleService: AuthGoogleService,
     private apiService: ApiService,
-    private errorHandlingService: ErrorHandlingService
+    private errorHandlingService: ErrorHandlingService,
+    private sweetAlertService: SweetAlertService,
   ) {}
 
   ngOnInit(): void {
@@ -94,7 +96,7 @@ export class RegisterFormComponent implements OnInit {
       this.apiService.Register(name, lastName, email, password).subscribe(
         userRegister => {
           if (userRegister) {
-            alert('Formulario enviado exitosamente');
+            this.sweetAlertService.showSuccess('Registro exitoso')
             this.router.navigate(['/']);
           }
         },
