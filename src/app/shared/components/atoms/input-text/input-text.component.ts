@@ -21,21 +21,17 @@ export class InputTextComponent implements ControlValueAccessor {
 
   @Output() enterPressed = new EventEmitter<void>();
 
-  newText: string = '';
-
   // ControlValueAccessor methods
   onChange = (_: any) => {};
   onTouched = () => {};
 
   writeValue(value: any): void {
-    this.newText = value;
-    if (this.control.value !== value) {
-      this.control.setValue(value, { emitEvent: false });
-    }
+    this.control.setValue(value, { emitEvent: false });
   }
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
+    this.control.valueChanges.subscribe(fn);
   }
 
   registerOnTouched(fn: any): void {
@@ -47,15 +43,6 @@ export class InputTextComponent implements ControlValueAccessor {
       this.control.disable();
     } else {
       this.control.enable();
-    }
-  }
-
-  // Sync the control value and newText
-  onInput(value: string): void {
-    if (this.newText !== value) {
-      this.newText = value;
-      this.control.setValue(value, { emitEvent: false });
-      this.onChange(value);
     }
   }
 

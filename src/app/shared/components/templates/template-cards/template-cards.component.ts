@@ -37,10 +37,10 @@ export class TemplateCardsComponent {
   }
 
   onSaveClicked(newText: string, index: number) {
-    this.save.emit({ newText, index });
-    this.contens[index].text = newText;
-    this.contens[index].isEditing = false;
-  }
+    this.save.emit({ newText, index });  // Emitimos el nuevo texto junto con el índice al componente superior
+    this.contens[index].text = newText;  // Actualizamos el texto en la tarjeta correspondiente
+    this.contens[index].isEditing = false;  // Terminamos el modo de edición
+  }  
 
   onCancelClicked(index: number) {
     this.cancel.emit(index);

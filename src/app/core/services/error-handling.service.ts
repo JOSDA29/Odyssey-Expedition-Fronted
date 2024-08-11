@@ -34,7 +34,7 @@ export class ErrorHandlingService {
             errorMessage = 'Correo electrónico ya registrado.'
             break;
         case 422:
-          errorMessage = 'Estimado cliente, para poder hacer un cambio primero proporcione un número de contacto.';
+          errorMessage = 'Verifica que el numero de telefono tenga 10 digitos y sean numeros';
           break;
         case 500:
           errorMessage = 'Error interno del servidor. Por favor intenta nuevamente más tarde.';

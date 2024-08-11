@@ -3,6 +3,7 @@ import { ApiService } from '../../../../../core/services/api.service';
 import { Client } from '../../../models/profile-info.model';
 import { ErrorHandlingService } from '../../../../../core/services/error-handling.service';
 import { ModalServiceUpdateImage } from '../../../services/edit-section-info.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-personal-info',
@@ -33,7 +34,7 @@ export class PersonalInfoComponent implements OnInit {
         this.conten[2].text = user.clientid || 'No proporcionado';
         this.conten[3].text = user.phone || 'No proporcionado';
         if (user.imageurl != null) {
-          this.icon = user.imageurl
+          this.icon = user.imageurl;
         }
         console.log(user.imageurl);
       },
@@ -44,8 +45,6 @@ export class PersonalInfoComponent implements OnInit {
     );
   }
 
- 
-
   onEditClicked(index: number) {
     this.conten[index].isEditing = true;
   }
@@ -54,36 +53,60 @@ export class PersonalInfoComponent implements OnInit {
     const { newText, index } = event;
     this.conten[index].text = newText;
     this.conten[index].isEditing = false;
-
+  
+    const phoneNumber = this.conten[3].text === 'No proporcionado' ? undefined : this.conten[3].text;
     const updatedClientData = {
       name: this.conten[0].text,
       lastName: this.conten[1].text,
-      phoneNumber: this.conten[3].text,
+      phoneNumber: phoneNumber,
     };
-
+  
+    if (updatedClientData.phoneNumber !== undefined) {
+      this.conten[3].textUpdate = 'Editar'
+    }
+  
     console.log('Datos a enviar:', updatedClientData);
-
+  
     this.apiService.updateClient(
       updatedClientData.name,
       updatedClientData.lastName,
       updatedClientData.phoneNumber,
     ).subscribe(
       (response) => {
-        console.log('Client updated successfully:',response);
+        console.log('Client updated successfully:', response);
+        // Si necesitas actualizar el Documento de Identidad, llama a updateIdClient aquí
+        this.apiService.updateIdClient(this.conten[2].text).subscribe(
+          idResponse => {
+            console.log('ID updated successfully:', idResponse);
+          },
+          error => {
+            console.error('Error updating ID:', error);
+            alert('Error updating ID: ' + error.message);
+          }
+        );
       },
       (error) => {
         const errorMessage = this.errorHandlingService.handleError(error);
         console.error('Error updating client details:', errorMessage);
-        alert(errorMessage);
+        Swal.fire({
+          title: 'Oops...',
+          text: errorMessage,
+          icon: 'error',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload(); 
+          }
+        });
+        
       }
     );
-  }
+}
 
   onCancelClicked(index: number) {
     this.conten[index].isEditing = false;
   }
 
-  openModalImage(){
+  openModalImage() {
     this.modalServiceUpdateImage.openModal();
   }
 }

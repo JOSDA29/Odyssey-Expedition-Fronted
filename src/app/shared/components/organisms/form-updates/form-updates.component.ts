@@ -22,12 +22,11 @@ export class FormUpdatesComponent {
   
   onSave() {
     if (this.newText === '') {
-      this.errorMessage = 'El campo no pueden estar vacio.';
-    }else if (this.newText.length < 5 ) {
+      this.errorMessage = 'El campo no puede estar vacío.';
+    } else if (this.newText.length < 5) {
       this.errorMessage = 'El contenido debe tener al menos 5 caracteres';
-    } 
- else {
-      this.save.emit(this.newText);
+    } else {
+      this.save.emit(this.newText);  // Emitimos el nuevo texto al componente superior
       this.errorMessage = '';
     }
   }

@@ -33,7 +33,7 @@ export class ApiService {
     return this.http.get<Client>(`${this.apiUrl}/client/getByEmail`);
   }
 
-  updateClient(name?: string,lastName?: string,phoneNumber?: string ):Observable<updateClient>{
+  updateClient(name?: string,lastName?: string,phoneNumber?: string | undefined):Observable<updateClient>{
     return this.http.put<updateClient>(`${this.apiUrl}/client/update`,{name,lastName,phoneNumber})
   }
 
@@ -43,4 +43,7 @@ export class ApiService {
     return this.http.post<any>(`${this.apiUrl}/client/uploadImage`, formData);
   }
 
+  updateIdClient(id: any): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/client/insertId`,{id});
+  }
 }

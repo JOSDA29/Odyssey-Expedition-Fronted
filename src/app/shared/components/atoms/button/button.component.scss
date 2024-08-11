@@ -15,10 +15,10 @@
         font-size: $text-button;
         color: $primary-color-text;
     }
-}
-
-.share-button.selected {
-    transition: 100ms;
+  }
+  
+  .share-button.selected {
+    transition: 1s;                     
     background-color: $primary-color; 
 }
 
@@ -40,8 +40,7 @@
     }
 }
 
-
-.button-cancel{
+  .button-cancel {
     border-radius: 1.25rem;
     border: none;
     display: flex;

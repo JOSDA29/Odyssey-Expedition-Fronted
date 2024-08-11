@@ -6,8 +6,6 @@
     background-color:$background-light-contens ;
     border: solid 1px $color-borders;
     border-radius: 0px 10px 10px 10px;
-    width: 95rem;
-    height: 16.688rem;
     padding: 1rem 0rem 2rem 2rem;
 }
 .checkboxes{
@@ -18,6 +16,7 @@
 .conten-dates{
     position: relative;
     display: flex;
+    align-items: flex-end;
     .text{
         margin: 1.5em 1.5rem 0rem 0rem;
         .dates{
@@ -27,9 +26,42 @@
             }
         }
     }
-    app-button{
-        position: absolute;
-        top: 4.3rem;
-        left: 87%;
+}
+
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .conten-dates{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .multifaceted-search {
+        margin-bottom: 80vh;
+      
+        .content {
+          top: 70%;
+        }
+      }
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+    .multifaceted-search {
+        margin-bottom: 40vh;
+      
+        .content {
+          top: 70%;
+        }
+      }
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
 }

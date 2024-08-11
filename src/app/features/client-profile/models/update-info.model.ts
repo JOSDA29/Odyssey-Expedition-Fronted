@@ -1,7 +1,8 @@
-export interface updateClient{
-    name?: string, 
-    lastName?: string,
-    phoneNumber?: string, 
-    image?: string,
-    AccessToken?: string 
-}
+export interface updateClient {
+    name?: string;
+    lastName?: string;
+    phoneNumber?: string | undefined;
+    image?: string;
+    AccessToken?: string;
+  }
+  

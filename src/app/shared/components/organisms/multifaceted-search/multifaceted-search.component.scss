@@ -1,14 +1,42 @@
 @import '../../../../../styles/variables.scss';
 
-.multifaceted-search{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 20rem;
-    .content{
-        position: absolute;
-        z-index: 1000;
-        top: 75%;
-    }
+.multifaceted-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 40vh;
+
+  .content {
+    width: 95vw;
+    position: absolute;
+    z-index: 1000;
+    top: 75%;
+  }
 }
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .multifaceted-search {
+        margin-bottom: 30vh;
+        .content {
+          top: 65%;
+        }
+      }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}
+  

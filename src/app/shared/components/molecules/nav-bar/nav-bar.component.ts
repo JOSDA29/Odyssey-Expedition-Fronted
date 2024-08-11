@@ -26,7 +26,7 @@ export class NavBarComponent implements OnInit {
   @Input() text: string = '';
 
   selectedLinkIndex: number | null = null;
-  userProfilePicture: string = 'assets/icons/profile.png'; // Foto de perfil por defecto
+  userProfilePicture: string = 'assets/icons/profile.png'; 
 
   ngOnInit() {
     this.selectDefaultLink();
@@ -65,7 +65,11 @@ export class NavBarComponent implements OnInit {
   fetchUserProfile(): void {
     this.apiService.getUserInfo().subscribe(userInfo => {
       console.log('info user:',userInfo);
-      this.userProfilePicture = userInfo.imageurl ; 
+      if (userInfo.imageurl !== null) {
+        this.userProfilePicture = userInfo.imageurl ; 
+      }
+      this.userProfilePicture; 
+
     
     }, error => {
       console.error('Error fetching user info:', error);
