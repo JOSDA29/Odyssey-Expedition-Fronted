@@ -5,4 +5,5 @@ export interface Client {
   imageurl: string;
   lastname: string;
   phone?: string | null;
+  state?: boolean 
 }

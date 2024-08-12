@@ -18,7 +18,7 @@ export class ApiService {
   ) { }
 
   getFlights(): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:/flights`);
+    return this.http.get<any[]>(`http://localhost:8000/flights`);
   }
 
   Register(name:string, lastName: string, email:string, password: string): Observable<RegisterForm> {
@@ -45,5 +45,8 @@ export class ApiService {
 
   updateIdClient(id: any): Observable<any>{
     return this.http.post<any>(`${this.apiUrl}/client/insertId`,{id});
+  }
+  changeState(state: boolean):Observable<boolean>{
+    return this.http.put<boolean>(`${this.apiUrl}/client/ChangeState`,{state});
   }
 }

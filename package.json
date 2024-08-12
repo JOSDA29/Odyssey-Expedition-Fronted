@@ -21,6 +21,7 @@
     "@angular/router": "^18.1.4",
     "@sweetalert2/theme-bulma": "^5.0.18",
     "angular-oauth2-oidc": "^15.0.1",
+    "cors": "^2.8.5",
     "json-server": "^1.0.0-beta.1",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.12.4",

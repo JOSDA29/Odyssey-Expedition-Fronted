@@ -7,6 +7,7 @@ import { ModalService } from '../../../../features/home/services/modal-login.ser
 import { ModalServiceRecover } from '../../../../features/home/services/modal-recover-password.service';
 import { ApiService } from '../../../../core/services/api.service';
 import { ErrorHandlingService } from '../../../../core/services/error-handling.service';
+import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
 
 @Component({
   selector: 'app-login-form',
@@ -24,6 +25,7 @@ export class LoginFormComponent implements OnInit {
     private modalServiceRecover: ModalServiceRecover,
     private apiService: ApiService,
     private errorHandlingService: ErrorHandlingService,
+    private sweetAlertService: SweetAlertService,
   ) {}
 
   @Input() title: string = '';
@@ -100,11 +102,34 @@ export class LoginFormComponent implements OnInit {
       const { email, password } = this.loginForm.value;
       this.apiService.login(email, password).subscribe(
         user => {
-          if (user && user.AccessToken) {
+          if (user) {
             const { AccessToken } = user;
+            localStorage.setItem('token', AccessToken);
+            this.apiService.getUserInfo().subscribe(userInfo=>{
+              if (userInfo.state !== true) {
+                localStorage.setItem('isLoggedIn', 'false');
+                this.sweetAlertService.showConfirmation(
+                  'Tu cuenta está desactivada, ¿quieres activarla de nuevo?',
+                  'Cuenta inactiva'
+                ).then((result) => {
+                  if (result.isConfirmed) {
+                    this.apiService.changeState(true).subscribe(
+                      (response) => {
+                        console.log('Estado del cliente actualizado:', response);
+                        localStorage.setItem('isLoggedIn', 'true');
+                        this.router.navigate(['/clientProfile']);
+                      },
+                      (error) => {
+                        console.error('Error al actualizar el estado del cliente:', error);
+                      }
+                    );
+                  } else if (result.isDismissed) {
+                  }
+                });  
+              }
+            })
+            this.sweetAlertService.showSuccess('Inicio de secion exitoso')
             localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('token', AccessToken)
-            this.router.navigate(['/clientProfile']);
             this.closeModal();
             this.closeModalRecovery();
           } 

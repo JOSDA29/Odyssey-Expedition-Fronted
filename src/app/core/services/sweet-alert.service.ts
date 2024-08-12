@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -8,15 +8,21 @@ export class SweetAlertService {
 
   constructor() { }
 
+  @Input() colorButtonAcep = 'rgb(57 233 57)'
+  @Input() colorButtonCancel = 'rgb(246 43 43)'
+
   showSuccess(message: string, title: string = '¡Éxito!'): void {
     Swal.fire({
       title: title,
       text: message,
       icon: 'success',
+      iconColor: '#00e600',
       confirmButtonText: 'Aceptar',
-      confirmButtonColor: 'hsl(171, 100%, 41%)',
+      color: 'black',
+      confirmButtonColor: this.colorButtonAcep,
     });
   }
+  
 
   showError(message: string, title: string = 'Oops...'): void {
     Swal.fire({
@@ -24,7 +30,7 @@ export class SweetAlertService {
       text: message,
       icon: 'error',
       confirmButtonText: 'Aceptar',
-      confirmButtonColor: 'hsl(171, 100%, 41%)',
+      confirmButtonColor: this.colorButtonAcep,
     });
   }
 
@@ -38,15 +44,16 @@ export class SweetAlertService {
     });
   }
 
-  showConfirmation(message: string, title: string = '¿Estás seguro?'): Promise<any> {
+  showConfirmation(message: string, title: string = ''): Promise<any> {
     return Swal.fire({
       title: title,
       text: message,
-      icon: 'question',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Sí',
-      cancelButtonText: 'No',
-      confirmButtonColor: 'hsl(171, 100%, 41%)',
+      confirmButtonText:'Sí, activar',
+      cancelButtonText: 'No activar',
+      confirmButtonColor: this.colorButtonAcep,
+      cancelButtonColor:this.colorButtonCancel,
     });
   }
 }

@@ -28,11 +28,11 @@ export class DisableProfileComponent {
   ];
 
   targets = [
-    { text: 'Me preocupa la privacidad o la seguridad. ' },
-    { text: 'Me preocupa la privacidad o la seguridad1.' },
-    { text: 'Me preocupa la privacidad o la seguridad2.' },
-    { text: 'Otra' },
-  ];
+    { text: 'Me preocupa la privacidad o la seguridad.', isChecked: false },
+    { text: 'Me preocupa la privacidad o la seguridad1.', isChecked: false },
+    { text: 'Me preocupa la privacidad o la seguridad2.', isChecked: false },
+    { text: 'Otra', isChecked: false },
+  ];  
 
   targets2 = [
     { text: 'No podrás acceder a la información de la cuenta ni a las reservaciones anteriores.' },
@@ -59,25 +59,27 @@ export class DisableProfileComponent {
 
   toggleCheckbox(event: Event) {
     const checkbox = event.target as HTMLInputElement;
-    if (checkbox.checked) {
-      this.selectedReason = checkbox.id;
-    } else if (this.selectedReason === checkbox.id) {
-      this.selectedReason = '';
-    }
-
-    // Desmarcar todas las demás checkboxes excepto la seleccionada
-    this.targets.forEach(target => {
-      const checkboxElement = document.getElementById(target.text) as HTMLInputElement;
-      if (checkboxElement && checkboxElement.id !== this.selectedReason) {
-        checkboxElement.checked = false;
+    const selectedTarget = this.targets.find(target => target.text === checkbox.id);
+    
+    if (selectedTarget) {
+      selectedTarget.isChecked = checkbox.checked;
+      this.selectedReason = checkbox.checked ? selectedTarget.text : '';
+      
+      // Desmarcar todas las demás checkboxes excepto la seleccionada
+      this.targets.forEach(target => {
+        if (target.text !== this.selectedReason) {
+          target.isChecked = false;
+        }
+      });
+      
+      if (this.selectedReason !== 'Otra') {
+        this.otherReason = '';
+        console.log(this.otherReason);
+        
       }
-    });
-
-    if (this.selectedReason !== 'Otra') {
-      this.otherReason = '';
     }
     console.log(this.selectedReason);
-  }
+  }    
 
   getTargetText(target: { text: string }): string {
     if (target.text === 'Otra' && this.isOtherSelected) {
@@ -86,23 +88,38 @@ export class DisableProfileComponent {
     return target.text;
   }
 
-  updateCurrentText(index: number) {
-    this.currentIndex = index;
-  }
+
 
   goBack() {
     if (this.currentIndex > 0) {
-      this.texts[this.currentIndex].styleText = 'info-text'; // Restablecer el estilo del texto actual
+      // Restablecer el estilo del texto actual
+      this.texts[this.currentIndex].styleText = 'info-text';
       this.currentIndex--;
-      this.texts[this.currentIndex].styleText = 'info-text-select'; // Actualizar el estilo del texto anterior
-      this.progress = Math.max(this.progress - 33.33, 0); // Disminuye el progreso, evita valores negativos
+      // Actualizar el estilo del texto anterior
+      this.texts[this.currentIndex].styleText = 'info-text-select';
+      // Disminuye el progreso, evita valores negativos
+      this.progress = Math.max(this.progress - 33.33, 0);
       this.textButton = 'Desactivar cuenta';
+      
+      // Restablecer el texto del botón si vuelve al inicio
       if (this.currentIndex === 0) {
-        this.textButton = 'Continuar'; // Restablecer el texto del botón si vuelve al inicio
-        this.title = '¿Qué te ha llevado a desactivar tu cuenta?'
+        this.textButton = 'Continuar';
+        this.title = '¿Qué te ha llevado a desactivar tu cuenta?';
+        this.updateCheckboxes(); // Actualiza el estado de los checkboxes
       }
     }
   }
+  
+  updateCheckboxes() {
+    this.targets.forEach(target => {
+      target.isChecked = target.text === this.selectedReason;
+    });
+    // Limpiar el texto de otro motivo si no está seleccionado
+    if (this.selectedReason !== 'Otra') {
+      this.otherReason = '';
+    }
+  }
+  
 
   continue() {
     if (this.currentIndex < this.texts.length - 1) {
@@ -111,6 +128,7 @@ export class DisableProfileComponent {
       this.texts[this.currentIndex].styleText = 'info-text-select'; // Actualizar el estilo del texto siguiente
       this.progress = Math.min(this.progress + 33.33, 100); // Aumenta el progreso, evita valores mayores a 100
       this.textButton = 'Desactivar cuenta';
+      this.disaibleClient(this.textButton);
       this.title = '¿Estas seguro que deseas desactiviar tu cuenta?';
       if (this.currentIndex === this.texts.length - 1) {
         this.textButton = 'Cerrar'; // Cambia el texto del botón en el último paso
@@ -118,6 +136,25 @@ export class DisableProfileComponent {
       }
     }
   }
+
+  disaibleClient(button: string) {
+    // Verifica si el texto del botón es "Desactivar cuenta"
+    if (button === 'Desactivar cuenta') {
+      // Llama a changeState con false
+      this.apiService.changeState(false).subscribe(
+        (response) => {
+          console.log('Estado cambiado exitosamente:', response);
+          localStorage.clear();
+        },
+        (error) => {
+          console.error('Error al cambiar el estado:', error);
+          // Maneja el error según sea necesario
+        }
+      );
+    }
+  }
+  
+
 
   ngOnInit() {
     this.apiService.getUserInfo().subscribe(
@@ -130,6 +167,7 @@ export class DisableProfileComponent {
       }
     );
   }
+  
 
   return(){
     this.router.navigate(['/']);

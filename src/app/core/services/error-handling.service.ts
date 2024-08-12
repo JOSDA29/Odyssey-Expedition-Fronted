@@ -28,7 +28,8 @@ export class ErrorHandlingService {
           errorMessage = 'Correo o contraseña incorrectos';
           break;
         case 403:
-          errorMessage = 'Acceso prohibido. No tienes permisos para realizar esta acción.';
+          errorMessage = 'La sesión ha expirado, ingrese nuevamente';
+          
           break;
         case 404:
           errorMessage = 'Recurso no encontrado. Por favor verifica la URL.';
