@@ -68,3 +68,29 @@
   margin-top: 0.4rem;
 }
 
+@media (min-width: 352px) and (max-width: 480px) {
+  .input-register{ 
+    width: 70vw;
+    height: 7vh;
+    margin-top: 0rem;
+    font-size: 14px; 
+  }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}

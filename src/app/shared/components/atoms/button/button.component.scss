@@ -134,3 +134,37 @@
         color: $primary-color-text;
     }
 }
+
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .registerGoogle{
+    width: 70vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    }
+    .other-button{
+        width: 70vw;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}
