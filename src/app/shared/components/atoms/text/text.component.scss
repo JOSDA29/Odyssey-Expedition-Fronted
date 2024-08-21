@@ -133,6 +133,19 @@
   .disaible{
     font-size: $text-normal;
   }
+  .errortext1 {
+    margin-top: -9vw !important;
+    position: fixed;
+    margin-left: -2.5rem;
+    font-size: 14px;
+  }
+  .errortext {
+    margin-top: -2rem !important;
+    font-size: 14px;
+  }
+  .text-normal{
+    font-size: 14px;
+  }
 }
 
 
