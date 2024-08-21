@@ -34,3 +34,48 @@
         }
     }
 }
+
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .container {
+        margin: 2rem 1rem;
+    
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 60px 0;
+    
+            app-template-cards {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2rem;
+                flex: 1;
+            }
+    
+            .info {
+                width: 90vw;
+                height: 30rem;
+            }
+        }
+    }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}
+

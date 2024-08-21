@@ -128,14 +128,14 @@ export class LoginFormComponent implements OnInit {
                 });  
               }
             })
-            this.sweetAlertService.showSuccess('Inicio de secion exitoso')
+            this.sweetAlertService.showSuccess('Inicio de secion exitoso','assets/icons/check.gif')
             localStorage.setItem('isLoggedIn', 'true');
             this.closeModal();
             this.closeModalRecovery();
           } 
         },
         (error) => {
-          if (error.status === 401) {
+          if (error.status) {
             const errorMessage = this.errorHandlingService.handleError(error);
             return errorMessage;
           } 

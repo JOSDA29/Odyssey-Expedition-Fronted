@@ -71,18 +71,16 @@ export class PersonalInfoComponent implements OnInit {
       this.conten[3].textUpdate = 'Editar'
     }
   
-    console.log('Datos a enviar:', updatedClientData);
-  
     this.apiService.updateClient(
       updatedClientData.name,
       updatedClientData.lastName,
       updatedClientData.phoneNumber,
     ).subscribe(
       (response) => {
-        this.sweetAlertService.showSuccess('Datos actualizados correctamente')
+        this.sweetAlertService.showSuccess('Datos actualizados correctamente','assets/icons/check.gif')
         this.apiService.updateIdClient(this.conten[2].text).subscribe(
           idResponse => {
-            this.sweetAlertService.showSuccess('Datos actualizados correctamente')
+            this.sweetAlertService.showSuccess('Datos actualizados correctamente','assets/icons/check.gif')
           },
           error => {
             console.error('Error updating ID:', error);

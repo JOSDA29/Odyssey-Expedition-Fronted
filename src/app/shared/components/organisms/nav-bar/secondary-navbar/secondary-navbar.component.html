@@ -1,7 +1,8 @@
 <div class="nav-bar">
-    <app-nav-bar
-      srclogo="assets/images/logo.png" altlogo="logo"
-      [links]="showLinks ? navLinks : []" >
-    </app-nav-bar>
-  </div>
-  
+  <app-nav-bar
+    [srclogo]="'assets/images/logo.png'"
+    [altlogo]="'logo'"
+    [links]="showLinks ? navLinks : []"
+    [showLinks]="showLinks">
+  </app-nav-bar>
+</div>

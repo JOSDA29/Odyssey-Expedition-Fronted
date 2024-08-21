@@ -1,6 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { ModalServiceUpdateImage } from '../../services/edit-section-info.service';
 import { ApiService } from '../../../../core/services/api.service';
+import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-modal-update-image',
@@ -24,6 +27,7 @@ export class ModalUpdateImageComponent {
   constructor(
     private modalServiceUpdateImage: ModalServiceUpdateImage,
     private apiService: ApiService,
+    private sweetAlertService: SweetAlertService,
   ) {}
 
   selectImage(selectedImage: { srcImage: string, altImage: string, selected: boolean }) {
@@ -35,19 +39,31 @@ export class ModalUpdateImageComponent {
   async saveImageUpdate() {
     const selectedImage = this.images.find(image => image.selected);
     if (selectedImage) {
+      this.sweetAlertService.showLoading('Por favor espera.','Actualizando imagen...')
       try {
         const file = await this.imageUrlToFile(selectedImage.srcImage);
         this.apiService.updateImage(file).subscribe(
           response => {
-            console.log('Imagen actualizada con éxito:', response);
-            window.location.reload();
+            window.location.reload(); // Recargar la página mientras se muestra el spinner
           },
           error => {
-            console.error('Error al actualizar la imagen:', error);
+            Swal.close(); // Cerrar el spinner
+            Swal.fire({
+              title: 'Error',
+              text: 'Hubo un problema al actualizar la imagen.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+            });
           }
         );
       } catch (error) {
-        console.error('Error al convertir la imagen:', error);
+        Swal.close(); // Cerrar el spinner
+        Swal.fire({
+          title: 'Error',
+          text: 'Hubo un problema al convertir la imagen.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
       }
     }
     this.modalServiceUpdateImage.closeModal();

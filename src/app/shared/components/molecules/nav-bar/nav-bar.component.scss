@@ -1,17 +1,96 @@
+@import '../../../../../styles/variables.scss';
+
 .nav-bar{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color:#EEEE;
+    background-color:$background-light;
     app-logo{
         margin-left: 3rem;
     }
     .menu{
-        display: flex;      
+        display: flex;
+    }
+    .menu-icon{
+        display: none;
     }
     .icon{
         margin-right: 5rem;
     }
+}
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .nav-bar{
+        justify-content: space-around;
+        height: 5rem;
+        #logoImg{
+            display: none;
+        }
+        .icon{
+            margin-right: 0rem;
+        }
+        .menu {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 85%;
+          height: 100%;
+          background-color: $background-light;
+          z-index: 1004;
+        }
+    
+        .menu.open {
+          display: flex;
+          align-items: center;
+          .headerHamburger{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-around;
+          }
+        }
+    
+        .menu-icon {
+          display: block;
+        }
+    
+        .icon {
+          margin-right: 1rem;
+        }
+        app-logo{
+            margin-left: 0rem;
+        }
+    }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .nav-bar{
+        justify-content: space-evenly;
+        app-logo{
+            width: 250px;
+            height: 80rem;
+            margin-left: 0rem;
+        }
+        .icon{
+            margin-right: 0rem;
+        }
+    }
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
 }
 
 

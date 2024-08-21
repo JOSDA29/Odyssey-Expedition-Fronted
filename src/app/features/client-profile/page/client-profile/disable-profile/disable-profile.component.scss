@@ -22,7 +22,7 @@
   }
 
   .progress-bar-container {
-    width: 96%;
+    width: 100%;
     height: .5rem;
     background-color: #D8D8D8;
   }
@@ -154,3 +154,48 @@
 
   }
 }
+
+
+@media (min-width: 352px) and (max-width: 480px) {
+  .container{
+
+    .questions {
+      width: 90vw;
+    }
+    .targets{
+      .target {
+        padding: 1rem !important;
+      }
+    }
+
+
+      .checkbox-container {
+        input[type="checkbox"] {
+          width: 17px !important;
+          height: 16px!important;
+        }
+        input[type="checkbox"]:checked::before {
+          margin: 3px !important;
+        }
+      }
+  }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}
+

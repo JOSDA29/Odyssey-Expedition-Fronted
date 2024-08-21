@@ -1,18 +1,49 @@
 <div class="nav-bar">
-  <a href="/">
+  <div class="menu-icon" *ngIf="showLinks" (click)="toggleMenu($event)">
+    <app-icon
+      *ngIf="!menuOpen"
+      [src]="'assets/icons/menu.png'"
+      [alt]="'Menú'"
+      [style]="'icon-close'">
+    </app-icon>
+  </div>
+
+  <a href="/" id="logoImg">
     <app-logo [src]="srclogo" [alt]="altlogo"></app-logo>
   </a>
-  <div class="menu">
+
+  <a href="/" *ngIf="!showLinks">
+    <app-logo [src]="srclogo" [alt]="altlogo"></app-logo>
+  </a>
+
+  <div class="menu" *ngIf="showLinks" [class.open]="menuOpen">
+    <div class="headerHamburger">
+      <app-logo *ngIf="menuOpen" [src]="srclogo" [alt]="altlogo"></app-logo>
+      <app-icon
+        *ngIf="menuOpen"
+        [src]="'assets/icons/close.png'"
+        [alt]="'Cerrar'"
+        [style]="'icon-close'"
+        (click)="toggleMenu($event)">
+      </app-icon>
+    </div>
+
     <app-link
       *ngFor="let link of links; let i = index"
       [href]="link.href" 
       [style]="'info-normal'" 
       [text]="link.text"
       [isSelected]="selectedLinkIndex === i"
-      (linkSelected)="selectLink(i)"
-    ></app-link>
+      (linkSelected)="selectLink(i)">
+    </app-link>
   </div>
+
   <div class="icon">
-    <app-icon [src]="userProfilePicture" [alt]="alticon" [style]="'profile'" (click)="openLoginModal()"></app-icon>
+    <app-icon 
+      [src]="userProfilePicture" 
+      [alt]="alticon" 
+      [style]="'profile'" 
+      (click)="openLoginModal()">
+    </app-icon>
   </div>
-</div> 
+</div>

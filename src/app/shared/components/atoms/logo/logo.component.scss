@@ -9,3 +9,26 @@
     height: 5.063rem;
     margin-left: 2rem;
 }
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .logo{
+        width: 250px;
+        height: 70px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}

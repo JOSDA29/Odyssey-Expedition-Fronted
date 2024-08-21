@@ -2,20 +2,24 @@ app-icon{
     filter: invert(100%);
     
 }
-
-.social-icons{
+.icons-text{
     display: flex;
     justify-content: space-around;
-    gap: 1rem;
+    width: 100%;
+    .social-icons{
+        display: flex;
+        justify-content: space-around;
+        gap: 1rem;
+    }
 }
+
 .footer-over{
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #F1F1F1; 
     color: black;
-    width: 90rem;
-    height: 11rem;
+    width: 90vw;
     margin-top: 2rem;
     border-radius: 1rem 0 0 0;
     padding-right: 2rem;
@@ -31,9 +35,74 @@ app-icon{
     background-color: black;
     border-radius: 1rem 0px 0px 0px;
     cursor: pointer;
+    img{
+        width: 3rem;
+    }
 }
 
 .text {
     margin-left: auto; 
 }
 
+@media (min-width: 352px) and (max-width: 480px) {
+    .arrowUp{
+        width: 30%;
+        height: 7rem;
+        margin-right: 3rem;
+        img{
+            width: 1.9rem;
+        }
+    }
+    .icons-text{
+        flex-direction: column;
+        width: 12rem;
+        flex-wrap: wrap;
+        gap: 13px;
+        align-items: flex-end;
+    }
+    
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .arrowUp{
+        width: 30%;
+        height: 7rem;
+        margin-right: 3rem;
+        img{
+            width: 1.9rem;
+        }
+    }
+    .icons-text{
+        display: flex;
+        flex-direction: column;
+        width: 12rem;
+        flex-wrap: wrap;
+        gap: 13px;
+        align-items: flex-end;
+    }
+
+    .footer-over{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 920px) {
+    .arrowUp{
+        width: 30%;
+        height: 7rem;
+        margin-right: 3rem;
+        img{
+            width: 1.9rem;
+        }
+    }
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}

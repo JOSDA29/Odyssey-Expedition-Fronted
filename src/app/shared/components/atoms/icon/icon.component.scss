@@ -94,3 +94,34 @@
     width: 1rem ;
     height: 1rem;
 }
+
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .icons-top-nab-bar {
+        gap: 5px;
+        width: 20px;
+        height: 20px;
+    }
+    .icon-close{
+        width: 1.5rem ;
+        height: 1.5rem;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769px) and (max-width: 920px) {
+    .card-profile .card{
+        width: 46vw;
+    }
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}

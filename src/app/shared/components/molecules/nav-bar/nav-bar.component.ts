@@ -2,7 +2,7 @@ import { ModalService } from '../../../../features/home/services/modal-login.ser
 import { AuthGoogleService } from '../../../../core/services/auth-google.service';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../core/services/api.service'; 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
 
 @Component({
@@ -18,8 +18,10 @@ export class NavBarComponent implements OnInit {
   @Input() links: { href: string, text: string }[] = [];
   @Input() text: string = '';
   @Input() state: boolean = true;
-
+ 
+  @Input() showLinks: boolean = true;
   selectedLinkIndex: number | null = null;
+  menuOpen: boolean = false;
   userProfilePicture: string = 'assets/icons/profile.png';
 
   constructor(
@@ -27,7 +29,8 @@ export class NavBarComponent implements OnInit {
     private authGoogleService: AuthGoogleService,
     private router: Router,
     private apiService: ApiService,
-    private sweetAlertService: SweetAlertService
+    private sweetAlertService: SweetAlertService,
+    private elementRef: ElementRef,
   ) {}
 
   ngOnInit() {
@@ -43,6 +46,7 @@ export class NavBarComponent implements OnInit {
   selectLink(index: number) {
     this.selectedLinkIndex = index;
     localStorage.setItem('selectedLinkIndex', index.toString());
+    this.menuOpen = false;
   }
 
   openLoginModal(): void {
@@ -61,7 +65,6 @@ export class NavBarComponent implements OnInit {
         if (result.isConfirmed) {
           this.apiService.changeState(true).subscribe(
             (response) => {
-              console.log('Estado del cliente actualizado:', response);
               this.state = true; // Actualizar el estado local
               this.router.navigate(['/clientProfile']);
             },
@@ -79,7 +82,6 @@ export class NavBarComponent implements OnInit {
 
   fetchUserProfile(): void {
     this.apiService.getUserInfo().subscribe(userInfo => {
-      console.log('info user:', userInfo);
       
       // Manejar la imagen del perfil
       if (userInfo.imageurl !== null && userInfo.state !== false) {
@@ -96,4 +98,22 @@ export class NavBarComponent implements OnInit {
       console.error('Error fetching user info:', error);
     });
   }
+  toggleMenu(event: MouseEvent) {
+    event.stopPropagation(); // Detiene la propagación del evento de clic
+    this.menuOpen = !this.menuOpen;
+  }
+  
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    const clickedInside = this.elementRef.nativeElement.contains(event.target);
+    if (!clickedInside && this.menuOpen) {
+      this.menuOpen = false;
+    }
+  }
+
+  handleMenuStateChange(menuOpen: boolean) {
+    // Puedes realizar acciones adicionales aquí si es necesario.
+    console.log('Menu open state:', menuOpen);
+  }
+  
 }

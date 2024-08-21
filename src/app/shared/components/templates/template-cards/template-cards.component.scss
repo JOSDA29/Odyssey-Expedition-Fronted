@@ -25,7 +25,6 @@
     justify-content: space-between;
     padding: 2rem 3rem;
     width:  49rem;
-    height: 7.5rem;
     border: solid 1px $color-borders;
     border-radius: 0.625rem;
 }
@@ -38,7 +37,6 @@
         align-items: center;
         padding: 2rem 1rem;
         width: 25rem;
-        height: 19.75rem;
         border: solid 1px $color-borders;
         border-radius: 0.625rem;
         background-color: $background-light-contens;
@@ -51,3 +49,31 @@
 }
 }
 
+@media (min-width: 352px) and (max-width: 480px) {
+    .persona-info{
+        width: 90vw;
+        padding: 1.5rem;
+    }
+    .card-profile .card{
+        width: 90vw;
+        height: auto;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769px) and (max-width: 920px) {
+    .card-profile .card{
+        width: 46vw;
+    }
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}
