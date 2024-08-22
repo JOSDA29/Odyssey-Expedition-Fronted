@@ -128,7 +128,7 @@ export class LoginFormComponent implements OnInit {
                 });  
               }
             })
-            this.sweetAlertService.showSuccess('Inicio de secion exitoso','assets/icons/check.gif')
+            this.sweetAlertService.showSuccess('Inicio de sesión exitoso','assets/icons/check.gif')
             localStorage.setItem('isLoggedIn', 'true');
             this.closeModal();
             this.closeModalRecovery();

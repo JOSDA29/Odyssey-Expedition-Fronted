@@ -16,12 +16,7 @@ export class RegisterFormComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
   showPassword: boolean = false;
   errorMessage: any = {};
-  weakPassword1: string = `La contraseña no cumple los requisitos mínimos:
-  - Al menos 8 caracteres
-  - Una mayúscula
-  - Una minúscula
-  - Un número
-  - Un carácter especial`;
+  weakPassword1: string = `La contraseña no cumple los requisitos mínimos`;
 
   @Input() srclogo: string = '';
   @Input() altlogo: string = '';
@@ -93,10 +88,11 @@ export class RegisterFormComponent implements OnInit {
 
     if (this.loginForm.valid) {
       const { name, lastName, email, password } = this.loginForm.value;
+      this.sweetAlertService.showLoading('Enviando correo...',`Se enviara un  correo de confirmacion a ${email}`,'assets/icons/correo.gif')
       this.apiService.Register(name, lastName, email, password).subscribe(
         userRegister => {
           if (userRegister) {
-            this.sweetAlertService.showSuccess('Registro exitoso')
+            this.sweetAlertService.showSuccess('Registro exitoso','assets/icons/check.gif')
             this.router.navigate(['/']);
           }
         },

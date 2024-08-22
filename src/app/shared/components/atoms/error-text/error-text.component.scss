@@ -11,7 +11,7 @@
     font-family: $font-family-poppins;
     font-size: $text-normal;
     font-weight: $font-weight-extralight;
-    position: relative;
+    position: absolute;
     color: $message-error;
   }
   
@@ -20,7 +20,7 @@
     font-size: $text-normal;
     font-weight: $font-weight-extralight;
     max-height: 7.5rem;
-    position: relative;
+    position: absolute;
     color: $message-error;
   }
 

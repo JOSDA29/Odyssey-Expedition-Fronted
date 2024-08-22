@@ -103,8 +103,12 @@
         height: 20px;
     }
     .icon-close{
-        width: 1.3rem ;
+        width: 1.3rem !important;
         height: 1.3rem;
+    }
+    .menuHamburger{
+        width: 6rem;
+        cursor: pointer;
     }
 }
 

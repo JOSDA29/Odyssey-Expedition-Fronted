@@ -41,7 +41,7 @@ export class ErrorHandlingService {
           errorMessage = 'Verifica que el número de teléfono tenga 10 dígitos y sean números.';
           break;
         case 500:
-          errorMessage = 'Error interno del servidor. Por favor intenta nuevamente más tarde.';
+          errorMessage = 'Verifica tu conexion a internet';
           break;
         default:
           errorMessage = `Error desconocido: ${error.message}`;

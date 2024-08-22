@@ -37,10 +37,13 @@ export class SweetAlertService {
     Swal.fire({
       title: title,
       text: message,
-      imageUrl: 'assets/icons/check.gif',
+      imageUrl: 'assets/icons/error.gif',
       imageAlt: '',
       confirmButtonText: 'Aceptar',
-      confirmButtonColor: this.colorButtonAcep,
+      customClass: {
+        popup: 'showError',
+        confirmButton: 'custom-confirm-button',
+      },
     });
   }
 
@@ -50,9 +53,8 @@ export class SweetAlertService {
       text: message,
       icon: 'warning',
       confirmButtonText: 'Aceptar',
-      confirmButtonColor: 'hsl(171, 100%, 41%)',
       customClass: {
-        popup: 'showSuccess'
+        popup: 'showSuccess',
       },
     });
   }
@@ -75,11 +77,11 @@ export class SweetAlertService {
   }
 
 
-  showLoading(message: string, title: string = ''): Promise<any> {
+  showLoading(message: string, title: string = '', imageUrl: string): Promise<any> {
     return Swal.fire({
       title: title,
       text: message,
-      imageUrl: 'assets/icons/avionLoading.gif',
+      imageUrl: imageUrl,
       imageAlt: '',
       showConfirmButton: false,  // Oculta el botón de confirmación
       showCancelButton: false,   // Oculta el botón de cancelación

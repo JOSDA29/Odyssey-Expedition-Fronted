@@ -3,6 +3,7 @@ import { ApiService } from '../../../../../core/services/api.service';
 import { Client } from '../../../models/profile-info.model';
 import { ErrorHandlingService } from '../../../../../core/services/error-handling.service';
 import { Router } from '@angular/router';
+import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
 
 @Component({
   selector: 'app-disable-profile',
@@ -15,6 +16,7 @@ export class DisableProfileComponent {
     private apiService: ApiService,
     private errorHandlingService: ErrorHandlingService,
     private router: Router,
+    private sweetAlertService:SweetAlertService,
   ){}
 
   textButton = 'Continuar';
@@ -128,22 +130,23 @@ export class DisableProfileComponent {
       this.texts[this.currentIndex].styleText = 'info-text-select'; // Actualizar el estilo del texto siguiente
       this.progress = Math.min(this.progress + 33.33, 100); // Aumenta el progreso, evita valores mayores a 100
       this.textButton = 'Desactivar cuenta';
-      this.disaibleClient(this.textButton);
       this.title = '¿Estas seguro que deseas desactiviar tu cuenta?';
       if (this.currentIndex === this.texts.length - 1) {
         this.textButton = 'Cerrar'; // Cambia el texto del botón en el último paso
         this.title = 'Cuenta desactivada'
+        this.disaibleClient(this.textButton);
       }
     }
   }
 
   disaibleClient(button: string) {
     // Verifica si el texto del botón es "Desactivar cuenta"
-    if (button === 'Desactivar cuenta') {
+    if (button === 'Cerrar') {
       // Llama a changeState con false
       this.apiService.changeState(false).subscribe(
         (response) => {
           console.log('Estado cambiado exitosamente:', response);
+          this.sweetAlertService.showSuccess('Cuenta desactivada','assets/icons/check.gif')
           localStorage.clear();
         },
         (error) => {

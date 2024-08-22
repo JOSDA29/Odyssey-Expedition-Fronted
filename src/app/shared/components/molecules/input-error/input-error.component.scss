@@ -18,7 +18,7 @@
 
   &.has-error .error-icon {
     display: block;
-    transform: translateY(-10px);
+    transform: translateY(0px);
     margin-right: .6rem;
   }
 }
@@ -39,7 +39,7 @@
   
     &.has-error .error-icon {
       display: block;
-      transform: translateY(-26px);
+      transform: translateY(-10px);
       margin-right: .6rem;
     }
   }

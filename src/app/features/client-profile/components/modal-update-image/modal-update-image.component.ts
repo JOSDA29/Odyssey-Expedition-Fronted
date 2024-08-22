@@ -39,7 +39,7 @@ export class ModalUpdateImageComponent {
   async saveImageUpdate() {
     const selectedImage = this.images.find(image => image.selected);
     if (selectedImage) {
-      this.sweetAlertService.showLoading('Por favor espera.','Actualizando imagen...')
+      this.sweetAlertService.showLoading('Por favor espera.','Actualizando imagen...','assets/icons/avionLoading.gif')
       try {
         const file = await this.imageUrlToFile(selectedImage.srcImage);
         this.apiService.updateImage(file).subscribe(
