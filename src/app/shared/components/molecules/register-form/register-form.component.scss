@@ -78,3 +78,39 @@ form{
     transform: translateY(3.8rem);
   }
   
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .fondo{
+        display: none;
+    }
+    .register-form{
+        width: 100% !important;
+    }
+    .line{
+        hr{
+            width: 32vw !important;
+          }
+    }
+    .toggle-password-btn {
+        left: 17rem;
+        transform: translateY(4.7rem);
+    }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}

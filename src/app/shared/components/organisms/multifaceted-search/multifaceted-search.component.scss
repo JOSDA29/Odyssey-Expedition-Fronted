@@ -17,9 +17,10 @@
 
 @media (min-width: 352px) and (max-width: 480px) {
     .multifaceted-search {
-        margin-bottom: 30vh;
+      margin-bottom: 2vh;
         .content {
-          top: 65%;
+        width: 90vw;
+        position: relative;
         }
       }
 }

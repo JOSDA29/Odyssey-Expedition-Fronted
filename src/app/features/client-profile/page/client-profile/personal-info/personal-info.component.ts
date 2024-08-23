@@ -61,6 +61,9 @@ export class PersonalInfoComponent implements OnInit {
     this.conten[index].isEditing = false;
   
     const phoneNumber = this.conten[3].text === 'No proporcionado' ? undefined : this.conten[3].text;
+    const clientId = this.conten[2].text === 'No proporcionado' ? undefined : this.conten[2].text;
+
+
     const updatedClientData = {
       name: this.conten[0].text,
       lastName: this.conten[1].text,
@@ -77,8 +80,7 @@ export class PersonalInfoComponent implements OnInit {
       updatedClientData.phoneNumber,
     ).subscribe(
       (response) => {
-        this.sweetAlertService.showSuccess('Datos actualizados correctamente','assets/icons/check.gif')
-        this.apiService.updateIdClient(this.conten[2].text).subscribe(
+        this.apiService.updateIdClient(clientId).subscribe(
           idResponse => {
             this.sweetAlertService.showSuccess('Datos actualizados correctamente','assets/icons/check.gif')
           },

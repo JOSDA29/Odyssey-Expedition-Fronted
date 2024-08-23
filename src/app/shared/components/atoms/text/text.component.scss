@@ -134,16 +134,22 @@
     font-size: $text-normal;
   }
   .errortext1 {
-    margin-top: -28px !important;
-    position: fixed;
-    margin-left: -2.5rem;
+    margin-top: -29px !important;
+    position: relative;
     font-size: 14px;
   }
   .errortext {
-    margin-top: -2rem !important;
+    margin-top: -1.8rem !important;
     font-size: 14px;
   }
   .text-normal{
+    font-size: 14px;
+  }
+  .text-nostros-profile{
+    font-size: 12px;
+    width: 60vw;
+  }
+  .info-text, .info-text-select{
     font-size: 14px;
   }
 }

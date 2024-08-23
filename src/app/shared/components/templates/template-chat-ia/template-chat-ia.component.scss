@@ -66,7 +66,7 @@
         }
 
         .ai-message {
-          max-width: 17rem;
+          max-width: 15rem;
           border: solid 1px $color-borders;
           padding: 0.8rem;
           border-radius: 0.625rem;
@@ -78,17 +78,21 @@
       .menssageChatClient{
         display: flex;
         justify-content: flex-end;
-
-        .client-message {
-          display: inline-block;
-          max-width: 20.4rem;
-          border: solid 1px $color-borders;
-          padding: 0.8rem;
-          border-radius: 0.625rem;
-          margin-bottom: 0.5rem;
-          background-color: $button-shared-color;
-          color: white;
-        }
+      }
+      .client-message {
+        display: inline-block;
+        max-width: 15rem;
+        border: solid 1px $color-borders;
+        padding: 0.8rem;
+        border-radius: 0.625rem;
+        margin-bottom: 0.5rem;
+        background-color: $button-shared-color;
+        color: white;
+        
+        /* Evitar que el texto largo desborde o expanda el contenedor */
+        white-space: normal; /* Permitir que el texto se envuelva */
+        overflow-wrap: break-word; /* Forzar el quiebre de palabras largas */
+        word-wrap: break-word; /* Compatibilidad adicional para el quiebre de palabras largas */
       }
       
     }
@@ -98,4 +102,35 @@
       margin-bottom: 1rem;
     }
   }
+}
+
+@media (min-width: 352px) and (max-width: 480px) {
+  .container {
+    margin: 0rem 1rem 2rem 0rem;
+    .container-chat{
+      width: 80vw;
+      height: 50vh;
+    }
+    .imageRespo{
+      width: 1.5rem !important;
+      height: 1.5rem !important;
+      margin-right: .5rem !important;
+    }
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
 }

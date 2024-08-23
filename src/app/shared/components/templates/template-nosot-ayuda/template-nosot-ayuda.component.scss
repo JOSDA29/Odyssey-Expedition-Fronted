@@ -60,3 +60,61 @@
 
     }
 }
+
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .conten{
+        .target{
+            margin: 5rem 0rem;
+       
+            .services{
+                margin: 2rem 0rem ;
+            }
+            .history {
+                flex-direction: column;
+                align-items: center ;
+                justify-content: center ;
+                width: 80vw ;
+                margin: 8rem 0rem ;
+              
+                img {
+                  width: 80vw ;
+                }
+              
+                .text {
+                    flex-direction: column;
+                    margin: 1rem 0rem;
+                    align-items: center;
+                    width: auto;
+                }
+            }
+
+            .tem{
+                width: 80vw;
+                height: 28.875rem;
+                margin: 2rem 0rem;
+                align-items: center;
+                app-text{
+                    width: auto;
+                }
+            }
+
+        }
+    }
+}
+  
+  @media (min-width: 481px) and (max-width: 768px) {
+  
+  }
+  
+  @media (min-width: 769) and (max-width: 920px) {
+  
+  }
+  
+  @media (min-width: 921px) and (max-width: 1279px) {
+  
+  }
+  
+  @media (min-width: 1280px) {
+  
+  }

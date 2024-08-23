@@ -54,10 +54,21 @@
 }
 
 @media (min-width: 352px) and (max-width: 480px) {
+    .subtitle-principal{
+        font-size: 22px;
+    }
     .subtitle-register{
         font-size: $text-normal;
     }
-    
+    .textCancelar, .textUpdate{
+        font-size: 14px;
+    }
+    .subtitle-theird{
+        font-size: 16px;
+    }
+    .subtitle-secundary{
+        font-size: 17px;
+    }
 }
 
 

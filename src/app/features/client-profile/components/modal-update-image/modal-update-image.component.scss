@@ -34,3 +34,43 @@
         justify-content: space-between;
     }
 }
+
+@media (min-width: 352px) and (max-width: 480px) {
+    .container {
+        width: 80vw;
+        height: 80vh;
+        text-align: center;
+        .images {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem ;
+    
+            app-icon {
+                flex: 1 0 21%;
+                max-width: calc(25% - 1rem);
+                height: auto;
+                transition: filter 0.3s ease; 
+            }
+        }
+        .buttons{
+            width: 18rem;
+        }
+    }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769) and (max-width: 920px) {
+
+}
+
+@media (min-width: 921px) and (max-width: 1279px) {
+
+}
+
+@media (min-width: 1280px) {
+
+}

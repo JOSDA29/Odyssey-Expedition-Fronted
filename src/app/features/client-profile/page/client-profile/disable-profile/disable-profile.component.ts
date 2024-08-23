@@ -23,8 +23,8 @@ export class DisableProfileComponent {
   title= '¿Qué te ha llevado a desactivar tu cuenta?'
   subtitle = '';
 
-  texts: { textConten: string; styleText: 'text-normal' | 'info-text' | 'info-text-select' | 'reversDisaible' | 'disaible' | 'text-nostros-profile' | 'text-link' | 'text-secundary' | 'textError1' | 'textsecundary' | 'errortext' | 'errortext1' | 'textError2' | 'info' | 'info-normal' }[] = [
-    { textConten: '1. Selecciona un motivo >', styleText: 'info-text-select' },
+  texts: { textConten: string; styleText:  'info-text' | 'info-text-select'}[] = [
+    { textConten: '1. Motivo >', styleText: 'info-text-select' },
     { textConten: '2. Confirmar >', styleText: 'info-text' },
     { textConten: '3. Listo', styleText: 'info-text' }
   ];

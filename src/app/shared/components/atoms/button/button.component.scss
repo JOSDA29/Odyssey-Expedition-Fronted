@@ -149,6 +149,32 @@
         align-items: center;
         justify-content: center;
     }
+    .search-button, .button-cancel{
+        width: 25vw;
+        height: 4vh;
+        .text{
+            font-size: 15px;
+        }
+    }
+    .share-button {
+        align-items: center;
+        justify-content: center;
+        width: 15vw;
+        height: 7vh;
+        border-radius: 30%;
+        position: relative; 
+    
+        .text {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);  
+            margin-top: 0.2rem;
+            color: #242424;
+            font-size: 15px;
+        }
+    }
+
 }
 
 
