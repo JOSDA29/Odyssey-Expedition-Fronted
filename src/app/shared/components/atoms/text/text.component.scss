@@ -128,13 +128,29 @@
   letter-spacing: $global-spacing; 
 }
 
+.addTramo{
+  color: $primary-color;
+  font-family: $font-family-poppins;
+  font-size: $text-normal;
+  font-weight: $font-weight-light;
+  letter-spacing: $global-spacing; 
+  cursor: pointer;
+}
+.deleteTramo{
+  color: $message-error;
+  font-family: $font-family-poppins;
+  font-size: $text-normal;
+  font-weight: $font-weight-light;
+  letter-spacing: $global-spacing; 
+  cursor: pointer;
+}
 
 @media (min-width: 352px) and (max-width: 480px) {
   .disaible{
     font-size: $text-normal;
   }
   .errortext1 {
-    margin-top: -29px !important;
+    margin-top: -8.5vw !important;
     position: relative;
     font-size: 14px;
   }
@@ -152,6 +168,10 @@
   .info-text, .info-text-select{
     font-size: 14px;
   }
+  .addTramo,.deleteTramo{
+    font-size: 12px;
+  }
+
 }
 
 

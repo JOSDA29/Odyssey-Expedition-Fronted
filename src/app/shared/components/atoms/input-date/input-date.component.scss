@@ -9,7 +9,21 @@
   padding-left: 0.8rem;
   border-radius: 5px;
   margin-top: 0.4rem;
+  position: relative;
+
+  .error-message {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    background-color: #e0e0e0;
+    opacity: 0.6;
+  }
 }
+
 
 .input-text-container {
   display: flex;
@@ -38,6 +52,8 @@
   height: 1.25rem; 
 }
 
+
+
 @media (min-width: 352px) and (max-width: 480px) {
   .input-text-wrapper {
     width: 37vw;
@@ -47,6 +63,10 @@
     width: 1.2rem; 
     height: 1.2rem; 
   }
+  .input-text {
+    font-size: 14px;
+  }
+  
 }
 
 @media (min-width: 481px) and (max-width: 768px) {

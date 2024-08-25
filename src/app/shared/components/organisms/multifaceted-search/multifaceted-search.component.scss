@@ -3,26 +3,31 @@
 .multifaceted-search {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
-  margin-bottom: 40vh;
 
   .content {
     width: 95vw;
+    //width: auto;
+    margin-bottom: 10vh;
+    margin-top: 24%;
+  }
+  .conten-top{
     position: absolute;
-    z-index: 1000;
-    top: 75%;
+    z-index: -1;
+    top: 20.8%;
   }
 }
 
 @media (min-width: 352px) and (max-width: 480px) {
     .multifaceted-search {
-      margin-bottom: 2vh;
         .content {
         width: 90vw;
-        position: relative;
+        margin-top: 28vh;
         }
-      }
+          .conten-top{
+        top: 16.6%;
+        }
+    }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {

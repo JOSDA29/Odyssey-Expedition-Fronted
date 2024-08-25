@@ -1,23 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-share-button',
   templateUrl: './share-button.component.html',
-  styleUrl: './share-button.component.scss'
+  styleUrls: ['./share-button.component.scss']
 })
 export class ShareButtonComponent {
-@Input() contens: { src: string, alt: string, text: string }[] = [];
-selectedLinkIndex: number | null = null;
+  @Input() contens: { src: string, alt: string, text: string }[] = [];
+  @Output() selected = new EventEmitter<number>(); 
+  selectedLinkIndex: number | null = null;
 
-ngOnInit() {
-  this.selectDefaultLink();
-}
+  ngOnInit() {
+    this.selectDefaultLink();
+  }
 
-selectDefaultLink() {
-  this.selectedLinkIndex = 0;
-}
+  selectDefaultLink() {
+    this.selectedLinkIndex = 0;
+    this.selected.emit(this.selectedLinkIndex); 
+  }
 
-selectLink(index: number) {
-  this.selectedLinkIndex = index;
-}
+  selectLink(index: number) {
+    this.selectedLinkIndex = index;
+    this.selected.emit(this.selectedLinkIndex); 
+  }
 }

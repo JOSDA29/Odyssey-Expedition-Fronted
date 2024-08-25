@@ -1,7 +1,16 @@
-<div class="input-text-wrapper">
-    <div class="input-text-container">
-        <img [src]="src" [alt]="alt" class="input-icon" (click)="openCalendar(calendarInput)">
-        <input type="date" class="input-date" #calendarInput (input)="updateText($event)" [min]="getCurrentDate()">
-    </div>
-    <span class="input-text">{{ txt }}</span>
+<div class="input-text-wrapper" [ngClass]="{'disabled': disabled}">
+  <div class="input-text-container">
+    <img [src]="src" [alt]="alt" class="input-icon" (click)="openCalendar(calendarInput)">
+    <input type="date" 
+           class="input-date" 
+           #calendarInput 
+           (input)="updateText($event)" 
+           [min]="getCurrentDate()" 
+           [formControl]="control" 
+           [disabled]="disabled">
+  </div>
+  <span class="input-text">{{ txt }}</span>
+  <div *ngIf="!disabled && isEmpty() && submitted" class="error-message">
+    <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+  </div>      
 </div>

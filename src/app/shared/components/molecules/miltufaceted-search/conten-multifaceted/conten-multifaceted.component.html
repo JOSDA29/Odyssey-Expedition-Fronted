@@ -1,37 +1,188 @@
 <div class="conten-multifaceted" *ngFor="let conten of contensSection">
-    <app-subtitle [style]="'subtitle-principal'" [text]="conten.title" ></app-subtitle>
-    <div class="checkboxes">
-        <div *ngFor="let checkbox of checkboxes">
-          <app-check-box [label]="checkbox.label" [isChecked]="checkbox.isChecked"></app-check-box>
-        </div>
-    </div>
-    <div class="conten-dates">
+  <app-subtitle [style]="'subtitle-principal'" [text]="conten.title"></app-subtitle>
+  
+<div class="checkboxes">
+  <div *ngFor="let checkbox of checkboxes; let i = index">
+    <app-check-box
+      [label]="checkbox.label"
+      [isChecked]="checkbox.isChecked"
+      (checkedChange)="onCheckboxChange(i)"
+    ></app-check-box>
+  </div>
+</div>
 
-      <div class="text">
-        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.origin"></app-subtitle>
-        <app-image-input-text [styleinput]="'input-text'" type="text" src="assets/icons/ubication.png" alt="Search Icon" placeholder="Ingrese una ciudad"></app-image-input-text>    
+  <div class="conten-dates" *ngIf="checkMenu == 0 || checkMenu == 1">
+    <div class="text">
+      <app-subtitle [style]="'subtitle-secundary'" [text]="conten.origin"></app-subtitle>
+      <app-image-input-text 
+        [styleinput]="'input-text'" 
+        type="text" 
+        src="assets/icons/ubication.png" 
+        alt="Search Icon" 
+        placeholder="Ingrese una ciudad"
+        [inputControl]="originControl">
+      </app-image-input-text>
+      <div *ngIf="submitted && originControl.invalid" class="error-message">
+        <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
       </div>
-
-      <div class="text">
-        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.origin"></app-subtitle>
-        <app-image-input-text [styleinput]="'input-text'" type="text" src="assets/icons/ubication.png" alt="Search Icon" placeholder="Ingrese una ciudad"></app-image-input-text>    
-      </div>  
-
-      <div class="text">
-        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.dates ? conten.dates:'' "></app-subtitle>
-        <div class="dates">
-          <app-input-date class="date1" src="assets/icons/date.png" [txt]="conten.ida ? conten.ida: ''"></app-input-date> 
-        <app-input-date src="assets/icons/date.png" [txt]="conten.vuelta ? conten.vuelta: ''"></app-input-date>
-        </div>
-           
-      </div>
-
-      <div class="text">
-        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.peopple ? conten.peopple:'' "></app-subtitle>
-        <app-image-input-text [styleinput]="'input-number'" type="number" src="assets/icons/peopple.png" alt="Search Icon" placeholder="1"></app-image-input-text>    
-      </div> 
-
-      <app-button [text]="textbutton" [style]="'search-button'"></app-button>
     </div>
+
+    <div class="text">
+      <app-subtitle [style]="'subtitle-secundary'" [text]="conten.destination"></app-subtitle>
+      <app-image-input-text 
+        [styleinput]="'input-text'" 
+        type="text" 
+        src="assets/icons/ubication.png" 
+        alt="Search Icon" 
+        placeholder="Ingrese una ciudad"
+        [inputControl]="destinationControl">
+      </app-image-input-text>
+      <div *ngIf="submitted && destinationControl.invalid" class="error-message">
+        <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+      </div>
+    </div>  
+
+    <div class="text">
+      <app-subtitle [style]="'subtitle-secundary'" [text]="conten.dates ? conten.dates : ''"></app-subtitle>
+      <div class="dates">
+        <app-input-date 
+          class="date1" 
+          src="assets/icons/date.png" 
+          [txt]="conten.ida ? conten.ida : ''" 
+          [submitted]="submitted"
+          [control]="idaControl">
+        </app-input-date>
+        <app-input-date 
+          src="assets/icons/date.png" 
+          [txt]="conten.vuelta ? conten.vuelta : ''" 
+          [submitted]="submitted"
+          [control]="vueltaControl"
+          [disabled]="checkMenu !== 0"> 
+</app-input-date>
+
+      
+      </div>      
+    </div>
+
+    <div class="footer">
+      <div class="text">
+        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.peopple ? conten.peopple : ''"></app-subtitle>
+        <app-image-input-text 
+          [styleinput]="'input-number'" 
+          type="number" 
+          src="assets/icons/peopple.png" 
+          alt="Search Icon" 
+          placeholder="0"
+          [inputControl]="peoppleControl">
+        </app-image-input-text>
+        <div *ngIf="submitted && peoppleControl.invalid" class="error-message">
+          <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+        </div>
+      </div>
+  
+      <app-button
+        [text]="textbutton" 
+        [style]="'search-button'" 
+        (click)="onSubmit()">
+      </app-button>
+    </div>
+  </div>
+
+
+
+  <div class="conten-dates2" *ngIf="checkMenu == 2">
+    <section class="header">
+      <section class="inputsConten" *ngFor="let tramo of tramos; let i = index">
+        <app-subtitle [style]="'subtitle-secundary'" text="Tramo {{ i + 1 }}" class="titleTramo"></app-subtitle>
     
+        <section class="inputs">
+          <!-- Contenido del tramo (origen, destino, fecha de ida) -->
+          <div class="text">
+            <app-subtitle [style]="'subtitle-secundary'" text="Origen:"></app-subtitle>
+            <app-image-input-text 
+              [styleinput]="'input-text'" 
+              type="text" 
+              src="assets/icons/ubication.png" 
+              alt="Search Icon" 
+              placeholder="Ingrese una ciudad"
+              [inputControl]="tramo.origin">
+            </app-image-input-text>
+            <div *ngIf="submitted && tramo.origin.invalid" class="error-message">
+              <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+            </div>
+          </div>
+    
+          <div class="text">
+            <app-subtitle [style]="'subtitle-secundary'" text="Destino:"></app-subtitle>
+            <app-image-input-text 
+              [styleinput]="'input-text'" 
+              type="text" 
+              src="assets/icons/ubication.png" 
+              alt="Search Icon" 
+              placeholder="Ingrese una ciudad"
+              [inputControl]="tramo.destination">
+            </app-image-input-text>
+            <div *ngIf="submitted && tramo.destination.invalid" class="error-message">
+              <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+            </div>
+          </div>
+    
+          <div class="text">
+            <app-subtitle [style]="'subtitle-secundary'" text="Fecha de Ida:"></app-subtitle>
+            <div class="dates">
+              <app-input-date 
+                class="date1" 
+                src="assets/icons/date.png" 
+                [txt]="'Seleccione una fecha'" 
+                [submitted]="submitted"
+                [control]="tramo.ida">
+              </app-input-date>
+            </div>      
+          </div>
+        </section>
+      </section>
+      
+      <!-- Sección de agregar/eliminar tramo fuera del *ngFor -->
+      <section class="tramo">
+        <app-text 
+          text="- Eliminar tramo" 
+          [style]="'deleteTramo'" 
+          *ngIf="tramos.length > 2" 
+          (click)="removeTramo(tramos.length - 1)">
+        </app-text>         
+        <app-text 
+          text="+ Agregar tramo" 
+          [style]="'addTramo'" 
+          *ngIf="tramos.length < 6"
+          (click)="addTramo()">
+        </app-text>      
+      </section>
+    </section>
+    
+
+  
+    <div class="footer">
+      <div class="text">
+        <app-subtitle [style]="'subtitle-secundary'" [text]="conten.peopple ? conten.peopple : ''"></app-subtitle>
+        <app-image-input-text 
+          [styleinput]="'input-number'" 
+          type="number" 
+          src="assets/icons/peopple.png" 
+          alt="Search Icon" 
+          placeholder="0"
+          [inputControl]="peoppleControl">
+        </app-image-input-text>
+        <div *ngIf="submitted && peoppleControl.invalid" class="error-message">
+          <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+        </div>
+      </div>
+  
+      <app-button
+        [text]="textbutton" 
+        [style]="'search-button'" 
+        (click)="onSubmit()">
+      </app-button>
+    </div>
+  </div>
+  
 </div>

@@ -9,8 +9,14 @@
     alt="image"
     ></app-images>
   </div>
-    <div class="content">
-    <app-share-button [contens]="contenButton"></app-share-button>
-    <app-conten-multifaceted [contensSection]="contenSection" [checkboxes]="checkContens" textbutton="Buscar" ></app-conten-multifaceted>
-    </div>
+  <div class="content">
+    <app-share-button [contens]="contenButton" (selected)="onMenuSelected($event)"></app-share-button>
+    <app-conten-multifaceted 
+      *ngIf="nuberMenu === 0" 
+      [contensSection]="contenSection" 
+      [checkboxes]="checkContens" 
+      textbutton="Buscar">
+    </app-conten-multifaceted>
+  </div>
+  
 </div>
