@@ -10,6 +10,7 @@ export class InputDateComponent {
   @Input() src: string = '';
   @Input() alt: string = '';
   @Input() txt: string = '';
+  @Input() style: 'input-text-wrapper' | 'input-text-wrapper2' = 'input-text-wrapper'
   @Input() submitted: boolean = false;
    @Input() disabled: boolean = false;
   @Input() control: FormControl = new FormControl();

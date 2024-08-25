@@ -1,0 +1,109 @@
+<div class="crusero-search"  *ngFor="let crusero of contenCruseros">
+    <app-subtitle [style]="'subtitle-principal'" text="¡Busca tu crusero soñado!"></app-subtitle>
+
+    <section class="inputs">
+        <div class="text">
+            <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.destination"></app-subtitle>
+            <app-image-input-text 
+              [styleinput]="'input-text'" 
+              type="text" 
+              src="assets/icons/ubication.png" 
+              alt="Search Icon" 
+              placeholder="Todos los destinos"
+              [inputControl]="destinatioControl">
+            </app-image-input-text>
+            <div *ngIf="submitted && destinatioControl.invalid" class="error-message">
+              <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+            </div>
+          </div> 
+
+          <section class="datesInputs">
+              <div class="text">
+                <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.exit ? crusero.exit : ''"></app-subtitle>
+                <div class="dates">
+                  <app-input-date 
+                  [style]="'input-text-wrapper'"
+                    class="date1" 
+                    src="assets/icons/date.png" 
+                    txt="Todos los meses" 
+                    [submitted]="submitted"
+                    [control]="exitControl">
+                  </app-input-date>
+                </div>      
+              </div>
+    
+              <div class="text">
+                <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.duration ? crusero.duration : ''"></app-subtitle>
+                <div class="dates">
+                  <app-input-date 
+                  [style]="'input-text-wrapper'"
+                    class="date1" 
+                    src="assets/icons/date.png" 
+                    txt="Cualquier duración" 
+                    [submitted]="submitted"
+                    [control]="durationControl">
+                  </app-input-date>
+                </div>      
+              </div>
+          </section>
+
+          <div class="text">
+            <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.port"></app-subtitle>
+            <app-image-input-text 
+              [styleinput]="'input-text'" 
+              type="text" 
+              src="assets/icons/ubication.png" 
+              alt="Search Icon" 
+              placeholder="Cualquier puerto"
+              [inputControl]="portControl">
+            </app-image-input-text>
+            <div *ngIf="submitted && portControl.invalid" class="error-message">
+              <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+            </div>
+          </div> 
+
+          <div class="text">
+            <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.boat"></app-subtitle>
+            <app-image-input-text 
+              [styleinput]="'input-text'" 
+              type="text" 
+              src="assets/icons/boat.png" 
+              alt="boat" 
+              placeholder="Cualquier barco"
+              styleIcon="boat"
+              [inputControl]="boatControl">
+            </app-image-input-text>
+            <div *ngIf="submitted && boatControl.invalid" class="error-message">
+              <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+            </div>
+          </div> 
+
+          
+          
+        </section>
+        <div class="footer">
+          <div class="text">
+              <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.naviera"></app-subtitle>
+              <app-image-input-text 
+                [styleinput]="'input-text-naviera'" 
+                type="text" 
+                src="assets/icons/boat.png" 
+                alt="boat" 
+                placeholder="Cualquier naviera"
+                styleIcon="boat"
+                [inputControl]="navieraControl">
+              </app-image-input-text>
+              <div *ngIf="submitted && navieraControl.invalid" class="error-message">
+                <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+              </div>
+            </div> 
+
+            <app-button
+              text="Buscar" 
+              [style]="'search-button'" 
+              (click)="onSubmit()">
+            </app-button>
+      </div>
+   
+  </div>
+  

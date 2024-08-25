@@ -1,0 +1,84 @@
+<div class="hotel-search">
+    <app-subtitle [style]="'subtitle-principal'" text="¡Busca tu hotel soñado!"></app-subtitle>
+
+    <section class="inputs" *ngFor="let hotel of contenHotel">
+        <div class="text">
+            <app-subtitle [style]="'subtitle-secundary'" [text]="hotel.destination"></app-subtitle>
+            <app-image-input-text 
+              [styleinput]="'input-text'" 
+              type="text" 
+              src="assets/icons/ubication.png" 
+              alt="Search Icon" 
+              placeholder="Ingrese una ciudad"
+              [inputControl]="destinationControl">
+            </app-image-input-text>
+            <div *ngIf="submitted && destinationControl.invalid" class="error-message">
+              <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+            </div>
+          </div> 
+
+          <div class="text">
+            <app-subtitle [style]="'subtitle-secundary'" [text]="hotel.dates ? hotel.dates : ''"></app-subtitle>
+            <div class="dates">
+              <app-input-date 
+              [style]="'input-text-wrapper'"
+                class="date1" 
+                src="assets/icons/date.png" 
+                [txt]="hotel.ida ? hotel.ida : ''" 
+                [submitted]="submitted"
+                [control]="idaControl">
+              </app-input-date>
+              <app-input-date 
+              [style]="'input-text-wrapper'"
+                src="assets/icons/date.png" 
+                [txt]="hotel.vuelta ? hotel.vuelta : ''" 
+                [submitted]="submitted"
+                [control]="vueltaControl"> 
+              </app-input-date>
+            </div>      
+          </div>
+
+          
+          <div class="footer">
+              <div class="text">
+                <app-subtitle [style]="'subtitle-secundary'" [text]="hotel.rooms ? hotel.rooms : ''"></app-subtitle>
+                <app-image-input-text 
+                  [styleinput]="'input-number'" 
+                  type="number" 
+                  src="assets/icons/rooms.png" 
+                  alt="Search Icon" 
+                  placeholder="0"
+                  styleIcon="input-icon-room"
+                  [inputControl]="peoppleControl">
+                </app-image-input-text>
+                <div *ngIf="submitted && peoppleControl.invalid" class="error-message">
+                  <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+                </div>
+              </div>
+
+            <div class="text">
+              <app-subtitle [style]="'subtitle-secundary'" [text]="hotel.peopple ? hotel.peopple : ''"></app-subtitle>
+              <app-image-input-text 
+                [styleinput]="'input-number'" 
+                type="number" 
+                src="assets/icons/peopple.png" 
+                alt="Search Icon" 
+                placeholder="0"
+                [inputControl]="peoppleControl">
+              </app-image-input-text>
+              <div *ngIf="submitted && peoppleControl.invalid" class="error-message">
+                <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
+              </div>
+            </div>
+        </div>
+        
+            <app-button
+              text="Buscar" 
+              [style]="'search-button'" 
+              (click)="onSubmit()">
+            </app-button>
+
+    </section>
+   
+  </div>
+  

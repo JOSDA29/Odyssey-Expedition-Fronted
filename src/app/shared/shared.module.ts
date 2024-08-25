@@ -55,6 +55,9 @@ import { TemplateCardsComponent } from './components/templates/template-cards/te
 import { FormUpdatesComponent } from './components/organisms/form-updates/form-updates.component';
 import { TemplateNosotAyudaComponent } from './components/templates/template-nosot-ayuda/template-nosot-ayuda.component';
 import { TemplateChatIAComponent } from './components/templates/template-chat-ia/template-chat-ia.component';
+import { SearchHotelComponent } from './components/molecules/miltufaceted-search/conten-multifaceted/search-hotel/search-hotel.component';
+import { SearchPaquetesComponent } from './components/molecules/miltufaceted-search/conten-multifaceted/search-paquetes/search-paquetes.component';
+import { SearchCruserosComponent } from './components/molecules/miltufaceted-search/conten-multifaceted/search-cruseros/search-cruseros.component';
 
 
 
@@ -114,6 +117,9 @@ import { TemplateChatIAComponent } from './components/templates/template-chat-ia
     FormUpdatesComponent,
     TemplateNosotAyudaComponent,
     TemplateChatIAComponent,
+    SearchHotelComponent,
+    SearchPaquetesComponent,
+    SearchCruserosComponent,
   ],
   imports: [
     CommonModule,

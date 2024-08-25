@@ -1,4 +1,4 @@
-<div class="input-text-wrapper" [ngClass]="{'disabled': disabled}">
+<div [ngClass]="[style, disabled ? 'disabled' : '']">
   <div class="input-text-container">
     <img [src]="src" [alt]="alt" class="input-icon" (click)="openCalendar(calendarInput)">
     <input type="date" 

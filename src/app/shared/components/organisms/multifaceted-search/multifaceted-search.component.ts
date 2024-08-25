@@ -15,6 +15,7 @@ export class MultifacetedSearchComponent {
     { src: 'assets/icons/cruise.png', alt: 'cruise', text: 'Cruceros', type: 'share-button' }
   ];
   
+  //vuelos
   contenSection = [
     {
       title: '¡Busca tu vuelo soñado!',
@@ -33,6 +34,44 @@ export class MultifacetedSearchComponent {
     { label: 'Solo ida', isChecked: false },
     { label: 'Multi destino', isChecked: false }
   ];
+
+
+  // Hoteles
+  contenHotel = [
+    {  section: null,
+      destination: 'Destino:',
+      dates: 'Fechas:',
+      ida: 'Ida',
+      vuelta: 'Vuelta',
+      rooms: 'Habitaciones:',
+      peopple: ''
+    },
+  ]
+
+//Paquetes
+
+contenPaquete = [
+  {  section: null,
+    origin: 'Ogigen:',
+    destination: 'Destino:',
+    dates: 'Fechas:',ida: 'Ida',
+    vuelta: 'Vuelta',
+    rooms: 'Habitaciones:',
+    peopple: ''},
+]
+
+contenCruseros = [
+  {  
+    section: null,
+    destination: 'Destino:',
+    exit: 'Mes de salida:',
+    duration: 'Duracion:',
+    port: 'Puerto de salida:',
+    boat: 'Barco',
+    naviera: 'Naviera'
+  },
+]
+
 
   onMenuSelected(selectedIndex: number) {
     this.nuberMenu = selectedIndex;
