@@ -53,6 +53,13 @@
     cursor: pointer;
 }
 
+.titleAdmin{
+    letter-spacing: $global-spacing;
+    color: $primary-color-text;
+    font-weight: $font-weight-semibold;
+    font-size: $text-normal;
+}
+
 @media (min-width: 352px) and (max-width: 480px) {
     .subtitle-principal{
         font-size: 22px;

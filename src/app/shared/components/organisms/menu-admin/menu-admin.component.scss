@@ -1,0 +1,107 @@
+@import '../../../../../styles/variables.scss';
+
+.menuAdmin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $primary-color;
+    justify-content: space-around;
+    width: 22vw;
+    height: 114.2vh;
+    padding: 1rem 1em 4rem 1rem;
+
+    .selectos {
+        width: 100%;
+        margin: 1rem  0rem 0rem;
+
+        app-subtitle {
+            margin: 1.5rem;
+        }
+
+        .options {
+            .option, .sub-option { 
+                display: flex;
+                align-items: center;
+                min-height: 2.5rem;
+                margin: 1.2rem auto;
+                cursor: pointer;
+                width: 100%;  
+
+                .icon1 {
+                    margin: 1rem;
+                }
+
+                &:hover {
+                    background-color: rgb(58 58 58 / 50%);
+                    transition: 1s;
+                }
+
+                &.selected {
+                    background-color: rgb(58 58 58 / 50%);
+                }
+
+                app-text {
+                    flex: 1;  
+                    overflow: hidden;  
+                    text-overflow: ellipsis; 
+                    white-space: nowrap;
+                }
+            }
+
+            .sub-options {
+                margin-left: 2rem;
+
+                .sub-option {
+                    &:hover {
+                        background-color: rgb(58 58 58 / 25%);
+                        transition: 1s;
+                    }
+
+                    &.selected {
+                        background-color: rgb(58 58 58 / 25%);
+                    }
+
+                    app-text {
+                        margin-left: 2rem;
+                    }
+                }
+            }
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            height: 2.5rem;
+            margin: 1.5rem auto;
+            cursor: pointer;
+            width: 100%;  // Asegura que la opción ocupe todo el ancho disponible
+            overflow: hidden;   // Ocultar contenido desbordado
+            text-overflow: ellipsis; // Añadir puntos suspensivos si el texto es demasiado largo
+            white-space: nowrap;  // Mantener el texto en una sola línea
+
+            .icon1 {
+                margin: 1rem;
+            }
+
+            &:hover {
+                background-color: #24242482;
+                transition: 1s;
+            }
+
+            &.selected {
+                background-color: rgb(58 58 58 / 50%);
+            }
+        }
+    }
+    .secion{
+        display: flex;
+        align-items: flex-end;
+        app-icon{
+            margin-right: .5rem;
+        }
+        app-text{
+            cursor: pointer;
+        }
+    }
+
+}

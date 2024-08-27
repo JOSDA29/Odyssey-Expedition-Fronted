@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ApiService } from '../../../../../core/services/api.service';
+import { searchFligth } from '../../../../../core/models/searchFligths';
 
 @Component({
   selector: 'app-conten-multifaceted',
@@ -37,7 +39,10 @@ export class ContenMultifacetedComponent implements OnInit {
     ida: FormControl 
   }> = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -85,7 +90,24 @@ export class ContenMultifacetedComponent implements OnInit {
     this.submitted = true;
     this.validateForm();
     if (this.form.valid) {
-      // Realizar la acción del botón
+      const searchCriteria: searchFligth = {
+        transportType: 'vuelo', // Reemplaza según los valores del formulario
+        origin: this.originControl.value,
+        destination: this.destinationControl.value,
+        arrivalDate: this.form.value.arrivalDate, // Reemplaza según los valores del formulario
+        departureDate: this.form.value.departureDate, // Reemplaza según los valores del formulario
+      };
+
+      this.apiService.searchTransport(searchCriteria).subscribe(
+        (response) => {
+          console.log('Resultado:', response);
+          // Maneja la respuesta
+        },
+        (error) => {
+          console.error('Error:', error);
+          // Maneja el error
+        }
+      );
     }
   }
 
@@ -111,7 +133,7 @@ export class ContenMultifacetedComponent implements OnInit {
   }
 
   removeTramo(index: number) {
-    if (this.tramos.length > this.min) { // Solo permite eliminar si hay más tramos que el mínimo permitido
+    if (this.tramos.length > this.min) {
       this.tramos.splice(index, 1);
     }
   }

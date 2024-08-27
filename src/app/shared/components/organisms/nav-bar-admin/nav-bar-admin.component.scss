@@ -1,0 +1,33 @@
+@import '../../../../../styles/variables.scss';
+
+.conten {
+    width: 77vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+    border-bottom: 1px solid $color-borders;
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+
+        .title1 {
+            position: relative;
+            padding-right: 1rem;
+            margin-right: 1rem;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%; // Cambia para ajustar la posición vertical
+                height: 50%; // Cambia para ajustar la altura de la línea
+                width: 2.3px; // Ajusta el grosor de la línea
+                background-color: $primary-color; // Cambia el color de la línea
+                transform: translateY(-50%); // Centra verticalmente la línea
+            }
+        }
+        
+    }
+}

@@ -1,0 +1,51 @@
+<app-nav-bar-admin  [titles]="titlesTopTransport"></app-nav-bar-admin>
+
+<div class="conten">
+
+    <div class="contenTop">
+        <div class="filters" *ngFor="let input of inputs">
+            <app-text *ngIf="input.tex" [text]="input.tex"  [style]="'chatIA'"></app-text>
+            <app-input-text *ngIf="input.input && input.type" [placeholder]="input.input" [type]="input.type" [style]="'inputAdmin'"></app-input-text>
+            <app-input-date 
+                *ngIf="input.dateStar" 
+                src="assets/icons/date.png" 
+                [txt]="input.dateStar" 
+                [style]="'dateUpdateTransport'"
+                >
+            </app-input-date>
+            <app-input-date 
+                *ngIf="input.dateFinish" 
+                src="assets/icons/date.png" 
+                [txt]="input.dateFinish" 
+                [style]="'dateUpdateTransport'">
+            </app-input-date>
+        </div>
+        <app-selector
+        *ngFor="let select of selects"
+        [textSelect]="select.text"
+        [selectId]="'select-' + select.option"
+        [options]="select.options"
+        [selectedValue]="select.option"
+        [selectClass]="'select-class'"
+        (valueChanged)="onOptionChange($event)">
+      </app-selector>
+
+        <div [class]="butons">
+            <app-button  *ngFor="let button of buttons"
+            [style]="'button-Admin'" 
+            [text]="button.textButon">
+            <app-icon [src]="button.srcButon" [alt]="button.altButon" [style]="'iconAdmin'"></app-icon>
+        </app-button>
+        </div>
+
+    </div>
+    <div class="teble">
+        <app-table-admin
+        [header]="styleHeader"
+        [conten]="conten"
+        [items]="itemsTransport"
+        [titles]="titlesTransporte">
+      </app-table-admin>
+    </div>
+
+</div>

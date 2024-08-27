@@ -1,0 +1,35 @@
+<div class="conten">
+  <app-menu-admin
+    [options]="menuOptions"
+    (optionSelected)="handleOptionSelected($event)"
+    (subOptionSelected)="handleSubOptionSelected($event)">
+  </app-menu-admin>
+
+  <!-- Mostrar contenido basado en la selección -->
+  <ng-container *ngIf="selection === 'Servicios'">
+    <app-hoteles-admin
+      *ngIf="subSelecction === 'Hoteles'">
+    </app-hoteles-admin>
+
+    <app-transporte-adviser
+      *ngIf="subSelecction === 'Transportes'"
+      [inputs]="inputsTansport"
+      [buttons]="buttons"
+      [selects]="selects"
+      [titlesTransporte]="titlesTransporte"
+      [styleHeader]="'headerTransporte'"
+      [titlesTopTransport]="titlesTopTransport"
+      [itemsTransport]="itemsTransport"
+      [conten]="'conten2'">
+    </app-transporte-adviser>
+  </ng-container>
+
+  <ng-container *ngIf="selection === 'Proveedores'">
+    <app-proveedoresa-adviser></app-proveedoresa-adviser>
+  </ng-container>
+
+  <!-- Contenido para otras condiciones -->
+  <ng-container *ngIf="selection !== 'Servicios' && selection !== 'Proveedores'">
+    <app-empty-status></app-empty-status>
+  </ng-container>
+</div>

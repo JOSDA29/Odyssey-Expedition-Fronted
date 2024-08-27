@@ -103,6 +103,36 @@
   font-size: $text-normal; 
   margin-top: 0.4rem;
 }
+.inputAdmin{
+  width: 10.313rem;
+  height: 2.7rem;
+  padding: 6px;
+  border: 1px solid $color-borders;
+  border-radius: 0.313rem; 
+  font-size: $text-normal; 
+}
+
+.inputUpdateHotel{
+  padding-left: 1rem; 
+  width: 14.813rem;
+  height: 3.063rem; 
+  border: 1px solid $color-borders;
+  box-sizing: border-box;
+  border-radius: 5px; 
+  font-size: $text-normal; 
+  margin-top: 0.5rem;
+}
+
+.inputUpdateHotelDescrip{
+  padding-left: 1rem; 
+  width: 49rem;
+  height: 8.75rem; 
+  border: 1px solid $color-borders;
+  box-sizing: border-box;
+  border-radius: 5px; 
+  font-size: $text-normal; 
+  margin-top: 0.5rem;
+}
 
 @media (min-width: 352px) and (max-width: 480px) {
   .input-register{ 

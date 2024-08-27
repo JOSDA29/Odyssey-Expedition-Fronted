@@ -52,8 +52,7 @@ export class NavBarComponent implements OnInit {
   openLoginModal(): void {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const isLoggedInGoogle = this.authGoogleService.isAuthenticated();
-
-    if ((isLoggedIn === 'true' && this.state) || isLoggedInGoogle) {
+   if ((isLoggedIn === 'true' && this.state) || isLoggedInGoogle) {
       this.router.navigate(['/clientProfile']);
       return;
     }

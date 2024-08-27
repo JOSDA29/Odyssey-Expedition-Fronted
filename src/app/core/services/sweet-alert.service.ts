@@ -59,15 +59,15 @@ export class SweetAlertService {
     });
   }
 
-  showConfirmation(message: string, title: string = ''): Promise<any> {
+  showConfirmation(message: string, title: string = '', textConfir: string ='', cancelText: string = ''): Promise<any> {
     return Swal.fire({
       title: title,
       text: message,
       imageUrl: 'assets/icons/alert.gif',
       imageAlt: '',
       showCancelButton: true,
-      confirmButtonText:'Sí, activar',
-      cancelButtonText: 'No activar',
+      confirmButtonText: textConfir ? textConfir : 'Sí, activar',
+      cancelButtonText: cancelText ? cancelText :'No activar',
       customClass: {
         popup: 'showConfirmation',
         confirmButton: 'custom-confirm-button',

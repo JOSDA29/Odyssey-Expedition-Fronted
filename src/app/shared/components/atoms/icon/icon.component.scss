@@ -109,6 +109,21 @@
     height: 1.25rem; 
 }
 
+.iconAdmin{
+    width: 0.813rem;
+    height: 0.813rem;
+    margin: 0.2rem 0rem 0rem 0rem;
+}
+
+.iconHotelAdmin{
+    width: 1.188rem;
+    height: 0.875rem;
+    cursor: pointer;
+}
+.iconHotelAdminedit{
+    width: 1.188rem;
+    cursor: pointer;
+}
 
 @media (min-width: 352px) and (max-width: 480px) {
     .icons-top-nab-bar {

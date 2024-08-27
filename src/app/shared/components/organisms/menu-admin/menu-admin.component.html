@@ -1,0 +1,50 @@
+<div class="menuAdmin">
+  <app-logo src="assets/images/logoAdmin.png" alt="" [style]="'logo'"></app-logo>
+
+  <section class="selectos">
+      
+      <app-subtitle text="Principal" [style]="'titleAdmin'"></app-subtitle>
+  
+      <div class="option"
+           (click)="selectOption('Inicio')"
+           [class.selected]="isSelected('Inicio')">
+          <app-icon src="assets/icons/homeAdmin.png" alt="" [style]="'icon-closeIA'" class="icon1"></app-icon>
+          <app-text text="Inicio" [style]="'subSelector'"></app-text>
+      </div>
+      
+      <app-subtitle text="Gestion" [style]="'titleAdmin'"></app-subtitle>
+      <section class="options" *ngFor="let option of options">
+          <div class="option" 
+          (click)="selectOption(option.selector)"
+          [class.selected]="isSelected(option.selector)">
+            <app-icon [src]="option.srcSelector" [alt]="option.altSelector" [style]="'icon-closeIA'" class="icon1"></app-icon>
+            <app-text [text]="option.selector" [style]="'subSelector'"></app-text>
+          </div>
+          
+          <div *ngIf="isSelected(option.selector)" class="sub-options">
+            <div *ngFor="let subOption of option.subOptions" 
+                 class="sub-option"
+                 (click)="selectOption(option.selector, subOption.subSelector)"
+                 [class.selected]="isSelected(option.selector, subOption.subSelector)">
+              <app-text [text]="subOption.subSelector" [style]="'subSelector'"></app-text>
+            </div>
+          </div>
+      </section>
+
+      <app-subtitle text="Centro de ayuda" [style]="'titleAdmin'"></app-subtitle>
+  
+      <div class="option"
+           (click)="selectOption('Soporte')"
+           [class.selected]="isSelected('Soporte')">
+          <app-icon src="assets/icons/supor.png" alt="" [style]="'icon-closeIA'" class="icon1"></app-icon>
+          <app-text text="Soporte" [style]="'subSelector'"></app-text>
+      </div>
+
+  </section>
+
+  <div class="secion" (click)="closeSecion()">
+    <app-icon src="assets/icons/exit.png" alt="" [style]="'icon-closeIA'" class="icon1"></app-icon>
+    <app-text text="Cerrar sesión" [style]="'subSelector'"></app-text>
+  </div>
+
+</div>

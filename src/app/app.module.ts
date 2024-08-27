@@ -17,6 +17,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ClientProfileModule } from './features/client-profile/client-profile.module';
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
+import { HomeAdminComponent } from './features/home-admin/home-admin.component';
 
 @NgModule({
   declarations: [

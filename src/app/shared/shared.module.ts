@@ -58,6 +58,18 @@ import { TemplateChatIAComponent } from './components/templates/template-chat-ia
 import { SearchHotelComponent } from './components/molecules/miltufaceted-search/conten-multifaceted/search-hotel/search-hotel.component';
 import { SearchPaquetesComponent } from './components/molecules/miltufaceted-search/conten-multifaceted/search-paquetes/search-paquetes.component';
 import { SearchCruserosComponent } from './components/molecules/miltufaceted-search/conten-multifaceted/search-cruseros/search-cruseros.component';
+import { MenuAdminComponent } from './components/organisms/menu-admin/menu-admin.component';
+import { HomeAdminComponent } from '../features/home-admin/home-admin.component';
+import { HomeComponent } from '../features/home/pages/home/home.component';
+import { HotelesAdminComponent } from './components/organisms/hoteles-admin/hoteles-admin.component';
+import { NavBarAdminComponent } from './components/organisms/nav-bar-admin/nav-bar-admin.component';
+import { SelectorComponent } from './components/atoms/selector/selector.component';
+import { TableAdminComponent } from './components/molecules/table-admin/table-admin.component';
+import { ToggleSwitchComponent } from './components/atoms/toggle-switch/toggle-switch.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { ModalUpdateHotelComponent } from './components/organisms/modal-update-hotel/modal-update-hotel.component';
+import { TransporteAdviserComponent } from './components/organisms/transporte-adviser/transporte-adviser.component';
+import { ProveedoresaAdviserComponent } from './components/organisms/proveedoresa-adviser/proveedoresa-adviser.component';
 
 
 
@@ -120,6 +132,18 @@ import { SearchCruserosComponent } from './components/molecules/miltufaceted-sea
     SearchHotelComponent,
     SearchPaquetesComponent,
     SearchCruserosComponent,
+    MenuAdminComponent,
+    HomeAdminComponent,
+    HomeComponent,
+    HotelesAdminComponent,
+    NavBarAdminComponent,
+    SelectorComponent,
+    TableAdminComponent,
+    ToggleSwitchComponent,
+    TruncatePipe,
+    ModalUpdateHotelComponent,
+    TransporteAdviserComponent,
+    ProveedoresaAdviserComponent,
   ],
   imports: [
     CommonModule,

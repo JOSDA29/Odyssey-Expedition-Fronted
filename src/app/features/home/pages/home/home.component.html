@@ -1,4 +1,13 @@
-<app-template-home></app-template-home>
-<app-cards-service></app-cards-service>
-<app-template-chat-ia></app-template-chat-ia>
-<app-principal-footer></app-principal-footer>
+<!-- Si showContent es true, se muestra este contenido -->
+<div *ngIf="showContent">
+    <app-template-home></app-template-home>
+    <app-cards-services-list></app-cards-services-list>
+    <app-template-chat-ia></app-template-chat-ia>
+    <app-principal-footer></app-principal-footer>
+  </div>
+  
+  <!-- Si showContent es false, se muestra este otro contenido -->
+  <div *ngIf="!showContent">
+    <app-home-admin></app-home-admin>
+  </div>
+  

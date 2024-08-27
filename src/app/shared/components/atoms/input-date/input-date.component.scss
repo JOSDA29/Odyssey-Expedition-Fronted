@@ -10,7 +10,7 @@
   border-radius: 5px;
   margin-top: 0.4rem;
   position: relative;
-
+   
   .error-message {
     position: absolute;
     bottom: -2px;
@@ -18,9 +18,13 @@
   }
 
   &.disabled {
-    pointer-events: none;
+    cursor: not-allowed;
     background-color: #e0e0e0;
     opacity: 0.6;
+    .input-icon,
+    .input-date {
+      pointer-events: none; 
+    }
   }
 }
 
@@ -46,6 +50,46 @@
     background-color: #e0e0e0;
     opacity: 0.6;
   }
+}
+
+.dateUpdateHotel{
+    display: flex;
+    align-items: center;
+    width: 14.813rem;
+    height: 3.063rem;
+    border: solid 1px $color-borders; 
+    padding-left: 0.8rem;
+    border-radius: 5px;
+    margin-top: 0.4rem;
+    position: relative;
+     
+    .error-message {
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+    }
+  
+    &.disabled {
+      cursor: not-allowed;
+      background-color: #e0e0e0;
+      opacity: 0.6;
+      .input-icon,
+      .input-date {
+        pointer-events: none; 
+      }
+    }
+}
+
+.dateUpdateTransport{
+  display: flex;
+    align-items: center;
+    width: 10.313rem;
+    height: 2.7rem;
+    border: 1px solid $color-borders;
+    padding-left: 0.8rem;
+    border-radius: 5px;
+    margin-top: 0.4rem;
+    background-color: $background-light-contens;
 }
 
 

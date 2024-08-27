@@ -120,6 +120,14 @@
   letter-spacing: $global-spacing;
 }
 
+.subSelector{
+  color: $primary-color-text;
+  font-family: $font-family-poppins;
+  font-size: $text-normal;
+  font-weight: $font-weight-extralight;
+  letter-spacing: $global-spacing;
+}
+
 .chatIA{
   color: $color-info;
   font-family: $font-family-poppins;
@@ -143,6 +151,20 @@
   font-weight: $font-weight-light;
   letter-spacing: $global-spacing; 
   cursor: pointer;
+}
+
+.textTableAdmin{
+  font-family: $font-family-poppins;
+  font-size: $text-normal;
+  font-weight: $font-weight-extralight;
+  letter-spacing: $global-spacing;
+}
+
+.textHotelUpdate{
+  font-family: $font-family-poppins;
+  font-size: $info-normal;
+  font-weight: $font-weight-light;
+  letter-spacing: $global-spacing;
 }
 
 @media (min-width: 352px) and (max-width: 480px) {

@@ -32,14 +32,14 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 403) {
+       /* if (error.status === 403) {
           this.router.navigate(['/']);
           localStorage.clear();
           if (!this.modalOpened) {
             this.modalService.openModal();
             this.modalOpened = true; 
           }
-        }
+        }*/
         return throwError(error);
       })
     );

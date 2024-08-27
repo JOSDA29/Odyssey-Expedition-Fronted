@@ -1,0 +1,30 @@
+@import '../../../../../styles/variables.scss';
+
+.conten{
+    display: flex;
+    align-items: center;
+    select {
+        padding: .5rem;
+        border-radius: 4px;
+        border: 1px solid $color-borders;
+        background-color: $primary-color-text;
+        width: 8.25rem;
+        height: 2.7rem;
+        color: rgb(0 0 0 / 60%);;
+        font-family: $font-family-poppins;
+        font-size: $text-normal;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing; 
+    }
+      
+      select:disabled {
+        background-color: $background-light;
+        color: $color-borders;
+    }
+      
+      label {
+        margin: 0rem 1rem;
+    }
+}
+
+  

@@ -64,7 +64,6 @@ export class LoginFormComponent implements OnInit {
       this.router.navigate(['/clientProfile']);
       return;
     }
-
     this.createForm();
   }
 
@@ -105,7 +104,7 @@ export class LoginFormComponent implements OnInit {
           if (user) {
             const { AccessToken } = user;
             localStorage.setItem('token', AccessToken);
-            this.apiService.getUserInfo().subscribe(userInfo=>{
+            this.apiService.getUserInfo().subscribe(userInfo => {
               if (userInfo.state !== true) {
                 localStorage.setItem('isLoggedIn', 'false');
                 this.sweetAlertService.showConfirmation(
@@ -118,34 +117,59 @@ export class LoginFormComponent implements OnInit {
                         console.log('Estado del cliente actualizado:', response);
                         localStorage.setItem('isLoggedIn', 'true');
                         this.router.navigate(['/clientProfile']);
+                        this.closeModal();
                       },
                       (error) => {
                         console.error('Error al actualizar el estado del cliente:', error);
                       }
                     );
-                  } else if (result.isDismissed) {
                   }
-                });  
+                });
+              } else {
+                this.sweetAlertService.showSuccess('Inicio de sesión exitoso', 'assets/icons/check.gif');
+                localStorage.setItem('isLoggedIn', 'true');
+                this.closeModal();
+                this.closeModalRecovery();
               }
-            })
-            this.sweetAlertService.showSuccess('Inicio de sesión exitoso','assets/icons/check.gif')
-            localStorage.setItem('isLoggedIn', 'true');
-            this.closeModal();
-            this.closeModalRecovery();
-          } 
+            }, (error) => {
+              if (!localStorage.getItem('isLoggedIn')) {
+                this.apiService.getAdmin().subscribe(
+                  adminData => {
+                    localStorage.setItem('isLoggedAdmin', 'true');
+                    window.location.reload();
+                    this.closeModal();
+                  },
+                  (adminError) => {
+                    if (!localStorage.getItem('isLoggedAdmin') && !localStorage.getItem('isLoggedAdviser')) {
+                      this.apiService.getAdviser().subscribe(
+                        adviserData => {
+                          localStorage.setItem('isLoggedAdviser', 'true');
+                          window.location.reload();
+                          this.closeModal();
+                        },
+                        (adviserError) => {
+                          console.error('Error al obtener datos del asesor:', adviserError);
+                        }
+                      );
+                    }
+                  }
+                );
+              }
+            });
+          }
         },
         (error) => {
           if (error.status) {
             const errorMessage = this.errorHandlingService.handleError(error);
-            return errorMessage;
-          } 
+            console.error('Error de inicio de sesión:', errorMessage);
+          }
         }
       );
     } else {
-      
       alert('Por favor, complete el formulario correctamente');
     }
   }
+  
   
 
 

@@ -5,6 +5,7 @@ import { Client } from '../../features/client-profile/models/profile-info.model'
 import { Login } from '../../features/home/models/login-modal-model';
 import { RegisterForm } from '../../features/register/models/register-form-info.model';
 import { updateClient } from '../../features/client-profile/models/update-info.model';
+import { searchFligth } from '../models/searchFligths';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,12 @@ export class ApiService {
   getUserInfo(): Observable<Client> {
     return this.http.get<Client>(`${this.apiUrl}/client/getByEmail`);
   }
+  getAdmin(): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/admin/getByEmail`);
+  }
+  getAdviser():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/adviser/getByEmail`);
+  }
 
   updateClient(name?: string,lastName?: string,phoneNumber?: string | undefined):Observable<updateClient>{
     return this.http.put<updateClient>(`${this.apiUrl}/client/update`,{name,lastName,phoneNumber})
@@ -49,4 +56,9 @@ export class ApiService {
   changeState(state: boolean):Observable<boolean>{
     return this.http.put<boolean>(`${this.apiUrl}/client/ChangeState`,{state});
   }
+
+  searchTransport(data: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/transport/filter`, { params: data });
+  }
+
 }

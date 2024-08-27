@@ -135,6 +135,43 @@
     }
 }
 
+.button-Admin{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 9.7rem;
+    height: 2.4rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: $button-shared-color;
+    cursor: pointer;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}
+
+.saveHotel{
+    border-radius: 1.25rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary-color;
+    cursor: pointer;
+    width: 9.375rem;
+    height: 3.125rem;
+    .text{
+        font-family: $font-family-poppins;
+        font-weight: $font-weight-regular;
+        letter-spacing: $global-spacing;
+        font-size: $text-button;
+        color: $primary-color-text;
+    }
+}
 
 @media (min-width: 352px) and (max-width: 480px) {
     .registerGoogle{
