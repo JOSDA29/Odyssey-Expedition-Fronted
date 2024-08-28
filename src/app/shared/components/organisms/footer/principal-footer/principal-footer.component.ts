@@ -12,7 +12,7 @@ export class PrincipalFooterComponent {
   ];
 
   informationLinks = [
-    { text: 'Requisitos de viaje', url: '#' },
+    { text: 'Requisitos de viajes', url: '#' },
     { text: 'Equipo permitido', url: '#' }
   ];
 
