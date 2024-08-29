@@ -15,7 +15,6 @@ export class ModalUpdateHotelComponent {
       private modalService: ModalService,
       private sweetAlertService:SweetAlertService,
     ){
-      console.log('Datos recibidos en el modal:', data);
     }
 
     

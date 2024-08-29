@@ -1,6 +1,6 @@
 <div class="conten">
     <div class="title" *ngFor="let title of titles">
-        <app-title [text]="title.title1" [style]="'title-nosotros-profile'" class="title1"></app-title>
+        <app-title *ngIf="title.title1 !== ''" [text]="title.title1" [style]="'title-nosotros-profile'" class="title1"></app-title>
         <app-title [text]="title.title2" [style]="'title-nosotros-profile'"></app-title>
     </div>
     <app-icon src="assets/icons/profile.png" alt="profile" [style]="'profile'"></app-icon>

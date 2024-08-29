@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ImageInputTextComponent } from '../../molecules/image-input-text/image-input-text.component';
+import { ApiService } from '../../../../core/services/api.service';
 
 @Component({
   selector: 'app-template-chat-ia',
@@ -7,6 +8,9 @@ import { ImageInputTextComponent } from '../../molecules/image-input-text/image-
   styleUrls: ['./template-chat-ia.component.scss']
 })
 export class TemplateChatIAComponent {
+
+  constructor(private apiService: ApiService) {}
+
   @ViewChild(ImageInputTextComponent) imageInputTextComponent!: ImageInputTextComponent;
   @ViewChild('messageContainer') messageContainer!: ElementRef;
 
@@ -27,7 +31,6 @@ export class TemplateChatIAComponent {
 
   openChat() {
     this.chat[0].select = true;
-    console.log('open chatIA');
   }
 
   closeChat() {
@@ -42,35 +45,42 @@ export class TemplateChatIAComponent {
     if (this.userInput.trim()) {
       const userMessage = { text: this.userInput, isClient: true };
       this.combinedMessages.push(userMessage);
-      this.clientMessages.push(this.userInput);
       console.log('User Message:', this.userInput);
-      this.userInput = '';
+  
       this.isWaitingForResponse = true;
-      this.simulateAIResponse();
-
+  
+      // Realizar la consulta al backend
+      this.apiService.iaResponse(this.userInput, this.combinedMessages).subscribe({
+        next: (response) => {
+          // Verificar si la respuesta es válida y tiene la estructura esperada
+          if (response && response.history && typeof response.history.response === 'string') {
+            const aiResponse = response.history.response || 'No se recibió respuesta';
+            const responseMessage = { text: aiResponse, isClient: false };
+            this.combinedMessages.push(responseMessage);
+            console.log('AI Response:', aiResponse);
+          } else {
+            console.error('Estructura de respuesta inesperada:', response);
+            this.combinedMessages.push({ text: 'Error: estructura de respuesta inesperada', isClient: false });
+          }
+  
+          this.isWaitingForResponse = false;
+        },
+        error: (error) => {
+          console.error('Error en la consulta:', error);
+          this.isWaitingForResponse = false;
+        }
+      });
+  
       // Limpiar el input de texto
       this.imageInputTextComponent.inputControl.setValue('');
-
-      // Desplazar automáticamente el contenedor de mensajes hacia abajo
+      this.userInput = '';
+  
       this.scrollToBottom();
     }
-  }
+  }  
 
   onEnterPressed() {
     this.sendUserMessage();
-  }
-
-  simulateAIResponse() {
-    setTimeout(() => {
-      const aiResponse = 'Lorem ipsum dolor sit amet, consectetur adipiscing';
-      const responseMessage = { text: aiResponse, isClient: false };
-      this.combinedMessages.push(responseMessage);
-      this.message.push(aiResponse);
-      console.log('AI Response:', aiResponse);
-      this.isWaitingForResponse = false;
-
-      this.scrollToBottom();
-    }, 1000); 
   }
 
   private scrollToBottom(): void {
@@ -79,5 +89,5 @@ export class TemplateChatIAComponent {
       container.scrollTop = container.scrollHeight;
     }, 0); 
   }
-  
+
 }

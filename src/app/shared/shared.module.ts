@@ -70,6 +70,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ModalUpdateHotelComponent } from './components/organisms/modal-update-hotel/modal-update-hotel.component';
 import { TransporteAdviserComponent } from './components/organisms/transporte-adviser/transporte-adviser.component';
 import { ProveedoresaAdviserComponent } from './components/organisms/proveedoresa-adviser/proveedoresa-adviser.component';
+import { PackageAdviserComponent } from './components/organisms/package-adviser/package-adviser.component';
 
 
 
@@ -144,6 +145,7 @@ import { ProveedoresaAdviserComponent } from './components/organisms/proveedores
     ModalUpdateHotelComponent,
     TransporteAdviserComponent,
     ProveedoresaAdviserComponent,
+    PackageAdviserComponent,
   ],
   imports: [
     CommonModule,

@@ -11,6 +11,8 @@
       *ngIf="subSelecction === 'Hoteles'">
     </app-hoteles-admin>
 
+    <app-package-adviser *ngIf="subSelecction === 'Paquetes'"></app-package-adviser>
+
     <app-transporte-adviser
       *ngIf="subSelecction === 'Transportes'"
       [inputs]="inputsTansport"

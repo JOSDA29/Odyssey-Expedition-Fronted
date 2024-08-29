@@ -1,26 +1,28 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-proveedoresa-adviser',
-  templateUrl: './proveedoresa-adviser.component.html',
-  styleUrl: './proveedoresa-adviser.component.scss'
+  selector: 'app-package-adviser',
+  templateUrl: './package-adviser.component.html',
+  styleUrl: './package-adviser.component.scss'
 })
-export class ProveedoresaAdviserComponent {
+export class PackageAdviserComponent {
 
   titlesTopTransport = [
-    {title1:'', title2: 'Gestión de proveedores'}
+    {title1:'Servicios', title2: 'Gestión de paquetes'}
   ]
 
   inputsTansport = [
-    { tex: 'Compañia:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'ID/NIT:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Correo:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'ID:', input: 'Buscar por id', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Origen:', input: 'Buscar por origen', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Destino:', input: 'Buscar por destino', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Fecha salida:', input: 'Buscar por llegada', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Fecha llegada:', input: 'Buscar por salida', type: 'text', dateStar:'',dateFinish:'',},
   ]
 
   titlesTransporte = [
+    { title: 'ID' },
     { title: 'Origen' },
     { title: 'Destino' },
-    { title: 'ID' },
     { title: 'Estado' },
     { title: 'Acciones' }
   ];

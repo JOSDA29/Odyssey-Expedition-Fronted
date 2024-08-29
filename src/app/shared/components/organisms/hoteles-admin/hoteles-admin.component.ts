@@ -8,7 +8,7 @@ import { Component, input, Input } from '@angular/core';
 export class HotelesAdminComponent {
 
   titlesTopTransport = [
-    {title1:'Servicios', title2: 'Gestión de transportes'}
+    {title1:'Servicios', title2: 'Gestión de hoteles'}
   ]
 
   inputsTansport = [

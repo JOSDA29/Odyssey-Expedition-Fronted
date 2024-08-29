@@ -30,13 +30,15 @@
         (valueChanged)="onOptionChange($event)">
       </app-selector>
 
-        <div [class]="butons">
-            <app-button  *ngFor="let button of buttons"
-            [style]="'button-Admin'" 
-            [text]="button.textButon">
-            <app-icon [src]="button.srcButon" [alt]="button.altButon" [style]="'iconAdmin'"></app-icon>
-        </app-button>
-        </div>
+      <div class="button">
+            <div [class]="butons">
+              <app-button  *ngFor="let button of buttons"
+                  [style]="'button-Admin'" 
+                  [text]="button.textButon">
+                  <app-icon [src]="button.srcButon" [alt]="button.altButon" [style]="'iconAdmin'"></app-icon>
+              </app-button>
+          </div>
+      </div>
 
     </div>
     <div class="teble">

@@ -18,6 +18,17 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
+
+  iaResponse(prompt: string, history: { text: string, isClient: boolean }[]): Observable<any> {
+    const requestBody = {
+      prompt,
+      history: history.map(msg => ({ role: msg.isClient ? 'user' : 'model', parts: msg.text }))
+    };
+    return this.http.post<any>(`${this.apiUrl}/chat`, requestBody);
+  }
+  
+
+
   getFlights(): Observable<any[]> {
     return this.http.get<any[]>(`http://localhost:8000/flights`);
   }
