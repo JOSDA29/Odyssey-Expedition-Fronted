@@ -40,7 +40,7 @@
     <app-button type="submit" [disabled]="loginForm.invalid" *ngIf="textContin" [text]="textContin" [style]="'other-button'"></app-button>
     <div class="text-footer" *ngIf="textfooter || textfooter1 || href">
       <app-text *ngIf="textfooter" [text]="textfooter" [style]="'text-normal'"></app-text>
-      <app-link-normal *ngIf="textfooter1 && href" [text]="textfooter1" [href]="href" [style]="'link-normal-all'"></app-link-normal>
+      <app-link-normal *ngIf="textfooter1" [text]="textfooter1" [navigateTo]="href" [style]="'link-normal-all'"></app-link-normal>
     </div>
   </div>
 </form>
