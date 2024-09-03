@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalUpdateHotelComponent } from './components/modal-update-hotel/modal-update-hotel.component';
 
 @Component({
   selector: 'app-home-admin',
@@ -56,11 +57,11 @@ export class HomeAdminComponent {
 
   inputsTansport = [
     { tex: 'Tipo:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Id:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Origen:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Destino:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Id:', input: 'Buscar por id', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Origen:', input: 'Buscar por origen', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Destino:', input: 'Buscar por destino', type: 'text', dateStar:'',dateFinish:'',},
     { tex: 'Fecha salida:', input: '', type: '', dateStar:'Fecha salida',dateFinish:'',},
-    { tex: 'Fecha llegada:', input: '', type: '', dateStar:'Fecha llegada',dateFinish:'',},
+    { tex: 'Fecha llegada:', input: '', type: '', dateStar:'',dateFinish:'Fecha llegada',},
   ]
 
   titlesTransporte = [
@@ -81,8 +82,8 @@ export class HomeAdminComponent {
 
 
   buttons = [
-    { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa' },
-    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas' },
+    { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa',configModal:{addService:ModalUpdateHotelComponent} },
+    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas', configModal:{addService:ModalUpdateHotelComponent} },
   ];
 
   selects = [

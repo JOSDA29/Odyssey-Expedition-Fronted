@@ -71,8 +71,9 @@
   
     &.disabled {
       cursor: not-allowed;
-      background-color: #e0e0e0;
-      opacity: 0.6;
+      .input-text{
+        color: $disaibleColor;
+      }
       .input-icon,
       .input-date {
         pointer-events: none; 

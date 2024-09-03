@@ -16,6 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/f
 export class InputTextComponent implements ControlValueAccessor {
   @Input() control: FormControl = new FormControl();
   @Input() placeholder: string = '';
+  @Input() isReadOnly: boolean = false; 
   @Input() type: string = 'text';
   @Input() style: 'input-text' | 'inputUpdateHotelDescrip' | 'inputUpdateHotel' | 'inputAdmin' | 'input-text-naviera' | 'input-text2' | 'input-desible' | 'inputIA' | 'input-number' | 'input-number2' | 'input-update' | 'input-register' = 'input-text';
 
@@ -52,5 +53,5 @@ export class InputTextComponent implements ControlValueAccessor {
       event.preventDefault();
       this.enterPressed.emit();
     }
-  }
+  }  
 }

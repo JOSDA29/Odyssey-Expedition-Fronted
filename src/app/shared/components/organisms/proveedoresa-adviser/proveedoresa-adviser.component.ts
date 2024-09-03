@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/modal-update-hotel/modal-update-hotel.component';
 
 @Component({
   selector: 'app-proveedoresa-adviser',
@@ -34,10 +35,10 @@ export class ProveedoresaAdviserComponent {
 
 
   buttons = [
-    { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa' },
-    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas' },
+    { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa', configModal: { addService: ModalUpdateHotelComponent } },
+    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas', configModal: { addService: ModalUpdateHotelComponent } },
   ];
-
+  
   selects = [
     {
       text: 'Estado:',

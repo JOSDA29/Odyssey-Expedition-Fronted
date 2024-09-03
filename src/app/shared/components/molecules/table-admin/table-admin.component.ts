@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
 import { ModalService } from '../../../../features/home/services/modal-update-hotel.service';
-import { ModalUpdateHotelComponent } from '../../organisms/modal-update-hotel/modal-update-hotel.component';
-import { ProveedoresaAdviserComponent } from '../../organisms/proveedoresa-adviser/proveedoresa-adviser.component';
 
 @Component({
   selector: 'app-table-admin',
@@ -28,6 +26,8 @@ export class TableAdminComponent {
     isToggled: boolean;
   }[] = [];
 
+  
+  
   onToggleChange(newValue: boolean, item: any): void {
     this.sweetAlertService.showConfirmation(
       `¿Estás seguro de que quieres cambiar el estado a ${newValue ? 'activo' : 'inactivo'}?`,
@@ -40,13 +40,17 @@ export class TableAdminComponent {
       }
     });
   }
-
+  
+  // Nueva configuración de modal
+  @Input() modalConfig: { editComponent: any; viewComponent: any } = {
+    editComponent: null,
+    viewComponent: null
+  };
   openModalEdit(item: any): void {
-    this.modalService.openModal(ModalUpdateHotelComponent, 'hotelModal', item);
+    this.modalService.openModal(this.modalConfig?.editComponent, 'editModal', { item });
   }
-
-  // Método para abrir el modal de vista previa
+  
   openModalView(item: any): void {
-    this.modalService.openModal(ProveedoresaAdviserComponent, 'viewModal', item);
+    this.modalService.openModal(this.modalConfig?.viewComponent, 'viewModal', { item });
   }
 }

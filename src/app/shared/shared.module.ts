@@ -67,10 +67,11 @@ import { SelectorComponent } from './components/atoms/selector/selector.componen
 import { TableAdminComponent } from './components/molecules/table-admin/table-admin.component';
 import { ToggleSwitchComponent } from './components/atoms/toggle-switch/toggle-switch.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
-import { ModalUpdateHotelComponent } from './components/organisms/modal-update-hotel/modal-update-hotel.component';
+import { ModalUpdateHotelComponent } from '../features/home-admin/components/modal-update-hotel/modal-update-hotel.component';
 import { TransporteAdviserComponent } from './components/organisms/transporte-adviser/transporte-adviser.component';
 import { ProveedoresaAdviserComponent } from './components/organisms/proveedoresa-adviser/proveedoresa-adviser.component';
 import { PackageAdviserComponent } from './components/organisms/package-adviser/package-adviser.component';
+import { TextAreaComponent } from './components/atoms/text-area/text-area.component';
 
 
 
@@ -146,6 +147,7 @@ import { PackageAdviserComponent } from './components/organisms/package-adviser/
     TransporteAdviserComponent,
     ProveedoresaAdviserComponent,
     PackageAdviserComponent,
+    TextAreaComponent,
   ],
   imports: [
     CommonModule,
@@ -153,6 +155,7 @@ import { PackageAdviserComponent } from './components/organisms/package-adviser/
     ReactiveFormsModule
   ],
   exports:[
+    ModalUpdateHotelComponent,
     TemplateHomeComponent,
     MultifacetedSearchComponent,
     PrincipalFooterComponent,
@@ -174,7 +177,9 @@ import { PackageAdviserComponent } from './components/organisms/package-adviser/
     TitleComponent,
     InputTextComponent,
     LineComponent,
-    TemplateChatIAComponent
+    TemplateChatIAComponent,
+    InputDateComponent,
+    TextAreaComponent
   ]
 })
 export class SharedModule { }

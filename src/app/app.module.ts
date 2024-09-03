@@ -17,7 +17,8 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ClientProfileModule } from './features/client-profile/client-profile.module';
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
-import { HomeAdminComponent } from './features/home-admin/home-admin.component';
+import { ViewDataHotelComponent } from './features/home-admin/components/view-data-hotel/view-data-hotel.component';
+import { AddHotelComponent } from './features/home-admin/components/add-hotel/add-hotel.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,8 @@ import { HomeAdminComponent } from './features/home-admin/home-admin.component';
     RegisterFormComponent,
     RegisterComponent,
     NosotrosComponent,
+    ViewDataHotelComponent,
+    AddHotelComponent,
   ],
   imports: [
     BrowserModule,

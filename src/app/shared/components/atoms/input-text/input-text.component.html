@@ -1,9 +1,8 @@
 <input 
   [type]="type" 
   [placeholder]="placeholder" 
-  [ngClass]="style" 
+  [ngClass]="[style, isReadOnly ? 'isReadOnly':'']" 
   [formControl]="control" 
   (keydown.enter)="onEnter($event)"
-  min="1"
-  max="15"
+  [attr.readonly]="isReadOnly ? true : null"
 />

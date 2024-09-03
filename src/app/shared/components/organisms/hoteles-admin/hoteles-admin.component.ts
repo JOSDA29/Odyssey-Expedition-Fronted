@@ -1,4 +1,8 @@
-import { Component, input, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/modal-update-hotel/modal-update-hotel.component';
+import { ViewDataHotelComponent } from '../../../../features/home-admin/components/view-data-hotel/view-data-hotel.component';
+import { AddHotelComponent } from '../../../../features/home-admin/components/add-hotel/add-hotel.component';
+import { ApiService } from '../../../../core/services/api.service';
 
 @Component({
   selector: 'app-hoteles-admin',
@@ -6,6 +10,15 @@ import { Component, input, Input } from '@angular/core';
   styleUrl: './hoteles-admin.component.scss'
 })
 export class HotelesAdminComponent {
+
+  constructor(
+    private apiService: ApiService,
+  ){}
+
+  modalConfigHotel = {
+    editComponent: ModalUpdateHotelComponent,
+    viewComponent: ViewDataHotelComponent
+  }
 
   titlesTopTransport = [
     {title1:'Servicios', title2: 'Gestión de hoteles'}
@@ -27,17 +40,11 @@ export class HotelesAdminComponent {
 
   itemsTransport = [
     { tipe:'',name: 'JeffersonCondiza', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
-    { tipe:'',name: 'JeffersonCondiza', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false },
-    { tipe:'',name: 'JeffersonCondiza', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
-    { tipe:'',name: 'JeffersonCondiza', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
-    { tipe:'',name: 'JeffersonCondiza', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
-    { tipe:'',name: 'JeffersonCondiza', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
-    { tipe:'',name: 'JeffersonCondiza', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false },
-  ]
+ ]
 
   buttons = [
     { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa' },
-    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas' },
+    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas', configModal:{ addService: AddHotelComponent} },
   ];
 
   selects = [
@@ -51,5 +58,29 @@ export class HotelesAdminComponent {
       ]
     },
   ];
+
+  ngOnInit(): void {
+    this.loadHotels();
+  }
+
+  loadHotels(): void {
+    this.apiService.getHotels().subscribe(
+      (response: any) => {
+        console.log('Datos recibidos del API:', response);
+  
+        this.itemsTransport = response.map((hotel: any) => ({
+          name: hotel.name || 'Sin nombre',
+          location: hotel.destination || 'Ubicación no especificada',
+          id: hotel.hotelid ? hotel.hotelid.toString() : 'ID no disponible',
+          isToggled: hotel.state !== undefined ? hotel.state : false
+        }));        
+      },
+      (error) => {
+        console.error('Error al cargar los hoteles:', error);
+      }
+    );
+  }
+  
+
   
 }

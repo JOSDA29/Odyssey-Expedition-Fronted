@@ -1,0 +1,55 @@
+<div class="container">
+    <app-icon src="assets/icons/close.png" alt="" [style]="'icon-close'" (click)="closeVist()"></app-icon>
+
+    <div class="image">
+        <img [src]="srcImg" [alt]="altImg" class="imageUpdateHotel">
+    </div>
+    
+    <section class="inputs">
+        <div class="input" *ngFor="let input of inputs">
+            <app-text *ngIf="input.text" [text]="input.text" [style]="'textHotelUpdate'"></app-text>
+            
+            <app-input-text 
+            *ngIf="input.placeholder" 
+            [isReadOnly]="true" 
+            [placeholder]="input.placeholder" 
+            [type]="input.type" 
+            [style]="'inputUpdateHotel'" 
+            [control]="createFormControl(input.placeholder)"> 
+        </app-input-text>
+        
+            
+            <app-input-date 
+                *ngIf="input.dateStar" 
+                src="assets/icons/date.png" 
+                [txt]="input.dateStar" 
+                [style]="'dateUpdateHotel'"
+                [disabled]=true>
+            </app-input-date>
+
+            <app-input-date 
+                *ngIf="input.dateFinish" 
+                src="assets/icons/date.png" 
+                [txt]="input.dateFinish" 
+                [style]="'dateUpdateHotel'">
+            </app-input-date>
+        </div>
+    </section>
+
+    <section class="description">
+        <app-text-area 
+          title="Servicio:"
+          placeholder="Descripcion de los servicios"
+          [description]="servicio"
+          [isReadOnly]="isReadOnly">
+        </app-text-area>
+      
+        <app-text-area 
+          title="Descripcion:"
+          placeholder="Descripcion de hotel"
+          [description]="description"
+          [isReadOnly]="isReadOnly">
+        </app-text-area>
+      </section>
+      
+</div>

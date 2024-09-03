@@ -113,7 +113,7 @@
 }
 
 .inputUpdateHotel{
-  padding-left: 1rem; 
+  padding: 1rem; 
   width: 14.813rem;
   height: 3.063rem; 
   border: 1px solid $color-borders;
@@ -133,6 +133,11 @@
   font-size: $text-normal; 
   margin-top: 0.5rem;
 }
+.isReadOnly{
+  color: $disaibleColor;
+  cursor: not-allowed;
+}
+
 
 @media (min-width: 352px) and (max-width: 480px) {
   .input-register{ 

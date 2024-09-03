@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/modal-update-hotel/modal-update-hotel.component';
 
 @Component({
   selector: 'app-package-adviser',
@@ -15,8 +16,8 @@ export class PackageAdviserComponent {
     { tex: 'ID:', input: 'Buscar por id', type: 'text', dateStar:'',dateFinish:'',},
     { tex: 'Origen:', input: 'Buscar por origen', type: 'text', dateStar:'',dateFinish:'',},
     { tex: 'Destino:', input: 'Buscar por destino', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Fecha salida:', input: 'Buscar por llegada', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Fecha llegada:', input: 'Buscar por salida', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Fecha salida:', input: '', type: '', dateStar:'Fecha salida',dateFinish:'',},
+    { tex: 'Fecha llegada:', input: '', type: '', dateStar:'',dateFinish:'Fecha llegada',},
   ]
 
   titlesTransporte = [
@@ -36,8 +37,8 @@ export class PackageAdviserComponent {
 
 
   buttons = [
-    { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa' },
-    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas' },
+    { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa', configModal:{addService:ModalUpdateHotelComponent} },
+    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas', configModal:{addService:ModalUpdateHotelComponent} },
   ];
 
   selects = [

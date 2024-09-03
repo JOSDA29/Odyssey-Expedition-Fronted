@@ -1,4 +1,5 @@
 import { Injectable, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -6,7 +7,8 @@ import Swal from 'sweetalert2';
 })
 export class SweetAlertService {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
 
   @Input() colorButtonAcep = 'rgb(57 233 57)';
   @Input() colorButtonCancel = 'rgb(246 43 43)';
@@ -33,7 +35,7 @@ export class SweetAlertService {
     });
   }  
 
-  showError(message: string, title: string = 'Oops...'): void {
+  showError(message: string, title: string = 'Oops...', callback?: () => void): void {
     Swal.fire({
       title: title,
       text: message,
@@ -44,6 +46,10 @@ export class SweetAlertService {
         popup: 'showError',
         confirmButton: 'custom-confirm-button',
       },
+    }).then((result) => {
+      if (result.isConfirmed && callback) {
+        callback();
+      }
     });
   }
 

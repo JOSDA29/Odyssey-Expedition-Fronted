@@ -17,7 +17,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     private modalService: ModalService,
   ) {}
 
-  intercept(req: HttpRequest<string>, next: HttpHandler): Observable<HttpEvent<string>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string | null = localStorage.getItem('token');
 
     let request = req;
@@ -32,14 +32,25 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-       /* if (error.status === 403) {
-          this.router.navigate(['/']);
-          localStorage.clear();
-          if (!this.modalOpened) {
-            this.modalService.openModal();
-            this.modalOpened = true; 
+        console.error('Error intercepted:', error); // Mensaje de depuración
+
+        // Verifica el estado y el mensaje de error
+        if (error.status === 403) {
+          // Maneja los posibles formatos de error
+          const errorBody = error.error;
+          const errorMessage = (errorBody && (errorBody.error || errorBody.status)) || error.message;
+
+          if (errorMessage === 'jwt expired' || errorMessage === 'Invalid Token' || errorBody.status === 'Invalid Token') {
+            localStorage.clear(); // Limpia el almacenamiento local
+            this.router.navigate(['/']).then(() => window.location.reload());
+            if (!this.modalOpened) {
+              this.modalService.openModal(); // Abre el modal de login
+              this.modalOpened = true;
+            }
+            return throwError(error);
           }
-        }*/
+        }
+
         return throwError(error);
       })
     );

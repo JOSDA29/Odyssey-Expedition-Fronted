@@ -60,7 +60,7 @@ export class TemplateChatIAComponent {
             console.log('AI Response:', aiResponse);
           } else {
             console.error('Estructura de respuesta inesperada:', response);
-            this.combinedMessages.push({ text: 'Error: estructura de respuesta inesperada', isClient: false });
+            this.combinedMessages.push({ text: 'Lo siento, no puedo responder tu pregunta, por favor comunicate con un asesor :', isClient: false });
           }
   
           this.isWaitingForResponse = false;

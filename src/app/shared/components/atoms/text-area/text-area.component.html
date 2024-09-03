@@ -1,0 +1,10 @@
+<div class="container">
+  <app-text [text]="title" [style]="'textHotelUpdate'"></app-text>
+  <textarea
+    [ngClass]="{ 'readonly': isReadOnly }"
+    [attr.readonly]="isReadOnly ? true : null"
+    [placeholder]="placeholder"
+    [(ngModel)]="description"
+    (ngModelChange)="onDescriptionChange($event)"
+  ></textarea>
+</div>

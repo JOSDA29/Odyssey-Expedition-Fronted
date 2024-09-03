@@ -74,9 +74,9 @@
     .conten {
         height: 9vh;
         display: grid;
-        grid-template-columns: 1fr 2fr 0fr 2fr 1fr;
+        grid-template-columns: 2fr 2fr 1fr 2fr 1.9fr;
         align-items: center;
-        padding: 0rem 1.5rem;
+        padding: 0rem 0rem 0rem 2.5rem;
         border-bottom: 1px solid $color-borders;
     }
     .conten2 {
