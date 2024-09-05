@@ -132,9 +132,21 @@ export class DisableProfileComponent {
       this.textButton = 'Desactivar cuenta';
       this.title = '¿Estas seguro que deseas desactiviar tu cuenta?';
       if (this.currentIndex === this.texts.length - 1) {
-        this.textButton = 'Cerrar'; // Cambia el texto del botón en el último paso
-        this.title = 'Cuenta desactivada'
-        this.disaibleClient(this.textButton);
+
+        this.sweetAlertService.showConfirmation(
+          'Tu cuenta será desactivada, ¿estas seguro de continuar?',
+          'Desactivar cuenta', 'Si', 'No'
+        ).then((result) => {
+          if (result.isConfirmed) {
+            this.textButton = 'Cerrar'; // Cambia el texto del botón en el último paso
+            this.title = 'Cuenta desactivada'            
+            this.disaibleClient(this.textButton);
+          } else {
+            this.router.navigate(['/clientProfile']);
+            this.sweetAlertService.showSuccess('Desactivacion de cuenta cancelada', 'assets/icons/error.gif');
+          }
+        });
+
       }
     }
   }
@@ -142,7 +154,6 @@ export class DisableProfileComponent {
   disaibleClient(button: string) {
     // Verifica si el texto del botón es "Desactivar cuenta"
     if (button === 'Cerrar') {
-      // Llama a changeState con false
       this.apiService.changeState(false).subscribe(
         (response) => {
           console.log('Estado cambiado exitosamente:', response);

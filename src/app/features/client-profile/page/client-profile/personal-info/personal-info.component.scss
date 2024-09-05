@@ -2,6 +2,14 @@
 
 .container {
     margin: 5rem 6rem;
+    
+    .links{
+        .link{
+            display: flex;
+            width: 17%;
+            justify-content: space-between;
+        }
+    }
 
     .cards {
         display: flex;
