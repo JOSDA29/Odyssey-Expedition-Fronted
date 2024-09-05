@@ -2,8 +2,11 @@
 
 <div class="container">
   <section class="links">
-    <app-link-normal text="Cuenta >" [style]="'text-link'" href="/clientProfile"></app-link-normal>
-    <app-link-normal text="Datos personales" [style]="'text-link'" href="/personalInfo"></app-link-normal>
+    <div class="link">
+      <app-link-normal text="Cuenta" [style]="'text-link'" [navigateTo]="'/clientProfile'"></app-link-normal>
+      <app-link-normal text=">" [style]="'text-link'"></app-link-normal>
+      <app-link-normal text="Datos personales" [style]="'text-link'" [navigateTo]="'/personalInfo'"></app-link-normal>
+    </div>
     <app-title text="Información personal" [style]="'title-nosotros-profile'"></app-title>
   </section>
 

@@ -37,12 +37,18 @@
     </app-link>
   </div>
 
-  <div class="icon">
-    <app-icon 
-      [src]="userProfilePicture" 
-      [alt]="alticon" 
-      [style]="'profile'" 
-      (click)="openLoginModal()">
+  <div class="icon" (click)="toggleProfileMenu($event)">
+    <app-icon
+      [src]="userProfilePicture"
+      [alt]="alticon"
+      [style]="'profile'">
     </app-icon>
+    
+    <!-- Menú desplegable debajo del icono de perfil -->
+    <div class="profile-menu" *ngIf="profileMenuOpen">
+      <a href="/clientProfile">Perfil</a>
+      <a href="/ayuda"> Centro de ayuda</a>
+      <a (click)="logout()">Cerrar sesión</a>
+    </div>
   </div>
 </div>
