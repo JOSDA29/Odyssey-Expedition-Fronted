@@ -138,6 +138,15 @@
   cursor: not-allowed;
 }
 
+.addTransport{
+  padding: 0rem 1rem 0rem 3rem;
+  width: 14.813rem;
+  height: 3.063rem;
+  border: 1px solid rgba(0, 0, 0, 0.3019607843);
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 16px;
+}
 
 @media (min-width: 352px) and (max-width: 480px) {
   .input-register{ 

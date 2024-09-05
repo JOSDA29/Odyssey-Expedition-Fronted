@@ -72,6 +72,8 @@ import { TransporteAdviserComponent } from './components/organisms/transporte-ad
 import { ProveedoresaAdviserComponent } from './components/organisms/proveedoresa-adviser/proveedoresa-adviser.component';
 import { PackageAdviserComponent } from './components/organisms/package-adviser/package-adviser.component';
 import { TextAreaComponent } from './components/atoms/text-area/text-area.component';
+import { AddHotelComponent } from '../features/home-admin/components/add-hotel/add-hotel.component';
+import { AddTransportComponent } from '../features/home-admin/components/add-transport/add-transport.component';
 
 
 
@@ -148,6 +150,8 @@ import { TextAreaComponent } from './components/atoms/text-area/text-area.compon
     ProveedoresaAdviserComponent,
     PackageAdviserComponent,
     TextAreaComponent,
+    AddHotelComponent,
+    AddTransportComponent,
   ],
   imports: [
     CommonModule,

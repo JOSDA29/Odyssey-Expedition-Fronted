@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { ModalService } from '../../../../features/home/services/modal-update-hotel.service';
+import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/modal-update-hotel/modal-update-hotel.component';
+import { ApiService } from '../../../../core/services/api.service';
+import { Observable } from 'rxjs';
+import { AddTransportComponent } from '../../../../features/home-admin/components/add-transport/add-transport.component';
 
 @Component({
   selector: 'app-transporte-adviser',
@@ -10,45 +14,56 @@ export class TransporteAdviserComponent {
 
   constructor(
     private modalService: ModalService,
+    private apiService: ApiService,
   ) {}
 
-  @Input() titlesTopTransport: { title1: string, title2: string }[] = [];
+  @Input() titlesTopTransport= [    {title1:'Servicios', title2: 'Gestión de transportes'}  ];
   @Input() styleHeader: 'header' | 'headerTransporte' = 'header';
   @Input() butons: 'butons1' | 'butons2' = 'butons1';
   @Input() conten: 'conten' | 'conten2' = 'conten';
+
   inputValues: any[] = [];
 
-  @Input() inputs: {
-    tex?: string,
-    input?: string,
-    type?: string;
-    dateStar?: string,
-    dateFinish?: string,
-  }[] = [];
+  @Input() inputs = [
+    { tex: 'Tipo:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Id:', input: 'Buscar por id', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Origen:', input: 'Buscar por origen', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Destino:', input: 'Buscar por destino', type: 'text', dateStar:'',dateFinish:'',},
+    { tex: 'Fecha salida:', input: '', type: '', dateStar:'Fecha salida',dateFinish:'',},
+    { tex: 'Fecha llegada:', input: '', type: '', dateStar:'',dateFinish:'Fecha llegada',},
+  ]
 
-  @Input() buttons: {
-    textButon: string;
-    srcButon: string;
-    altButon: string;
-    configModal?: {
-      addService?: any
-    };
-  }[] = [];
+  @Input()  buttons = [
+    { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa',configModal:{addService:null} },
+    { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas', configModal:{addService:AddTransportComponent} },
+  ];
 
-  @Input() selects: {
-    options: { value: string, label: string }[],
-    option: string,
-    text: string,
-  }[] = [];
+  @Input()  selects = [
+    {
+      text: 'Estado:',
+      option: '',
+      options: [
+        { value: 'Todos', label: 'Todos' },
+        { value: 'Inactivo', label: 'Inactivo' },
+        { value: 'Activo', label: 'Activo' },
+      ]
+    },
+  ];
 
-  @Input() titlesTransporte: { title: string }[] = [];
-  @Input() itemsTransport: {
-    tipe?: string,
-    name: string;
-    location: string;
-    id: string;
-    isToggled: boolean;
-  }[] = [];
+  @Input()  titlesTransporte = [
+    { title: 'Tipo' },
+    { title: 'Origen' },
+    { title: 'Destino' },
+    { title: 'ID' },
+    { title: 'Estado' },
+    { title: 'Acciones' }
+  ];
+  @Input() itemsTransport = [
+    { tipe:'Vuelo',name: 'Armenia, Quindio', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
+    { tipe:'Vuelo',name: 'Armenia, Quindio', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false },
+    { tipe:'Vuelo',name: 'Armenia, Quindio', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
+    { tipe:'Vuelo',name: 'Armenia, Quindio', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false },
+  ]
 
   @Input() modalConfig: { editComponent: any; viewComponent: any } = {
     editComponent: null,
@@ -61,44 +76,40 @@ export class TransporteAdviserComponent {
 
   ngOnInit() {
     this.inputValues = this.inputs.map(() => ({ value: '', dateStart: '', dateFinish: '' }));
+    this.loadTransport()
   }
 
-  getCombinedValues() {
-    // Inicializar arreglos para cada tipo de dato
-    const combinedValues = {
-      value: [] as string[],
-      dateStart: [] as string[],
-      dateFinish: [] as string[]
-    };
+loadTransport():void{
+  this.apiService.getAllTransport().subscribe(
+    (response: any) => {
+      console.log('data',response);
+      
+      this.itemsTransport = response.map((transport: any) => ({
+        tipe: transport.transporttype || 'Sin tipo',
+        name: transport.origin || 'Sin Origen',
+        location: transport.destination || 'Ubicación no especificada',
+        id: transport.transportid ? transport.transportid.toString() : 'ID no disponible',
+        isToggled: transport.state !== undefined ? transport.state : false
+      }));
+    },
+    (error) => {
+      console.error('Error al cargar los transportes:', error);
+    }
+  )
+}
 
-    // Combinar valores en arreglos separados
-    this.inputValues.forEach(input => {
-      if (input.value) combinedValues.value.push(input.value);
-      if (input.dateStart) combinedValues.dateStart.push(input.dateStart);
-      if (input.dateFinish) combinedValues.dateFinish.push(input.dateFinish);
-    });
-
-    // Crear objeto final con valores combinados
-    return {
-      value: combinedValues.value.length > 0 ? combinedValues.value.join(', ') : '',
-      dateStart: combinedValues.dateStart.length > 0 ? combinedValues.dateStart.join(', ') : '',
-      dateFinish: combinedValues.dateFinish.length > 0 ? combinedValues.dateFinish.join(', ') : ''
-    };
-  }
-
-  onButtonClick(index: number, button: any): void {
+onButtonClick(index: number, button: any): void {
     if (index === 0) {
-      console.log('Datos combinados: ', this.getCombinedValues());
     } else if (index === 1) {
       console.log('Abriendo modal de agregar');
       this.modalConfigAdd.addService = button.configModal.addService;
-      this.openModalAdd(button);
+      this.openModalAdd(button.configModal.addService);
     } else {
       console.log(`Botón ${index + 1} clicado`);
     }
-  }
+}
 
-  openModalAdd(item: any): void {
+openModalAdd(item: any): void {
     if (this.modalConfigAdd.addService) {
       this.modalService.openModal(this.modalConfigAdd.addService, 'addService', { item });
     } else {

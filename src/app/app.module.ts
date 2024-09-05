@@ -18,7 +18,7 @@ import { ClientProfileModule } from './features/client-profile/client-profile.mo
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
 import { ViewDataHotelComponent } from './features/home-admin/components/view-data-hotel/view-data-hotel.component';
-import { AddHotelComponent } from './features/home-admin/components/add-hotel/add-hotel.component';
+import { ErrorInterceptor } from './core/interceptor/error-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,6 @@ import { AddHotelComponent } from './features/home-admin/components/add-hotel/ad
     RegisterComponent,
     NosotrosComponent,
     ViewDataHotelComponent,
-    AddHotelComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +43,8 @@ import { AddHotelComponent } from './features/home-admin/components/add-hotel/ad
     OAuthModule.forRoot()
   ],
   providers: [
+//{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
     {
   provide: HTTP_INTERCEPTORS,
   useClass: AuthInterceptorService,

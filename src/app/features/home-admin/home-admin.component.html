@@ -14,15 +14,7 @@
     <app-package-adviser *ngIf="subSelecction === 'Paquetes'"></app-package-adviser>
 
     <app-transporte-adviser
-      *ngIf="subSelecction === 'Transportes'"
-      [inputs]="inputsTansport"
-      [buttons]="buttons"
-      [selects]="selects"
-      [titlesTransporte]="titlesTransporte"
-      [styleHeader]="'headerTransporte'"
-      [titlesTopTransport]="titlesTopTransport"
-      [itemsTransport]="itemsTransport"
-      [conten]="'conten2'">
+      *ngIf="subSelecction === 'Transportes'">
     </app-transporte-adviser>
   </ng-container>
 

@@ -1,11 +1,50 @@
-<app-transporte-adviser
-      [inputs]="inputsTansport"
-      [buttons]="buttons"
-      [selects]="selects"
-      [titlesTransporte]="titlesTransporte"
-      [styleHeader]="'header'"
-      [titlesTopTransport]="titlesTopTransport"
-      [itemsTransport]="itemsTransport"
-      [butons]="'butons2'"
-      [modalConfig]="modalConfigHotel">
-</app-transporte-adviser>
+<app-nav-bar-admin  [titles]="titlesTopHotel"></app-nav-bar-admin>
+
+<div class="conten">
+
+    <div class="contenTop">
+      <div class="contenTop">
+        <div class="filters" *ngFor="let input of inputs; let i = index">
+          <app-text *ngIf="input.tex" [text]="input.tex" [style]="'chatIA'"></app-text>
+          <app-input-text *ngIf="input.input && input.type" 
+                          [placeholder]="input.input" 
+                          [type]="input.type" 
+                          [(ngModel)]="inputValues[i].value"
+                          [style]="'inputAdmin'">
+          </app-input-text>
+
+        </div>
+        <app-selector
+        *ngFor="let select of selects"
+        [textSelect]="select.text"
+        [selectId]="'select-' + select.option"
+        [options]="select.options"
+        [selectedValue]="select.option"
+        [selectClass]="'select-class'"
+        (valueChanged)="onOptionChange($event)">
+      </app-selector>      
+
+      <div class="button">
+        <div class="butons2">
+          <app-button *ngFor="let button of buttons; let i = index"
+              [style]="'button-Admin'" 
+              [text]="button.textButon"
+              (click)="onButtonClick(i, button)">
+              <app-icon [src]="button.srcButon" [alt]="button.altButon" [style]="'iconAdmin'"></app-icon>
+          </app-button>
+        </div>
+      </div>
+
+    </div>
+    <div class="teble">
+        <app-table-admin
+        [header]="'header'"
+        [conten]="'conten'"
+        [sourceComponent]="'ComponenteHotel'"
+        [items]="itemsTransport"
+        [titles]="titlesTransporte"
+        [modalConfig]="modalConfig">
+      </app-table-admin>
+    </div>
+
+</div>

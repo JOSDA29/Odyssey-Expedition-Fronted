@@ -13,7 +13,7 @@ export class ErrorHandlingService {
     private router: Router
   ) { }
 
-  handleError(error: HttpErrorResponse): void {
+  handleError(error: HttpErrorResponse): string {
     let errorMessage = '';
 
     if (error.error instanceof ErrorEvent) {
@@ -30,7 +30,7 @@ export class ErrorHandlingService {
           this.sweetAlertService.showError(errorMessage, 'Error de autenticación', () => {
             this.router.navigate(['/']); // Redirige a la página principal
           });
-          return; // Salir de la función para evitar la doble llamada de showError
+          return errorMessage; // Salir de la función para evitar la doble llamada de showError
         case 403:
           errorMessage = 'La sesión ha expirado, ingrese nuevamente';
           this.sweetAlertService.showError(errorMessage, 'La sesión ha expirado, ingrese nuevamente', () => {
@@ -47,7 +47,7 @@ export class ErrorHandlingService {
           errorMessage = 'Verifica que el número de teléfono tenga 10 dígitos y sean números.';
           break;
         case 500:
-          errorMessage = 'Verifica tu conexión a internet';
+          errorMessage = 'Verifica tu conexión a internet o intentalo más tarde';
           break;
         default:
           errorMessage = `Error desconocido: ${error.message}`;
@@ -57,5 +57,7 @@ export class ErrorHandlingService {
         this.sweetAlertService.showError(errorMessage);
       }
     }
+
+    return errorMessage;
   }
 }

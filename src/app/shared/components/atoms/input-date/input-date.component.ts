@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, forwardRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
 @Component({
@@ -13,19 +13,30 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/f
     },
   ],
 })
-export class InputDateComponent implements ControlValueAccessor {
+export class InputDateComponent implements ControlValueAccessor, OnChanges {
   @Input() src: string = '';
   @Input() alt: string = '';
-  @Input() txt: string = '';
-  @Input() style: 'input-text-wrapper' | 'dateUpdateTransport' | 'dateUpdateHotel' | 'input-text-wrapper2' = 'input-text-wrapper'
+  @Input() txt: string = ''; // El texto que deseas mostrar
+  @Input() style: string = 'input-text-wrapper';
   @Input() submitted: boolean = false;
   @Input() disabled: boolean = false;
   @Input() control: FormControl = new FormControl();
+  
   private onChange: (value: any) => void = () => {};
   private onTouched: () => void = () => {};
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['txt']) {
+      console.log('txt changed:', this.txt);
+      this.control.setValue(this.txt); // Actualiza el control con el valor de txt
+    }
+  }
+  
   writeValue(value: any): void {
-    this.control.setValue(value);
+    if (value !== undefined) {
+      this.txt = value;
+      this.control.setValue(value);
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -36,18 +47,26 @@ export class InputDateComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  openCalendar(calendarInput: HTMLInputElement) {
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    if (isDisabled) {
+      this.control.disable();
+    } else {
+      this.control.enable();
+    }
+  }
+
+  openCalendar(calendarInput: HTMLInputElement): void {
     calendarInput.focus();
   }
 
-  updateText(event: any) {
+  updateText(event: any): void {
     const value = event.target.value;
-    this.txt = value ?? '';  
-    this.control.setValue(value);  
-    this.onChange(value);  
-    this.onTouched();   
-}
-
+    this.txt = value;
+    this.control.setValue(value);
+    this.onChange(value);
+    this.onTouched();
+  }
 
   getCurrentDate(): string {
     const today = new Date();

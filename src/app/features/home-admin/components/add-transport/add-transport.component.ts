@@ -6,23 +6,25 @@ import { HotelUpdateService } from '../../../../core/services/hotel-update-servi
 import { HotelData } from '../../../../core/models/createHotel';
 
 @Component({
-  selector: 'app-add-hotel',
-  templateUrl: './add-hotel.component.html',
-  styleUrl: './add-hotel.component.scss'
+  selector: 'app-add-transport',
+  templateUrl: './add-transport.component.html',
+  styleUrl: './add-transport.component.scss'
 })
-export class AddHotelComponent {
+export class AddTransportComponent {
   @Input() srcImg: string = 'https://example.com/default-image.jpg';
   @Input() altImg: string = 'default';
 
   @Input() inputs = [
-    { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ', dateStar: '', dateFinish: '' },
-    { placeholder: 'Destino', type: 'text', text: 'Destino:', dateStar: '', dateFinish: '' },
+    { placeholder: 'Numero de seguimiento', type: 'text', text: 'Segimiento: ', dateStar: '', dateFinish: '' },
+    { placeholder: 'Ingrese el tipo', type: 'text', text: 'Transporte:', dateStar: '', dateFinish: '' },
+    { placeholder: 'Ingrese la compañia', type: 'text', text: 'Compañia:', dateStar: '', dateFinish: '' },
     { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', dateFinish: '' },
     { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha' },
-    { placeholder: 'Cantidad de personas', type: 'number', text: 'Numero de personas:', dateStar: '', dateFinish: '',max:12 },
-    { placeholder: 'Habitacion', type: 'text', text: 'Habitacion:', dateStar: '', dateFinish: '' },
-    { placeholder: 'locacion', type: 'text', text: 'Locacion:', dateStar: '', dateFinish: '' },
-    { placeholder: 'Precio', type: 'number', text: 'Precio:', dateStar: '', dateFinish: '' },
+    { placeholderNumber: 'Cantidad de pasajero', typeNumber: 'number', number: 'Pasajeros:'},
+    { placeholder: 'Ingrese el origen', type: 'text', text: 'Origen:', dateStar: '', dateFinish: '' },
+    { placeholder: 'Ingrese el destino', type: 'text', text: 'Destino:', dateStar: '', dateFinish: '' },
+    { placeholder: 'Valor instancia', type: 'number', text: 'Precio:', dateStar: '', dateFinish: '' },
+    { placeholder: 'Ingrese pista / puerto', type: 'text', text: 'Pista / Puerto:', dateStar: '', dateFinish: '' },
   ];
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -33,7 +35,7 @@ export class AddHotelComponent {
 
   constructor(
     private sweetAlertService: SweetAlertService,
-    public dialogRef: MatDialogRef<AddHotelComponent>,
+    public dialogRef: MatDialogRef<AddTransportComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService: ApiService,
     private hotelUpdateService: HotelUpdateService

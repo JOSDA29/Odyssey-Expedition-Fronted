@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -11,4 +11,10 @@ export class ButtonComponent {
 @Input() style:'share-button' | 'saveHotel' |'button-Admin' | 'button-disaible' | 'search-button' | 'disaible-button' | 'button-cancel' | 'other-button' | 'registerGoogle' = 'share-button';
 @Input() isSelected: boolean = false;
 @Input() disabled: boolean = false;
+@Output() clickEvent = new EventEmitter<void>();
+
+onClick() {
+  this.clickEvent.emit();
+}
+
 }

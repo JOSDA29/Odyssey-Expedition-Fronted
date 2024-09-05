@@ -53,9 +53,9 @@
     .header {
         height: 9vh;
         display: grid;
-        grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         align-items: center;
-        padding: 0rem 2rem;
+        justify-items: center;
         border-bottom: 1px solid $color-borders;
         font-weight: bold;
     }
@@ -63,9 +63,9 @@
     .headerTransporte{
         height: 9vh;
         display: grid;
-        grid-template-columns: 0fr 2fr 1fr 2fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        justify-items: center;
         align-items: center;
-        padding: 0rem 2rem;
         border-bottom: 1px solid rgba(0, 0, 0, 0.3019607843);
         font-weight: bold;
         justify-items: center;
@@ -74,18 +74,18 @@
     .conten {
         height: 9vh;
         display: grid;
-        grid-template-columns: 2fr 2fr 1fr 2fr 1.9fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        justify-items: center;
         align-items: center;
-        padding: 0rem 0rem 0rem 2.5rem;
         border-bottom: 1px solid $color-borders;
     }
     .conten2 {
         height: 9vh;
         display: grid;
-        grid-template-columns: 1fr 1fr 2fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         align-items: center;
-        padding: 0rem 1.5rem;
         border-bottom: 1px solid $color-borders;
+        justify-items: center;
     }
 
     .botons {

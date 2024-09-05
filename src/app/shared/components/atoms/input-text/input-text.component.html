@@ -5,4 +5,6 @@
   [formControl]="control" 
   (keydown.enter)="onEnter($event)"
   [attr.readonly]="isReadOnly ? true : null"
+  [min]="1"
+  [max]="max"
 />

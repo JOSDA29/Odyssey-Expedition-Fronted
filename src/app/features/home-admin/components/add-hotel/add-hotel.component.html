@@ -1,1 +1,34 @@
-<app-modal-update-hotel [hover]="'hover-add'" [button2]="'Agregar'"></app-modal-update-hotel>
+<div class="container">
+    <div class="image">
+      <img [src]="srcImg" [alt]="altImg" class="imageUpdateHotel">
+      <div class="hover-add">
+        <app-icon src="assets/icons/lapizEit.png" alt="" [style]="'iconHotelAdminedit'" (click)="triggerFileInput()"></app-icon>
+        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/*" />
+      </div>
+    </div>
+  
+    <section class="inputs">
+      <div class="input" *ngFor="let input of inputs; let i = index">
+        <app-text *ngIf="input.text" [text]="input.text" [style]="'textHotelUpdate'"></app-text>
+        <app-input-text *ngIf="input.placeholder" [placeholder]="input.placeholder" [type]="input.type" 
+                        [(ngModel)]="inputValues[i].value" [style]="'inputUpdateHotel'" [max]="input.max"></app-input-text>
+        <app-input-date *ngIf="input.dateStar" src="assets/icons/date.png" [txt]="input.dateStar" 
+                        [style]="'dateUpdateHotel'" [(ngModel)]="inputValues[i].dateStart">
+        </app-input-date>
+        <app-input-date *ngIf="input.dateFinish" src="assets/icons/date.png" [txt]="input.dateFinish" 
+                        [style]="'dateUpdateHotel'" [(ngModel)]="inputValues[i].dateFinish">
+        </app-input-date>
+      </div>
+    </section>
+  
+    <section class="description">
+            <app-text-area title="Servicio:" placeholder="Descripcion de los servicio" [(description)]="serviceDescription"></app-text-area>
+            <app-text-area title="Descripcion:" placeholder="Descripcion de hotel" [(description)]="hotelDescription"></app-text-area>
+    </section>
+  
+    <section class="butons">
+      <app-button text="Camcelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>
+      <app-button text="Agregar" [style]="'saveHotel'" (click)="saveData()"></app-button>
+    </section>
+  </div>
+  

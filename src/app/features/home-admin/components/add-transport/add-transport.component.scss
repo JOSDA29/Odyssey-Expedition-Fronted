@@ -96,13 +96,6 @@
           
     }
 
-    .description {
-        width: 90%;
-        display: grid;
-        grid-template-columns: 1fr 2fr; /* La primera columna será más pequeña */
-        gap: 3rem; /* Espacio entre las columnas */
-    }
-
     .butons{
         margin: 1rem 0rem;
         display: flex;

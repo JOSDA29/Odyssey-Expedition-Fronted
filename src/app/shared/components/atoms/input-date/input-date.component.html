@@ -9,7 +9,8 @@
            [formControl]="control" 
            [disabled]="disabled">
   </div>
-  <span class="input-text">{{ txt }}</span>
+  <!-- Muestra el valor actual de txt -->
+  <span class="input-text">{{ txt || 'Fecha' }}</span>
   <div *ngIf="!disabled && isEmpty() && submitted" class="error-message">
     <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
   </div>      

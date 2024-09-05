@@ -25,6 +25,8 @@ export class FormUpdatesComponent {
       this.errorMessage = 'El campo no puede estar vacío.';
     } else if (this.newText.length < 5) {
       this.errorMessage = 'El contenido debe tener al menos 5 caracteres';
+    } else if (this.newText.length > 100) {
+      this.errorMessage = 'El contenido excede el limite de 100 caracteres';
     } else {
       this.save.emit(this.newText);  // Emitimos el nuevo texto al componente superior
       this.errorMessage = '';
