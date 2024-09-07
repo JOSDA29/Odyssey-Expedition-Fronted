@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-import { ApiService } from '../../../../core/services/api.service';
 import { ModalUpdateHotelComponent } from '../modal-update-hotel/modal-update-hotel.component';
+import { ApiService } from '../../../../../core/services/api.service';
+
 
 @Component({
   selector: 'app-view-data-hotel',
@@ -55,7 +56,7 @@ export class ViewDataHotelComponent implements OnInit {
   
           this.description = hotel.description;
           this.srcImg = hotel.imageurl; 
-          this.altImg = hotel.name;
+          this.altImg = hotel.imageurl;
           this.servicio = hotel.services;
   
           // Formatear las fechas a "yy/mm/dd"

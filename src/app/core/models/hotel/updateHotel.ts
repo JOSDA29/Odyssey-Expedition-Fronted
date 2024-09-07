@@ -10,5 +10,6 @@ export interface updateHotel{
     location?: string;
     hotelServices?: string;
     price?: number;
+    imageurl?: string;
     state?: boolean;
 }

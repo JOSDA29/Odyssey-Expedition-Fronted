@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
 import { ModalService } from '../../../../features/home/services/modal-update-hotel.service';
-import { updateHotel } from '../../../../core/models/updateHotel';
+import { updateHotel } from '../../../../core/models/hotel/updateHotel';
 import { ApiService } from '../../../../core/services/api.service';
+import { updateTransport } from '../../../../core/models/transport/updateTransport';
 
 @Component({
   selector: 'app-table-admin',
@@ -36,6 +37,7 @@ export class TableAdminComponent {
       'Confirmación', 'Aceptar', 'Cancelar'
     ).then((result) => {
       if (result.isConfirmed) {
+        console.log(`Estado actualizado desde: ${this.sourceComponent}`);
         if (this.sourceComponent == 'ComponenteHotel') {
           const updatedHotel: updateHotel = {
             id: Number(item.id),
@@ -43,15 +45,27 @@ export class TableAdminComponent {
           };
           this.apiService.updateHotel(updatedHotel).subscribe(
             () => {
-              console.log(`Estado actualizado desde: ${this.sourceComponent}`);
-              // Puedes realizar otras acciones según el origen
+              console.log(`idHotel: ${updatedHotel.id}`);
             },
             (error) => {
               console.error('Error al actualizar el estado:', error);
               this.sweetAlertService.showError('Error al actualizar el estado.');
             }
           );
-        }else{
+        }else if (this.sourceComponent == 'ComponenteTransporte'){
+          const updateTransport: updateTransport = {
+            transportID: String(item.id),
+            state : newValue,
+          };
+          this.apiService.updateTransport(updateTransport).subscribe(
+            () => {
+              console.log(`idTransport: ${updateTransport.transportID}`);
+            },
+            (error) => {
+              console.error('Error al actualizar el estado:', error);
+              this.sweetAlertService.showError('Error al actualizar el estado.');
+            }
+          );
         }
       } else {
         item.isToggled = !newValue;

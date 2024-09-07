@@ -1,9 +1,10 @@
 import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
-import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
+import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
+import { ApiService } from '../../../../../core/services/api.service';
+import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ApiService } from '../../../../core/services/api.service';
-import { HotelUpdateService } from '../../../../core/services/hotel-update-service.service';
-import { HotelData } from '../../../../core/models/createHotel';
+import { HotelCreate } from '../../../../../core/models/hotel/createHotel';
+
 
 @Component({
   selector: 'app-add-hotel',
@@ -28,6 +29,7 @@ export class AddHotelComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   inputValues: any[] = [];
+  errorMessages: string[] = [];
   serviceDescription: string = '';
   hotelDescription: string = '';
 
@@ -36,7 +38,7 @@ export class AddHotelComponent {
     public dialogRef: MatDialogRef<AddHotelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService: ApiService,
-    private hotelUpdateService: HotelUpdateService
+    private hotelUpdateService: loadComponent
   ) {
     // Initialize inputValues array to match the inputs structure
     this.inputValues = this.inputs.map(() => ({ value: '', dateStart: '', dateFinish: '' }));
@@ -60,7 +62,7 @@ export class AddHotelComponent {
     }
   }
 
-  getInputValues(): HotelData {
+  getInputValues(): HotelCreate {
     const name = this.inputValues[0]?.value || '';
     const destination = this.inputValues[1]?.value || '';
     const startDate = this.inputValues[2]?.dateStart || '';
@@ -69,23 +71,70 @@ export class AddHotelComponent {
     const room = this.inputValues[5]?.value || '';
     const location = this.inputValues[6]?.value || '';
     const price = +this.inputValues[7]?.value || 0;
-
-    // Validaciones previas al envío
-    if (!name || !destination || !startDate || !endDate || !room || !location || price <= 0 || numberOfPeople <= 0) {
-      this.sweetAlertService.showError('Por favor, completa todos los campos obligatorios correctamente.');
+  
+    // Limpiar mensajes de error previos
+    this.errorMessages = [];
+  
+    // Validaciones y mensajes de error
+    if (!name) {
+      this.errorMessages[0] = 'Campo obligatorio';
+    } else if (name.length < 5 || name.length > 20) {
+      this.errorMessages[0] = 'El nombre debe tener entre 5 y 20 caracteres';
+    }
+  
+    if (!destination) {
+      this.errorMessages[1] = 'Campo obligatorio';
+    } else if (destination.length < 5 || destination.length > 255) {
+      this.errorMessages[1] = 'El destino debe tener entre 5 y 255 caracteres';
+    }
+  
+    if (!startDate) {
+      this.errorMessages[2] = 'Campo obligatorio';
+    } else if (new Date(startDate) >= new Date(endDate)) {
+      this.errorMessages[2] = 'La fecha de inicio debe ser antes de la fecha de fin';
+    }
+  
+    if (!endDate) {
+      this.errorMessages[3] = 'Campo obligatorio';
+    }
+  
+    if (numberOfPeople <= 0) {
+      this.errorMessages[4] = 'Campo obligatorio';
+    }
+  
+    if (!room) {
+      this.errorMessages[5] = 'Campo obligatorio';
+    }
+  
+    if (!location) {
+      this.errorMessages[6] = 'Campo obligatorio';
+    }
+  
+    if (price <= 0) {
+      this.errorMessages[7] = 'Campo obligatorio';
+    }
+    if (!this.serviceDescription) {
+      this.errorMessages[8] = 'Campo obligatorio';
+    } else if (this.serviceDescription.length < 10 || this.serviceDescription.length > 500) {
+      this.errorMessages[8] = 'Caracteres minimos 10 y maximo 250';
+    }
+    
+    if (!this.hotelDescription) {
+      this.errorMessages[9] = 'Campo obligatorio';
+    } else if (this.hotelDescription.length < 10 || this.hotelDescription.length > 500) {
+      this.errorMessages[9] = 'Carecteres minimos 10 y maximo 250';
+    }
+  
+    // Si hay errores, lanzar excepción
+    if (this.errorMessages.some(error => error)) {
       throw new Error('Datos inválidos');
     }
-
-    if (new Date(startDate) > new Date(endDate)) {
-      this.sweetAlertService.showError('La fecha de inicio no puede ser posterior a la fecha de fin.');
-      throw new Error('Fechas inválidas');
-    }
-
+  
     return {
       name,
       destination,
-      startDate: startDate,
-      endDate: endDate,
+      startDate,
+      endDate,
       numberOfPeople,
       room,
       description: this.hotelDescription || '',
@@ -113,7 +162,7 @@ export class AddHotelComponent {
 
     // Confirmación y llamada al API
     this.sweetAlertService.showConfirmation(
-      `¿Estás seguro de actualizar este hotel?`,
+      `¿Estás seguro de Agregar este hotel?`,
       'Confirmación',
       'Aceptar',
       'Cancelar'

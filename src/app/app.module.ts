@@ -17,8 +17,10 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ClientProfileModule } from './features/client-profile/client-profile.module';
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
-import { ViewDataHotelComponent } from './features/home-admin/components/view-data-hotel/view-data-hotel.component';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.service';
+import { ViewDataHotelComponent } from './features/home-admin/components/hotel-funtions/view-data-hotel/view-data-hotel.component';
+import { TransportUpdateComponent } from './features/home-admin/components/transport-funtion/transport-update/transport-update.component';
+import { TransportVewComponent } from './features/home-admin/components/transport-funtion/transport-vew/transport-vew.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { ErrorInterceptor } from './core/interceptor/error-interceptor.service';
     RegisterComponent,
     NosotrosComponent,
     ViewDataHotelComponent,
+    TransportUpdateComponent,
+    TransportVewComponent,
   ],
   imports: [
     BrowserModule,

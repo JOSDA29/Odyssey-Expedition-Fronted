@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ErrorTextComponent {
   @Input() text: string = '';
-  @Input() style: 'textError1' | 'textErrorSheart' | 'textError2' = 'textError1';
+  @Input() style: 'textError1' | 'textErrorAddHotel' | 'textErrorSheart' | 'textError2' = 'textError1';
 
 }

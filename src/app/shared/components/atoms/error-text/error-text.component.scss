@@ -34,6 +34,16 @@
     color: $message-error;
   }
 
+  .textErrorAddHotel{
+    display: flex;
+    flex-direction: column;
+    width: 12rem;
+    font-family: $font-family-poppins;
+    font-size: $text-normal;
+    font-weight: $font-weight-extralight;
+    position: relative;
+    color: $message-error;
+  }
 
 @media (min-width: 352px) and (max-width: 480px) {
   .textError1 {

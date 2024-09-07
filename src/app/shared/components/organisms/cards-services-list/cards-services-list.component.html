@@ -1,13 +1,24 @@
 <div class="container">
-    <app-title-section title="Vuelos" subtitle="Encuentra lo mas relevante"></app-title-section>
-    <div class="container-cards">
-        <div *ngFor="let flight of flights; let i = index">
-            <app-cards-service 
-            [title]="flight.title" 
-            [cant]="flight.priceDescription" 
-            [price]="flight.price" [src]="flight.imageSrc" 
-            [departure]="flight.departure">
-        </app-cards-service>
+        <app-title-section *ngIf="flights.length > 0" title="Vuelos" subtitle="Encuentra lo mas relevante"></app-title-section>
+        <div class="container-cards" *ngIf="flights.length > 0">
+            <div *ngFor="let flight of flights; let i = index">
+                <app-cards-service 
+                [title]="flight.title" 
+                [cant]="flight.priceDescription" 
+                [price]="flight.price" [src]="flight.imageSrc" 
+                [departure]="flight.departure">
+            </app-cards-service>
+            </div>
         </div>
-    </div>
+
+        <app-title-section title="Hoteles" subtitle="Encuentra lo mas relevante"></app-title-section>
+
+        <div class="container-cards" *ngIf="hotels.length > 0">
+            <app-card-hotel *ngFor="let hotel of hotels"
+                [title]="hotel.name"
+                [src]="hotel.imageurl "
+                [departure]="hotel.location"
+                [service]="hotel.services">
+            </app-card-hotel>
+        </div>
 </div>

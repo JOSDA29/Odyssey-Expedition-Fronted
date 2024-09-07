@@ -1,9 +1,9 @@
 import { Component, Input, ViewChild, ElementRef, Inject, ChangeDetectorRef } from '@angular/core';
-import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
+import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ApiService } from '../../../../core/services/api.service';
-import { HotelUpdateService } from '../../../../core/services/hotel-update-service.service';
-import { updateHotel } from '../../../../core/models/updateHotel';
+import { ApiService } from '../../../../../core/services/api.service';
+import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
+import { updateHotel } from '../../../../../core/models/hotel/updateHotel';
 
 @Component({
   selector: 'app-modal-update-hotel',
@@ -39,7 +39,7 @@ export class ModalUpdateHotelComponent {
     public dialogRef: MatDialogRef<ModalUpdateHotelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService: ApiService,
-    private hotelUpdateService: HotelUpdateService,
+    private hotelUpdateService: loadComponent,
     private cdr: ChangeDetectorRef,
   ) {
     // Initialize inputValues array to match the inputs structure
@@ -54,15 +54,28 @@ export class ModalUpdateHotelComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      const reader = new FileReader();
+      console.log('Archivo seleccionado:', file); // Verifica que el archivo esté seleccionado
 
+      const reader = new FileReader();
       reader.onload = (e: any) => {
         this.srcImg = e.target.result;
       };
-
       reader.readAsDataURL(file);
+
+      this.apiService.updateImageHotel(file).subscribe(
+        response => {
+          console.log('Imagen actualizada exitosamente:', response);
+          this.sweetAlertService.showSuccess('Imagen actualizada exitosamente');
+        },
+        error => {
+          console.error('Error al actualizar la imagen:', error);
+          this.sweetAlertService.showError('Error al actualizar la imagen');
+        }
+      );
     }
-  }
+}
+
+  
 
   hotelId = this.data.item?.id; // Extrae el ID desde data.item
 

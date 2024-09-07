@@ -1,4 +1,4 @@
-export interface HotelData {
+export interface HotelCreate {
     name: string;
     destination: string;
     startDate: Date;
@@ -9,6 +9,7 @@ export interface HotelData {
     location: string;
     hotelServices: string;
     price: number;
+    imageurl?: string | undefined;
     state: boolean;
-}
+}   
   

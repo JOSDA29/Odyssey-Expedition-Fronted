@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../../../../core/services/api.service';
 import { ModalService } from '../../../../features/home/services/modal-update-hotel.service';
-import { HotelUpdateService } from '../../../../core/services/hotel-update-service.service';
-import { AddHotelComponent } from '../../../../features/home-admin/components/add-hotel/add-hotel.component';
-import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/modal-update-hotel/modal-update-hotel.component';
-import { ViewDataHotelComponent } from '../../../../features/home-admin/components/view-data-hotel/view-data-hotel.component';
+import { loadComponent } from '../../../../core/services/hotel-update-service.service';
+import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/hotel-funtions/modal-update-hotel/modal-update-hotel.component';
+import { ViewDataHotelComponent } from '../../../../features/home-admin/components/hotel-funtions/view-data-hotel/view-data-hotel.component';
+import { AddHotelComponent } from '../../../../features/home-admin/components/hotel-funtions/add-hotel/add-hotel.component';
 
 @Component({
   selector: 'app-hoteles-admin',
@@ -39,7 +39,7 @@ export class HotelesAdminComponent implements OnInit {
     { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa', configModal: { addService: null } },
     { textButon: 'Agregar', srcButon: 'assets/icons/mas.png', altButon: 'mas', configModal: { addService: AddHotelComponent } },
   ];
-  @Input() itemsTransport: any[] = [];
+  @Input() itemsHotel: any[] = [];
   
   inputValues: any[] = [];
 
@@ -55,13 +55,13 @@ export class HotelesAdminComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private modalService: ModalService,
-    private hotelUpdateService: HotelUpdateService
+    private hotelUpdateService: loadComponent
   ) {
     this.inputValues = this.inputs.map(() => ({ value: '' }));
   }
 
   ngOnInit() {
-    this.hotelUpdateService.hotelUpdated$.subscribe(() => {
+    this.hotelUpdateService.loadComponent$.subscribe(() => {
       this.loadHotels(); // Método que recarga los datos de la tabla
     });
 
@@ -71,7 +71,7 @@ export class HotelesAdminComponent implements OnInit {
   loadHotels(): void {
     this.apiService.getHotels().subscribe(
       (response: any) => {
-        this.itemsTransport = response.map((hotel: any) => ({
+        this.itemsHotel = response.map((hotel: any) => ({
           name: hotel.name || 'Sin nombre',
           location: hotel.destination || 'Ubicación no especificada',
           id: hotel.hotelid ? hotel.hotelid.toString() : 'ID no disponible',
@@ -97,7 +97,7 @@ export class HotelesAdminComponent implements OnInit {
     this.apiService.filterHotels(filters).subscribe(
       (response: any) => {
         if (Array.isArray(response)) {
-          this.itemsTransport = response.map((hotel: any) => ({
+          this.itemsHotel = response.map((hotel: any) => ({
             name: hotel.name || 'Sin nombre',
             location: hotel.destination || 'Ubicación no especificada',
             id: hotel.hotelid ? hotel.hotelid.toString() : 'ID no disponible',
@@ -105,7 +105,7 @@ export class HotelesAdminComponent implements OnInit {
           }));
         } else {
           console.warn('Respuesta no es un array:', response);
-          this.itemsTransport = [];
+          this.itemsHotel = [];
         }
       },
       (error) => {

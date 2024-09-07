@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApiService } from '../../../../../core/services/api.service';
-import { searchFligth } from '../../../../../core/models/searchFligths';
+import { searchFligth } from '../../../../../core/models/transport/searchFligths';
 
 @Component({
   selector: 'app-conten-multifaceted',
@@ -98,7 +98,7 @@ export class ContenMultifacetedComponent implements OnInit {
         departureDate: this.form.value.departureDate, // Reemplaza según los valores del formulario
       };
 
-      this.apiService.searchTransport(searchCriteria).subscribe(
+      this.apiService.filterTransport(searchCriteria).subscribe(
         (response) => {
           console.log('Resultado:', response);
           // Maneja la respuesta

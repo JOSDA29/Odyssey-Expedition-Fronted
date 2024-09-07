@@ -5,8 +5,10 @@ import { Client } from '../../features/client-profile/models/profile-info.model'
 import { Login } from '../../features/home/models/login-modal-model';
 import { RegisterForm } from '../../features/register/models/register-form-info.model';
 import { updateClient } from '../../features/client-profile/models/update-info.model';
-import { HotelData } from '../models/createHotel';
-import { updateHotel } from '../models/updateHotel';
+import { HotelCreate } from '../models/hotel/createHotel';
+import { updateHotel } from '../models/hotel/updateHotel';
+import { CreateTransport } from '../models/transport/createTransport';
+import { updateTransport } from '../models/transport/updateTransport';
 
 @Injectable({
   providedIn: 'root'
@@ -69,8 +71,8 @@ export class ApiService {
     return this.http.get<any>(`${this.apiUrl}/adviser/getByEmail`);
   }
       ////////////hotel////////////////////
-      createHotel(dataHotel: HotelData): Observable<HotelData> {
-        return this.http.post<HotelData>(`${this.apiUrl}/hotel/create`, dataHotel);
+      createHotel(dataHotel: HotelCreate): Observable<HotelCreate> {
+        return this.http.post<HotelCreate>(`${this.apiUrl}/hotel/create`, dataHotel);
       }
          
         /////GetHotels/////////////
@@ -88,12 +90,40 @@ getHotelById(id:string): Observable<any>{
   updateHotel(dataUpdateHotel:updateHotel):Observable<updateHotel>{
     return this.http.put<updateHotel>(`${this.apiUrl}/hotel/update`,dataUpdateHotel);
   }
+  
+  ////////////UpdateImageHotel////////////////////
+  updateImageHotel(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file); // La clave 'file' debe coincidir con la que espera el backend
+    return this.http.put<any>(`${this.apiUrl}/hotel/uploadImage`, formData);
+}
+     
 
-
-
-      getAllTransport():Observable<any>{
+////////////////GetAllTransport////////////////////////////
+  getAllTransport():Observable<any>{
         return this.http.get<any>(`${this.apiUrl}/transport/filter`)
+    }
+
+    filterTransport(filters: any): Observable<any> {
+      let params = new HttpParams();
+      
+      // Añade los parámetros de filtrado a la URL
+      for (const key in filters) {
+        if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
+          params = params.set(key, filters[key]);
+        }
       }
+      return this.http.get<any>(`${this.apiUrl}/transport/filter`, { params });
+    }
+
+  createTransport(data: CreateTransport):Observable<CreateTransport>{
+    return this.http.post<CreateTransport>(`${this.apiUrl}/transport/create`,data);
+  }
+
+  //////////////UpdateTransport/////////////////
+  updateTransport(dataUpdateTransport: updateTransport):Observable<updateTransport>{
+    return this.http.put<updateTransport>(`${this.apiUrl}/transport/update`,dataUpdateTransport)
+  }
 
   //////////////////Admin/////////////////////////////
   getAdmin(): Observable<any>{
@@ -103,9 +133,6 @@ getHotelById(id:string): Observable<any>{
 
   ///////////////////////Filtre///////////////////////
 
-  searchTransport(data: any): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/transport/filter`, { params: data });
-  }
 
   filterHotels(filters: any): Observable<any> {
     let params = new HttpParams();

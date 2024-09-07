@@ -1,0 +1,36 @@
+<div class="container">
+    <app-images [style]="'image-card'" [styleOverlay]="'image-card-overlay'" [src]="src"></app-images>
+    <div class="tags-container">
+        <span class="tag-city">{{departure}}</span>
+        <span class="tag-info">{{service}}</span>
+    </div>
+    <div class="container-info">
+        <app-subtitle [style]="'subtitle-register'" [text]="title"></app-subtitle>
+        
+        <!-- Star Rating -->
+        <div class="star-rating">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">☆</span>
+        </div>
+
+        <app-text [style]="'text-secundaryTargetHotel'" text="Alojamiento"></app-text>
+        <app-text [style]="'text-secundaryTargetHotel'" text="Desde"></app-text>
+        <app-subtitle [style]="'subtitle-secundary'" [text]="'$' + price"></app-subtitle>
+        <app-text [style]="'text-secundaryTargetHotel'" [text]="'Precio por ' + cant"></app-text>
+    </div>
+</div>
+
+<!--description: "es un gran lugar para pasar la noche"
+destination: "Bogota"
+endDate: "2024-09-16"
+hotelServices: "desayuno incluido"
+location: "El cruse cr3"
+name: "Hotel example"
+numberOfPeople: 3
+price: 60000
+room: "B1 piso 3"
+startDate: "2024-09-05"
+state: true-->

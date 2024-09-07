@@ -11,21 +11,29 @@
       <div class="input" *ngFor="let input of inputs; let i = index">
         <app-text *ngIf="input.text" [text]="input.text" [style]="'textHotelUpdate'"></app-text>
         <app-input-text *ngIf="input.placeholder" [placeholder]="input.placeholder" [type]="input.type" 
-                        [(ngModel)]="inputValues[i].value" [style]="'inputUpdateHotel'"></app-input-text>
-       
-                        <app-text *ngIf="input.number" [text]="input.number" [style]="'textHotelUpdate'"></app-text>
-                        <app-image-input-text *ngIf="input.placeholderNumber" [styleIcon]="'iconAddTransport'" [styleinput]="'addTransport'" [type]="input.typeNumber" src="assets/icons/peopple.png" 
-                        alt="Search Icon" [placeholder]="input.placeholderNumber"></app-image-input-text>
-
-                        <app-input-date *ngIf="input.dateStar" src="assets/icons/date.png" [txt]="input.dateStar" 
+                        [(ngModel)]="inputValues[i].value" [style]="'inputUpdateHotel'" [max]="input.max"></app-input-text>
+        <app-input-date *ngIf="input.dateStar" src="assets/icons/date.png" [txt]="input.dateStar" 
                         [style]="'dateUpdateHotel'" [(ngModel)]="inputValues[i].dateStart">
         </app-input-date>
         <app-input-date *ngIf="input.dateFinish" src="assets/icons/date.png" [txt]="input.dateFinish" 
                         [style]="'dateUpdateHotel'" [(ngModel)]="inputValues[i].dateFinish">
         </app-input-date>
+        <app-error-text *ngIf="errorMessages[i]"  [text]="errorMessages[i]" [style]="'textErrorAddHotel'"></app-error-text>     
       </div>
     </section>
   
+    <section class="description">
+      <div style="position: relative;">
+        <app-text-area title="Servicio:" placeholder="Descripcion de los servicio" [(description)]="serviceDescription"></app-text-area>
+        <app-error-text *ngIf="errorMessages[8]" [text]="errorMessages[8]" [style]="'textErrorAddHotel'"></app-error-text>
+      </div>
+    
+      <div style="position: relative;">
+        <app-text-area title="Descripcion:" placeholder="Descripcion de hotel" [(description)]="hotelDescription"></app-text-area>
+        <app-error-text *ngIf="errorMessages[9]" [text]="errorMessages[9]" [style]="'textErrorAddHotel'"></app-error-text>
+      </div>
+    </section>
+     
   
     <section class="butons">
       <app-button text="Camcelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>

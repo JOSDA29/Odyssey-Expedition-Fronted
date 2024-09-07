@@ -1,4 +1,4 @@
-@import '../../../../../styles/variables.scss';
+@import '../../../../../../styles/variables.scss';
 
 .container{
     display: flex;
@@ -41,17 +41,6 @@
         display: block; 
         border-radius: 10px 10px 0px 0px;
     }
-    
-    .hover-text {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad para el texto */
-        text-align: center;
-        padding: 0.5rem;
-        opacity: 0; /* Inicialmente oculto */
-    }
 
     .hover-add{
         position: absolute;
@@ -75,8 +64,7 @@
         opacity: 1; /* Muestra el texto al hacer hover */
     }
     
-    .image:hover .hover-add,
-    .image:hover .hover-text {
+    .image:hover .hover-add {
         transition: .6s;
         opacity: 1; /* Muestra el texto al hacer hover */
     }
@@ -106,13 +94,6 @@
             font-size: $text-normal;
         }
           
-    }
-
-    .description {
-        width: 90%;
-        display: grid;
-        grid-template-columns: 1fr 2fr; /* La primera columna será más pequeña */
-        gap: 3rem; /* Espacio entre las columnas */
     }
 
     .butons{

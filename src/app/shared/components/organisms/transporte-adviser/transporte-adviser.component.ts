@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ModalService } from '../../../../features/home/services/modal-update-hotel.service';
-import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/modal-update-hotel/modal-update-hotel.component';
 import { ApiService } from '../../../../core/services/api.service';
-import { Observable } from 'rxjs';
-import { AddTransportComponent } from '../../../../features/home-admin/components/add-transport/add-transport.component';
+import { AddTransportComponent } from '../../../../features/home-admin/components/transport-funtion/add-transport/add-transport.component';
+import { loadComponent } from '../../../../core/services/hotel-update-service.service';
+import { TransportUpdateComponent } from '../../../../features/home-admin/components/transport-funtion/transport-update/transport-update.component';
+import { TransportVewComponent } from '../../../../features/home-admin/components/transport-funtion/transport-vew/transport-vew.component';
 
 @Component({
   selector: 'app-transporte-adviser',
@@ -15,6 +16,7 @@ export class TransporteAdviserComponent {
   constructor(
     private modalService: ModalService,
     private apiService: ApiService,
+    private transportUpload: loadComponent,
   ) {}
 
   @Input() titlesTopTransport= [    {title1:'Servicios', title2: 'Gestión de transportes'}  ];
@@ -58,16 +60,11 @@ export class TransporteAdviserComponent {
     { title: 'Estado' },
     { title: 'Acciones' }
   ];
-  @Input() itemsTransport = [
-    { tipe:'Vuelo',name: 'Armenia, Quindio', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
-    { tipe:'Vuelo',name: 'Armenia, Quindio', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false },
-    { tipe:'Vuelo',name: 'Armenia, Quindio', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false},
-    { tipe:'Vuelo',name: 'Armenia, Quindio', location: 'Bogota, Cundinamarca', id: '1069642307', isToggled: false },
-  ]
+  @Input() itemsTransport: any[] = []
 
   @Input() modalConfig: { editComponent: any; viewComponent: any } = {
-    editComponent: null,
-    viewComponent: null
+    editComponent: TransportUpdateComponent,
+    viewComponent: TransportVewComponent
   }
 
   @Input() modalConfigAdd: { addService: any; } = {
@@ -75,6 +72,9 @@ export class TransporteAdviserComponent {
   };
 
   ngOnInit() {
+    this.transportUpload.loadComponent$.subscribe(() => {
+      this.loadTransport(); // Método que recarga los datos de la tabla
+    });
     this.inputValues = this.inputs.map(() => ({ value: '', dateStart: '', dateFinish: '' }));
     this.loadTransport()
   }
@@ -100,6 +100,7 @@ loadTransport():void{
 
 onButtonClick(index: number, button: any): void {
     if (index === 0) {
+      this.searchTranspor();
     } else if (index === 1) {
       console.log('Abriendo modal de agregar');
       this.modalConfigAdd.addService = button.configModal.addService;
@@ -109,6 +110,41 @@ onButtonClick(index: number, button: any): void {
     }
 }
 
+searchTranspor(): void {
+  const state = this.selectedState === 'Activo' ? true : (this.selectedState === 'Inactivo' ? false : undefined);
+  
+  const filters = {
+    transportType: this.inputValues[0].value|| '',
+    transportID: this.inputValues[1].value || '',
+    origin: this.inputValues[2].value || '',
+    destination: this.inputValues[3].value || '',
+    departureDate: this.inputValues[4].dateStart || '',
+    arrivalDate: this.inputValues[5].dateFinish || '',
+    state: state !== undefined ? state : '',
+  };
+    
+  this.apiService.filterTransport(filters).subscribe(
+    (response: any) => {
+      if (Array.isArray(response)) {
+        console.log('response transport:',response);
+        this.itemsTransport = response.map((transport: any) => ({
+          tipe: transport.transporttype || 'Sin tipo',
+          name: transport.origin || 'Sin nombre',
+          location: transport.destination || 'Ubicación no especificada',
+          id: transport.transportid ? transport.transportid.toString() : 'ID no disponible',
+          isToggled: transport.state !== undefined ? transport.state : false
+        }));
+      } else {
+        console.warn('Respuesta no es un array:', response);
+        this.itemsTransport = [];
+      }
+    },
+    (error) => {
+      console.error('Error al buscar hoteles:', error);
+    }
+  );
+}
+
 openModalAdd(item: any): void {
     if (this.modalConfigAdd.addService) {
       this.modalService.openModal(this.modalConfigAdd.addService, 'addService', { item });
@@ -116,7 +152,11 @@ openModalAdd(item: any): void {
       console.error('El componente addService es null o no está definido.');
     }
   }
+
+  selectedState: string = 'Todos'; 
+
   onOptionChange(newValue: string) {
-    console.log('Selected value:', newValue);
+    this.selectedState = newValue
+    this.searchTranspor();
   }
 }

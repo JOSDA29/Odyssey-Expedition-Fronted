@@ -10,8 +10,11 @@
           <div *ngFor="let item of items" [class]="conten">
             <app-text *ngIf="item.tipe" [text]="item.tipe | truncate:10:true" [style]="'textTableAdmin'"></app-text>
             <app-text [text]="item.name | truncate:10:true" [style]="'textTableAdmin'"></app-text>
-            <app-text [text]="item.location | truncate:27:true" [style]="'textTableAdmin'"></app-text>
-            <app-text [text]="item.id | truncate:10:true" [style]="'textTableAdmin'"></app-text>
+            <app-text 
+            [text]="conten === 'conten2' ? (item.location | truncate:15:true) : (item.location | truncate:27:true)" 
+            [style]="'textTableAdmin'">
+        </app-text>
+         <app-text [text]="item.id | truncate:10:true" [style]="'textTableAdmin'"></app-text>
             <app-toggle-switch
               [(checked)]="item.isToggled"
               (checkedChange)="onToggleChange($event, item)">

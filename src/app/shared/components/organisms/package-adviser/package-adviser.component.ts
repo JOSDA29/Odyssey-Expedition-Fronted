@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/modal-update-hotel/modal-update-hotel.component';
+import { ModalUpdateHotelComponent } from '../../../../features/home-admin/components/hotel-funtions/modal-update-hotel/modal-update-hotel.component';
 
 @Component({
   selector: 'app-package-adviser',
