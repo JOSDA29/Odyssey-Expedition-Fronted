@@ -75,6 +75,11 @@ import { TextAreaComponent } from './components/atoms/text-area/text-area.compon
 import { AddTransportComponent } from '../features/home-admin/components/transport-funtion/add-transport/add-transport.component';
 import { CardHotelComponent } from './components/molecules/cards/card-hotel/card-hotel.component';
 import { AddHotelComponent } from '../features/home-admin/components/hotel-funtions/add-hotel/add-hotel.component';
+import { TransportVewComponent } from '../features/home-admin/components/transport-funtion/transport-vew/transport-vew.component';
+import { TransportUpdateComponent } from '../features/home-admin/components/transport-funtion/transport-update/transport-update.component';
+import { AddProveedorComponent } from '../features/home-admin/components/proveedor/add-proveedor/add-proveedor.component';
+import { ModalUpdateProveedorComponent } from '../features/home-admin/components/proveedor/modal-update-proveedor/modal-update-proveedor.component';
+import { VewProveedoresComponent } from '../features/home-admin/components/proveedor/vew-proveedores/vew-proveedores.component';
 
 
 
@@ -154,6 +159,11 @@ import { AddHotelComponent } from '../features/home-admin/components/hotel-funti
     AddHotelComponent,
     AddTransportComponent,
     CardHotelComponent,
+    TransportVewComponent,
+    TransportUpdateComponent,
+    AddProveedorComponent,
+    ModalUpdateProveedorComponent,
+    VewProveedoresComponent,
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,5 @@ export class IconTextComponent {
 @Input() src:string = '';
 @Input() alt:string = '';
 @Input() text:string = '';
-
-
+@Input() styleText: 'text-normal' | 'exitText' = 'text-normal';
 }

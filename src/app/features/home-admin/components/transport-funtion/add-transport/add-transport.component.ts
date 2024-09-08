@@ -25,15 +25,12 @@ export class AddTransportComponent {
     { placeholder: 'Ingrese el origen', type: 'text', text: 'Origen:', dateStar: '', dateFinish: '' },
     { placeholder: 'Ingrese el destino', type: 'text', text: 'Destino:', dateStar: '', dateFinish: '' },
     { placeholder: 'Valor instancia', type: 'number', text: 'Precio:', dateStar: '', dateFinish: '' },
-    //{ placeholder: 'Ingrese pista / puerto', type: 'text', text: 'Pista / Puerto:', dateStar: '', dateFinish: '' },
   ];
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   inputValues: any[] = [];
   errorMessages: string[] = [];
-  serviceDescription: string = '';
-  hotelDescription: string = '';
 
   constructor(
     private sweetAlertService: SweetAlertService,
@@ -78,19 +75,6 @@ export class AddTransportComponent {
   
     // Convertir el valor de transporttype a minúsculas
     transporttype = transporttype.toLowerCase();
-  
-    console.log('Values:', {
-      transportID,
-      trackNumber,
-      transporttype,
-      company,
-      origin,
-      destination,
-      arrivalDate,
-      departureDate,
-      numberOfPeople,
-      price
-    });
   
     this.errorMessages = [];
   

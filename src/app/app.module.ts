@@ -19,8 +19,6 @@ import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.service';
 import { ViewDataHotelComponent } from './features/home-admin/components/hotel-funtions/view-data-hotel/view-data-hotel.component';
-import { TransportUpdateComponent } from './features/home-admin/components/transport-funtion/transport-update/transport-update.component';
-import { TransportVewComponent } from './features/home-admin/components/transport-funtion/transport-vew/transport-vew.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +31,6 @@ import { TransportVewComponent } from './features/home-admin/components/transpor
     RegisterComponent,
     NosotrosComponent,
     ViewDataHotelComponent,
-    TransportUpdateComponent,
-    TransportVewComponent,
   ],
   imports: [
     BrowserModule,

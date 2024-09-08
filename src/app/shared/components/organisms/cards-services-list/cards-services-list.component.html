@@ -1,24 +1,41 @@
 <div class="container">
-        <app-title-section *ngIf="flights.length > 0" title="Vuelos" subtitle="Encuentra lo mas relevante"></app-title-section>
-        <div class="container-cards" *ngIf="flights.length > 0">
-            <div *ngFor="let flight of flights; let i = index">
-                <app-cards-service 
-                [title]="flight.title" 
-                [cant]="flight.priceDescription" 
-                [price]="flight.price" [src]="flight.imageSrc" 
-                [departure]="flight.departure">
-            </app-cards-service>
-            </div>
+        <app-title-section *ngIf="filteredFlights.length > 0" title="Vuelos" subtitle="Encuentra lo mas relevante"></app-title-section>
+
+        <div class="container-cards" *ngIf="transports.length > 0">
+            <app-card-hotel *ngFor="let transport of filteredFlights | slice:0:4"
+            [title]="transport.destination"
+            [departure]="transport.origin"
+            [price]="transport.price"
+            [type]="transport.transporttype">
+        </app-card-hotel>
         </div>
 
-        <app-title-section title="Hoteles" subtitle="Encuentra lo mas relevante"></app-title-section>
+        <app-title-section *ngIf="hotels.length > 0" title="Hoteles" subtitle="Encuentra lo mas relevante"></app-title-section>
 
         <div class="container-cards" *ngIf="hotels.length > 0">
-            <app-card-hotel *ngFor="let hotel of hotels"
+            <app-card-hotel *ngFor="let hotel of hotels | slice:0:4"
                 [title]="hotel.name"
                 [src]="hotel.imageurl "
                 [departure]="hotel.location"
-                [service]="hotel.services">
+                [price]="hotel.price"
+                [type]="'hotel'"
+                [service]="hotel.room">
             </app-card-hotel>
         </div>
+
+        <app-title-section *ngIf="filteredCruises.length > 0" title="Cruceros" subtitle="Encuentra lo mas relevante"></app-title-section>
+
+        <div class="container-cards" *ngIf="filteredCruises.length > 0">
+            <app-card-hotel *ngFor="let transport of filteredCruises | slice:0:4"
+            [title]="transport.destination"
+            [departure]="transport.origin"
+            [price]="transport.price"  
+            [src]="transport.imageurl"
+            [desde]="'Paga a 4 cuotas desde*'"
+            [noches]="transport.nights + ' noches'"
+            [type]="transport.transporttype">
+          </app-card-hotel>
+          </div>
+          
+        
 </div>

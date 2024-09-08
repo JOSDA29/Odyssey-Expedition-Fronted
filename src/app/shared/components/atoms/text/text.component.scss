@@ -173,6 +173,12 @@
   letter-spacing: $global-spacing;
 }
 
+.exitText{
+  font-family: $font-family-poppins;
+  font-size: $exitText;
+  font-weight: $font-weight-extralight
+}
+
 @media (min-width: 352px) and (max-width: 480px) {
   .disaible{
     font-size: $text-normal;

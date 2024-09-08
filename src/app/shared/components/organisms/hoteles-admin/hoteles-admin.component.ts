@@ -13,6 +13,7 @@ import { AddHotelComponent } from '../../../../features/home-admin/components/ho
 })
 export class HotelesAdminComponent implements OnInit {
   @Input() titlesTopHotel = [ { title1: 'Servicios', title2: 'Gestión de hoteles' } ];
+  @Input() isLoading: boolean = false;
 
   @Input() selects = [
     { text: 'Estado:', option: '', options: [
@@ -69,11 +70,13 @@ export class HotelesAdminComponent implements OnInit {
   }
 
   loadHotels(): void {
+    this.isLoading = true;
     this.apiService.getHotels().subscribe(
       (response: any) => {
+        this.isLoading = false;
         this.itemsHotel = response.map((hotel: any) => ({
           name: hotel.name || 'Sin nombre',
-          location: hotel.destination || 'Ubicación no especificada',
+          location: hotel.location || 'Ubicación no especificada',
           id: hotel.hotelid ? hotel.hotelid.toString() : 'ID no disponible',
           isToggled: hotel.state !== undefined ? hotel.state : false
         }));
@@ -94,12 +97,15 @@ export class HotelesAdminComponent implements OnInit {
       state: state !== undefined ? state : '' // Enviar como string vacío si es undefined
     };
       
+    this.itemsHotel = [];
+    this.isLoading = true; // Mostrar la imagen de carga antes de la solicitud
     this.apiService.filterHotels(filters).subscribe(
       (response: any) => {
+        this.isLoading = false;
         if (Array.isArray(response)) {
           this.itemsHotel = response.map((hotel: any) => ({
             name: hotel.name || 'Sin nombre',
-            location: hotel.destination || 'Ubicación no especificada',
+            location: hotel.location || 'Ubicación no especificada',
             id: hotel.hotelid ? hotel.hotelid.toString() : 'ID no disponible',
             isToggled: hotel.state !== undefined ? hotel.state : false
           }));
@@ -109,6 +115,7 @@ export class HotelesAdminComponent implements OnInit {
         }
       },
       (error) => {
+        this.isLoading = false;
         console.error('Error al buscar hoteles:', error);
       }
     );

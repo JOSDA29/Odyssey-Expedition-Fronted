@@ -11,7 +11,7 @@
             <app-text *ngIf="item.tipe" [text]="item.tipe | truncate:10:true" [style]="'textTableAdmin'"></app-text>
             <app-text [text]="item.name | truncate:10:true" [style]="'textTableAdmin'"></app-text>
             <app-text 
-            [text]="conten === 'conten2' ? (item.location | truncate:15:true) : (item.location | truncate:27:true)" 
+            [text]="conten === 'conten2' ? (item.location | truncate:15:true) : (item.location | truncate:20:true)" 
             [style]="'textTableAdmin'">
         </app-text>
          <app-text [text]="item.id | truncate:10:true" [style]="'textTableAdmin'"></app-text>
@@ -37,13 +37,16 @@
             
           </div>
         </div>
-        <div class="undefoult" *ngIf="items.length == 0">
+        <div class="undefoult" *ngIf="!isLoading && items.length == 0">
           <img src="assets/icons/techny-searching-for-a-file-in-a-folder.gif" alt="undefoult">
           <app-title [style]="'state-Tables'" text="Oh no!, no se ha econtrado ningun contenido"></app-title>
         </div>
+
+        <div class="undefoult" *ngIf="isLoading">
+          <img src="assets/icons/loadingData.gif" alt="undefoult">
+          <app-title [style]="'state-Tables'" text="Cargando..."></app-title>
+        </div>
       </section>
-
-
     </div>
   </div>
   

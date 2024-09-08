@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { ModalUpdateHotelComponent } from '../modal-update-hotel/modal-update-hotel.component';
 import { ApiService } from '../../../../../core/services/api.service';
+import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
 
 
 @Component({
@@ -13,10 +14,11 @@ import { ApiService } from '../../../../../core/services/api.service';
 export class ViewDataHotelComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<ModalUpdateHotelComponent>,
+    public dialogRef: MatDialogRef<ViewDataHotelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService : ApiService,
     private cdr: ChangeDetectorRef,
+    private sweetAlertService:SweetAlertService
   ) {}
 
   @Input() isReadOnly: boolean = true;
@@ -24,6 +26,7 @@ export class ViewDataHotelComponent implements OnInit {
   @Input() srcImg: string = '';
   @Input() altImg: string = '';
   @Input() servicio: string = '';
+  cargado: boolean = false;
 
   @Input() inputs = [
     { placeholder: '', type: 'text', text: 'Identificacion: ', dateStar: '', dateFinish: '' },
@@ -41,6 +44,7 @@ export class ViewDataHotelComponent implements OnInit {
     const hotelId = this.data.item?.id; // Extrae el ID desde data.item
   
     if (hotelId) {
+      this.sweetAlertService.showLoading('Cargando hotel...','','assets/icons/loadingData.gif')
       this.loadHotelData(hotelId);
     } else {
       console.error('No ID provided');
@@ -48,12 +52,14 @@ export class ViewDataHotelComponent implements OnInit {
   }  
 
   loadHotelData(id: string): void {
+    this.cargado = false;
     this.apiService.getHotelById(id).subscribe(
       (response) => {
+        this.cargado = true
+        this.sweetAlertService.hideLoading();
         if (response && response.length > 0) {
           const hotel = response[0]; // Accede al primer objeto en el array
           console.log('Hotel data received from API:', hotel);
-  
           this.description = hotel.description;
           this.srcImg = hotel.imageurl; 
           this.altImg = hotel.imageurl;
@@ -66,7 +72,7 @@ export class ViewDataHotelComponent implements OnInit {
           this.inputs = [
             { placeholder: hotel.hotelid.toString(), type: 'text', text: 'Identificacion: ', dateStar: '', dateFinish: '' },
             { placeholder: hotel.name, type: 'text', text: 'Nombre:', dateStar: '', dateFinish: '' },
-            { placeholder: hotel.location, type: 'text', text: 'Ciudad:', dateStar: '', dateFinish: '' },
+            { placeholder: hotel.destination, type: 'text', text: 'Ciudad:', dateStar: '', dateFinish: '' },
             { placeholder: hotel.numberofpeople.toString(), type: 'number', text: 'Numero de personas:', dateStar: '', dateFinish: '' },
             { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: startDateFormatted, dateFinish: '' },
             { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: endDateFormatted },

@@ -53,6 +53,10 @@ export class SweetAlertService {
     });
   }
 
+  hideLoading() {
+    Swal.close();
+  }
+  
   showWarning(message: string, title: string = 'Advertencia'): void {
     Swal.fire({
       title: title,
@@ -91,6 +95,8 @@ export class SweetAlertService {
       imageAlt: '',
       showConfirmButton: false,  // Oculta el botón de confirmación
       showCancelButton: false,   // Oculta el botón de cancelación
+      allowEscapeKey:false,
+      allowOutsideClick: false,
       customClass: {
         popup: 'showLoading'
       },

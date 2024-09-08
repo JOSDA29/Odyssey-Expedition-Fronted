@@ -23,6 +23,7 @@ export class TransporteAdviserComponent {
   @Input() styleHeader: 'header' | 'headerTransporte' = 'header';
   @Input() butons: 'butons1' | 'butons2' = 'butons1';
   @Input() conten: 'conten' | 'conten2' = 'conten';
+  @Input() isLoading: boolean = false; // estado de carga
 
   inputValues: any[] = [];
 
@@ -80,10 +81,10 @@ export class TransporteAdviserComponent {
   }
 
 loadTransport():void{
+  this.isLoading = true
   this.apiService.getAllTransport().subscribe(
-    (response: any) => {
-      console.log('data',response);
-      
+    (response: any) => {      
+      this.isLoading = false;
       this.itemsTransport = response.map((transport: any) => ({
         tipe: transport.transporttype || 'Sin tipo',
         name: transport.origin || 'Sin Origen',
@@ -122,9 +123,12 @@ searchTranspor(): void {
     arrivalDate: this.inputValues[5].dateFinish || '',
     state: state !== undefined ? state : '',
   };
-    
+    this.itemsTransport = [];
+    this.isLoading = true;
   this.apiService.filterTransport(filters).subscribe(
     (response: any) => {
+      this.isLoading = false;
+      this.isLoading
       if (Array.isArray(response)) {
         console.log('response transport:',response);
         this.itemsTransport = response.map((transport: any) => ({
@@ -140,6 +144,7 @@ searchTranspor(): void {
       }
     },
     (error) => {
+      this.isLoading = false;
       console.error('Error al buscar hoteles:', error);
     }
   );

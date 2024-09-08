@@ -21,6 +21,7 @@ export class TableAdminComponent {
   @Input() header: 'header' | 'headerTransporte' = 'header';
   @Input() conten: 'conten' | 'conten2' = 'conten';
   @Input() sourceComponent: string = ''; // Nuevo Input para el origen del cambio
+  @Input() isLoading: boolean = false; // estado de carga
 
   @Input() titles: { title: string }[] = [];
   @Input() items: {

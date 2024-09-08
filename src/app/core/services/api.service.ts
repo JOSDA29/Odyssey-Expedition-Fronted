@@ -9,13 +9,14 @@ import { HotelCreate } from '../models/hotel/createHotel';
 import { updateHotel } from '../models/hotel/updateHotel';
 import { CreateTransport } from '../models/transport/createTransport';
 import { updateTransport } from '../models/transport/updateTransport';
+import { RegisterProveedor } from '../models/proveedor/proveedor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private apiUrl = 'http://localhost:10240'; 
+  private apiUrl = 'https://3mnzl4rc-10240.use.devtunnels.ms'; 
 
   constructor(
     private http: HttpClient,
@@ -92,60 +93,83 @@ getHotelById(id:string): Observable<any>{
   }
   
   ////////////UpdateImageHotel////////////////////
-  updateImageHotel(file: File): Observable<any> {
+  updateImageHotel(file: File, id: number): Observable<any> {
     const formData = new FormData();
-    formData.append('file', file); // La clave 'file' debe coincidir con la que espera el backend
+    formData.append('file', file);
+    formData.append('id', id.toString()); // Agrega esta línea para incluir el ID en la solicitud
     return this.http.put<any>(`${this.apiUrl}/hotel/uploadImage`, formData);
 }
+
      
 
 ////////////////GetAllTransport////////////////////////////
-  getAllTransport():Observable<any>{
-        return this.http.get<any>(`${this.apiUrl}/transport/filter`)
+getAllTransport():Observable<any>{
+      return this.http.get<any>(`${this.apiUrl}/transport/filter`)
+  }
+
+filterTransport(filters: any): Observable<any> {
+  let params = new HttpParams();
+  
+  // Añade los parámetros de filtrado a la URL
+  for (const key in filters) {
+    if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
+      params = params.set(key, filters[key]);
     }
-
-    filterTransport(filters: any): Observable<any> {
-      let params = new HttpParams();
-      
-      // Añade los parámetros de filtrado a la URL
-      for (const key in filters) {
-        if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
-          params = params.set(key, filters[key]);
-        }
-      }
-      return this.http.get<any>(`${this.apiUrl}/transport/filter`, { params });
-    }
-
-  createTransport(data: CreateTransport):Observable<CreateTransport>{
-    return this.http.post<CreateTransport>(`${this.apiUrl}/transport/create`,data);
   }
+  const url = `${this.apiUrl}/transport/filter`;
 
-  //////////////UpdateTransport/////////////////
-  updateTransport(dataUpdateTransport: updateTransport):Observable<updateTransport>{
-    return this.http.put<updateTransport>(`${this.apiUrl}/transport/update`,dataUpdateTransport)
-  }
+  // Log de la URL completa con parámetros
+  console.log('Request URL:', url, 'Params:', params.toString());
+  return this.http.get<any>(`${this.apiUrl}/transport/filter`, { params });
+}
 
-  //////////////////Admin/////////////////////////////
-  getAdmin(): Observable<any>{
-    return this.http.get<any>(`${this.apiUrl}/admin/getByEmail`);
-  }
+createTransport(data: CreateTransport):Observable<CreateTransport>{
+  return this.http.post<CreateTransport>(`${this.apiUrl}/transport/create`,data);
+}
+
+/////////////ProveedoresGetAll////////
+
+getAllProveedores():Observable<any>{
+  return this.http.get<any>(`${this.apiUrl}/supplier/filter`)
+}
+///////RegisterProveedor///////
+registerProveedor(data:RegisterProveedor):Observable<RegisterProveedor>{
+  return this.http.post<RegisterProveedor>(`${this.apiUrl}/supplier/register`,{ data })
+}
+
+
+//////////////UpdateTransport/////////////////
+updateTransport(dataUpdateTransport: updateTransport):Observable<updateTransport>{
+  return this.http.put<updateTransport>(`${this.apiUrl}/transport/update`,dataUpdateTransport)
+}
+
+updateImageTransport(file: File, id: number): Observable<any> {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('id', id.toString()); // Agrega esta línea para incluir el ID en la solicitud
+  return this.http.put<any>(`${this.apiUrl}/transport/uploadImage`, formData);
+}
+
+//////////////////Admin/////////////////////////////
+getAdmin(): Observable<any>{
+  return this.http.get<any>(`${this.apiUrl}/admin/getByEmail`);
+}
 
 
   ///////////////////////Filtre///////////////////////
 
 
-  filterHotels(filters: any): Observable<any> {
-    let params = new HttpParams();
-    
-    // Añade los parámetros de filtrado a la URL
-    for (const key in filters) {
-      if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
-        params = params.set(key, filters[key]);
-      }
+filterHotels(filters: any): Observable<any> {
+  let params = new HttpParams();
+  
+  // Añade los parámetros de filtrado a la URL
+  for (const key in filters) {
+    if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
+      params = params.set(key, filters[key]);
     }
-    
-    return this.http.get<any>(`${this.apiUrl}/hotel/filter`, { params });
   }
-
+  
+  return this.http.get<any>(`${this.apiUrl}/hotel/filter`, { params });
+}
 
 }

@@ -11,11 +11,11 @@ import { updateHotel } from '../../../../../core/models/hotel/updateHotel';
   styleUrls: ['./modal-update-hotel.component.scss']
 })
 export class ModalUpdateHotelComponent {
-  @Input() hover: 'hover-text' | 'hover-add' = 'hover-text';
-  @Input() button1: 'Cancelar' = 'Cancelar';
   @Input() button2: 'Guardar' | 'Agregar' = 'Guardar';
   @Input() srcImg: string = 'https://example.com/default-image.jpg';
   @Input() altImg: string = 'default';
+  cargado: boolean = false
+  selectedFile: File | null = null;
 
   @Input() inputs = [
     { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ', dateStart: '', dateFinish: '' },
@@ -31,6 +31,7 @@ export class ModalUpdateHotelComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   inputValues: any[] = [];
+  errorMessages: string[] = [];
   serviceDescription: string = '';
   hotelDescription: string = '';
 
@@ -53,35 +54,20 @@ export class ModalUpdateHotelComponent {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      const file = input.files[0];
-      console.log('Archivo seleccionado:', file); // Verifica que el archivo esté seleccionado
-
+      this.selectedFile = input.files[0];
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.srcImg = e.target.result;
       };
-      reader.readAsDataURL(file);
-
-      this.apiService.updateImageHotel(file).subscribe(
-        response => {
-          console.log('Imagen actualizada exitosamente:', response);
-          this.sweetAlertService.showSuccess('Imagen actualizada exitosamente');
-        },
-        error => {
-          console.error('Error al actualizar la imagen:', error);
-          this.sweetAlertService.showError('Error al actualizar la imagen');
-        }
-      );
+      reader.readAsDataURL(this.selectedFile);
     }
-}
-
-  
+  }    
 
   hotelId = this.data.item?.id; // Extrae el ID desde data.item
 
   ngOnInit(): void {
     if (this.hotelId) {
-      console.log('id update component: ',this.hotelId);
+      this.sweetAlertService.showLoading('Cargando hotel...','','assets/icons/loadingData.gif');
       this.loadHotelData(this.hotelId);
     } else {
       console.error('No ID provided');
@@ -99,16 +85,63 @@ export class ModalUpdateHotelComponent {
     const location = this.inputValues[6]?.value || '';
     const price = +this.inputValues[7]?.value || 0;
   
-    // Validaciones previas al envío
-    if (!name || !destination || !startDate || !endDate || !room || !location || price <= 0 || numberOfPeople <= 0) {
-      this.sweetAlertService.showError('Por favor, completa todos los campos obligatorios correctamente.');
-      throw new Error('Datos inválidos');
-    }
+  // Limpiar mensajes de error previos
+  this.errorMessages = [];
   
-    if (new Date(startDate) >= new Date(endDate)) {
-      this.sweetAlertService.showError('La fecha de inicio no puede ser posterior a la fecha de fin.');
-      throw new Error('Fechas inválidas');
-    }
+  // Validaciones y mensajes de error
+  if (!name) {
+    this.errorMessages[0] = 'Campo obligatorio';
+  } else if (name.length < 5 || name.length > 20) {
+    this.errorMessages[0] = 'El nombre debe tener entre 5 y 20 caracteres';
+  }
+
+  if (!destination) {
+    this.errorMessages[1] = 'Campo obligatorio';
+  } else if (destination.length < 5 || destination.length > 255) {
+    this.errorMessages[1] = 'El destino debe tener entre 5 y 255 caracteres';
+  }
+
+  if (!startDate) {
+    this.errorMessages[2] = 'Campo obligatorio';
+  } else if (new Date(startDate) >= new Date(endDate)) {
+    this.errorMessages[2] = 'La fecha de inicio debe ser antes de la fecha de fin';
+  }
+
+  if (!endDate) {
+    this.errorMessages[3] = 'Campo obligatorio';
+  }
+
+  if (numberOfPeople <= 0) {
+    this.errorMessages[4] = 'Campo obligatorio';
+  }
+
+  if (!room) {
+    this.errorMessages[5] = 'Campo obligatorio';
+  }
+
+  if (!location) {
+    this.errorMessages[6] = 'Campo obligatorio';
+  }
+
+  if (price <= 0) {
+    this.errorMessages[7] = 'Campo obligatorio';
+  }
+  if (!this.serviceDescription) {
+    this.errorMessages[8] = 'Campo obligatorio';
+  } else if (this.serviceDescription.length < 10 || this.serviceDescription.length > 500) {
+    this.errorMessages[8] = 'Caracteres minimos 10 y maximo 250';
+  }
+  
+  if (!this.hotelDescription) {
+    this.errorMessages[9] = 'Campo obligatorio';
+  } else if (this.hotelDescription.length < 10 || this.hotelDescription.length > 500) {
+    this.errorMessages[9] = 'Carecteres minimos 10 y maximo 250';
+  }
+
+  // Si hay errores, lanzar excepción
+  if (this.errorMessages.some(error => error)) {
+    throw new Error('Datos inválidos');
+  }
   
     return {
       id: this.hotelId, // Asigna un ID apropiado aquí si es necesario
@@ -127,16 +160,17 @@ export class ModalUpdateHotelComponent {
   }
 
   loadHotelData(hotelId: string): void {
+    this.cargado = false;
     this.apiService.getHotelById(hotelId).subscribe(
       (data: any) => {
+        this.cargado = true;
+        this.sweetAlertService.hideLoading();
         if (data && data.length > 0) {
           const hotel = data[0]; // Accede al primer objeto en el array
           console.log('Hotel data received from API:', hotel);
           const startDateFormatted = new Date(hotel.startdate).toLocaleDateString('en-CA'); // 'en-CA' produce "yyyy-MM-dd"
           const endDateFormatted = new Date(hotel.enddate).toLocaleDateString('en-CA');
-        
-          console.log('data of hotel:',startDateFormatted,endDateFormatted);
-          
+              
           // Asigna los valores a los inputs
           this.inputValues[0].value = hotel.name || '';
           this.inputValues[1].value = hotel.destination || '';
@@ -151,8 +185,6 @@ export class ModalUpdateHotelComponent {
           this.srcImg = hotel.imageurl || this.srcImg;
 
           // Debugging
-        console.log('Assigned Date Start:', this.inputValues[2].dateStart);
-        console.log('Assigned Date Finish:', this.inputValues[3].dateFinish);
         this.cdr.detectChanges();
         }
       },
@@ -186,21 +218,48 @@ export class ModalUpdateHotelComponent {
       'Cancelar'
     ).then((result) => {
       if (result.isConfirmed) {
+        this.sweetAlertService.showLoading('Actualizando hotel...','','assets/icons/loadingData.gif');
+        
+        // Si hay un archivo seleccionado, se sube junto con los datos del hotel
+        if (this.selectedFile) {
+          this.apiService.updateImageHotel(this.selectedFile, this.hotelId).subscribe(
+            imageResponse => {
+              // Después de que la imagen se ha subido, actualiza los datos del hotel
+              this.apiService.updateHotel(payload).subscribe(
+                response => {
+                  console.log('Hotel agregado exitosamente:', response);
+                  this.hotelUpdateService.notifyHotelUpdated();
+                  this.dialogRef.close(response);
+                  this.sweetAlertService.showSuccess('Actualización exitosa', 'assets/icons/check.gif');
+                },
+                error => {
+                  console.error('Error al agregar el hotel:', error);
+                }
+              );
+            },
+            error => {
+              console.error('Error al actualizar la imagen:', error);
+              this.sweetAlertService.showError('Error al actualizar la imagen');
+            }
+          );
+        } else {
+          // Si no hay un archivo seleccionado, solo actualiza los datos del hotel
           this.apiService.updateHotel(payload).subscribe(
             response => {
               console.log('Hotel agregado exitosamente:', response);
               this.hotelUpdateService.notifyHotelUpdated();
               this.dialogRef.close(response);
+              this.sweetAlertService.showSuccess('Actualización exitosa', 'assets/icons/check.gif');
             },
             error => {
               console.error('Error al agregar el hotel:', error);
             }
           );
-        
-          this.dialogRef.close();
+        }
       }
     });
   }
+  
   
 
   cancelData(): void {
@@ -212,6 +271,7 @@ export class ModalUpdateHotelComponent {
     ).then((result) => {
       if (result.isConfirmed) {
         this.dialogRef.close();
+        this.sweetAlertService.showSuccess('Se canceló la atualización', 'assets/icons/error.gif');
       }
     });
   }

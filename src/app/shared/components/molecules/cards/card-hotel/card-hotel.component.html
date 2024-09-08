@@ -1,6 +1,6 @@
 <div class="container">
     <app-images [style]="'image-card'" [styleOverlay]="'image-card-overlay'" [src]="src"></app-images>
-    <div class="tags-container">
+    <div class="tags-container" *ngIf="type == 'hotel'">
         <span class="tag-city">{{departure}}</span>
         <span class="tag-info">{{service}}</span>
     </div>
@@ -8,7 +8,7 @@
         <app-subtitle [style]="'subtitle-register'" [text]="title"></app-subtitle>
         
         <!-- Star Rating -->
-        <div class="star-rating">
+        <div class="star-rating" *ngIf="type !== 'vuelo'">
             <span class="star">★</span>
             <span class="star">★</span>
             <span class="star">★</span>
@@ -16,8 +16,13 @@
             <span class="star">☆</span>
         </div>
 
-        <app-text [style]="'text-secundaryTargetHotel'" text="Alojamiento"></app-text>
-        <app-text [style]="'text-secundaryTargetHotel'" text="Desde"></app-text>
+        <app-text [style]="'text-secundaryTargetHotel'" [text]="noches"></app-text>
+        <app-icon-text *ngIf="type !== 'hotel'" 
+        src="/assets/icons/ubication.png" 
+        alt="ubicacion" text="Salida desde {{departure | truncate:20:true}} " 
+        [styleText]="'exitText'">
+        </app-icon-text>
+        <app-text [style]="'text-secundaryTargetHotel'" [text]="desde"></app-text>
         <app-subtitle [style]="'subtitle-secundary'" [text]="'$' + price"></app-subtitle>
         <app-text [style]="'text-secundaryTargetHotel'" [text]="'Precio por ' + cant"></app-text>
     </div>

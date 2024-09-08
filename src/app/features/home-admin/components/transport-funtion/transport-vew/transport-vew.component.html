@@ -1,1 +1,49 @@
-<p>transport-vew works!</p>
+<div class="container" *ngIf="cargado">
+    <app-icon src="assets/icons/close.png" alt="" [style]="'icon-close'" (click)="closeVist()"></app-icon>
+
+    <div class="image">
+        <img [src]="srcImg" [alt]="altImg" class="imageUpdateHotel">
+    </div>
+    
+    <section class="inputs">
+        <div class="input" *ngFor="let input of inputs">
+            <app-text *ngIf="input.text" [text]="input.text" [style]="'textHotelUpdate'"></app-text>
+            
+            <app-input-text 
+            *ngIf="input.placeholder" 
+            [isReadOnly]="true" 
+            [placeholder]="input.placeholder" 
+            [type]="input.type" 
+            [style]="'inputUpdateHotel'" 
+            [control]="createFormControl(input.placeholder)"> 
+        </app-input-text>
+
+            <app-text *ngIf="input.number" [text]="input.number" [style]="'textHotelUpdate'"></app-text>
+            <app-image-input-text *ngIf="input.placeholderNumber" 
+            [isReadOnly]="true"
+            [styleIcon]="'iconAddTransport'" 
+            [styleinput]="'addTransport'" 
+            [type]="input.typeNumber" 
+            src="assets/icons/peopple.png" 
+            alt="Search Icon" 
+            [placeholder]="input.placeholderNumber"
+            ></app-image-input-text>
+
+            <app-input-date 
+                *ngIf="input.dateStar" 
+                src="assets/icons/date.png" 
+                [txt]="input.dateStar" 
+                [style]="'dateUpdateHotel'"
+                [disabled]=true>
+            </app-input-date>
+
+            <app-input-date 
+                *ngIf="input.dateFinish" 
+                src="assets/icons/date.png" 
+                [txt]="input.dateFinish" 
+                [style]="'dateUpdateHotel'"
+                [disabled]=true>
+            </app-input-date>
+        </div>
+    </section>
+</div>

@@ -1,14 +1,15 @@
-export interface CreateTransport {
+export interface getTransport {
     transportID:string,
     transporttype: string;
     company: string;
     origin: string;
     destination: string;
-    arrivalDate: Date;
-    departureDate: Date;
+    arrivaldate: string;
+    departuredate: string;
     numberOfPeople: number;
     price: number;
     state: boolean;
     trackNumber: number;
+    imageurl:string,
     nights?:number
 }

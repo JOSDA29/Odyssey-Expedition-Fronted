@@ -168,6 +168,7 @@ export class AddHotelComponent {
       'Cancelar'
     ).then((result) => {
       if (result.isConfirmed) {
+        this.sweetAlertService.showLoading('Por favor espera.','Creando hotel...','assets/icons/avionLoading.gif')
           this.apiService.createHotel(payload).subscribe(
             response => {
               console.log('Hotel agregado exitosamente:', response);
