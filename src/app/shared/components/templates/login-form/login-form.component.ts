@@ -102,15 +102,19 @@ export class LoginFormComponent implements OnInit {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.closeModal();
+  
+      // Muestra el mensaje de éxito con el ícono de carga
       this.sweetAlertService.showSuccess('Iniciando sesión', 'assets/icons/avionLoading.gif');
+  
       this.apiService.login(email, password).subscribe(
         user => {
           if (user) {
             const { AccessToken } = user;
             localStorage.setItem('token', AccessToken);
-            this.sweetAlertService.hideLoading();
+  
             this.apiService.getUserInfo().subscribe(userInfo => {
               if (userInfo.state !== true) {
+                this.sweetAlertService.hideLoading(); // Oculta la alerta de carga
                 localStorage.setItem('isLoggedIn', 'false');
                 this.sweetAlertService.showConfirmation(
                   'Tu cuenta está desactivada, ¿quieres activarla de nuevo?',
@@ -132,11 +136,16 @@ export class LoginFormComponent implements OnInit {
               } else {
                 localStorage.setItem('isLoggedIn', 'true');
                 this.loadComponent.notifyHotelUpdated(); 
+  
+                // Oculta el mensaje de éxito inicial y muestra otro al completar
+                this.sweetAlertService.hideLoading();
                 this.sweetAlertService.showSuccess('Inicio de sesión exitoso', 'assets/icons/check.gif');
+  
                 this.closeModal();
                 this.closeModalRecovery();
               }
             }, (error) => {
+              this.sweetAlertService.hideLoading(); // Oculta la alerta en caso de error
               if (!localStorage.getItem('isLoggedIn')) {
                 this.apiService.getAdmin().subscribe(
                   adminData => {
@@ -164,6 +173,7 @@ export class LoginFormComponent implements OnInit {
           }
         },
         (error) => {
+          this.sweetAlertService.hideLoading(); // Oculta la alerta en caso de error
           if (error.status) {
             const errorMessage = this.errorHandlingService.handleError(error);
             console.error('Error de inicio de sesión:', errorMessage);
@@ -174,6 +184,7 @@ export class LoginFormComponent implements OnInit {
       alert('Por favor, complete el formulario correctamente');
     }
   }
+  
   
   
 
