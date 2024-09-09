@@ -11,5 +11,5 @@ export interface getTransport {
     state: boolean;
     trackNumber: number;
     imageurl:string,
-    nights?:number
+    nights?:number;
 }

@@ -28,10 +28,11 @@ export class CardsServicesListComponent implements OnInit {
             transport.nights = this.calculateNights(transport);
             return transport;
           });
+  console.log(this.transports);
   
           // Filtrar transportes por tipo 'vuelo' y 'crucero'
-          this.filteredFlights = this.transports.filter(transport => transport.transporttype === 'vuelo');
-          this.filteredCruises = this.transports.filter(transport => transport.transporttype === 'crucero');
+          this.filteredFlights = this.transports.filter(transport => transport.transporttype.toLowerCase() === 'vuelo');
+          this.filteredCruises = this.transports.filter(transport => transport.transporttype.toLowerCase() === 'crucero');
         },
         (error) => {
           console.error('Error fetching transports:', error);

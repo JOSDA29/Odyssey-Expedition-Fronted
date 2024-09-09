@@ -21,7 +21,7 @@
 
         .profile-menu {
             position: absolute;
-            width: 12vw;
+            width: 15vw;
             top: 69%;
             right: 3rem;
             background-color: $background-light;
@@ -34,12 +34,15 @@
           
             a {
               text-decoration: none;
+              font-family: $font-family-poppins;
               color: black;
               padding: 0.5rem 1rem;
-              transition: background-color 0.3s;
+              transition: background-color 0.2s;
               cursor: pointer;
+              border-radius: 10px;
               &:hover {
-                background-color: white;
+                border-radius: 10px;
+                background-color: $colo-radio;
               }
             }
           }          
@@ -61,7 +64,7 @@
           flex-direction: column;
           position: absolute;
           top: 0;
-          left: 0;
+          right: 2%;
           width: 70vw;
           height: 100%;
           background-color: $background-light;
@@ -85,6 +88,14 @@
     
         .icon {
           margin-right: 1rem;
+          .profile-menu {
+            width: 43vw;
+            padding: 0.6rem;
+        
+            a {
+              padding: 0.5rem 0.8rem;
+            }
+          }
         }
         app-logo{
             margin-left: 0rem;
