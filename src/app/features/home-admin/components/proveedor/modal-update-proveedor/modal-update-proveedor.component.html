@@ -1,1 +1,43 @@
-<p>modal-update-proveedor works!</p>
+<div class="container" *ngIf="cargado">  
+  <section class="inputs">
+    <div class="input" *ngFor="let input of inputs; let i = index">
+      <ng-container *ngIf="input.text">
+        <app-text [text]="input.text" [style]="'textHotelUpdate'"></app-text>
+      </ng-container>
+
+      <app-input-text 
+      [placeholder]="input.placeholder" 
+      [type]="input.type"
+      [isReadOnly]="input.isReadOnly"
+      [formControl]="getFormControl(input.formControlName)"
+      [style]="'inputUpdateHotel'">
+    </app-input-text>
+
+    <app-error-text 
+      *ngIf="isControlInvalid(input.formControlName)"
+      [text]="getErrorMessage(input.formControlName)" 
+      [style]="'textErrorAddHotel'">
+    </app-error-text>
+
+    </div>
+  </section>
+
+  <section class="description">
+    <div style="position: relative;">
+      <app-text-area title="Horario de atención: " placeholder="Ej: Lunes a viernes de 8:00 a.m a 3:00 p.m" 
+                     [(description)]="horarioAtencion" 
+                     [formControl]="getFormControl('horarioAtencion')" 
+                     [style]="'containerProveedor'">
+      </app-text-area>
+      <app-error-text *ngIf="isControlInvalid('horarioAtencion')"
+                      [text]="getErrorMessage('horarioAtencion')" 
+                      [style]="'textErrorAddHotel'">
+      </app-error-text>
+    </div>
+  </section>
+  
+  <section class="butons">
+    <app-button text="Cancelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>
+    <app-button text="Guardar" [style]="'saveHotel'" (click)="saveData()"></app-button>
+  </section>
+</div>

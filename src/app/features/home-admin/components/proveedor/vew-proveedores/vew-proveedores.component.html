@@ -1,1 +1,33 @@
-<p>vew-proveedores works!</p>
+<div class="container" *ngIf="cargado">  
+  <app-icon src="assets/icons/close.png" alt="" [style]="'icon-close'" (click)="closeVist()"></app-icon>
+
+    <section class="inputs">
+      <div class="input" *ngFor="let input of inputs; let i = index">
+        <ng-container *ngIf="input.text">
+          <app-text [text]="input.text" [style]="'textHotelUpdate'"></app-text>
+        </ng-container>
+  
+        <app-input-text 
+        [placeholder]="input.placeholder" 
+        [type]="input.type"
+        [isReadOnly]="input.isReadOnly"
+        [style]="'inputUpdateHotel'">
+      </app-input-text>
+  
+      </div>
+    </section>
+  
+    <section class="description">
+      <div style="position: relative;">
+        <app-text-area title="Horario de atención: "
+                       [placeholder]="horarioAtencion" 
+                       [(placeholder)]="horarioAtencion" 
+                       [style]="'containerProveedor'"
+                       [isReadOnly]="isReadOnly">
+        </app-text-area>
+
+      </div>
+    </section>
+    
+  </div>
+  

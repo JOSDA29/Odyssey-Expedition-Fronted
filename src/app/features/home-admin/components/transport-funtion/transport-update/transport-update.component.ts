@@ -11,7 +11,6 @@ import { updateTransport } from '../../../../../core/models/transport/updateTran
   styleUrl: './transport-update.component.scss'
 })
 export class TransportUpdateComponent {
-  @Input() button2: 'Guardar' | 'Agregar' = 'Guardar';
   @Input() srcImg: string = 'https://example.com/default-image.jpg';
   @Input() altImg: string = 'default';
   cargado: boolean = false
@@ -66,7 +65,7 @@ export class TransportUpdateComponent {
 
   ngOnInit(): void {
     if (this.transportId) {
-      this.sweetAlertService.showLoading('Cargando transport...','','assets/icons/loadingData.gif');
+      this.sweetAlertService.showLoading('Cargando transporte...','','assets/icons/loadingData.gif');
       this.loadTransportData(this.transportId);
     } else {
       console.error('No ID provided');
@@ -82,14 +81,6 @@ export class TransportUpdateComponent {
     const origin = this.inputValues[6]?.value || '';
     const destination = this.inputValues[7]?.value || '';
     const price = this.inputValues[8]?.value || 0;
-  
-    // Debugging: Log captured values
-    console.log('Arrival Date:', arrivalDate);
-    console.log('Departure Date:', departureDate);
-    console.log('Number of People:', numberOfPeople);
-    console.log('Origin:', origin);
-    console.log('Destination:', destination);
-    console.log('Price:', price);
     
     this.errorMessages = [];
   
@@ -207,7 +198,7 @@ export class TransportUpdateComponent {
               // Después de que la imagen se ha subido, actualiza los datos del transport
               this.apiService.updateTransport(payload).subscribe(
                 response => {
-                  console.log('transport agregado exitosamente:', response);
+                  this.sweetAlertService.hideLoading();
                   this.transportUpdateService.notifyHotelUpdated();
                   this.dialogRef.close(response);
                   this.sweetAlertService.showSuccess('Actualización exitosa', 'assets/icons/check.gif');

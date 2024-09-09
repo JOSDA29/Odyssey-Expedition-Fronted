@@ -158,8 +158,6 @@ export class AddTransportComponent {
 
   saveData(): void {
     const payload = this.getInputValues();
-    console.log('Datos a enviar:', payload); // Depuración
-    // Confirmación y llamada al API
     this.sweetAlertService.showConfirmation(
       `¿Estás seguro de actualizar este transporte?`,
       'Confirmación',
@@ -167,13 +165,16 @@ export class AddTransportComponent {
       'Cancelar'
     ).then((result) => {
       if (result.isConfirmed) {
+        this.sweetAlertService.showLoading('Creando transporte...','','assets/icons/loadingData.gif')
           this.apiService.createTransport(payload).subscribe(
             response => {
-              console.log('Transporte agregado exitosamente:', response);
+              this.sweetAlertService.hideLoading();
               this.transportUpload.notifyHotelUpdated();
               this.dialogRef.close(response);
+              this.sweetAlertService.showSuccess('Creacion exitosa', 'assets/icons/check.gif');
             },
-            error => {
+            error => {              
+              this.sweetAlertService.hideLoading();
               console.error('Error al agregar el transporte:', error);
             }
           );

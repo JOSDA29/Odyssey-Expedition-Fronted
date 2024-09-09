@@ -1,5 +1,5 @@
 export interface updateHotel{
-    id:number,
+    id?:string,
     name?: string;
     destination?: string;
     startDate?: Date;

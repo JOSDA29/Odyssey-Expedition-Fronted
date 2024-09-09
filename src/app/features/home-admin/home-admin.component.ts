@@ -108,16 +108,10 @@ export class HomeAdminComponent {
     } else {
       this.subSelecction = ''; 
     }
-
-    console.log('Opción seleccionada:', this.selection);
-    console.log('Sub-opción seleccionada:', this.subSelecction);
   }
 
   handleSubOptionSelected(event: { option: string, subOption: string }) {
     this.selection = event.option;
     this.subSelecction = event.subOption;
-
-    console.log('Opción seleccionada:', this.selection);
-    console.log('Sub-opción seleccionada:', this.subSelecction);
   }
 }

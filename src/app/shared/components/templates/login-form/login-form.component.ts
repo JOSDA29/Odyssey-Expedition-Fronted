@@ -8,6 +8,7 @@ import { ModalServiceRecover } from '../../../../features/home/services/modal-re
 import { ApiService } from '../../../../core/services/api.service';
 import { ErrorHandlingService } from '../../../../core/services/error-handling.service';
 import { SweetAlertService } from '../../../../core/services/sweet-alert.service';
+import { loadComponent } from '../../../../core/services/hotel-update-service.service';
 
 @Component({
   selector: 'app-login-form',
@@ -26,6 +27,7 @@ export class LoginFormComponent implements OnInit {
     private apiService: ApiService,
     private errorHandlingService: ErrorHandlingService,
     private sweetAlertService: SweetAlertService,
+    private loadComponent: loadComponent,
   ) {}
 
   @Input() title: string = '';
@@ -99,11 +101,14 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
+      this.closeModal();
+      this.sweetAlertService.showSuccess('Iniciando sesión', 'assets/icons/avionLoading.gif');
       this.apiService.login(email, password).subscribe(
         user => {
           if (user) {
             const { AccessToken } = user;
             localStorage.setItem('token', AccessToken);
+            this.sweetAlertService.hideLoading();
             this.apiService.getUserInfo().subscribe(userInfo => {
               if (userInfo.state !== true) {
                 localStorage.setItem('isLoggedIn', 'false');
@@ -114,7 +119,6 @@ export class LoginFormComponent implements OnInit {
                   if (result.isConfirmed) {
                     this.apiService.changeState(true).subscribe(
                       (response) => {
-                        console.log('Estado del cliente actualizado:', response);
                         localStorage.setItem('isLoggedIn', 'true');
                         this.router.navigate(['/clientProfile']);
                         this.closeModal();
@@ -126,8 +130,9 @@ export class LoginFormComponent implements OnInit {
                   }
                 });
               } else {
-                this.sweetAlertService.showSuccess('Inicio de sesión exitoso', 'assets/icons/check.gif');
                 localStorage.setItem('isLoggedIn', 'true');
+                this.loadComponent.notifyHotelUpdated(); 
+                this.sweetAlertService.showSuccess('Inicio de sesión exitoso', 'assets/icons/check.gif');
                 this.closeModal();
                 this.closeModalRecovery();
               }

@@ -1,41 +1,40 @@
-import { Component, Input, ViewChild, ElementRef, Inject, ChangeDetectorRef } from '@angular/core';
-import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../../../core/services/api.service';
-import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
+import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
 import { updateHotel } from '../../../../../core/models/hotel/updateHotel';
+import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
 
 @Component({
   selector: 'app-modal-update-hotel',
   templateUrl: './modal-update-hotel.component.html',
   styleUrls: ['./modal-update-hotel.component.scss']
 })
-export class ModalUpdateHotelComponent {
-  @Input() button2: 'Guardar' | 'Agregar' = 'Guardar';
-  @Input() srcImg: string = 'https://example.com/default-image.jpg';
-  @Input() altImg: string = 'default';
-  cargado: boolean = false
+export class ModalUpdateHotelComponent implements OnInit {
+  hotelForm!: FormGroup;
+  srcImg: string = 'https://example.com/default-image.jpg';
   selectedFile: File | null = null;
+  hotelId = this.data.item.id;
+  cargado: boolean = false;
+  serviceDescription: string = '';
+  hotelDescription: string = '';
 
-  @Input() inputs = [
-    { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ', dateStart: '', dateFinish: '' },
-    { placeholder: 'Destino', type: 'text', text: 'Destino:', dateStart: '', dateFinish: '' },
-    { placeholder: '', type: '', text: 'Fecha de inicio:', dateStart: 'Fecha', dateFinish: '' },
-    { placeholder: '', type: '', text: 'Fecha de fin:', dateStart: '', dateFinish: 'Fecha' },
-    { placeholder: 'Cantidad de personas', type: 'number', text: 'Numero de personas:', dateStart: '', dateFinish: '' },
-    { placeholder: 'Habitacion', type: 'text', text: 'Habitacion:', dateStart: '', dateFinish: '' },
-    { placeholder: 'locacion', type: 'text', text: 'Locacion:', dateStart: '', dateFinish: '' },
-    { placeholder: 'Precio', type: 'number', text: 'Precio:', dateStart: '', dateFinish: '' },
+  inputs = [
+    { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ', formControlName: 'name' },
+    { placeholder: 'Destino', type: 'text', text: 'Destino:', formControlName: 'destination' },
+    { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', formControlName: 'startDate' },
+    { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha', formControlName: 'endDate' },
+    { placeholder: 'Cantidad de personas', type: 'number', text: 'Número de personas:', max: 12, formControlName: 'numberOfPeople' },
+    { placeholder: 'Habitación', type: 'text', text: 'Habitación:', formControlName: 'room' },
+    { placeholder: 'Locación', type: 'text', text: 'Locación:', formControlName: 'location' },
+    { placeholder: 'Precio', type: 'number', text: 'Precio:', formControlName: 'price' },
   ];
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  inputValues: any[] = [];
-  errorMessages: string[] = [];
-  serviceDescription: string = '';
-  hotelDescription: string = '';
-
   constructor(
+    private fb: FormBuilder,
     private sweetAlertService: SweetAlertService,
     public dialogRef: MatDialogRef<ModalUpdateHotelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -43,8 +42,30 @@ export class ModalUpdateHotelComponent {
     private hotelUpdateService: loadComponent,
     private cdr: ChangeDetectorRef,
   ) {
-    // Initialize inputValues array to match the inputs structure
-    this.inputValues = this.inputs.map(() => ({ value: '', dateStart: '', dateFinish: '' }));
+
+  }
+
+  ngOnInit(): void {
+    this.hotelId = this.data.item?.id;
+    
+    if (this.hotelId) {
+      this.sweetAlertService.showLoading('Cargando hotel...', '', 'assets/icons/loadingData.gif');
+      this.loadHotelData(this.hotelId);
+    } else {
+      console.error('No ID provided');
+    }
+    this.hotelForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      destination: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      numberOfPeople: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
+      room: ['', [Validators.required]],
+      location: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(1)]],
+      serviceDescription: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      hotelDescription: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]]
+    });  
   }
 
   triggerFileInput(): void {
@@ -61,87 +82,22 @@ export class ModalUpdateHotelComponent {
       };
       reader.readAsDataURL(this.selectedFile);
     }
-  }    
+  }
 
-  hotelId = this.data.item?.id; // Extrae el ID desde data.item
-
-  ngOnInit(): void {
-    if (this.hotelId) {
-      this.sweetAlertService.showLoading('Cargando hotel...','','assets/icons/loadingData.gif');
-      this.loadHotelData(this.hotelId);
-    } else {
-      console.error('No ID provided');
+  getFormControl(controlName: string): FormControl {
+    const control = this.hotelForm.get(controlName);
+    if (!control) {
+      throw new Error(`Control with name '${controlName}' not found in the form`);
     }
-    this.cdr.detectChanges();
-  }  
+    return control as FormControl;
+  } 
+  isControlInvalid(controlName: string): boolean {
+    const control = this.getFormControl(controlName);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
 
   getInputValues(): updateHotel {
-    const name = this.inputValues[0]?.value || '';
-    const destination = this.inputValues[1]?.value || '';
-    const startDate = this.inputValues[2]?.dateStart || '';
-    const endDate = this.inputValues[3]?.dateFinish || '';
-    const numberOfPeople = +this.inputValues[4]?.value || 0;
-    const room = this.inputValues[5]?.value || '';
-    const location = this.inputValues[6]?.value || '';
-    const price = +this.inputValues[7]?.value || 0;
-  
-  // Limpiar mensajes de error previos
-  this.errorMessages = [];
-  
-  // Validaciones y mensajes de error
-  if (!name) {
-    this.errorMessages[0] = 'Campo obligatorio';
-  } else if (name.length < 5 || name.length > 20) {
-    this.errorMessages[0] = 'El nombre debe tener entre 5 y 20 caracteres';
-  }
-
-  if (!destination) {
-    this.errorMessages[1] = 'Campo obligatorio';
-  } else if (destination.length < 5 || destination.length > 255) {
-    this.errorMessages[1] = 'El destino debe tener entre 5 y 255 caracteres';
-  }
-
-  if (!startDate) {
-    this.errorMessages[2] = 'Campo obligatorio';
-  } else if (new Date(startDate) >= new Date(endDate)) {
-    this.errorMessages[2] = 'La fecha de inicio debe ser antes de la fecha de fin';
-  }
-
-  if (!endDate) {
-    this.errorMessages[3] = 'Campo obligatorio';
-  }
-
-  if (numberOfPeople <= 0) {
-    this.errorMessages[4] = 'Campo obligatorio';
-  }
-
-  if (!room) {
-    this.errorMessages[5] = 'Campo obligatorio';
-  }
-
-  if (!location) {
-    this.errorMessages[6] = 'Campo obligatorio';
-  }
-
-  if (price <= 0) {
-    this.errorMessages[7] = 'Campo obligatorio';
-  }
-  if (!this.serviceDescription) {
-    this.errorMessages[8] = 'Campo obligatorio';
-  } else if (this.serviceDescription.length < 10 || this.serviceDescription.length > 500) {
-    this.errorMessages[8] = 'Caracteres minimos 10 y maximo 250';
-  }
-  
-  if (!this.hotelDescription) {
-    this.errorMessages[9] = 'Campo obligatorio';
-  } else if (this.hotelDescription.length < 10 || this.hotelDescription.length > 500) {
-    this.errorMessages[9] = 'Carecteres minimos 10 y maximo 250';
-  }
-
-  // Si hay errores, lanzar excepción
-  if (this.errorMessages.some(error => error)) {
-    throw new Error('Datos inválidos');
-  }
+    const {name,destination,startDate,endDate,serviceDescription,hotelDescription,numberOfPeople,room,location,price} = this.hotelForm.value;
   
     return {
       id: this.hotelId, // Asigna un ID apropiado aquí si es necesario
@@ -151,12 +107,34 @@ export class ModalUpdateHotelComponent {
       endDate,
       numberOfPeople,
       room,
-      description: this.hotelDescription || '',
+      description: hotelDescription,
       location,
-      hotelServices: this.serviceDescription || '',
+      hotelServices: serviceDescription,
       price,
-      state: this.hotelId.state
+      state: this.data.item.state
     };
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.hotelForm.get(controlName);
+    if (control && control.errors) {
+      if (control.hasError('required')) {
+        return 'Campo obligatorio';
+      }
+      if (control.hasError('minlength')) {
+        return `Debe tener al menos ${control.errors['minlength']?.requiredLength} caracteres`;
+      }
+      if (control.hasError('maxlength')) {
+        return `No puede tener más de ${control.errors['maxlength']?.requiredLength} caracteres`;
+      }
+      if (control.hasError('pattern')) {
+        return 'Formato inválido';
+      }
+      if (control.hasError('email')) {
+        return 'Email inválido';
+      }
+    }
+    return '';
   }
 
   loadHotelData(hotelId: string): void {
@@ -166,26 +144,23 @@ export class ModalUpdateHotelComponent {
         this.cargado = true;
         this.sweetAlertService.hideLoading();
         if (data && data.length > 0) {
-          const hotel = data[0]; // Accede al primer objeto en el array
-          console.log('Hotel data received from API:', hotel);
-          const startDateFormatted = new Date(hotel.startdate).toLocaleDateString('en-CA'); // 'en-CA' produce "yyyy-MM-dd"
-          const endDateFormatted = new Date(hotel.enddate).toLocaleDateString('en-CA');
-              
-          // Asigna los valores a los inputs
-          this.inputValues[0].value = hotel.name || '';
-          this.inputValues[1].value = hotel.destination || '';
-          this.inputValues[2].dateStart = startDateFormatted || '';
-          this.inputValues[3].dateFinish = endDateFormatted || '';        
-          this.inputValues[4].value = hotel.numberofpeople || 0;
-          this.inputValues[5].value = hotel.room || '';
-          this.inputValues[6].value = hotel.location || '';
-          this.inputValues[7].value = hotel.price || 0;        
-          this.hotelDescription = hotel.description || '';
-          this.serviceDescription = hotel.services || '';
-          this.srcImg = hotel.imageurl || this.srcImg;
+          const hotel = data[0];
+          console.log('data hotel',hotel);
+          this.hotelForm.patchValue({
+            name: hotel.name || '',
+            destination: hotel.destination || '',
+            startDate: new Date(hotel.startdate).toISOString().substring(0, 10) || '',
+            endDate: new Date(hotel.enddate).toISOString().substring(0, 10) || '',
+            numberOfPeople: hotel.numberofpeople || 0,
+            room: hotel.room || '',
+            location: hotel.location || '',
+            price: hotel.price || 0,
+            hotelDescription: hotel.description || '',
+            serviceDescription: hotel.services || '',
+          });
 
-          // Debugging
-        this.cdr.detectChanges();
+          this.srcImg = hotel.imageurl || this.srcImg;
+          this.cdr.detectChanges();
         }
       },
       error => {
@@ -193,24 +168,14 @@ export class ModalUpdateHotelComponent {
       }
     );
   }
-  
 
   saveData(): void {
+    if (this.hotelForm.invalid) {
+      this.hotelForm.markAllAsTouched();  // Muestra todos los errores
+      return;
+    }
     const payload = this.getInputValues();
-    console.log('Datos a enviar:', payload); // Depuración
-  
-    // Validaciones adicionales...
-    if (!payload.name || payload.name.length < 5 || payload.name.length > 20) {
-      this.sweetAlertService.showError('El nombre debe tener entre 5 y 20 caracteres');
-      return;
-    }
-  
-    if (!payload.destination || payload.destination.length < 5 || payload.destination.length > 255) {
-      this.sweetAlertService.showError('La ciudad de ubicación debe contener entre 5 y 255 caracteres');
-      return;
-    }
-  
-    // Confirmación y llamada al API
+    console.log('data',payload);
     this.sweetAlertService.showConfirmation(
       `¿Estás seguro de actualizar este hotel?`,
       'Confirmación',
@@ -218,32 +183,28 @@ export class ModalUpdateHotelComponent {
       'Cancelar'
     ).then((result) => {
       if (result.isConfirmed) {
-        this.sweetAlertService.showLoading('Actualizando hotel...','','assets/icons/loadingData.gif');
-        
-        // Si hay un archivo seleccionado, se sube junto con los datos del hotel
+        this.sweetAlertService.showLoading('Actualizando hotel...', '', 'assets/icons/loadingData.gif');
         if (this.selectedFile) {
           this.apiService.updateImageHotel(this.selectedFile, this.hotelId).subscribe(
             imageResponse => {
-              // Después de que la imagen se ha subido, actualiza los datos del hotel
               this.apiService.updateHotel(payload).subscribe(
-                response => {
-                  console.log('Hotel agregado exitosamente:', response);
-                  this.hotelUpdateService.notifyHotelUpdated();
-                  this.dialogRef.close(response);
+                () => {
+                  this.sweetAlertService.hideLoading();
                   this.sweetAlertService.showSuccess('Actualización exitosa', 'assets/icons/check.gif');
+                  this.dialogRef.close();
                 },
                 error => {
-                  console.error('Error al agregar el hotel:', error);
+                  this.sweetAlertService.hideLoading();
+                  this.sweetAlertService.showError('Error al actualizar el hotel');
                 }
               );
             },
             error => {
-              console.error('Error al actualizar la imagen:', error);
-              this.sweetAlertService.showError('Error al actualizar la imagen');
+              this.sweetAlertService.hideLoading();
+              this.sweetAlertService.showError('Error al cargar la imagen');
             }
           );
         } else {
-          // Si no hay un archivo seleccionado, solo actualiza los datos del hotel
           this.apiService.updateHotel(payload).subscribe(
             response => {
               console.log('Hotel agregado exitosamente:', response);
@@ -259,8 +220,6 @@ export class ModalUpdateHotelComponent {
       }
     });
   }
-  
-  
 
   cancelData(): void {
     this.sweetAlertService.showConfirmation(
@@ -271,9 +230,7 @@ export class ModalUpdateHotelComponent {
     ).then((result) => {
       if (result.isConfirmed) {
         this.dialogRef.close();
-        this.sweetAlertService.showSuccess('Se canceló la atualización', 'assets/icons/error.gif');
       }
     });
   }
 }
-

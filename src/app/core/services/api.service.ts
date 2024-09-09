@@ -10,6 +10,7 @@ import { updateHotel } from '../models/hotel/updateHotel';
 import { CreateTransport } from '../models/transport/createTransport';
 import { updateTransport } from '../models/transport/updateTransport';
 import { RegisterProveedor } from '../models/proveedor/proveedor';
+import { UpdateProveedor } from '../models/proveedor/proveedorUpdate';
 
 @Injectable({
   providedIn: 'root'
@@ -129,14 +130,30 @@ createTransport(data: CreateTransport):Observable<CreateTransport>{
 
 /////////////ProveedoresGetAll////////
 
-getAllProveedores():Observable<any>{
-  return this.http.get<any>(`${this.apiUrl}/supplier/filter`)
+filterProveedores(filters: any): Observable<any> {
+  let params = new HttpParams();
+  
+  // Añade los parámetros de filtrado a la URL
+  for (const key in filters) {
+    if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
+      params = params.set(key, filters[key]);
+    }
+  }
+  return this.http.get<any>(`${this.apiUrl}/supplier/filter`, { params });
 }
 ///////RegisterProveedor///////
 registerProveedor(data:RegisterProveedor):Observable<RegisterProveedor>{
-  return this.http.post<RegisterProveedor>(`${this.apiUrl}/supplier/register`,{ data })
+  return this.http.post<RegisterProveedor>(`${this.apiUrl}/supplier/register`,data )
+}
+updateProveedor(data: UpdateProveedor):Observable<UpdateProveedor>{
+  return this.http.put<UpdateProveedor>(`${this.apiUrl}/supplier/update`,data)
 }
 
+updateChangeState(data:UpdateProveedor): Observable<UpdateProveedor>{
+  console.log(`${this.apiUrl}/supplier/changeState`,data);
+  
+  return this.http.put<UpdateProveedor>(`${this.apiUrl}/supplier/changeState`,data);
+}
 
 //////////////UpdateTransport/////////////////
 updateTransport(dataUpdateTransport: updateTransport):Observable<updateTransport>{

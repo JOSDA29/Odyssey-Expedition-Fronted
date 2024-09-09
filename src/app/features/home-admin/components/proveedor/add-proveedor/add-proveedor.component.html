@@ -1,24 +1,42 @@
 <div class="container">  
-    <section class="inputs">
-      <div class="input" *ngFor="let input of inputs; let i = index">
-        <app-text *ngIf="input.text" [text]="input.text" [style]="'textHotelUpdate'"></app-text>
-        <app-input-text *ngIf="input.placeholder" [placeholder]="input.placeholder" [type]="input.type" 
-                        [(ngModel)]="inputValues[i].value" [style]="'inputUpdateHotel'"></app-input-text>
-        <app-error-text *ngIf="errorMessages[i]"  [text]="errorMessages[i]" [style]="'textErrorAddHotel'"></app-error-text>     
-      </div>
-    </section>
+  <section class="inputs">
+    <div class="input" *ngFor="let input of inputs; let i = index">
+      <ng-container *ngIf="input.text">
+        <app-text [text]="input.text" [style]="'textHotelUpdate'"></app-text>
+      </ng-container>
+
+      <app-input-text 
+      [placeholder]="input.placeholder" 
+      [type]="input.type"
+      [formControl]="getFormControl(input.formControlName)"
+      [style]="'inputUpdateHotel'">
+    </app-input-text>
+
+    <app-error-text 
+      *ngIf="isControlInvalid(input.formControlName)"
+      [text]="getErrorMessage(input.formControlName)" 
+      [style]="'textErrorAddHotel'">
+    </app-error-text>
+
+    </div>
+  </section>
+
+  <section class="description">
+    <div style="position: relative;">
+      <app-text-area title="Horario de atención: " placeholder="Ej: Lunes a viernes de 8:00 a.m a 3:00 p.m" 
+                     [(description)]="horarioAtencion" 
+                     [formControl]="getFormControl('horarioAtencion')" 
+                     [style]="'containerProveedor'">
+      </app-text-area>
+      <app-error-text *ngIf="isControlInvalid('horarioAtencion')"
+                      [text]="getErrorMessage('horarioAtencion')" 
+                      [style]="'textErrorAddHotel'">
+      </app-error-text>
+    </div>
+  </section>
   
-    <section class="description">
-      <div style="position: relative;">
-        <app-text-area title="Horario de atencion: " placeholder="Ej : Lunes a viernes de 8:00 a.m a 3:00.pm" [(description)]="horarioAtencion"></app-text-area>
-        <app-error-text *ngIf="errorMessages[5]" [text]="errorMessages[5]" [style]="'textErrorAddHotel'"></app-error-text>
-      </div>
-    </section>
-     
-  
-    <section class="butons">
-      <app-button text="Camcelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>
-      <app-button text="Agregar" [style]="'saveHotel'" (click)="saveData()"></app-button>
-    </section>
-  </div>
-  
+  <section class="butons">
+    <app-button text="Cancelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>
+    <app-button text="Agregar" [style]="'saveHotel'" (click)="saveData()"></app-button>
+  </section>
+</div>

@@ -4,8 +4,8 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 60vw;
-    height: 90vh;
+    width: 38vw;
+    height: 77vh;
     background-color: $background-light-contens;
     padding: 2rem 0rem;
     overflow-y: auto;
@@ -32,8 +32,8 @@
     .inputs {
         margin: 2rem auto;
         display: grid;
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 1rem 5rem;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 1rem 2rem;
     }
     .description{
         .custom-textarea {
@@ -55,16 +55,13 @@
     }
 
     .description {
-        width: 90%;
-        display: grid;
-        grid-template-columns: 1fr 2fr; /* La primera columna será más pequeña */
-        gap: 3rem; /* Espacio entre las columnas */
+        width: 80%;
     }
 
     .butons{
         margin: 1rem 0rem;
         display: flex;
-        width: 50%;
+        width: 80%;
         justify-content: space-evenly;
     }
 }

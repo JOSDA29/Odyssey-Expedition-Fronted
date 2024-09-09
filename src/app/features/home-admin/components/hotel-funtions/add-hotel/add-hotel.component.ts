@@ -1,9 +1,10 @@
-import { Component, ElementRef, Inject, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
 import { ApiService } from '../../../../../core/services/api.service';
 import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HotelCreate } from '../../../../../core/models/hotel/createHotel';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,19 +12,20 @@ import { HotelCreate } from '../../../../../core/models/hotel/createHotel';
   templateUrl: './add-hotel.component.html',
   styleUrl: './add-hotel.component.scss'
 })
-export class AddHotelComponent {
+export class AddHotelComponent implements OnInit{
   @Input() srcImg: string = 'https://example.com/default-image.jpg';
   @Input() altImg: string = 'default';
+  hotelForm!: FormGroup;
 
   @Input() inputs = [
-    { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ', dateStar: '', dateFinish: '' },
-    { placeholder: 'Destino', type: 'text', text: 'Destino:', dateStar: '', dateFinish: '' },
-    { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', dateFinish: '' },
-    { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha' },
-    { placeholder: 'Cantidad de personas', type: 'number', text: 'Numero de personas:', dateStar: '', dateFinish: '',max:12 },
-    { placeholder: 'Habitacion', type: 'text', text: 'Habitacion:', dateStar: '', dateFinish: '' },
-    { placeholder: 'locacion', type: 'text', text: 'Locacion:', dateStar: '', dateFinish: '' },
-    { placeholder: 'Precio', type: 'number', text: 'Precio:', dateStar: '', dateFinish: '' },
+    { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ',formControlName:'name' },
+    { placeholder: 'Destino', type: 'text', text: 'Destino:', formControlName: 'destination' },
+    { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', formControlName: 'startDate'},
+    { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha', formControlName: 'endDate' },
+    { placeholder: 'Cantidad de personas', type: 'number', text: 'Numero de personas:',max:12, formControlName: 'numberOfPeople' },
+    { placeholder: 'Habitacion', type: 'text', text: 'Habitacion:', formControlName: 'room'},
+    { placeholder: 'locacion', type: 'text', text: 'Locacion:', formControlName: 'location'},
+    { placeholder: 'Precio', type: 'number', text: 'Precio:', formControlName: 'price'},
   ];
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -32,8 +34,10 @@ export class AddHotelComponent {
   errorMessages: string[] = [];
   serviceDescription: string = '';
   hotelDescription: string = '';
+  submitted = false;
 
   constructor(
+    private fb: FormBuilder,
     private sweetAlertService: SweetAlertService,
     public dialogRef: MatDialogRef<AddHotelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -42,6 +46,35 @@ export class AddHotelComponent {
   ) {
     // Initialize inputValues array to match the inputs structure
     this.inputValues = this.inputs.map(() => ({ value: '', dateStart: '', dateFinish: '' }));
+  }
+
+  ngOnInit(): void {
+    this.hotelForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      destination: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      numberOfPeople: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
+      room: ['', [Validators.required]],
+      location: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(1)]],
+      serviceDescription: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      hotelDescription: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]]
+    }, { validators: this.dateRangeValidator('startDate', 'endDate') });
+  }
+  
+
+  getFormControl(controlName: string): FormControl {
+    const control = this.hotelForm.get(controlName);
+    if (!control) {
+      throw new Error(`Control with name '${controlName}' not found in the form`);
+    }
+    return control as FormControl;
+  } 
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.hotelForm.get(controlName);
+    return control?.touched && control?.invalid || false;
   }
 
   triggerFileInput(): void {
@@ -63,72 +96,7 @@ export class AddHotelComponent {
   }
 
   getInputValues(): HotelCreate {
-    const name = this.inputValues[0]?.value || '';
-    const destination = this.inputValues[1]?.value || '';
-    const startDate = this.inputValues[2]?.dateStart || '';
-    const endDate = this.inputValues[3]?.dateFinish || '';
-    const numberOfPeople = +this.inputValues[4]?.value || 0;
-    const room = this.inputValues[5]?.value || '';
-    const location = this.inputValues[6]?.value || '';
-    const price = +this.inputValues[7]?.value || 0;
-  
-    // Limpiar mensajes de error previos
-    this.errorMessages = [];
-  
-    // Validaciones y mensajes de error
-    if (!name) {
-      this.errorMessages[0] = 'Campo obligatorio';
-    } else if (name.length < 5 || name.length > 20) {
-      this.errorMessages[0] = 'El nombre debe tener entre 5 y 20 caracteres';
-    }
-  
-    if (!destination) {
-      this.errorMessages[1] = 'Campo obligatorio';
-    } else if (destination.length < 5 || destination.length > 255) {
-      this.errorMessages[1] = 'El destino debe tener entre 5 y 255 caracteres';
-    }
-  
-    if (!startDate) {
-      this.errorMessages[2] = 'Campo obligatorio';
-    } else if (new Date(startDate) >= new Date(endDate)) {
-      this.errorMessages[2] = 'La fecha de inicio debe ser antes de la fecha de fin';
-    }
-  
-    if (!endDate) {
-      this.errorMessages[3] = 'Campo obligatorio';
-    }
-  
-    if (numberOfPeople <= 0) {
-      this.errorMessages[4] = 'Campo obligatorio';
-    }
-  
-    if (!room) {
-      this.errorMessages[5] = 'Campo obligatorio';
-    }
-  
-    if (!location) {
-      this.errorMessages[6] = 'Campo obligatorio';
-    }
-  
-    if (price <= 0) {
-      this.errorMessages[7] = 'Campo obligatorio';
-    }
-    if (!this.serviceDescription) {
-      this.errorMessages[8] = 'Campo obligatorio';
-    } else if (this.serviceDescription.length < 10 || this.serviceDescription.length > 500) {
-      this.errorMessages[8] = 'Caracteres minimos 10 y maximo 250';
-    }
-    
-    if (!this.hotelDescription) {
-      this.errorMessages[9] = 'Campo obligatorio';
-    } else if (this.hotelDescription.length < 10 || this.hotelDescription.length > 500) {
-      this.errorMessages[9] = 'Carecteres minimos 10 y maximo 250';
-    }
-  
-    // Si hay errores, lanzar excepción
-    if (this.errorMessages.some(error => error)) {
-      throw new Error('Datos inválidos');
-    }
+    const {name,destination,startDate,endDate,numberOfPeople,room,location,price} = this.hotelForm.value;
   
     return {
       name,
@@ -146,44 +114,37 @@ export class AddHotelComponent {
   }
 
   saveData(): void {
+    if (this.hotelForm.invalid) {
+      this.submitted = true;
+      this.hotelForm.markAllAsTouched();  // Muestra todos los errores
+      return;
+    }
+  
     const payload = this.getInputValues();
-    console.log('Datos a enviar:', payload); // Depuración
-
-    // Validaciones adicionales...
-    if (payload.name.length < 5 || payload.name.length > 20) {
-      this.sweetAlertService.showError('El nombre debe tener entre 5 y 20 caracteres');
-      return;
-    }
-
-    if (payload.destination.length < 5 || payload.destination.length > 255) {
-      this.sweetAlertService.showError('La ciudad de ubicación debe contener entre 5 y 255 caracteres');
-      return;
-    }
-
-    // Confirmación y llamada al API
+  
     this.sweetAlertService.showConfirmation(
-      `¿Estás seguro de Agregar este hotel?`,
+      '¿Estás seguro de agregar este hotel?',
       'Confirmación',
       'Aceptar',
       'Cancelar'
     ).then((result) => {
       if (result.isConfirmed) {
-        this.sweetAlertService.showLoading('Por favor espera.','Creando hotel...','assets/icons/avionLoading.gif')
-          this.apiService.createHotel(payload).subscribe(
-            response => {
-              console.log('Hotel agregado exitosamente:', response);
-              this.hotelUpdateService.notifyHotelUpdated();
-              this.dialogRef.close(response);
-            },
-            error => {
-              console.error('Error al agregar el hotel:', error);
-            }
-          );
-        
-          this.dialogRef.close();
+        this.sweetAlertService.showLoading('Creando hotel...', '', 'assets/icons/loadingData.gif');
+        this.apiService.createHotel(payload).subscribe(
+          response => {
+            this.sweetAlertService.hideLoading();
+            this.hotelUpdateService.notifyHotelUpdated();
+            this.dialogRef.close(response);
+            this.sweetAlertService.showSuccess('Creación exitosa', 'assets/icons/check.gif');
+          },
+          error => {
+            this.sweetAlertService.hideLoading();
+            this.sweetAlertService.showError('Error al crear el hotel');
+          }
+        );
       }
     });
-  }
+  }  
 
   cancelData(): void {
     this.sweetAlertService.showConfirmation(
@@ -197,4 +158,53 @@ export class AddHotelComponent {
       }
     });
   }
+  
+getErrorMessage(controlName: string): string {
+  const control = this.hotelForm.get(controlName);
+  if (control && control.errors) {
+    if (control.hasError('required')) {
+      return 'Campo obligatorio';
+    }
+    if (control.hasError('minlength')) {
+      return `Debe tener al menos ${control.errors['minlength']?.requiredLength} caracteres`;
+    }
+    if (control.hasError('maxlength')) {
+      return `No puede tener más de ${control.errors['maxlength']?.requiredLength} caracteres`;
+    }
+    if (control.hasError('pattern')) {
+      return 'Formato inválido';
+    }
+    if (control.hasError('email')) {
+      return 'Email inválido';
+    }
+  }
+  if (this.hotelForm.hasError('dateRangeInvalid')) {
+    return 'La fecha de inicio debe ser menor que la de fin';
+  }
+  return '';
+}
+
+  
+
+  dateRangeValidator(startDate: string, endDate: string): ValidatorFn {
+    return (formGroup: AbstractControl): { [key: string]: boolean } | null => {
+      const startControl = formGroup.get(startDate);
+      const endControl = formGroup.get(endDate);
+  
+      if (!startControl || !endControl) {
+        return null; // No hay controles de fecha para validar
+      }
+  
+      const start = startControl.value;
+      const end = endControl.value;
+  
+      if (start && end && new Date(start) > new Date(end)) {
+        return { dateRangeInvalid: true }; // Error si la fecha de inicio es mayor que la de fin
+      }
+  
+      return null; // No hay errores
+    };
+  }
+  
+
 }

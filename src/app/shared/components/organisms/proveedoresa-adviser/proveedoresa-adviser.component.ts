@@ -32,9 +32,9 @@ export class ProveedoresaAdviserComponent implements OnInit {
   ];
 
   @Input() inputs = [
-    { tex: 'Compañia:', input: 'Buscar por nombre', type: 'text' },
-    { tex: 'ID/NIT:', input: 'Buscar por ubicacion', type: 'text' },
-    { tex: 'Correo:', input: 'Buscar por id', type: 'text' },
+    { tex: 'Compañia:', input: 'Buscar por compañia', type: 'text' },
+    { tex: 'ID/NIT:', input: 'Buscar por ID/NIT', type: 'text' },
+    { tex: 'Correo:', input: 'Buscar por correo', type: 'text' },
   ];
   @Input() buttons = [
     { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa', configModal: { addService: null } },
@@ -70,60 +70,36 @@ export class ProveedoresaAdviserComponent implements OnInit {
   }
 
   loadProveedor(): void {
+    const state = this.selectedState === 'Activo' ? true : (this.selectedState === 'Inactivo' ? false : undefined);
+    const filters = {
+      companyName: this.inputValues[0].value || '',
+      supplierID: this.inputValues[1].value || '',
+      email: this.inputValues[2].value || '',
+      state: state !== undefined ? state : ''
+    };
+    this.itemsProveedor = []
     this.isLoading = true;
-    this.apiService.getAllProveedores().subscribe(
+    this.apiService.filterProveedores(filters).subscribe(
       (response: any) => {
-        this.isLoading = false;
-        this.itemsProveedor = response.map((hotel: any) => ({
-          name: hotel.name || 'Sin nombre',
-          location: hotel.location || 'Ubicación no especificada',
-          id: hotel.hotelid ? hotel.hotelid.toString() : 'ID no disponible',
-          isToggled: hotel.state !== undefined ? hotel.state : false
+        this.isLoading = false;        
+        this.itemsProveedor = response.map((proveedor: any) => ({
+          name: proveedor.company_name || 'Sin nombre',
+          location: proveedor.supplier_id || 'Ubicación no especificada',
+          id: proveedor.email ? proveedor.email : 'Email no disponible',
+          isToggled: proveedor.state !== undefined ? proveedor.state : false
         }));
       },
       (error) => {
-        console.error('Error al cargar los hoteles:', error);
+        console.error('Error al cargar los proveedores:', error);
       }
     );
   }
 
-  searchHotels(): void {
-    const state = this.selectedState === 'Activo' ? true : (this.selectedState === 'Inactivo' ? false : undefined);
-    
-    const filters = {
-      name: this.inputValues[0].value || '',
-      location: this.inputValues[1].value || '',
-      id: this.inputValues[2].value || '',
-      state: state !== undefined ? state : '' // Enviar como string vacío si es undefined
-    };
-      
-    this.itemsProveedor = [];
-    this.isLoading = true; // Mostrar la imagen de carga antes de la solicitud
-    this.apiService.filterHotels(filters).subscribe(
-      (response: any) => {
-        this.isLoading = false;
-        if (Array.isArray(response)) {
-          this.itemsProveedor = response.map((hotel: any) => ({
-            name: hotel.name || 'Sin nombre',
-            location: hotel.location || 'Ubicación no especificada',
-            id: hotel.hotelid ? hotel.hotelid.toString() : 'ID no disponible',
-            isToggled: hotel.state !== undefined ? hotel.state : false
-          }));
-        } else {
-          console.warn('Respuesta no es un array:', response);
-          this.itemsProveedor = [];
-        }
-      },
-      (error) => {
-        this.isLoading = false;
-        console.error('Error al buscar hoteles:', error);
-      }
-    );
-  }
+
   
   onButtonClick(index: number, button: any): void {
     if (index === 0) {
-      this.searchHotels();
+      this.loadProveedor();
     } else if (index === 1) {
       this.openModalAdd(button);
     } else {
@@ -143,7 +119,7 @@ export class ProveedoresaAdviserComponent implements OnInit {
 
   onOptionChange(newValue: string) {
     this.selectedState = newValue;
-    this.searchHotels(); // Llama a searchHotels cada vez que cambie el estado
+    this.loadProveedor(); // Llama a searchHotels cada vez que cambie el estado
   }
   
 }

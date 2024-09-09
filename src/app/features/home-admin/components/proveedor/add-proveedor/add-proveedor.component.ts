@@ -1,4 +1,5 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../../../core/services/api.service';
@@ -10,85 +11,49 @@ import { RegisterProveedor } from '../../../../../core/models/proveedor/proveedo
   templateUrl: './add-proveedor.component.html',
   styleUrls: ['./add-proveedor.component.scss']
 })
-export class AddProveedorComponent {
+export class AddProveedorComponent implements OnInit {
+  proveedorForm!: FormGroup;
+  horarioAtencion: string = ''; 
   @Input() inputs = [
-    { placeholder: 'Ingrese identificación/NIT', type: 'text', text: 'Identificación/NIT:' },
-    { placeholder: 'Ingrese compañía', type: 'text', text: 'Compañía:' },
-    { placeholder: 'Ingrese email', type: 'text', text: 'Email:' },
-    { placeholder: 'Ingrese teléfono', type: 'text', text: 'Teléfono:' },
-    { placeholder: 'Ingrese dirección', type: 'text', text: 'Dirección:' }
+    { placeholder: 'Ingrese identificación/NIT', type: 'text', formControlName: 'supplierID', text: 'Identificación/NIT:' },
+    { placeholder: 'Ingrese compañía', type: 'text', formControlName: 'companyName', text: 'Compañía:' },
+    { placeholder: 'Ingrese email', type: 'text', formControlName: 'email', text: 'Email:' },
+    { placeholder: 'Ingrese teléfono', type: 'text', formControlName: 'phoneNumber', text: 'Teléfono:' },
+    { placeholder: 'Ingrese dirección', type: 'text', formControlName: 'address', text: 'Dirección:' }
   ];
-
-  inputValues: any[] = [];
-  errorMessages: string[] = [];
-  horarioAtencion: string = '';
+  
 
   constructor(
+    private fb: FormBuilder,
     private sweetAlertService: SweetAlertService,
     public dialogRef: MatDialogRef<AddProveedorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService: ApiService,
     private proveedorUpdateService: loadComponent
-  ) {
-    this.inputValues = this.inputs.map(() => ({ value: '' }));
+  ) {}
+
+  ngOnInit(): void {
+    this.proveedorForm = this.fb.group({
+      supplierID: ['', [Validators.required, Validators.minLength(5)]],
+      companyName: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9\s,.!?-]+$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      address: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      horarioAtencion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]]
+    });
   }
 
-  isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
+  getFormControl(controlName: string): FormControl {
+    const control = this.proveedorForm.get(controlName);
+    if (!control) {
+      throw new Error(`Control with name '${controlName}' not found in the form`);
+    }
+    return control as FormControl;
+  }  
+
 
   getInputValues(): RegisterProveedor {
-    const supplierID = this.inputValues[0]?.value || '';
-    const companyName = this.inputValues[1]?.value || '';
-    const email = this.inputValues[2]?.value || '';
-    const phoneNumber = this.inputValues[3]?.value || '';
-    const address = this.inputValues[4]?.value || '';
-
-    this.errorMessages = [];
-
-    if (!supplierID) {
-      this.errorMessages[0] = 'Campo obligatorio';
-    } else if (supplierID.length < 5) {
-      this.errorMessages[0] = 'El ID del proveedor debe tener mínimo 5 caracteres';
-    }
-
-    if (!companyName) {
-      this.errorMessages[1] = 'Campo obligatorio';
-    } else if (companyName.length < 3) {
-      this.errorMessages[1] = 'El nombre de la empresa debe contener mínimo 3 caracteres';
-    } else if (!/^[a-zA-Z0-9\s,.!?-]+$/.test(companyName)) {
-      this.errorMessages[1] = 'El nombre de la empresa solo puede contener letras, números, espacios y ciertos caracteres de puntuación';
-    }
-
-    if (!email) {
-      this.errorMessages[2] = 'Campo obligatorio';
-    } else if (!this.isValidEmail(email)) {
-      this.errorMessages[2] = 'Se debe ingresar un email válido';
-    }
-
-    if (!phoneNumber) {
-      this.errorMessages[3] = 'Campo obligatorio';
-    } else if (phoneNumber.length !== 10) {
-      this.errorMessages[3] = 'El teléfono debe contener 10 dígitos';
-    } else if (!/^\d+$/.test(phoneNumber)) {
-      this.errorMessages[3] = 'El teléfono debe contener solo números';
-    }
-
-    if (!address) {
-      this.errorMessages[4] = 'Campo obligatorio';
-    }
-
-    if (!this.horarioAtencion) {
-      this.errorMessages[5] = 'Campo obligatorio';
-    } else if (this.horarioAtencion.length < 10 || this.horarioAtencion.length > 250) {
-      this.errorMessages[5] = 'Caracteres mínimos 10 y máximo 250';
-    }
-
-    if (this.errorMessages.some(error => error)) {
-      throw new Error('Datos inválidos');
-    }
-
+    const { supplierID, companyName, email, phoneNumber, address, horarioAtencion } = this.proveedorForm.value;
     return {
       supplierID,
       companyName,
@@ -101,16 +66,12 @@ export class AddProveedorComponent {
   }
 
   saveData(): void {
-    let payload;
-    try {
-      payload = this.getInputValues();
-    } catch (error) {
-      console.error('Error en los datos:', this.errorMessages);
-      this.sweetAlertService.showError('Errores en los datos: ' + this.errorMessages.join(', '));
+    if (this.proveedorForm.invalid) {
+      this.proveedorForm.markAllAsTouched();
       return;
     }
 
-    console.log('Datos a enviar:', payload);
+    const payload = this.getInputValues();
 
     this.sweetAlertService.showConfirmation(
       `¿Estás seguro de agregar este proveedor?`,
@@ -119,34 +80,17 @@ export class AddProveedorComponent {
       'Cancelar'
     ).then((result) => {
       if (result.isConfirmed) {
-        this.sweetAlertService.showLoading('Por favor espera.', 'Creando proveedor...', 'assets/icons/avionLoading.gif');
+        this.sweetAlertService.showLoading('Creando proveedor...', '', 'assets/icons/loadingData.gif');
         this.apiService.registerProveedor(payload).subscribe(
           response => {
-            console.log('Proveedor agregado exitosamente:', response);
+            this.sweetAlertService.hideLoading();
             this.proveedorUpdateService.notifyHotelUpdated();
             this.dialogRef.close(response);
+            this.sweetAlertService.showSuccess('Creación exitosa', 'assets/icons/check.gif');
           },
           error => {
-            console.error('Error al agregar el proveedor:', error);
-            if (error.error && error.error.errors) {
-              const backendErrors = error.error.errors.reduce((acc: any, err: any) => {
-                if (err.path === 'email') {
-                  acc[2] = err.msg;
-                } else if (err.path === 'companyName') {
-                  acc[1] = err.msg;
-                } else if (err.path === 'supplierID') {
-                  acc[0] = err.msg;
-                } else if (err.path === 'phoneNumber') {
-                  acc[3] = err.msg;
-                }
-                return acc;
-              }, [...this.errorMessages]);
-
-              this.errorMessages = backendErrors;
-              this.sweetAlertService.showError('Errores en los datos: ' + this.errorMessages.join(', '));
-            } else {
-              this.sweetAlertService.showError('Error al agregar el proveedor');
-            }
+            this.sweetAlertService.hideLoading();
+            this.sweetAlertService.showError('Error al crear el proveedor');
           }
         );
       }
@@ -164,5 +108,33 @@ export class AddProveedorComponent {
         this.dialogRef.close();
       }
     });
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.proveedorForm.get(controlName);
+    if (control && control.errors) {
+      if (control.hasError('required')) {
+        return 'Campo obligatorio';
+      }
+      if (control.hasError('minlength')) {
+        return `Debe tener al menos ${control.errors['minlength']?.requiredLength} caracteres`;
+      }
+      if (control.hasError('maxlength')) {
+        return `No puede tener más de ${control.errors['maxlength']?.requiredLength} caracteres`;
+      }
+      if (control.hasError('pattern')) {
+        return 'Formato inválido';
+      }
+      if (control.hasError('email')) {
+        return 'Email inválido';
+      }
+    }
+    return '';
+  }
+  
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.proveedorForm.get(controlName);
+    return control?.touched && control?.invalid || false;
   }
 }

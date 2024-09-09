@@ -4,6 +4,7 @@ import { ModalService } from '../../../../features/home/services/modal-update-ho
 import { updateHotel } from '../../../../core/models/hotel/updateHotel';
 import { ApiService } from '../../../../core/services/api.service';
 import { updateTransport } from '../../../../core/models/transport/updateTransport';
+import { UpdateProveedor } from '../../../../core/models/proveedor/proveedorUpdate';
 
 @Component({
   selector: 'app-table-admin',
@@ -41,12 +42,11 @@ export class TableAdminComponent {
         console.log(`Estado actualizado desde: ${this.sourceComponent}`);
         if (this.sourceComponent == 'ComponenteHotel') {
           const updatedHotel: updateHotel = {
-            id: Number(item.id),
+            id: String(item.id),
             state: newValue
           };
           this.apiService.updateHotel(updatedHotel).subscribe(
             () => {
-              console.log(`idHotel: ${updatedHotel.id}`);
             },
             (error) => {
               console.error('Error al actualizar el estado:', error);
@@ -60,13 +60,26 @@ export class TableAdminComponent {
           };
           this.apiService.updateTransport(updateTransport).subscribe(
             () => {
-              console.log(`idTransport: ${updateTransport.transportID}`);
             },
             (error) => {
               console.error('Error al actualizar el estado:', error);
               this.sweetAlertService.showError('Error al actualizar el estado.');
             }
           );
+        }else if (this.sourceComponent == 'ComponenteProveedor') {
+          const updateProveedor: UpdateProveedor = {
+            email: String(item.id),
+            state: newValue,
+          };
+          this.apiService.updateChangeState(updateProveedor).subscribe(
+            () => {
+            },
+            (error) => {
+              console.error('Error al actualizar el estado:', error);
+              this.sweetAlertService.showError('Error al actualizar el estado.');
+            }
+          );
+
         }
       } else {
         item.isToggled = !newValue;

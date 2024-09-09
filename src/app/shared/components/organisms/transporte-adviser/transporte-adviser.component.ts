@@ -81,6 +81,7 @@ export class TransporteAdviserComponent {
   }
 
 loadTransport():void{
+  this.itemsTransport = [];
   this.isLoading = true
   this.apiService.getAllTransport().subscribe(
     (response: any) => {      

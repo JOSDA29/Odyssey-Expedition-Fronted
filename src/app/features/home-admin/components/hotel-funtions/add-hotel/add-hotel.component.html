@@ -1,43 +1,92 @@
 <div class="container">
-    <div class="image">
-      <img [src]="srcImg" [alt]="altImg" class="imageUpdateHotel">
-      <div class="hover-add">
-        <app-icon src="assets/icons/lapizEit.png" alt="" [style]="'iconHotelAdminedit'" (click)="triggerFileInput()"></app-icon>
-        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/*" />
-      </div>
+  <div class="image">
+    <img [src]="srcImg" [alt]="altImg" class="imageUpdateHotel">
+    <div class="hover-add">
+      <app-icon src="assets/icons/lapizEit.png" alt="" [style]="'iconHotelAdminedit'" (click)="triggerFileInput()"></app-icon>
+      <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/*" />
+    </div>
+  </div>
+
+  <section class="inputs">
+    <div class="input" *ngFor="let input of inputs; let i = index">
+      <app-text 
+        *ngIf="input.text" 
+        [text]="input.text" 
+        [style]="'textHotelUpdate'">
+      </app-text>
+
+      <app-input-text 
+        *ngIf="input.placeholder" 
+        [placeholder]="input.placeholder" [type]="input.type" 
+        [style]="'inputUpdateHotel'" 
+        [formControl]="getFormControl(input.formControlName)"
+        [max]="input.max">
+      </app-input-text>
+
+      <app-input-date
+        *ngIf="input.dateStar" 
+        src="assets/icons/date.png" 
+        [txt]="input.dateStar" 
+        [style]="'dateUpdateHotel'"
+        [formControl]="getFormControl(input.formControlName)">
+      </app-input-date>
+    
+      <app-input-date 
+        *ngIf="input.dateFinish" 
+        src="assets/icons/date.png" 
+        [txt]="input.dateFinish" 
+        [style]="'dateUpdateHotel'"
+        [formControl]="getFormControl(input.formControlName)">
+      </app-input-date>
+
+      <app-error-text 
+        *ngIf="isControlInvalid(input.formControlName)"
+        [text]="getErrorMessage(input.formControlName)" 
+        [style]="'textErrorAddHotel'">
+      </app-error-text>   
+
+    </div>
+  </section>
+
+  <!-- Mostrar el mensaje de error del rango de fechas aquí -->
+  <app-error-text *ngIf="hotelForm.hasError('dateRangeInvalid')"
+    [text]="getErrorMessage('startDate')"
+    [style]="'textErrorAddHotel'">
+  </app-error-text>
+
+  <section class="description">
+    <div style="position: relative;">
+      <app-text-area 
+        title="Servicio:" 
+        placeholder="Descripcion de los servicio" 
+        [(description)]="serviceDescription"
+        [formControl]="getFormControl('serviceDescription')">
+      </app-text-area>
+
+      <app-error-text *ngIf="isControlInvalid('serviceDescription')"
+        [text]="getErrorMessage('serviceDescription')" 
+        [style]="'textErrorAddHotel'">
+      </app-error-text>
+
     </div>
   
-    <section class="inputs">
-      <div class="input" *ngFor="let input of inputs; let i = index">
-        <app-text *ngIf="input.text" [text]="input.text" [style]="'textHotelUpdate'"></app-text>
-        <app-input-text *ngIf="input.placeholder" [placeholder]="input.placeholder" [type]="input.type" 
-                        [(ngModel)]="inputValues[i].value" [style]="'inputUpdateHotel'" [max]="input.max"></app-input-text>
-        <app-input-date *ngIf="input.dateStar" src="assets/icons/date.png" [txt]="input.dateStar" 
-                        [style]="'dateUpdateHotel'" [(ngModel)]="inputValues[i].dateStart">
-        </app-input-date>
-        <app-input-date *ngIf="input.dateFinish" src="assets/icons/date.png" [txt]="input.dateFinish" 
-                        [style]="'dateUpdateHotel'" [(ngModel)]="inputValues[i].dateFinish">
-        </app-input-date>
-        <app-error-text *ngIf="errorMessages[i]"  [text]="errorMessages[i]" [style]="'textErrorAddHotel'"></app-error-text>     
-      </div>
-    </section>
-  
-    <section class="description">
-      <div style="position: relative;">
-        <app-text-area title="Servicio:" placeholder="Descripcion de los servicio" [(description)]="serviceDescription"></app-text-area>
-        <app-error-text *ngIf="errorMessages[8]" [text]="errorMessages[8]" [style]="'textErrorAddHotel'"></app-error-text>
-      </div>
-    
-      <div style="position: relative;">
-        <app-text-area title="Descripcion:" placeholder="Descripcion de hotel" [(description)]="hotelDescription"></app-text-area>
-        <app-error-text *ngIf="errorMessages[9]" [text]="errorMessages[9]" [style]="'textErrorAddHotel'"></app-error-text>
-      </div>
-    </section>
-     
-  
-    <section class="butons">
-      <app-button text="Camcelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>
-      <app-button text="Agregar" [style]="'saveHotel'" (click)="saveData()"></app-button>
-    </section>
-  </div>
-  
+    <div style="position: relative;">
+      <app-text-area
+       title="Descripcion:" 
+       placeholder="Descripcion de hotel" 
+       [(description)]="hotelDescription"
+       [formControl]="getFormControl('hotelDescription')">
+      </app-text-area>
+
+      <app-error-text *ngIf="isControlInvalid('hotelDescription')"
+        [text]="getErrorMessage('hotelDescription')" 
+        [style]="'textErrorAddHotel'">
+      </app-error-text>
+    </div>
+  </section>
+
+  <section class="butons">
+    <app-button text="Cancelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>
+    <app-button text="Agregar" [style]="'saveHotel'" (click)="saveData()"></app-button>
+  </section>
+</div>

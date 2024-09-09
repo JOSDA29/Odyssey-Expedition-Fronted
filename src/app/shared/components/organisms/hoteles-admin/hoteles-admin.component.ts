@@ -70,6 +70,7 @@ export class HotelesAdminComponent implements OnInit {
   }
 
   loadHotels(): void {
+    this.itemsHotel = [];
     this.isLoading = true;
     this.apiService.getHotels().subscribe(
       (response: any) => {
