@@ -46,7 +46,7 @@
     
     <!-- Menú desplegable debajo del icono de perfil -->
     <div class="profile-menu" *ngIf="profileMenuOpen">
-      <a href="/clientProfile">Perfil</a>
+      <a (click)="profile()">Perfil</a>
       <a (click)="ayuda()"> Centro de ayuda</a>
       <a (click)="logout()">Cerrar sesión</a>
     </div>

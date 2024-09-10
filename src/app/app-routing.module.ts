@@ -34,11 +34,11 @@ const routes: Routes = [
  { path: 'desactivarCuenta',
   component: DisableProfileComponent,
  },
-  
+ { path: '**', redirectTo: '', pathMatch: 'full' } // Ruta wildcard para rutas no encontradas
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })], // Habilitar trazado
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -54,6 +54,9 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/ayuda']);
     localStorage.setItem('selectedLinkIndex', '2')
   }
+  profile(){
+    this.router.navigate(['/clientProfile'])
+  }
 
   toggleProfileMenu(event: MouseEvent) {
     event.stopPropagation(); // Detiene la propagación del evento de clic

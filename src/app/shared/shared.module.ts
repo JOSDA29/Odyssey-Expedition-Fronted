@@ -80,6 +80,7 @@ import { TransportUpdateComponent } from '../features/home-admin/components/tran
 import { AddProveedorComponent } from '../features/home-admin/components/proveedor/add-proveedor/add-proveedor.component';
 import { ModalUpdateProveedorComponent } from '../features/home-admin/components/proveedor/modal-update-proveedor/modal-update-proveedor.component';
 import { VewProveedoresComponent } from '../features/home-admin/components/proveedor/vew-proveedores/vew-proveedores.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -168,7 +169,8 @@ import { VewProveedoresComponent } from '../features/home-admin/components/prove
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports:[
     ModalUpdateHotelComponent,

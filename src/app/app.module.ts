@@ -19,6 +19,7 @@ import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
 import { ErrorInterceptor } from './core/interceptor/error-interceptor.service';
 import { ViewDataHotelComponent } from './features/home-admin/components/hotel-funtions/view-data-hotel/view-data-hotel.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ViewDataHotelComponent } from './features/home-admin/components/hotel-f
     FeatureAModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule,
     ClientProfileModule,
     OAuthModule.forRoot()
   ],
