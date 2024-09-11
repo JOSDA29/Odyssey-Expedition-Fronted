@@ -1,8 +1,10 @@
 <div class="container">
   <section class="header">
-    <a href="/clientProfile">
+    <a [routerLink]="['/clientProfile']">
       <app-logo src="assets/images/shortLogo.png" alt="" [style]="'shortLogo'"></app-logo>
     </a>
+    
+    
     <section class="text">
       <app-text *ngFor="let text of texts; let i = index" [text]="text.textConten" [style]="text.styleText" href="/clientProfile"></app-text>
     </section>

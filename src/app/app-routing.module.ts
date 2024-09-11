@@ -7,6 +7,8 @@ import { ConstructionStatusComponent } from './shared/components/templates/statu
 import { PersonalInfoComponent } from './features/client-profile/page/client-profile/personal-info/personal-info.component';
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { DisableProfileComponent } from './features/client-profile/page/client-profile/disable-profile/disable-profile.component';
+import { ErrorStatusComponent } from './shared/components/templates/status/error-status/error-status.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -20,6 +22,7 @@ const routes: Routes = [
   {
     path: 'clientProfile',
     component: ClientProfileComponent,
+    
   },
   {
     path: 'nosotros',
@@ -34,11 +37,19 @@ const routes: Routes = [
  { path: 'desactivarCuenta',
   component: DisableProfileComponent,
  },
- { path: '**', redirectTo: '', pathMatch: 'full' } // Ruta wildcard para rutas no encontradas
+{ path: '**',
+  redirectTo: '', 
+  pathMatch: 'full' 
+},
+{ path: 'errorpage',
+  component: ErrorStatusComponent 
+
+} 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })], // Habilitar trazado
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })], // Habilitar trazado
+  exports: [RouterModule],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }]
 })
 export class AppRoutingModule { }

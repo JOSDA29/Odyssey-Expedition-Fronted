@@ -60,7 +60,7 @@ export class RegisterFormComponent implements OnInit {
       } else if (conten.type === 'password') {
         group[conten.field] = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(50), this.passwordValidator.strongPassword()]);
       } else if (conten.type === 'text') {
-        group[conten.field] = new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5)]);
+        group[conten.field] = new FormControl('', [Validators.maxLength(100)]);
       } else {
         group[conten.field] = new FormControl('', Validators.required); 
       }
@@ -74,9 +74,9 @@ export class RegisterFormComponent implements OnInit {
       this.loginForm.updateValueAndValidity();
     });
 
-    this.loginForm.get('confirmarContrasena')?.valueChanges.subscribe(() => {
-      this.loginForm.updateValueAndValidity();
-    });
+    this.loginForm.get('contrasena')?.valueChanges.subscribe(() => {
+      this.loginForm.get('confirmarContrasena')?.updateValueAndValidity();
+    });    
   }
 
   togglePasswordVisibility() {
@@ -87,9 +87,11 @@ export class RegisterFormComponent implements OnInit {
     this.clearErrorMessages();
 
     if (this.loginForm.valid) {
-      const { name, lastName, email, password } = this.loginForm.value;
+      const { name, lastName, email, contrasena } = this.loginForm.value;
+      console.log('datada enviada:', this.loginForm.value);
+      
       this.sweetAlertService.showLoading('Enviando correo...',`Se enviara un  correo de confirmacion a ${email}`,'assets/icons/correo.gif')
-      this.apiService.Register(name, lastName, email, password).subscribe(
+      this.apiService.Register(name, lastName, email, contrasena).subscribe(
         userRegister => {
           if (userRegister) {
             this.sweetAlertService.showSuccess('Registro exitoso','assets/icons/check.gif')

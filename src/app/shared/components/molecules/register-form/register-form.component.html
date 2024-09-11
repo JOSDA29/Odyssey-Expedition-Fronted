@@ -10,27 +10,44 @@
     </div>
 
     <div class="text" *ngFor="let conten of contensSection">
-      <app-subtitle [style]="'subtitle-register'" [text]="conten.title"></app-subtitle>
-      <app-input-error
-        [control]="getFormControl(conten.field)"
-        [placeholder]="conten.placeholder"
-        [type]="conten.type === 'password' && !showPassword ? 'password' : 'text'"
-        [errors]="{
-          required: 'Este campo es obligatorio',
-          maxlength: conten.type === 'text' ? 'El contenido excede los 100 caracteres permitidos' : (conten.type === 'email' ? 'El contenido excede los 150 caracteres permitidos' : 'El contenido excede los 50 caracteres permitidos'),
-          minlength: conten.type === 'password' ? weakPassword1 : 'El contenido debe tener al menos 5 caracteres',
-          email: 'Ingrese un correo electrónico válido',
-          weakPassword: weakPassword1,
-          mismatch: 'Las contraseñas no coinciden'
-        }"
-        [errorMessage]="errorMessage[conten.field]">
-      </app-input-error>
-      <app-text [text]="'Mostrar'" 
+      <div class="inputText" *ngIf="conten.type !== 'password'">
+        <app-subtitle  [style]="'subtitle-register'" [text]="conten.title"></app-subtitle>
+        <app-input-error
+          [control]="getFormControl(conten.field)"
+          [placeholder]="conten.placeholder"
+          [type]="conten.type"
+          [errors]="{
+            required: 'Este campo es obligatorio',
+            maxlength: conten.type === 'text' ? 'El contenido excede los 100 caracteres permitidos' : (conten.type === 'email' ? 'El contenido excede los 150 caracteres permitidos' : 'El contenido excede los 50 caracteres permitidos'),
+            email: 'Ingrese un correo electrónico válido',
+          }"
+          [errorMessage]="errorMessage[conten.field]">
+        </app-input-error>  
+      </div>
+
+      <div class="contenPassword" *ngIf="conten.type == 'password'">
+        <app-subtitle  [style]="'subtitle-register'" [text]="conten.title"></app-subtitle>
+          <app-input-error
+          [control]="getFormControl(conten.field)"
+          [placeholder]="conten.placeholder"
+          [image]="false"
+          [type]="conten.type === 'password' && !showPassword ? 'password' : ''"
+          [errors]="{
+            required: 'Este campo es obligatorio',
+            minlength:'El contenido debe tener al menos 8 caracteres',
+            weakPassword: weakPassword1,
+            mismatch: 'Las contraseñas no coinciden',
+          }"
+          [errorMessage]="errorMessage[conten.field]">
+        </app-input-error>
+
+        <app-text [text]="'Mostrar'" 
                 [style]="isPasswordError(conten.field) || isPasswordMismatch() ? 'errortext' : 'errortext1'"
                 *ngIf="conten.type === 'password'" 
                 (click)="togglePasswordVisibility()" 
                 class="toggle-password-btn">
       </app-text>
+      </div>
     </div>
 
     <div *ngIf="errorMessage.general" class="error-message">

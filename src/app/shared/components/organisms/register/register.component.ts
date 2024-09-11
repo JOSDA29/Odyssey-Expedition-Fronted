@@ -10,7 +10,7 @@ export class RegisterComponent {
     { title: 'Nombres', placeholder: 'Ingrese sus nombres', field: 'name', type: 'text' },
     { title: 'Apellidos', placeholder: 'Ingrese sus apellidos', field: 'lastName', type: 'text' },
     { title: 'Correo', placeholder: 'Ingrese su correo', field: 'email', type: 'email' },
-    { title: 'Contraseña', placeholder: 'Ingrese su contraseña', field: 'password', type: 'password' },
+    { title: 'Contraseña', placeholder: 'Ingrese su contraseña', field: 'contrasena', type: 'password' },
     { title: 'Confirmar contraseña', placeholder: 'Ingrese su contraseña', field: 'confirmarContrasena', type: 'password' },
   ]
 }

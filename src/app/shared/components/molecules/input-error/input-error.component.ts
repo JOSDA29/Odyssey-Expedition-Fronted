@@ -10,6 +10,7 @@ export class InputErrorComponent {
   @Input() control!: FormControl;
   @Input() placeholder!: string;
   @Input() type: string = 'text';
+  @Input() image: boolean | undefined = true;
   @Input() errors: { [key: string]: string } = {};
   @Input() errorMessage: string = '';
 

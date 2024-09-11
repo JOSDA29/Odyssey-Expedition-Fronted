@@ -50,7 +50,8 @@ export class LoginFormComponent implements OnInit {
     title: string,
     placeholder: string,
     field: string,
-    type: string
+    type: string,
+    change?: boolean
   }[] = [];
 
   logInWithGoogle() {

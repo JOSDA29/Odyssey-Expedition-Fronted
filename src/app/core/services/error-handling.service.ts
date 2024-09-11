@@ -17,43 +17,45 @@ export class ErrorHandlingService {
     let errorMessage = '';
 
     if (error.error instanceof ErrorEvent) {
-      // Client-side error
+      // Error del lado del cliente
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Server-side error
+      // Error del lado del servidor
       switch (error.status) {
         case 400:
-          errorMessage = 'Por favor verifica los datos enviados.';
+          errorMessage = 'Por favor, verifica los datos enviados.';
           break;
         case 401:
-          errorMessage = 'Correo o contraseña incorrectos';
+          errorMessage = 'Correo o contraseña incorrectos.';
           this.sweetAlertService.showError(errorMessage, 'Error de autenticación', () => {
             this.router.navigate(['/']); // Redirige a la página principal
           });
           return errorMessage; // Salir de la función para evitar la doble llamada de showError
         case 403:
-          errorMessage = 'La sesión ha expirado, ingrese nuevamente';
-          this.sweetAlertService.showError(errorMessage, 'La sesión ha expirado, ingrese nuevamente', () => {
+          errorMessage = 'La sesión ha expirado, ingresa nuevamente.';
+          this.sweetAlertService.showError(errorMessage, 'La sesión ha expirado, ingresa nuevamente', () => {
             this.router.navigate(['/']); 
           });
           break;
         case 404:
-          errorMessage = 'Recurso no encontrado. Por favor verifica la URL.';
+          errorMessage = 'Recurso no encontrado. Por favor, verifica la URL.';
           break;
         case 409:
-          errorMessage = 'Correo electrónico ya registrado.';
+          this.sweetAlertService.showError('Ya tienes cuenta, mejor inicia sesión.','', () => {
+            this.router.navigate(['/']); 
+          });
           break;
         case 422:
           errorMessage = 'Verifica que el número de teléfono tenga 10 dígitos y sean números.';
           break;
         case 500:
-          errorMessage = 'Verifica tu conexión a internet o intentalo más tarde';
+          errorMessage = 'Verifica tu conexión a internet o inténtalo más tarde.';
           break;
         default:
           errorMessage = `Error desconocido: ${error.message}`;
       }
 
-      if (error.status !== 401) {
+      if (error.status !== 401 && error.status !== 403 && error.status !== 409 ) {
         this.sweetAlertService.showError(errorMessage);
       }
     }

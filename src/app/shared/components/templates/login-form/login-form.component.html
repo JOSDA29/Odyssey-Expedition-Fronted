@@ -17,6 +17,7 @@
         [control]="getFormControl(conten.field)"
         [placeholder]="conten.placeholder"
         [type]="conten.type === 'password' && !showPassword ? 'password' : 'text'"
+        [image]="conten.change"
         [errors]="{
           required: 'Este campo es obligatorio',
           email: 'Ingrese un correo electrónico válido',

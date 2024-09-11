@@ -50,10 +50,6 @@ export class NavBarComponent implements OnInit {
     this.menuOpen = false;
   }
 
-  ayuda(){
-    this.router.navigate(['/ayuda']);
-    localStorage.setItem('selectedLinkIndex', '2')
-  }
   profile(){
     this.router.navigate(['/clientProfile'])
   }

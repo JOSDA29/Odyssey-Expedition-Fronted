@@ -53,20 +53,6 @@
             justify-content: center;
         }
     }
-    app-input-error app-error-text.textError1{
-        position: absolute;
-    }
-
-}
-
-
-.input-container {
-    position: relative;
-}
-
-
-.input-register {
-    padding-right: 30px; 
 }
 
 .toggle-password-btn {
@@ -80,9 +66,14 @@
   }
 
 @media (min-width: 352px) and (max-width: 480px) {
+    .header{
+        app-text{
+            margin-top: -1.6rem;
+        }
+    }
     .login-form{
         width: 80vw;
-        height: 45rem;
+        height: 40rem;
     }
     .line{
         hr{
