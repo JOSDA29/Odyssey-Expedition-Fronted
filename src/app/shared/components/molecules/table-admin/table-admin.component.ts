@@ -5,6 +5,7 @@ import { updateHotel } from '../../../../core/models/hotel/updateHotel';
 import { ApiService } from '../../../../core/services/api.service';
 import { updateTransport } from '../../../../core/models/transport/updateTransport';
 import { UpdateProveedor } from '../../../../core/models/proveedor/proveedorUpdate';
+import { updatePaquete } from '../../../../core/models/paquetes/updatePaquetes';
 
 @Component({
   selector: 'app-table-admin',
@@ -80,6 +81,25 @@ export class TableAdminComponent {
             }
           );
 
+        }else if (this.sourceComponent == 'ComponentePaquete') {
+          const updatePaquete: updatePaquete = {
+            id: Number(item.name),
+            state: newValue,
+          }
+          console.log('Respuesta del backend tabla:', item);
+          console.log(`Id paquete: ${item.name}`);
+          
+          this.apiService.updatePaquetes(updatePaquete).subscribe(
+            ()=>{
+
+            },
+            (error) =>{
+              console.log(`Id paquete: ${item.name}`);
+              console.error('Error al actualizar el estado:', error);
+              this.sweetAlertService.showError('Error al actualizar el estado.');
+            }
+          )
+          
         }
       } else {
         item.isToggled = !newValue;

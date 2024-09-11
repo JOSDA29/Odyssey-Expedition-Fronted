@@ -11,7 +11,7 @@ import { CreateTransport } from '../../../../../core/models/transport/createTran
   styleUrl: './add-transport.component.scss'
 })
 export class AddTransportComponent {
-  @Input() srcImg: string = 'https://example.com/default-image.jpg';
+  @Input() srcImg: string = 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png';
   @Input() altImg: string = 'default';
 
   @Input() inputs = [

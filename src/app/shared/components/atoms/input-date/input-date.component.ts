@@ -27,7 +27,6 @@ export class InputDateComponent implements ControlValueAccessor, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['txt']) {
-      console.log('txt changed:', this.txt);
       this.control.setValue(this.txt); // Actualiza el control con el valor de txt
     }
   }

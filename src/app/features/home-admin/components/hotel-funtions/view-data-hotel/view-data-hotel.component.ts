@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { ModalUpdateHotelComponent } from '../modal-update-hotel/modal-update-hotel.component';
 import { ApiService } from '../../../../../core/services/api.service';
 import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
+import { updateHotel } from '../../../../../core/models/hotel/updateHotel';
 
 
 @Component({
@@ -53,13 +54,15 @@ export class ViewDataHotelComponent implements OnInit {
 
   loadHotelData(id: string): void {
     this.cargado = false;
-    this.apiService.getHotelById(id).subscribe(
+    const fiter: updateHotel = {
+      id: String(id),
+    };
+    this.apiService.filterHotels(fiter).subscribe(
       (response) => {
         this.cargado = true
         this.sweetAlertService.hideLoading();
         if (response && response.length > 0) {
           const hotel = response[0]; // Accede al primer objeto en el array
-          console.log('Hotel data received from API:', hotel);
           this.description = hotel.description;
           this.srcImg = hotel.imageurl; 
           this.altImg = hotel.imageurl;

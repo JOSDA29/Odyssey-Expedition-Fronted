@@ -60,6 +60,13 @@
     color: $primary-color;
 }
 
+.titlePaquete{
+    font-family: $font-family-poppins;
+    font-size: $titlesPaquetes;
+    font-weight: $font-weight-light;
+    letter-spacing: $global-spacing;
+}
+
 @media (min-width: 352px) and (max-width: 480px) {
     .title-principal{
         font-size: 30px;

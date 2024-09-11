@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../../../core/services/api.service';
 import { HotelData } from '../../../../core/models/hotel/hotelData';
 import { getTransport } from '../../../../core/models/transport/getTransports';
+import { updateTransport } from '../../../../core/models/transport/updateTransport';
 
 @Component({
   selector: 'app-cards-services-list',
@@ -20,7 +21,8 @@ export class CardsServicesListComponent implements OnInit {
 
   ngOnInit(): void {
     // Obtener todos los transportes
-    this.apiService.getAllTransport()
+    const filterTransport: updateTransport = {}
+    this.apiService.filterTransport(filterTransport)
       .subscribe(
         (res: getTransport[]) => {
           this.transports = res.map(transport => {
@@ -40,11 +42,11 @@ export class CardsServicesListComponent implements OnInit {
       );
   
     // Obtener hoteles
-    this.apiService.getHotels()
+    const filter = {};
+    this.apiService.filterHotels(filter)
       .subscribe(
         (res: HotelData[]) => {
           this.hotels = res;
-          console.log('data hotel:', this.hotels);
         },
         (error) => {
           console.error('Error fetching hotels:', error);

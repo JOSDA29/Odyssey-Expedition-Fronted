@@ -5,6 +5,7 @@ import { AddTransportComponent } from '../../../../features/home-admin/component
 import { loadComponent } from '../../../../core/services/hotel-update-service.service';
 import { TransportUpdateComponent } from '../../../../features/home-admin/components/transport-funtion/transport-update/transport-update.component';
 import { TransportVewComponent } from '../../../../features/home-admin/components/transport-funtion/transport-vew/transport-vew.component';
+import { updateTransport } from '../../../../core/models/transport/updateTransport';
 
 @Component({
   selector: 'app-transporte-adviser',
@@ -83,7 +84,8 @@ export class TransporteAdviserComponent {
 loadTransport():void{
   this.itemsTransport = [];
   this.isLoading = true
-  this.apiService.getAllTransport().subscribe(
+  const filter: updateTransport = {}
+  this.apiService.filterTransport(filter).subscribe(
     (response: any) => {      
       this.isLoading = false;
       this.itemsTransport = response.map((transport: any) => ({
@@ -96,6 +98,7 @@ loadTransport():void{
     },
     (error) => {
       console.error('Error al cargar los transportes:', error);
+      this.itemsTransport = [];
     }
   )
 }
@@ -141,11 +144,13 @@ searchTranspor(): void {
         }));
       } else {
         console.warn('Respuesta no es un array:', response);
+        this.isLoading = false;
         this.itemsTransport = [];
       }
     },
     (error) => {
       this.isLoading = false;
+      this.itemsTransport = [];
       console.error('Error al buscar hoteles:', error);
     }
   );

@@ -1,71 +1,66 @@
 import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../../../core/services/api.service';
 import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { HotelCreate } from '../../../../../core/models/hotel/createHotel';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-
+import { createPaquete } from '../../../../../core/models/paquetes/crearPaquete';
 
 @Component({
-  selector: 'app-add-hotel',
-  templateUrl: './add-hotel.component.html',
-  styleUrl: './add-hotel.component.scss'
+  selector: 'app-add-paquetes',
+  templateUrl: './add-paquetes.component.html',
+  styleUrl: './add-paquetes.component.scss'
 })
-export class AddHotelComponent implements OnInit{
+export class AddPaquetesComponent implements OnInit{
   @Input() srcImg: string = 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png';
   @Input() altImg: string = 'default';
-  hotelForm!: FormGroup;
+  paqueteForm!: FormGroup;
+  @Input() namePaquete: string = 'Nombre paquete'
+  @Input() pricePquete: number = 0;
 
   @Input() inputs = [
-    { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ',formControlName:'name' },
-    { placeholder: 'Destino', type: 'text', text: 'Destino:', formControlName: 'destination' },
     { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', formControlName: 'startDate'},
     { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha', formControlName: 'endDate' },
-    { placeholder: 'Cantidad de personas', type: 'number', text: 'Numero de personas:',max:12, formControlName: 'numberOfPeople' },
-    { placeholder: 'Habitacion', type: 'text', text: 'Habitacion:', formControlName: 'room'},
-    { placeholder: 'locacion', type: 'text', text: 'Locacion:', formControlName: 'location'},
-    { placeholder: 'Precio', type: 'number', text: 'Precio:', formControlName: 'price'},
+    { placeholderNumber: 'Cantidad de pasajero', typeNumber: 'number', number: 'Pasajeros:',formControlName: 'numberOfPeople'},
+    { placeholder: 'Origen', type: 'text', text: 'Origen',formControlName:'origin' },
+    { placeholder: 'Destino', type: 'text', text: 'Destino:', formControlName: 'destination' },
   ];
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   inputValues: any[] = [];
   errorMessages: string[] = [];
-  serviceDescription: string = '';
-  hotelDescription: string = '';
+  preferenciasCliente: string = '';
+  itinerario: string = '';
   submitted = false;
 
   constructor(
     private fb: FormBuilder,
     private sweetAlertService: SweetAlertService,
-    public dialogRef: MatDialogRef<AddHotelComponent>,
+    public dialogRef: MatDialogRef<AddPaquetesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService: ApiService,
-    private hotelUpdateService: loadComponent
+    private paqueteUpdateService: loadComponent
   ) {
     // Initialize inputValues array to match the inputs structure
     this.inputValues = this.inputs.map(() => ({ value: '', dateStart: '', dateFinish: '' }));
   }
 
   ngOnInit(): void {
-    this.hotelForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      destination: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+    this.paqueteForm = this.fb.group({
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
       numberOfPeople: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
-      room: ['', [Validators.required]],
-      location: ['', [Validators.required]],
-      price: ['', [Validators.required, Validators.min(1)]],
-      serviceDescription: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
-      hotelDescription: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]]
+      origin: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      destination: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
+      preferenciasCliente: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      itinerario: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]]
     }, { validators: this.dateRangeValidator('startDate', 'endDate') });
   }
   
 
   getFormControl(controlName: string): FormControl {
-    const control = this.hotelForm.get(controlName);
+    const control = this.paqueteForm.get(controlName);
     if (!control) {
       throw new Error(`Control with name '${controlName}' not found in the form`);
     }
@@ -73,7 +68,7 @@ export class AddHotelComponent implements OnInit{
   } 
 
   isControlInvalid(controlName: string): boolean {
-    const control = this.hotelForm.get(controlName);
+    const control = this.paqueteForm.get(controlName);
     return control?.touched && control?.invalid || false;
   }
 
@@ -95,28 +90,25 @@ export class AddHotelComponent implements OnInit{
     }
   }
 
-  getInputValues(): HotelCreate {
-    const {name,destination,startDate,endDate,numberOfPeople,room,location,price} = this.hotelForm.value;
+  getInputValues():createPaquete {
+    const {origin, destination,departureDate,returnDate,numberOfPeople,itinerary,customerPreferences,state,} = this.paqueteForm.value;
   
     return {
-      name,
+      origin,
       destination,
-      startDate,
-      endDate,
+      departureDate,
+      returnDate,
       numberOfPeople,
-      room,
-      description: this.hotelDescription || '',
-      location,
-      hotelServices: this.serviceDescription || '',
-      price,
+      itinerary,
+      customerPreferences,
       state: true
     };
   }
 
   saveData(): void {
-    if (this.hotelForm.invalid) {
+    if (this.paqueteForm.invalid) {
       this.submitted = true;
-      this.hotelForm.markAllAsTouched();  // Muestra todos los errores
+      this.paqueteForm.markAllAsTouched();  // Muestra todos los errores
       return;
     }
   
@@ -130,10 +122,10 @@ export class AddHotelComponent implements OnInit{
     ).then((result) => {
       if (result.isConfirmed) {
         this.sweetAlertService.showLoading('Creando hotel...', '', 'assets/icons/loadingData.gif');
-        this.apiService.createHotel(payload).subscribe(
+        this.apiService.createPaquete(payload).subscribe(
           response => {
             this.sweetAlertService.hideLoading();
-            this.hotelUpdateService.notifyHotelUpdated();
+            this.paqueteUpdateService.notifyHotelUpdated();
             this.dialogRef.close(response);
             this.sweetAlertService.showSuccess('Creación exitosa', 'assets/icons/check.gif');
           },
@@ -160,7 +152,7 @@ export class AddHotelComponent implements OnInit{
   }
   
 getErrorMessage(controlName: string): string {
-  const control = this.hotelForm.get(controlName);
+  const control = this.paqueteForm.get(controlName);
   if (control && control.errors) {
     if (control.hasError('required')) {
       return 'Campo obligatorio';
@@ -178,7 +170,7 @@ getErrorMessage(controlName: string): string {
       return 'Email inválido';
     }
   }
-  if (this.hotelForm.hasError('dateRangeInvalid')) {
+  if (this.paqueteForm.hasError('dateRangeInvalid')) {
     return 'La fecha de inicio debe ser menor que la de fin';
   }
   return '';
@@ -205,6 +197,4 @@ getErrorMessage(controlName: string): string {
       return null; // No hay errores
     };
   }
-  
-
 }

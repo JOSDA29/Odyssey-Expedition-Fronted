@@ -18,7 +18,7 @@ export class TextAreaComponent implements ControlValueAccessor {
   @Input() isReadOnly: boolean = false;
   @Input() title: string = '';
   @Input() placeholder: string = '';
-  @Input() style: 'container' | 'containerProveedor' = 'container';
+  @Input() style: 'container' | 'containerProveedor' | 'containerPaquete' = 'container';
 
   @Output() descriptionChange = new EventEmitter<string>();
 

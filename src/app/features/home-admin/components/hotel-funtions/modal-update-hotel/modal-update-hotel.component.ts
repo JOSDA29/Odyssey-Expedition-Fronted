@@ -139,7 +139,10 @@ export class ModalUpdateHotelComponent implements OnInit {
 
   loadHotelData(hotelId: string): void {
     this.cargado = false;
-    this.apiService.getHotelById(hotelId).subscribe(
+    const fiter: updateHotel = {
+      id: String(hotelId),
+    };
+    this.apiService.filterHotels(fiter).subscribe(
       (data: any) => {
         this.cargado = true;
         this.sweetAlertService.hideLoading();

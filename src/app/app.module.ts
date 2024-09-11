@@ -17,7 +17,6 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { ClientProfileModule } from './features/client-profile/client-profile.module';
 import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
-import { ErrorInterceptor } from './core/interceptor/error-interceptor.service';
 import { ViewDataHotelComponent } from './features/home-admin/components/hotel-funtions/view-data-hotel/view-data-hotel.component';
 import { RouterModule } from '@angular/router';
 

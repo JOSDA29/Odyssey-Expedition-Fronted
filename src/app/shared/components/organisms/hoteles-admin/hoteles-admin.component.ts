@@ -72,7 +72,8 @@ export class HotelesAdminComponent implements OnInit {
   loadHotels(): void {
     this.itemsHotel = [];
     this.isLoading = true;
-    this.apiService.getHotels().subscribe(
+    const filters = {};
+    this.apiService.filterHotels(filters).subscribe(
       (response: any) => {
         this.isLoading = false;
         this.itemsHotel = response.map((hotel: any) => ({
@@ -83,6 +84,8 @@ export class HotelesAdminComponent implements OnInit {
         }));
       },
       (error) => {
+        this.isLoading = false;
+        this.itemsHotel = [];
         console.error('Error al cargar los hoteles:', error);
       }
     );
@@ -117,6 +120,7 @@ export class HotelesAdminComponent implements OnInit {
       },
       (error) => {
         this.isLoading = false;
+        this.itemsHotel = [];
         console.error('Error al buscar hoteles:', error);
       }
     );

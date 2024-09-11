@@ -81,6 +81,9 @@ import { AddProveedorComponent } from '../features/home-admin/components/proveed
 import { ModalUpdateProveedorComponent } from '../features/home-admin/components/proveedor/modal-update-proveedor/modal-update-proveedor.component';
 import { VewProveedoresComponent } from '../features/home-admin/components/proveedor/vew-proveedores/vew-proveedores.component';
 import { RouterModule } from '@angular/router';
+import { AddPaquetesComponent } from '../features/home-admin/components/paquetes/add-paquetes/add-paquetes.component';
+import { EditPaqueteComponent } from '../features/home-admin/components/paquetes/edit-paquete/edit-paquete.component';
+import { ViewPaqueteComponent } from '../features/home-admin/components/paquetes/view-paquete/view-paquete.component';
 
 
 
@@ -165,6 +168,9 @@ import { RouterModule } from '@angular/router';
     AddProveedorComponent,
     ModalUpdateProveedorComponent,
     VewProveedoresComponent,
+    AddPaquetesComponent,
+    EditPaqueteComponent,
+    ViewPaqueteComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,158 @@
+<div class="container">
+  <header>
+    <app-title [text]="'Paquete:'+namePaquete" [style]="'titlePaquete'"></app-title>
+    <app-title [text]="'Precio:'+pricePquete" [style]="'titlePaquete'"></app-title>
+  </header>
+
+    <div class="image">
+      <img [src]="srcImg" [alt]="altImg" class="imageUpdateHotel">
+      <div class="hover-add">
+        <app-icon src="assets/icons/lapizEit.png" alt="" [style]="'iconHotelAdminedit'" (click)="triggerFileInput()"></app-icon>
+        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/*" />
+      </div>
+    </div>
+  
+    <section class="inputs">
+      <div class="input-container">
+        <div class="input-row">
+          <div class="input" *ngFor="let input of inputs; let i = index" [ngClass]="{'hidden': i >= 3}">
+            <app-text 
+              *ngIf="input.text" 
+              [text]="input.text" 
+              [style]="'textHotelUpdate'">
+            </app-text>
+    
+            <app-input-text 
+              *ngIf="input.placeholder" 
+              [placeholder]="input.placeholder" [type]="input.type" 
+              [style]="'inputUpdateHotel'" 
+              [formControl]="getFormControl(input.formControlName)">
+            </app-input-text>
+    
+            <app-input-date
+              *ngIf="input.dateStar" 
+              src="assets/icons/date.png" 
+              [txt]="input.dateStar" 
+              [style]="'dateUpdateHotel'"
+              [formControl]="getFormControl(input.formControlName)">
+            </app-input-date>
+    
+            <app-input-date 
+              *ngIf="input.dateFinish" 
+              src="assets/icons/date.png" 
+              [txt]="input.dateFinish" 
+              [style]="'dateUpdateHotel'"
+              [formControl]="getFormControl(input.formControlName)">
+            </app-input-date>
+    
+            <app-text *ngIf="input.number" [text]="input.number" [style]="'textHotelUpdate'"></app-text>
+            <app-image-input-text 
+              *ngIf="input.placeholderNumber" 
+              [styleIcon]="'iconAddTransport'" 
+              [styleinput]="'addTransport'" 
+              [type]="input.typeNumber" 
+              src="assets/icons/peopple.png" 
+              alt="Search Icon" 
+              [placeholder]="input.placeholderNumber" 
+              [formControl]="getFormControl(input.formControlName)">
+            </app-image-input-text>
+    
+            <app-error-text 
+              *ngIf="isControlInvalid(input.formControlName)"
+              [text]="getErrorMessage(input.formControlName)" 
+              [style]="'textErrorAddHotel'">
+            </app-error-text>   
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input" *ngFor="let input of inputs; let i = index" [ngClass]="{'hidden': i < 3}">
+            <app-text 
+              *ngIf="input.text" 
+              [text]="input.text" 
+              [style]="'textHotelUpdate'">
+            </app-text>
+    
+            <app-input-text 
+              *ngIf="input.placeholder" 
+              [placeholder]="input.placeholder" [type]="input.type" 
+              [style]="'inputUpdateHotel'" 
+              [formControl]="getFormControl(input.formControlName)">
+            </app-input-text>
+    
+            <app-input-date
+              *ngIf="input.dateStar" 
+              src="assets/icons/date.png" 
+              [txt]="input.dateStar" 
+              [style]="'dateUpdateHotel'"
+              [formControl]="getFormControl(input.formControlName)">
+            </app-input-date>
+    
+            <app-input-date 
+              *ngIf="input.dateFinish" 
+              src="assets/icons/date.png" 
+              [txt]="input.dateFinish" 
+              [style]="'dateUpdateHotel'"
+              [formControl]="getFormControl(input.formControlName)">
+            </app-input-date>
+    
+            <app-text *ngIf="input.number" [text]="input.number" [style]="'textHotelUpdate'"></app-text>
+            <app-image-input-text 
+              *ngIf="input.placeholderNumber" 
+              [styleIcon]="'iconAddTransport'" 
+              [styleinput]="'addTransport'" 
+              [type]="input.typeNumber" 
+              src="assets/icons/peopple.png" 
+              alt="Search Icon" 
+              [placeholder]="input.placeholderNumber" 
+              [formControl]="getFormControl(input.formControlName)">
+            </app-image-input-text>
+    
+            <app-error-text 
+              *ngIf="isControlInvalid(input.formControlName)"
+              [text]="getErrorMessage(input.formControlName)" 
+              [style]="'textErrorAddHotel'">
+            </app-error-text>   
+          </div>
+        </div>
+      </div>
+    </section>    
+    
+    <section class="description">
+      <div style="position: relative;">
+        <app-text-area 
+          title="Preferencias del cliente:" 
+          placeholder="Descripcion de las preferencias del cliente" 
+          [(description)]="preferenciasCliente"
+          [style]="'containerPaquete'"
+          [formControl]="getFormControl('preferenciasCliente')">
+        </app-text-area>
+  
+        <app-error-text *ngIf="isControlInvalid('preferenciasCliente')"
+          [text]="getErrorMessage('preferenciasCliente')" 
+          [style]="'textErrorAddHotel'">
+        </app-error-text>
+  
+      </div>
+    
+      <div style="position: relative;">
+        <app-text-area
+         title="Descripcion:" 
+         placeholder="Descripcion de las actividades a reallizar" 
+         [(description)]="itinerario"
+         [style]="'containerPaquete'"
+         [formControl]="getFormControl('itinerario')">
+        </app-text-area>
+  
+        <app-error-text *ngIf="isControlInvalid('itinerario')"
+          [text]="getErrorMessage('itinerario')" 
+          [style]="'textErrorAddHotel'">
+        </app-error-text>
+      </div>
+    </section>
+  
+    <section class="butons">
+      <app-button text="Cancelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>
+      <app-button text="Agregar" [style]="'saveHotel'" (click)="saveData()"></app-button>
+    </section>
+  </div>
+  
