@@ -28,6 +28,44 @@
   }
 }
 
+.input-text-wrapper-search {
+  display: flex;
+  align-items: center;
+  width: 11rem; 
+  height: 3.063rem; 
+  border: solid 0.0625rem $color-borders; 
+  padding-left: 0.8rem;
+  border-radius: 5px;
+  margin-top: 0.4rem;
+  position: relative;
+   
+  .error-message {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+    opacity: 0.6;
+    .input-icon,
+    .input-date {
+      pointer-events: none; 
+    }
+  }
+}
+
+
+.hidden-input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+
 .input-text-wrapper2 {
   display: flex;
   align-items: center;

@@ -1,14 +1,19 @@
 .container-cards{
     display: flex;
-    justify-content: space-evenly;
-    gap: 1.5rem;
+    justify-content: center;
+    gap: 3rem;
     flex-wrap: wrap;
-    width: 96vw;
+    width: 100%;
 }
 
 .container{
+    margin-top: 5vh;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;    
+}
+
+app-title-section{
+    margin-top: 10vh;
 }

@@ -34,6 +34,17 @@
   margin-top: 0.4rem;
 }
 
+.input-shearSpesific{
+  padding-left: 2.5rem; 
+  width: 25vw;
+  height: 3.063rem; 
+  border-color: $color-borders;
+  box-sizing: border-box;
+  border-radius: 5px; 
+  font-size: $text-normal; 
+  margin-top: 0.4rem;
+}
+
 .input-text2 {
   padding-left: 2.5rem; 
   width: 13rem; 
@@ -59,6 +70,18 @@
 .input-number {
   width: 12.5rem; 
   height: 4.063rem; 
+  border: 1px solid $color-borders; 
+  border-radius: 5px; 
+  padding: 5px; 
+  font-size: $text-normal; 
+  border-color: $color-borders; 
+  box-sizing: border-box;
+  text-align: right;
+    margin-top: 0.4rem;
+}  
+.input-number-searchSpesific {
+  width: 11.5rem;
+  height: 3.063rem;
   border: 1px solid $color-borders; 
   border-radius: 5px; 
   padding: 5px; 
@@ -165,8 +188,12 @@
     width: 80vw;
     height: 3.063rem; 
   }
-  .input-number, .input-number2{
+  .input-number2{
     width: 37vw;
+    height: 3.063rem;
+  }
+  .input-number{
+    width: 11.5rem;
     height: 3.063rem;
   }
   .inputIA{

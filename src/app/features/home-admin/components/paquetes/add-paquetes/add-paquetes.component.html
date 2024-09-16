@@ -149,6 +149,52 @@
         </app-error-text>
       </div>
     </section>
+
+    <section class="addServices" >
+        <div class="inputSeeker" *ngFor="let seeker  of seekerItems let i = index">
+          <app-title *ngIf="seeker.title" [text]="seeker.title" [style]="'titlePaquete'"></app-title>
+          <div class="inputPlaseholder">
+            <app-text 
+            *ngIf="seeker.text" 
+            [text]="seeker.text" 
+            [style]="'textHotelUpdate'">
+          </app-text>
+        <div class="seeker">
+              <app-input-text 
+                *ngIf="seeker.placeholder" 
+                [placeholder]="seeker.placeholder" [type]="seeker.type" 
+                [style]="'inputUpdateHotel'" 
+                [formControl]="getFormControl(seeker.formControlName)">
+              </app-input-text>
+
+              <div class="butons">
+                <app-button
+                    [style]="'addService'" 
+                    text=""
+                    (click)="searchAndAddToPaquete(i)">
+                    <app-icon [src]="'assets/icons/mas.png'" [alt]="'mas'" [style]="'iconAdmin'"></app-icon>
+                </app-button>
+              </div>           
+             </div>
+             <app-error-text 
+                *ngIf="isControlInvalid(seeker.formControlName)"
+                [text]="getErrorMessage(seeker.formControlName)" 
+                [style]="'textErrorAddHotel'">
+              </app-error-text>
+          </div>
+          </div>      
+    </section>
+    
+    <div class="teble">
+      <app-table-admin
+      [header]="'header'"
+      [conten]="'conten'"
+      [items]="itemsPaquete"
+      [styleContainer] = "'contenTableAddPaquete'"
+      [titles]="titlesPaquete"
+      [sourceComponent]="'ComponentePaquete'">
+    </app-table-admin>
+  </div>
   
     <section class="butons">
       <app-button text="Cancelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>

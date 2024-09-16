@@ -130,6 +130,22 @@
         gap: 3rem; /* Espacio entre las columnas */
     }
 
+    .addServices{
+        width: 100%;
+        margin: 2rem 0rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .inputPlaseholder{
+            margin-top: 1.5rem;
+        }
+        .seeker{
+            width: 19rem;
+            display: flex;
+        }
+    }
+
+
     .butons{
         margin: 1rem 0rem;
         display: flex;

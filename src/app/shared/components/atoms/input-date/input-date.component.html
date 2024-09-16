@@ -1,17 +1,26 @@
 <div [ngClass]="[style, disabled ? 'disabled' : '']">
   <div class="input-text-container">
-    <img [src]="src" [alt]="alt" class="input-icon" (click)="openCalendar(calendarInput)">
-    <input type="date" 
-           class="input-date" 
-           #calendarInput 
-           (input)="updateText($event)" 
-           [min]="getCurrentDate()" 
-           [formControl]="control" 
-           [disabled]="disabled">
+    <!-- Imagen para abrir el datepicker -->
+    <img [src]="src" [alt]="alt" class="input-icon" (click)="openCalendar(picker)">
+
+    <!-- Input matInput necesario para asociar el mat-datepicker, pero oculto -->
+    <input 
+      matInput 
+      [matDatepicker]="picker" 
+      [formControl]="control" 
+      [min]="getCurrentDate()" 
+      [disabled]="disabled" 
+      class="hidden-input"
+      (dateChange)="onDateChange($event)"
+    />
+    <mat-datepicker #picker></mat-datepicker>
   </div>
-  <!-- Muestra el valor actual de txt -->
+
+  <!-- Muestra el valor actual de la fecha seleccionada -->
   <span class="input-text">{{ txt || 'Fecha' }}</span>
+
+  <!-- Mensaje de error si es necesario -->
   <div *ngIf="!disabled && isEmpty() && submitted" class="error-message">
     <app-error-text text="Campo obligatorio" [style]="'textErrorSheart'"></app-error-text>
-  </div>      
+  </div>
 </div>

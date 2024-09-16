@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, INJECTOR, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApiService } from '../../../../../core/services/api.service';
 import { searchFligth } from '../../../../../core/models/transport/searchFligths';
+import { Router } from '@angular/router';
+import { SearchServiceService } from '../../../../../core/services/search-service.service';
 
 @Component({
   selector: 'app-conten-multifaceted',
@@ -11,16 +13,25 @@ import { searchFligth } from '../../../../../core/models/transport/searchFligths
 export class ContenMultifacetedComponent implements OnInit {
   @Input() min: number = 2;
   @Input() max: number = 6;
+  @Input() style : 'conten-multifaceted' | 'conten-searchSpasific' = 'conten-multifaceted';
+  @Input() styleInputText: 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-text';
+  @Input() styleInputIcon: 'input-icon' | 'icon-shearSpesific' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
+  @Input() styleInputNumber: 'input-number' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-number';
+  @Input() styleDate: 'input-text-wrapper' | 'input-text-wrapper-search' = 'input-text-wrapper';
   @Input() textbutton: string = '';
+  ida: string = 'Ida';
+  vuelta: string = 'Vuelta';
+  tramoida: string = 'Seleccione una fecha';
+  tramodestination:string = 'Ingrese una ciudad';
+  tramoorigin:string = 'Ingrese una ciudad';
+
   @Input() contensSection: { 
     title: string,
     section?: string | null,
     origin: string,
     destination: string,
     dates: string,
-    ida?: string | null,
-    vuelta?: string | null,
-    peopple?: string | null,
+    peopple: string,
   }[] = [];
 
   @Input() checkboxes: { 
@@ -32,7 +43,6 @@ export class ContenMultifacetedComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
 
-  // Nueva propiedad para almacenar los tramos
   tramos: Array<{ 
     origin: FormControl, 
     destination: FormControl, 
@@ -41,21 +51,39 @@ export class ContenMultifacetedComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private route: Router,
+    private searchServiceService: SearchServiceService<any>,
   ) {}
-
+  savedData = sessionStorage.getItem('SearchDataV');
+  
   ngOnInit() {
     this.form = this.fb.group({
       origin: ['', Validators.required],
       destination: ['', Validators.required],
       ida: ['', Validators.required],
-      vuelta: ['', Validators.required],
-      peopple: ['', Validators.required],
+      vuelta: [''],
+      peopple: ['', Validators.required], 
     });
+    
+    this.addTramo();
+    this.addTramo();
+  
+    if (this.savedData) {
+      const parsedData = JSON.parse(this.savedData);
+      // Update form values
+      this.form.patchValue({
+        ...parsedData,
+      });
+      this.ida = parsedData.ida || '';
+      this.vuelta = parsedData.vuelta || 'Vuelta';
+    }
+    
+    this.updateFormValidators(); // Asegúrate de aplicar las validaciones iniciales
+  }  
 
-    // Inicializa con un tramo por defecto
-    this.addTramo();
-    this.addTramo();
+  formatDate(date: Date): string {
+    return date.toISOString().split('T')[0]; // Format to YYYY-MM-DD
   }
 
   get originControl(): FormControl {
@@ -80,36 +108,54 @@ export class ContenMultifacetedComponent implements OnInit {
 
   validateForm() {
     if (this.form.invalid) {
-      this.form.markAllAsTouched();  // Marca todos los controles como tocados para mostrar los mensajes de error
+      this.form.markAllAsTouched();  
       return;
     }
-    // Lógica adicional para el botón
   }
 
   onSubmit() {
     this.submitted = true;
     this.validateForm();
+  
     if (this.form.valid) {
+      // Verifica si 'vuelta' es 'Vuelta' y lo establece como vacío si es así
+      const arrivalDate = this.form.value.vuelta === 'Vuelta' ? '' : this.form.value.vuelta || '';
+  
       const searchCriteria: searchFligth = {
-        transportType: 'vuelo', // Reemplaza según los valores del formulario
+        transportType: 'vuelo',
         origin: this.originControl.value,
         destination: this.destinationControl.value,
-        arrivalDate: this.form.value.arrivalDate, // Reemplaza según los valores del formulario
-        departureDate: this.form.value.departureDate, // Reemplaza según los valores del formulario
+        arrivalDate,  
+        departureDate: this.form.value.ida || '', 
       };
-
+  
+      console.log('Datos de búsqueda: ', searchCriteria);
+  
+      // Crear una copia de los valores del formulario
+      const formValueCopy = { ...this.form.value };
+  
+      // Si 'vuelta' es igual a 'Vuelta', asignar una cadena vacía
+      if (formValueCopy.vuelta === 'Vuelta') {
+        formValueCopy.vuelta = '';  // Asigna un valor vacío
+      }
+  
+      // Guardar los valores ajustados en sessionStorage
+      sessionStorage.setItem('SearchDataV', JSON.stringify(formValueCopy));
+  
       this.apiService.filterTransport(searchCriteria).subscribe(
         (response) => {
-          console.log('Resultado:', response);
-          // Maneja la respuesta
+          this.searchServiceService.updateSearchResults(response);
+          this.route.navigate(['/resultSearch']);
         },
         (error) => {
           console.error('Error:', error);
-          // Maneja el error
         }
       );
+    } else {
+      console.log('Form is invalid',this.form.value);
     }
-  }
+  }  
+
 
   onCheckboxChange(selectedIndex: number) {
     this.checkboxes = this.checkboxes.map((checkbox, index) => ({
@@ -117,10 +163,38 @@ export class ContenMultifacetedComponent implements OnInit {
       isChecked: index === selectedIndex
     }));
     this.checkMenu = selectedIndex;
-    console.log('seccion',this.checkMenu);
+  
+    console.log('checkMenu:', this.checkMenu);
+  
+    // Actualiza las validaciones en función del valor de checkMenu
+    this.updateFormValidators();
+    
+    if (this.checkMenu !== 0) {
+      this.vuelta = 'Vuelta';
+    } else {
+      if (this.savedData) {
+        const parsedData = JSON.parse(this.savedData);
+        this.vuelta = parsedData.vuelta ? String(parsedData.vuelta) : 'Vuelta';
+      }
+    }
+  
+    console.log('vuelta:', this.vuelta);
   }
 
-  // Método para agregar un nuevo tramo
+  updateFormValidators(): void {
+    const vueltaControl = this.form.get('vuelta');
+    if (vueltaControl) {
+      if (this.checkMenu === 1) {
+        // Si checkMenu es 1, no se requiere el campo 'vuelta'
+        vueltaControl.clearValidators();
+      } else {
+        // Si checkMenu no es 1, 'vuelta' es requerido
+        vueltaControl.setValidators([Validators.required]);
+      }
+      vueltaControl.updateValueAndValidity(); // Actualiza la validez del campo
+    }
+  }
+
   addTramo() {
     if (this.tramos.length < this.max) {
       const newTramo = {
@@ -137,5 +211,4 @@ export class ContenMultifacetedComponent implements OnInit {
       this.tramos.splice(index, 1);
     }
   }
-
 }

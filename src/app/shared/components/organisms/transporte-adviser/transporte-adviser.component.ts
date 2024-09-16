@@ -151,7 +151,7 @@ searchTranspor(): void {
     (error) => {
       this.isLoading = false;
       this.itemsTransport = [];
-      console.error('Error al buscar hoteles:', error);
+      console.error('Error al buscar transportes:', error);
     }
   );
 }

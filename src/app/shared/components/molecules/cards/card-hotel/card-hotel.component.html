@@ -1,8 +1,8 @@
 <div class="container">
     <app-images [style]="'image-card'" [styleOverlay]="'image-card-overlay'" [src]="src"></app-images>
     <div class="tags-container" *ngIf="type == 'hotel'">
-        <span class="tag-city">{{departure}}</span>
-        <span class="tag-info">{{service}}</span>
+        <span class="tag-city">{{departure | truncate:15:true}}</span>
+        <span class="tag-info">{{service | truncate:15:true}}</span>
     </div>
     <div class="container-info">
         <app-subtitle [style]="'subtitle-register'" [text]="title"></app-subtitle>

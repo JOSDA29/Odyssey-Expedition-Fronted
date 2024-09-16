@@ -8,13 +8,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class SearchPaquetesComponent implements OnInit {
   @Input() textbutton: string = '';
+  ida: string = 'Ida'
+  vuelta: string = 'Vuelta'
   @Input() contenPaquete: { 
     section?: string | null,
     origin: string,
     destination: string,
     dates: string,
-    ida?: string | null,
-    vuelta?: string | null,
     rooms: string,
     peopple?: string | null,
   }[] = [];

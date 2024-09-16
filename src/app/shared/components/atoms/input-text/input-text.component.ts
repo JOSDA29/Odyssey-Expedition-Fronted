@@ -18,7 +18,7 @@ export class InputTextComponent implements ControlValueAccessor {
     @Input() isReadOnly: boolean = false; 
     @Input() type: string = 'text';
     @Input() max?: number;
-    @Input() style: 'input-text' | 'addTransport' | 'inputUpdateHotelDescrip' | 'inputUpdateHotel' | 'inputAdmin' | 'input-text-naviera' | 'input-text2' | 'input-desible' | 'inputIA' | 'input-number' | 'input-number2' | 'input-update' | 'input-register' = 'input-text';
+    @Input() style: 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' | 'addTransport' | 'inputUpdateHotelDescrip' | 'inputUpdateHotel' | 'inputAdmin' | 'input-text-naviera' | 'input-text2' | 'input-desible' | 'inputIA' | 'input-number' | 'input-number2' | 'input-update' | 'input-register' = 'input-text';
   
     @Output() enterPressed = new EventEmitter<void>();
   

@@ -84,7 +84,12 @@ import { RouterModule } from '@angular/router';
 import { AddPaquetesComponent } from '../features/home-admin/components/paquetes/add-paquetes/add-paquetes.component';
 import { EditPaqueteComponent } from '../features/home-admin/components/paquetes/edit-paquete/edit-paquete.component';
 import { ViewPaqueteComponent } from '../features/home-admin/components/paquetes/view-paquete/view-paquete.component';
-
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { SearchEspesificComponent } from './components/organisms/search-espesific/search-espesific.component';
 
 
 @NgModule({
@@ -171,12 +176,18 @@ import { ViewPaqueteComponent } from '../features/home-admin/components/paquetes
     AddPaquetesComponent,
     EditPaqueteComponent,
     ViewPaqueteComponent,
+    SearchEspesificComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
   ],
   exports:[
     ModalUpdateHotelComponent,
@@ -203,7 +214,10 @@ import { ViewPaqueteComponent } from '../features/home-admin/components/paquetes
     LineComponent,
     TemplateChatIAComponent,
     InputDateComponent,
-    TextAreaComponent
+    TextAreaComponent,
+    PrincipalNavbarComponent,
+    SearchEspesificComponent,
+    CardHotelComponent
   ]
 })
 export class SharedModule { }

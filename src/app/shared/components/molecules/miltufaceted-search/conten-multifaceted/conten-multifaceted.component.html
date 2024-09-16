@@ -1,4 +1,4 @@
-<div class="conten-multifaceted" *ngFor="let conten of contensSection">
+<div [class]="style" *ngFor="let conten of contensSection">
   <app-subtitle [style]="'subtitle-principal'" [text]="conten.title"></app-subtitle>
   
 <div class="checkboxes">
@@ -15,8 +15,9 @@
     <div class="text">
       <app-subtitle [style]="'subtitle-secundary'" [text]="conten.origin"></app-subtitle>
       <app-image-input-text 
-        [styleinput]="'input-text'" 
+        [styleinput]="styleInputText" 
         type="text" 
+        [styleIcon]="styleInputIcon"
         src="assets/icons/ubication.png" 
         alt="Search Icon" 
         placeholder="Ingrese una ciudad"
@@ -30,8 +31,9 @@
     <div class="text">
       <app-subtitle [style]="'subtitle-secundary'" [text]="conten.destination"></app-subtitle>
       <app-image-input-text 
-        [styleinput]="'input-text'" 
+        [styleinput]="styleInputText" 
         type="text" 
+        [styleIcon]="styleInputIcon"
         src="assets/icons/ubication.png" 
         alt="Search Icon" 
         placeholder="Ingrese una ciudad"
@@ -46,20 +48,21 @@
       <app-subtitle [style]="'subtitle-secundary'" [text]="conten.dates ? conten.dates : ''"></app-subtitle>
       <div class="dates">
         <app-input-date 
-          class="date1" 
-          src="assets/icons/date.png" 
-          [txt]="conten.ida ? conten.ida : ''" 
-          [submitted]="submitted"
-          [style]="'input-text-wrapper'"
-          [control]="idaControl">
-        </app-input-date>
+        class="date1" 
+        src="assets/icons/date.png" 
+        [txt]="ida" 
+        [style]="styleDate"
+        [submitted]="submitted"
+        [control]="idaControl">
+      </app-input-date>
+      
         <app-input-date 
           src="assets/icons/date.png" 
-          [txt]="conten.vuelta ? conten.vuelta : ''" 
+          [txt]="vuelta" 
           [submitted]="submitted"
-          [style]="'input-text-wrapper'"
+          [style]="styleDate"
           [control]="vueltaControl"
-          [disabled]="checkMenu !== 0"> 
+          [disabled]="checkMenu === 1"> 
         </app-input-date>
       </div>      
     </div>
@@ -68,7 +71,7 @@
       <div class="text">
         <app-subtitle [style]="'subtitle-secundary'" [text]="conten.peopple ? conten.peopple : ''"></app-subtitle>
         <app-image-input-text 
-          [styleinput]="'input-number'" 
+          [styleinput]="styleInputNumber" 
           type="number" 
           src="assets/icons/peopple.png" 
           alt="Search Icon" 
@@ -100,11 +103,11 @@
           <div class="text">
             <app-subtitle [style]="'subtitle-secundary'" text="Origen:"></app-subtitle>
             <app-image-input-text 
-              [styleinput]="'input-text'" 
+              [styleinput]="styleInputText" 
               type="text" 
               src="assets/icons/ubication.png" 
               alt="Search Icon" 
-              placeholder="Ingrese una ciudad"
+              [placeholder]="tramoorigin"
               [inputControl]="tramo.origin">
             </app-image-input-text>
             <div *ngIf="submitted && tramo.origin.invalid" class="error-message">
@@ -115,11 +118,11 @@
           <div class="text">
             <app-subtitle [style]="'subtitle-secundary'" text="Destino:"></app-subtitle>
             <app-image-input-text 
-              [styleinput]="'input-text'" 
+              [styleinput]="styleInputText" 
               type="text" 
               src="assets/icons/ubication.png" 
               alt="Search Icon" 
-              placeholder="Ingrese una ciudad"
+              [placeholder]="tramodestination"
               [inputControl]="tramo.destination">
             </app-image-input-text>
             <div *ngIf="submitted && tramo.destination.invalid" class="error-message">
@@ -133,7 +136,7 @@
               <app-input-date 
                 class="date1" 
                 src="assets/icons/date.png" 
-                [txt]="'Seleccione una fecha'" 
+                [txt]="tramoida" 
                 [submitted]="submitted"
                 [control]="tramo.ida">
               </app-input-date>

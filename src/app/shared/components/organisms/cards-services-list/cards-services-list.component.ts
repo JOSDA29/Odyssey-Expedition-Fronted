@@ -21,7 +21,7 @@ export class CardsServicesListComponent implements OnInit {
 
   ngOnInit(): void {
     // Obtener todos los transportes
-    const filterTransport: updateTransport = {}
+    const filterTransport: updateTransport = {};
     this.apiService.filterTransport(filterTransport)
       .subscribe(
         (res: getTransport[]) => {
@@ -30,7 +30,6 @@ export class CardsServicesListComponent implements OnInit {
             transport.nights = this.calculateNights(transport);
             return transport;
           });
-  console.log(this.transports);
   
           // Filtrar transportes por tipo 'vuelo' y 'crucero'
           this.filteredFlights = this.transports.filter(transport => transport.transporttype.toLowerCase() === 'vuelo');
@@ -71,6 +70,17 @@ export class CardsServicesListComponent implements OnInit {
   
     return diffDays;
   }
-  
 
+  // Métodos para verificar si hay elementos válidos
+  hasValidFlights(): boolean {
+    return this.filteredFlights.some(flight => flight.state !== false);
+  }
+
+  hasValidCruises(): boolean {
+    return this.filteredCruises.some(cruise => cruise.state !== false);
+  }
+
+  hasValidHotels(): boolean {
+    return this.hotels.some(hotel => hotel.state !== false);
+  }
 }

@@ -136,6 +136,22 @@ export class ApiService {
   createPaquete(data: createPaquete): Observable<createPaquete> {
     return this.http.post<createPaquete>(`${this.apiUrl}/package/create`, data);
   }
+
+  updateImagePaquete(file: File, id: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', id.toString()); 
+    return this.http.put<any>(`${this.apiUrl}/package/updateImage`, formData);
+  }
+  
+  addPaqueteHotel(dataHotel: any): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/package/addHotel`, dataHotel)
+  }
+
+  addPaqueteTransporte(dataHotel: any): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/package/addTransport`, dataHotel)
+  }
+
   ///////////// FILTERS /////////////
   
   filterHotels(filters: any): Observable<any> {

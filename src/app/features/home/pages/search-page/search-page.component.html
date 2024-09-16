@@ -1,0 +1,46 @@
+<app-principal-navbar></app-principal-navbar>
+<app-secondary-navbar [showLinks]="false"></app-secondary-navbar>
+<div class="contenPage">
+    <div class="contenSearch">
+        <app-search-espesific></app-search-espesific>
+    </div>
+    <div class="contenCards">
+        <ng-container *ngFor="let vuelo of vuelos">
+          <app-card-hotel *ngIf="vuelo.state !== false && encontrado"
+            [title]="vuelo.destination"
+            [departure]="vuelo.origin"
+            [price]="vuelo.price"
+            [src]="vuelo.imageurl"
+            [type]="vuelo.transporttype">
+          </app-card-hotel>
+        </ng-container>
+
+
+        <ng-container *ngFor="let hotel of hoteles">
+          <app-card-hotel *ngIf="hotel.state !== false && encontrado"
+              [title]="hotel.name"
+              [src]="hotel.imageurl"
+              [departure]="hotel.location"
+              [price]="hotel.price"
+              [type]="'hotel'"
+              [service]="hotel.room">
+          </app-card-hotel>
+      </ng-container>
+
+
+        <ng-container *ngFor="let crucero of cruceros">
+          <app-card-hotel *ngIf="crucero.state !== false && encontrado"
+            [title]="crucero.destination"
+            [departure]="crucero.origin"
+            [price]="crucero.price"
+            [src]="crucero.imageurl"
+            [type]="crucero.transporttype">
+          </app-card-hotel>
+        </ng-container>
+
+        <p *ngIf="!encontrado"> No hay nada</p>
+      </div>
+      
+</div>
+<app-template-chat-ia></app-template-chat-ia>
+<app-principal-footer></app-principal-footer>

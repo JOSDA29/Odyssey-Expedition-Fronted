@@ -24,8 +24,6 @@ export class MultifacetedSearchComponent implements OnInit {
       origin: 'Origen:',
       destination: 'Destino:',
       dates: 'Fechas:',
-      ida: 'Ida',
-      vuelta: 'Vuelta',
       peopple: 'Pasajeros:'
     }
   ];
@@ -41,8 +39,6 @@ export class MultifacetedSearchComponent implements OnInit {
       section: null,
       destination: 'Destino:',
       dates: 'Fechas:',
-      ida: 'Ida',
-      vuelta: 'Vuelta',
       rooms: 'Habitaciones:',
       peopple: ''
     }
@@ -54,8 +50,6 @@ export class MultifacetedSearchComponent implements OnInit {
       origin: 'Ogigen:',
       destination: 'Destino:',
       dates: 'Fechas:',
-      ida: 'Ida',
-      vuelta: 'Vuelta',
       rooms: 'Habitaciones:',
       peopple: ''
     }
@@ -98,5 +92,7 @@ export class MultifacetedSearchComponent implements OnInit {
 
   onMenuSelected(selectedIndex: number) {
     this.nuberMenu = selectedIndex;
+    console.log(this.nuberMenu);
+    sessionStorage.setItem('secetionSearch', `${this.nuberMenu}`);
   }
 }

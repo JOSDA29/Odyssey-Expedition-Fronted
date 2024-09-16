@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { searchFligth } from '../../../../../../core/models/transport/searchFligths';
+import { SearchServiceService } from '../../../../../../core/services/search-service.service';
+import { Router } from '@angular/router';
+import { ApiService } from '../../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-search-cruseros',
@@ -8,6 +12,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class SearchCruserosComponent implements OnInit{
   
+  monthExit: string = 'Todos los meses'
+  monthDuration: string = 'Cualquier duración';
+
   @Input()   contenCruseros: { 
     section?: string | null,
     destination: string,
@@ -22,7 +29,14 @@ export class SearchCruserosComponent implements OnInit{
   submitted = false;
 
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private route: Router,
+    private searchServiceService: SearchServiceService<any>,
+  ) {}
+
+  savedData = sessionStorage.getItem('SearchDataC');
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -33,6 +47,17 @@ export class SearchCruserosComponent implements OnInit{
       boat: ['', Validators.required],
       naviera: ['', Validators.required],
     });
+
+    if (this.savedData) {
+      const parsedData = JSON.parse(this.savedData);
+      // Update form values
+      this.form.patchValue({
+        ...parsedData,
+      });
+      this.monthExit = parsedData.exit || 'Todos los meses';
+      this.monthDuration = parsedData.duration || 'Cualquier duración';
+    }
+
   }
 
   get destinatioControl(): FormControl{
@@ -70,7 +95,27 @@ export class SearchCruserosComponent implements OnInit{
     this.submitted = true;
     this.validateForm();
     if (this.form.valid) {
-      // Realizar la acción del botón
+      const searchCriteria: searchFligth = {
+        transportType: 'crucero',
+        origin: this.portControl.value,
+        destination: this.destinatioControl.value,
+        arrivalDate: this.form.value.duración || '',  
+        departureDate: this.form.value.exit || '', 
+      };    
+      console.log('Datos de búsqueda: ', searchCriteria);
+
+      sessionStorage.setItem('SearchDataC', JSON.stringify(this.form.value));
+
+      this.apiService.filterTransport(searchCriteria).subscribe(
+        (response) => {
+          this.searchServiceService.updateSearchResults(response);
+          this.route.navigate(['/resultSearch']);
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+      console.log('Form is invalid',this.form.value);
     }
   }
 

@@ -19,6 +19,12 @@ import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { AuthInterceptorService } from './core/interceptor/AuthInterceptor.service';
 import { ViewDataHotelComponent } from './features/home-admin/components/hotel-funtions/view-data-hotel/view-data-hotel.component';
 import { RouterModule } from '@angular/router';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -41,15 +47,20 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     RouterModule,
     ClientProfileModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [
-//{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
+    MatDatepickerModule, 
+    MatNativeDateModule,
     {
   provide: HTTP_INTERCEPTORS,
   useClass: AuthInterceptorService,
-  multi: true
+  multi: true,
 },
     provideAnimationsAsync()
   ],

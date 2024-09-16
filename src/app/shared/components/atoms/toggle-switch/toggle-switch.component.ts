@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./toggle-switch.component.scss']
 })
 export class ToggleSwitchComponent {
-  @Input() checked: boolean = false;
+  @Input() checked?: boolean;
   @Output() checkedChange = new EventEmitter<boolean>();
 
   toggle(): void {

@@ -9,11 +9,16 @@ import { NosotrosComponent } from './features/nosotros/nosotros.component';
 import { DisableProfileComponent } from './features/client-profile/page/client-profile/disable-profile/disable-profile.component';
 import { ErrorStatusComponent } from './shared/components/templates/status/error-status/error-status.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { SearchPageComponent } from './features/home/pages/search-page/search-page.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'resultSearch',
+    component: SearchPageComponent,
   },
   {
     path: 'register',

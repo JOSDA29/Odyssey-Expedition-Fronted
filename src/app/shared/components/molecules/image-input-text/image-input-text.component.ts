@@ -19,8 +19,8 @@ export class ImageInputTextComponent implements ControlValueAccessor {
   @Input() alt: string = '';
   @Input() isReadOnly: boolean = false;
   @Input() placeholder: string = '';
-  @Input() styleIcon: 'input-icon' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
-  @Input() styleinput: 'input-text' | 'addTransport' | 'input-text2' | 'inputIA' | 'input-number' | 'input-text-naviera' | 'input-number2' | 'input-register' = 'input-text';
+  @Input() styleIcon: 'input-icon' | 'icon-shearSpesific' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
+  @Input() styleinput: 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' | 'addTransport' | 'input-text2' | 'inputIA' | 'input-number' | 'input-text-naviera' | 'input-number2' | 'input-register' = 'input-text';
 
   @Output() textChanged = new EventEmitter<string>();
   @Output() enterPressed = new EventEmitter<void>();

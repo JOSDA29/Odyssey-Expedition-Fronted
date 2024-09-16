@@ -27,7 +27,15 @@
     left: 0.625rem; 
     width: 1rem; 
     height: 1.25rem; 
-  }
+}
+
+.icon-shearSpesific{
+    position: absolute;
+    left: 0.625rem; 
+    margin-top: -.35rem;
+    width: .8rem;
+    height: 1rem;
+}
 
 .shared-icon{
     width: 1.5rem;
@@ -116,7 +124,6 @@
 }
 
 .iconHotelAdmin{
-    width: 1.188rem;
     height: 0.875rem;
     cursor: pointer;
 }

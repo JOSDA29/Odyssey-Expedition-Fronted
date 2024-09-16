@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../../../core/services/api.service';
 import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
 import { createPaquete } from '../../../../../core/models/paquetes/crearPaquete';
+import { addService } from '../../../../../core/models/paquetes/addService';
 
 @Component({
   selector: 'app-add-paquetes',
@@ -17,14 +18,26 @@ export class AddPaquetesComponent implements OnInit{
   paqueteForm!: FormGroup;
   @Input() namePaquete: string = 'Nombre paquete'
   @Input() pricePquete: number = 0;
+  @Input() seekerItems = [
+    { title:'Agregar transporte',placeholder: 'ID de un transporte existente', type: 'text', text: 'Id del transporte:',formControlName:'seekerTransporte' },
+    { title:'Agregar hotel',placeholder: 'ID de un hotel existente', type: 'text', text: 'Id del hotel:',formControlName:'seekerHotel' },
+  ]
 
   @Input() inputs = [
-    { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', formControlName: 'startDate'},
-    { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha', formControlName: 'endDate' },
+    { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', formControlName: 'departureDate'},
+    { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha', formControlName: 'returnDate' },
     { placeholderNumber: 'Cantidad de pasajero', typeNumber: 'number', number: 'Pasajeros:',formControlName: 'numberOfPeople'},
     { placeholder: 'Origen', type: 'text', text: 'Origen',formControlName:'origin' },
     { placeholder: 'Destino', type: 'text', text: 'Destino:', formControlName: 'destination' },
   ];
+
+  @Input()  titlesPaquete = [
+    { title: 'Servicio' },
+    { title: 'Precio' },
+    { title: 'ID' },
+    { title: 'Acciones' }
+  ];
+  itemsPaquete: any[] = []
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
@@ -33,6 +46,7 @@ export class AddPaquetesComponent implements OnInit{
   preferenciasCliente: string = '';
   itinerario: string = '';
   submitted = false;
+  selectedFile!: File; //almacena la magen
 
   constructor(
     private fb: FormBuilder,
@@ -48,8 +62,10 @@ export class AddPaquetesComponent implements OnInit{
 
   ngOnInit(): void {
     this.paqueteForm = this.fb.group({
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
+      seekerTransporte:['',[Validators.required]],
+      seekerHotel: ['', [Validators.required]],
+      departureDate: ['', [Validators.required]],
+      returnDate: ['', [Validators.required]],
       numberOfPeople: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
       origin: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       destination: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],
@@ -79,16 +95,15 @@ export class AddPaquetesComponent implements OnInit{
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      const file = input.files[0];
+      this.selectedFile = input.files[0];  // Almacena el archivo seleccionado
       const reader = new FileReader();
-
       reader.onload = (e: any) => {
-        this.srcImg = e.target.result;
+        this.srcImg = e.target.result;  // Muestra la vista previa de la imagen
       };
-
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.selectedFile);  // Lee el archivo para mostrar la imagen
     }
   }
+
 
   getInputValues():createPaquete {
     const {origin, destination,departureDate,returnDate,numberOfPeople,itinerary,customerPreferences,state,} = this.paqueteForm.value;
@@ -99,8 +114,8 @@ export class AddPaquetesComponent implements OnInit{
       departureDate,
       returnDate,
       numberOfPeople,
-      itinerary,
-      customerPreferences,
+      itinerary: this.itinerario,
+      customerPreferences: this.preferenciasCliente,
       state: true
     };
   }
@@ -113,6 +128,8 @@ export class AddPaquetesComponent implements OnInit{
     }
   
     const payload = this.getInputValues();
+    console.log('data paquete enviada: ', payload);
+    
   
     this.sweetAlertService.showConfirmation(
       '¿Estás seguro de agregar este hotel?',
@@ -123,15 +140,69 @@ export class AddPaquetesComponent implements OnInit{
       if (result.isConfirmed) {
         this.sweetAlertService.showLoading('Creando hotel...', '', 'assets/icons/loadingData.gif');
         this.apiService.createPaquete(payload).subscribe(
-          response => {
+          (response:any) => {
             this.sweetAlertService.hideLoading();
+            const newPaqueteId = response.packageId;
+            console.log('ID del nuevo paquete:', newPaqueteId);
+
+            if (this.selectedFile !== null) {
+              this.apiService.updateImagePaquete(this.selectedFile, newPaqueteId).subscribe(
+                (res) => {
+                  console.log('Imagen actualizada correctamente:', res);
+                  this.sweetAlertService.showSuccess('Paquete creado con éxito', 'assets/icons/check.gif');
+                },
+                (err) => {
+                  console.error('Error al subir la imagen:', err);
+                  this.sweetAlertService.showError('Error al subir la imagen');
+                }
+              );              
+            }
+
+            const { idTransporte, idHotel } = this.classifyItemsPaquete();                
+
+            const addServicesHotel:addService = {
+              idPackage: String(newPaqueteId),
+              idHotel: idHotel[0],
+            }
+            console.log('data hotel: ', addServicesHotel);
+
+              if (addServicesHotel !== undefined && idHotel.length > 0 ) {
+                this.apiService.addPaqueteHotel(addServicesHotel).subscribe(
+                  response =>{
+                    console.log('hotel service add: ',response);
+                  },
+                  error => {
+                    this.sweetAlertService.hideLoading();
+                    this.sweetAlertService.showError('Error al agregar el servisio hotel: ', error);
+                  }
+                );
+              }
+
+            const addServicesTransporte:addService = {
+              idPackage: String(newPaqueteId),
+              idTransport: idTransporte[0],
+              numberOfPeople: this.getFormControl('numberOfPeople').value
+            }
+
+            if (addServicesTransporte !== undefined && idTransporte.length > 0) {
+              this.apiService.addPaqueteTransporte(addServicesTransporte).subscribe(
+                response =>{
+                  console.log('transporte service add: ',response);
+                },
+                error => {
+                  this.sweetAlertService.hideLoading();
+                  this.sweetAlertService.showError('Error al agregar el servisio transporte: ', error);
+                }
+              );
+            }            
+
             this.paqueteUpdateService.notifyHotelUpdated();
             this.dialogRef.close(response);
             this.sweetAlertService.showSuccess('Creación exitosa', 'assets/icons/check.gif');
           },
           error => {
             this.sweetAlertService.hideLoading();
-            this.sweetAlertService.showError('Error al crear el hotel');
+            this.sweetAlertService.showError('Error al crear el paquete');
           }
         );
       }
@@ -197,4 +268,101 @@ getErrorMessage(controlName: string): string {
       return null; // No hay errores
     };
   }
+
+  searchAndAddToPaquete(index: number): void{
+    if (index == 0) {
+      const transportID = this.paqueteForm.get('seekerTransporte')?.value;
+      const filters = { transportID };
+      if (!transportID || transportID === '0') {
+        console.warn('ID del transporte no válido, no se realizará la consulta.');
+        return; // Detener la ejecución si el ID no es válido
+      }
+      
+      this.apiService.filterTransport(filters).subscribe(
+        (response: any) => {
+          if (Array.isArray(response)) {
+            console.log('response transport:', response);
+      
+            // Filtrar los datos existentes para evitar duplicados
+            const newItems = response.map((transport: any) => ({
+              name: transport.transporttype || 'Sin tipo',
+              id: transport.transportid || 'Id no especificado',
+              location: transport.price || 'Precio no disponible',
+            }));
+      
+            // Verificar si los nuevos elementos ya están en itemsPaquete
+            const uniqueItems = newItems.filter(newItem =>
+              !this.itemsPaquete.some(existingItem => existingItem.id === newItem.id)
+            );
+      
+            // Agregar solo los elementos únicos
+            this.itemsPaquete = [...this.itemsPaquete, ...uniqueItems];
+          } else {
+            console.warn('Respuesta no es un array:', response);
+          }
+        },
+        (error) => {
+          console.error('Error al buscar transportes:', error);
+        }
+      );
+    }else if (index == 1) {
+      const id = this.paqueteForm.get('seekerHotel')?.value;
+      const filters = { id };
+      console.log('hotelk id',id);
+      
+      if (!id || id === '0') {
+        console.warn('ID del hotel no válido, no se realizará la consulta.');
+        return; // Detener la ejecución si el ID no es válido
+      }
+      
+      this.apiService.filterHotels(filters).subscribe(
+        (response: any) => {
+          if (Array.isArray(response)) {
+            console.log('response transport:', response);
+      
+            // Filtrar los datos existentes para evitar duplicados
+            const newItems = response.map((hotel: any) => ({
+              name: hotel.name || 'Sin tipo',
+              id: hotel.hotelid.toString() || 'Id no especificado',
+              location: hotel.price || 'Precio no disponible',
+            }));
+      
+            // Verificar si los nuevos elementos ya están en itemsPaquete
+            const uniqueItems = newItems.filter(newItem =>
+              !this.itemsPaquete.some(existingItem => existingItem.id === newItem.id)
+            );
+      
+            // Agregar solo los elementos únicos
+            this.itemsPaquete = [...this.itemsPaquete, ...uniqueItems];
+            console.log(this.itemsPaquete);
+          } else {
+            console.warn('Respuesta no es un array:', response);
+          }
+        },
+        (error) => {
+          console.error('Error al buscar hoteles:', error);
+        }
+      );
+    }
+  }
+
+
+  // Método para clasificar los IDs de itemsPaquete en idTransporte o idHotel
+classifyItemsPaquete(): { idTransporte: string[], idHotel: string[] } {
+  const idTransporte: string[] = [];
+  const idHotel: string[] = [];
+
+  this.itemsPaquete.forEach(item => {
+    // Verifica el tipo de servicio: puede ser 'vuelo' o 'crucero' (caso de idTransporte)
+    if (item.name.toLowerCase().includes('vuelo') || item.name.toLowerCase().includes('crucero')) {
+      idTransporte.push(item.id);
+    } else {
+      // De lo contrario, se clasifica como idHotel
+      idHotel.push(item.id);
+    }
+  });
+
+  return { idTransporte, idHotel };
+}
+
 }

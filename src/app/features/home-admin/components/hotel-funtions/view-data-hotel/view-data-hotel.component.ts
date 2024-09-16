@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-import { ModalUpdateHotelComponent } from '../modal-update-hotel/modal-update-hotel.component';
 import { ApiService } from '../../../../../core/services/api.service';
 import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
 import { updateHotel } from '../../../../../core/models/hotel/updateHotel';
