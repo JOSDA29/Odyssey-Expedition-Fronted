@@ -29,12 +29,12 @@ export class TransporteAdviserComponent {
   inputValues: any[] = [];
 
   @Input() inputs = [
-    { tex: 'Tipo:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Id:', input: 'Buscar por id', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Origen:', input: 'Buscar por origen', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Destino:', input: 'Buscar por destino', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Fecha salida:', input: '', type: '', dateStar:'Fecha salida',dateFinish:'',},
-    { tex: 'Fecha llegada:', input: '', type: '', dateStar:'',dateFinish:'Fecha llegada',},
+    { tex: 'Tipo:', input: 'Buscar por tipo', type: 'text', dateStar:'',dateFinish:'',list: false},
+    { tex: 'Id:', input: 'Buscar por id', type: 'text', dateStar:'',dateFinish:'',list: false},
+    { tex: 'Origen:', input: 'Buscar por origen', type: 'text', dateStar:'',dateFinish:'',list:true},
+    { tex: 'Destino:', input: 'Buscar por destino', type: 'text', dateStar:'',dateFinish:'',list:true},
+    { tex: 'Fecha salida:', input: '', type: '', dateStar:'Fecha salida',dateFinish:'',list:true},
+    { tex: 'Fecha llegada:', input: '', type: '', dateStar:'',dateFinish:'Fecha llegada',list:true},
   ]
 
   @Input()  buttons = [

@@ -1,36 +1,89 @@
 <div class="container">
-    <div class="image">
-      <img [src]="srcImg" [alt]="altImg" class="imageUpdateHotel">
-      <div class="hover-add">
-        <app-icon src="assets/icons/lapizEit.png" alt="" [style]="'iconHotelAdminedit'" (click)="triggerFileInput()"></app-icon>
-        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/*" />
-      </div>
+  <div class="image">
+    <img [src]="srcImg" [alt]="altImg" class="imageUpdateHotel" />
+    <div class="hover-add">
+      <app-icon
+        src="assets/icons/lapizEit.png"
+        alt=""
+        [style]="'iconHotelAdminedit'"
+        (click)="triggerFileInput()"
+      ></app-icon>
+      <input
+        type="file"
+        #fileInput
+        (change)="onFileSelected($event)"
+        style="display: none"
+        accept="image/*"
+      />
     </div>
-  
-    <section class="inputs">
-      <div class="input" *ngFor="let input of inputs; let i = index">
-        <app-text *ngIf="input.text" [text]="input.text" [style]="'textHotelUpdate'"></app-text>
-        <app-input-text *ngIf="input.placeholder" [placeholder]="input.placeholder" [type]="input.type" 
-                        [(ngModel)]="inputValues[i].value" [style]="'inputUpdateHotel'"></app-input-text>
-       
-                        <app-text *ngIf="input.number" [text]="input.number" [style]="'textHotelUpdate'"></app-text>
-                        <app-image-input-text *ngIf="input.placeholderNumber" [styleIcon]="'iconAddTransport'" [styleinput]="'addTransport'" [type]="input.typeNumber" src="assets/icons/peopple.png" 
-                        alt="Search Icon" [placeholder]="input.placeholderNumber" [(ngModel)]="inputValues[i].number"></app-image-input-text>
-
-                        <app-input-date *ngIf="input.dateStar" src="assets/icons/date.png" [txt]="input.dateStar" 
-                        [style]="'dateUpdateHotel'" [(ngModel)]="inputValues[i].dateStart">
-        </app-input-date>
-        <app-input-date *ngIf="input.dateFinish" src="assets/icons/date.png" [txt]="input.dateFinish" 
-                        [style]="'dateUpdateHotel'" [(ngModel)]="inputValues[i].dateFinish">
-        </app-input-date>
-        <app-error-text *ngIf="errorMessages[i]"  [text]="errorMessages[i]" [style]="'textErrorAddHotel'"></app-error-text>     
-      </div>
-    </section>
-  
-  
-    <section class="butons">
-      <app-button text="Cancelar" [style]="'button-cancel'" (click)="cancelData()"></app-button>
-      <app-button text="Agregar" [style]="'saveHotel'" (click)="saveData()"></app-button>
-    </section>
   </div>
-  
+
+  <section class="inputs">
+    <div class="input" *ngFor="let input of inputs; let i = index">
+      <app-text
+        *ngIf="input.text"
+        [text]="input.text"
+        [style]="'textHotelUpdate'"
+      ></app-text>
+      <app-input-text
+        *ngIf="input.placeholder"
+        [placeholder]="input.placeholder"
+        [type]="input.type"
+        [list]="input.list"
+        [formControl]="getFormControl(input.formControlName)"
+        [style]="'inputUpdateHotel'"
+      ></app-input-text>
+
+      <app-text
+        *ngIf="input.number"
+        [text]="input.number"
+        [style]="'textHotelUpdate'"
+        [formControl]="getFormControl(input.formControlName)">
+      </app-text>
+      <app-image-input-text
+        *ngIf="input.placeholderNumber"
+        [styleIcon]="'iconAddTransport'"
+        [styleinput]="'addTransport'"
+        [type]="input.typeNumber"
+        src="assets/icons/peopple.png"
+        alt="Search Icon"
+        [list]="false"
+        [placeholder]="input.placeholderNumber"
+        [formControl]="getFormControl(input.formControlName)">
+      </app-image-input-text>
+
+      <app-input-date
+        *ngIf="input.dateStar"
+        src="assets/icons/date.png"
+        [txt]="input.dateStar"
+        [style]="'dateUpdateHotel'"
+        [formControl]="getFormControl(input.formControlName)">
+      </app-input-date>
+      <app-input-date
+        *ngIf="input.dateFinish"
+        src="assets/icons/date.png"
+        [txt]="input.dateFinish"
+        [style]="'dateUpdateHotel'"
+        [formControl]="getFormControl(input.formControlName)">
+      </app-input-date>
+      <app-error-text 
+        *ngIf="isControlInvalid(input.formControlName)"
+        [text]="getErrorMessage(input.formControlName)" 
+        [style]="'textErrorAddHotel'">
+      </app-error-text>   
+    </div>
+  </section>
+
+  <section class="butons">
+    <app-button
+      text="Cancelar"
+      [style]="'button-cancel'"
+      (click)="cancelData()"
+    ></app-button>
+    <app-button
+      text="Agregar"
+      [style]="'saveHotel'"
+      (click)="saveData()"
+    ></app-button>
+  </section>
+</div>

@@ -13,6 +13,7 @@ import { RegisterProveedor } from '../models/proveedor/proveedor';
 import { UpdateProveedor } from '../models/proveedor/proveedorUpdate';
 import { updatePaquete } from '../models/paquetes/updatePaquetes';
 import { createPaquete } from '../models/paquetes/crearPaquete';
+import { authGoogle } from '../models/authGoogle/authGogle';
 
 @Injectable({
   providedIn: 'root'
@@ -193,6 +194,10 @@ export class ApiService {
       }
     }
     return this.http.get<any>(`${this.apiUrl}/supplier/filter`, { params });
+  }
+
+  authGoogle(profile: authGoogle): Observable<authGoogle> {
+    return this.http.post<authGoogle>(`${this.apiUrl}/auth-google`,profile)
   }
 
 }

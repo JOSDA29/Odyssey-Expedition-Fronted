@@ -11,6 +11,13 @@ import { SearchServiceService } from '../../../../../../core/services/search-ser
   styleUrl: './search-hotel.component.scss'
 })
 export class SearchHotelComponent implements OnInit {
+
+  @Input() style : 'hotel-search' | 'conten-searchSpasific' = 'hotel-search';
+  @Input() styleInputText: 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-text';
+  @Input() styleInputIcon: 'input-icon' | 'icon-shearSpesific' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
+  @Input() styleInputNumber: 'input-number' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-number';
+  @Input() styleDate: 'input-text-wrapper' | 'input-text-wrapper-search' = 'input-text-wrapper';
+  
   @Input() textbutton: string = '';
   ida: string = 'Ida';
   vuelta: string = 'Vuelta';

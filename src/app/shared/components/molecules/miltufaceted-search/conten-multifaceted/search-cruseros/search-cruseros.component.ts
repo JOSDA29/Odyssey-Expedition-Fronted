@@ -12,6 +12,13 @@ import { ApiService } from '../../../../../../core/services/api.service';
 })
 export class SearchCruserosComponent implements OnInit{
   
+  @Input() style : 'crusero-search' | 'conten-searchSpasific' = 'crusero-search';
+  @Input() styleInputText: 'input-text' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-text';
+  @Input() styleInputIcon: 'input-icon' | 'icon-shearSpesific' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
+  @Input() styleInputNumber: 'input-number2' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-number2';
+  @Input() styleDate: 'input-text-wrapper' | 'input-text-wrapper-search' = 'input-text-wrapper';
+  @Input() styleNaviera: 'input-text-naviera' | 'input-naviera-searchSpesific' = 'input-text-naviera'
+
   monthExit: string = 'Todos los meses'
   monthDuration: string = 'Cualquier duración';
 

@@ -33,9 +33,7 @@ export class FormUpdatesComponent {
     }
   }
   
-
   onCancel() {
-    console.log('Cancelled');
     this.cancel.emit();
   }
 }

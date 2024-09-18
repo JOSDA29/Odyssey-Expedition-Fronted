@@ -159,6 +159,7 @@ export class DisableProfileComponent {
           console.log('Estado cambiado exitosamente:', response);
           this.sweetAlertService.showSuccess('Cuenta desactivada','assets/icons/check.gif')
           localStorage.clear();
+          sessionStorage.clear();
         },
         (error) => {
           console.error('Error al cambiar el estado:', error);

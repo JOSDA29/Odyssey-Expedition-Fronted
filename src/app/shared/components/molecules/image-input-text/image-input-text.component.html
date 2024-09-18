@@ -1,12 +1,23 @@
 <div class="input-text-container">
   <app-icon [src]="src" [alt]="alt" [style]="styleIcon"></app-icon>
-  <app-input-text
-    [control]="inputControl"
-    [type]="type"
-    [placeholder]="placeholder"
-    (enterPressed)="onEnterPressed()"
-    [isReadOnly]="isReadOnly"
-    [style]="styleinput"
-    [max]="12">
-  </app-input-text>
+  
+  <div class="input-text-container">
+    <app-icon [src]="src" [alt]="alt" [style]="styleIcon"></app-icon>
+    <app-input-text
+      [control]="inputControl"
+      [type]="type"
+      [placeholder]="placeholder"
+      (keydown.enter)="onEnterPressed()"
+      [isReadOnly]="isReadOnly"
+      [style]="styleinput"
+      [max]="12">
+    </app-input-text>
+  </div>
+  
+  <!-- Lista de sugerencias -->
+  <ul *ngIf="list && filteredSuggestions.length > 0" class="suggestions-list">
+    <li *ngFor="let suggestion of filteredSuggestions" (click)="selectSuggestion(suggestion)">
+      {{ suggestion.display_name }}
+    </li>
+  </ul>
 </div>

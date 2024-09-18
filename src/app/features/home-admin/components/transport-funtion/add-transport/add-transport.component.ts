@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../../../core/services/api.service';
 import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
 import { CreateTransport } from '../../../../../core/models/transport/createTransport';
+import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-add-transport',
@@ -14,17 +15,20 @@ export class AddTransportComponent {
   @Input() srcImg: string = 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png';
   @Input() altImg: string = 'default';
 
+  transporteForm!: FormGroup;
+  submitted = false;
+
   @Input() inputs = [
-    { placeholder: 'Id', type: 'text', text: 'Id: ', dateStar: '', dateFinish: '' },
-    { placeholder: 'Numero de seguimiento', type: 'text', text: 'Segimiento: ', dateStar: '', dateFinish: '' },
-    { placeholder: 'Ingrese el tipo', type: 'text', text: 'Transporte:', dateStar: '', dateFinish: '' },
-    { placeholder: 'Ingrese la compañia', type: 'text', text: 'Compañia:', dateStar: '', dateFinish: '' },
-    { placeholder: '', type: '', text: 'Fecha de llegada :', dateStar: 'Fecha', dateFinish: '' },
-    { placeholder: '', type: '', text: 'Fecha de salida:', dateStar: '', dateFinish: 'Fecha' },
-    { placeholderNumber: 'Cantidad de pasajero', typeNumber: 'number', number: 'Pasajeros:'},
-    { placeholder: 'Ingrese el origen', type: 'text', text: 'Origen:', dateStar: '', dateFinish: '' },
-    { placeholder: 'Ingrese el destino', type: 'text', text: 'Destino:', dateStar: '', dateFinish: '' },
-    { placeholder: 'Valor instancia', type: 'number', text: 'Precio:', dateStar: '', dateFinish: '' },
+    { placeholder: 'Id', type: 'text', text: 'Id: ', dateStar: '', dateFinish: '',list:false,formControlName:'transportID' },
+    { placeholder: 'Numero de seguimiento', type: 'text', text: 'Segimiento: ', dateStar: '', dateFinish: '',list:false,formControlName:'trackNumber' },
+    { placeholder: 'Ingrese el tipo', type: 'text', text: 'Transporte:', dateStar: '', dateFinish: '',list:false,formControlName:'transporttype' },
+    { placeholder: 'Ingrese la compañia', type: 'text', text: 'Compañia:', dateStar: '', dateFinish: '',list:false,formControlName:'company' },
+    { placeholder: '', type: '', text: 'Fecha de salida:', dateStar: 'Fecha', dateFinish: '',list:false,formControlName:'departureDate' },
+    { placeholder: '', type: '', text: 'Fecha de llegada :', dateStar: '', dateFinish: 'Fecha',list:false,formControlName:'arrivalDate' },
+    { placeholderNumber: 'Cantidad de pasajero', typeNumber: 'number', number: 'Pasajeros:',list:false,formControlName:'numberOfPeople' },
+    { placeholder: 'Ingrese el origen', type: 'text', text: 'Origen:', dateStar: '', dateFinish: '',list:true,formControlName:'origin' },
+    { placeholder: 'Ingrese el destino', type: 'text', text: 'Destino:', dateStar: '', dateFinish: '',list:true,formControlName:'destination' },
+    { placeholder: 'Valor instancia', type: 'number', text: 'Precio:', dateStar: '', dateFinish: '',list:false,formControlName:'price' },
   ];
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -33,14 +37,62 @@ export class AddTransportComponent {
   errorMessages: string[] = [];
 
   constructor(
+    private fb: FormBuilder,
     private sweetAlertService: SweetAlertService,
     public dialogRef: MatDialogRef<AddTransportComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private apiService: ApiService,
     private transportUpload: loadComponent
   ) {
-    // Initialize inputValues array to match the inputs structure
     this.inputValues = this.inputs.map(() => ({ value: '', dateStart: '', dateFinish: '' }));
+  }
+
+  ngOnInit(): void {
+    this.transporteForm = this.fb.group({
+      transportID: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      trackNumber: ['', [Validators.required, Validators.minLength(5)]],
+      transporttype: ['', [Validators.required, Validators.pattern(/^(vuelo|crucero)$/)]], // Se mantiene el patrón original
+      company: ['', [Validators.required]],
+      departureDate: ['', [Validators.required]],
+      arrivalDate: ['', [Validators.required]],
+      numberOfPeople: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
+      origin: ['', [Validators.required]],
+      destination: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      price: ['', [Validators.required]]
+    }, {
+      validators: this.dateRangeValidator
+    });
+  
+    // Escuchar cambios en el campo 'transporte' y convertir a minúsculas automáticamente
+    this.transporteForm.get('transporte')?.valueChanges.subscribe((value: string) => {
+      const lowerCaseValue = value?.toLowerCase() || '';
+      this.transporteForm.get('transporte')?.setValue(lowerCaseValue, { emitEvent: false });
+    });
+  }
+  
+
+  // Validador personalizado para verificar la fecha de inicio y fin
+  dateRangeValidator(group: AbstractControl): { [key: string]: boolean } | null {
+    const dateStar = group.get('dateStar')?.value;
+    const dateFinish = group.get('dateFinish')?.value;
+    
+    if (dateStar && dateFinish && new Date(dateStar) >= new Date(dateFinish)) {
+      return { dateRangeInvalid: true };
+    }
+    return null;
+  }
+
+  getFormControl(controlName: string): FormControl {
+    const control = this.transporteForm.get(controlName);
+    if (!control) {
+      throw new Error(`Control with name '${controlName}' not found in the form`);
+    }
+    return control as FormControl;
+  }
+
+  isControlInvalid(controlName: string): boolean {
+    const control = this.transporteForm.get(controlName);
+    return control?.touched && control?.invalid || false;
   }
 
   triggerFileInput(): void {
@@ -62,81 +114,7 @@ export class AddTransportComponent {
   }
 
   getInputValues(): CreateTransport {
-    const transportID = this.inputValues[0]?.value || '';
-    const trackNumber = this.inputValues[1]?.value || '';
-    let transporttype = this.inputValues[2]?.value || ''; 
-    const company = this.inputValues[3]?.value || '';
-    const arrivalDate = this.inputValues[4]?.dateStart || '';
-    const departureDate = this.inputValues[5]?.dateFinish || '';
-    const numberOfPeople = +this.inputValues[6]?.number || 0;
-    const origin = this.inputValues[7]?.value || '';
-    const destination = this.inputValues[8]?.value || '';
-    const price = +this.inputValues[9]?.value || 0;
-  
-    // Convertir el valor de transporttype a minúsculas
-    transporttype = transporttype.toLowerCase();
-  
-    this.errorMessages = [];
-  
-    if (!transportID) {
-      this.errorMessages[0] = 'Campo obligatorio';
-    } else if (transportID.length < 3 || transportID.length > 20) {
-      this.errorMessages[0] = 'El id debe tener entre 3 y 20 caracteres.';
-    }
-  
-    if (!trackNumber) {
-      this.errorMessages[1] = 'Campo obligatorio';
-    } else if (trackNumber.length < 3 || trackNumber.length >= 20) {
-      this.errorMessages[1] = 'El segimiento debe tener entre 3 y 20 caracteres.';
-    }
-  
-    if (!transporttype) {
-      this.errorMessages[2] = 'Campo obligatorio';
-    } else if (transporttype !== 'vuelo' && transporttype !== 'crucero') {
-      this.errorMessages[2] = 'El tipo de transporte debe ser "crucero" o "vuelo".';
-    }
-  
-    if (!company) {
-      this.errorMessages[3] = 'Campo obligatorio';
-    }
-  
-    if (!arrivalDate) {
-      this.errorMessages[4] = 'Campo obligatorio';
-    } else if (arrivalDate < departureDate) {
-      this.errorMessages[4] = 'La fecha de llegada debe ser mayor a la de salida';
-    }
-  
-    if (!departureDate) {
-      this.errorMessages[5] = 'Campo obligatorio';
-    } else if (departureDate > arrivalDate) {
-      this.errorMessages[5] = 'La fecha de salida debe ser menor a la de llegada';
-    }
-  
-    if (!numberOfPeople) {
-      this.errorMessages[6] = 'Campo obligatorio';
-    }
-  
-    if (!origin) {
-      this.errorMessages[7] = 'Campo obligatorio';
-    }else if (origin.length < 10 || origin.length >= 20) {
-      this.errorMessages[7] = 'El origen debe tener entre 10 y 20 caracteres.';
-    }
-  
-    if (!destination) {
-      this.errorMessages[8] = 'Campo obligatorio';
-    }else if (destination.length < 10 || destination.length >= 20) {
-      this.errorMessages[8] = 'El destino debe tener entre 10 y 20 caracteres.';
-    }
-  
-    if (!price) {
-      this.errorMessages[9] = 'Campo obligatorio';
-    }
-  
-    // Si hay errores, lanzar excepción
-    if (this.errorMessages.some(error => error)) {
-      throw new Error('Datos inválidos');
-    }
-  
+    const { transportID, transporttype, company, origin, destination, arrivalDate, departureDate, numberOfPeople, price, trackNumber } = this.transporteForm.value;
     return {
       transportID,
       transporttype,
@@ -151,13 +129,16 @@ export class AddTransportComponent {
       trackNumber
     };
   }
-  
-  
-  
-  
 
   saveData(): void {
+    if (this.transporteForm.invalid) {
+      this.submitted = true;
+      this.transporteForm.markAllAsTouched();
+      return;
+    }
+
     const payload = this.getInputValues();
+
     this.sweetAlertService.showConfirmation(
       `¿Estás seguro de actualizar este transporte?`,
       'Confirmación',
@@ -165,21 +146,19 @@ export class AddTransportComponent {
       'Cancelar'
     ).then((result) => {
       if (result.isConfirmed) {
-        this.sweetAlertService.showLoading('Creando transporte...','','assets/icons/loadingData.gif')
-          this.apiService.createTransport(payload).subscribe(
-            response => {
-              this.sweetAlertService.hideLoading();
-              this.transportUpload.notifyHotelUpdated();
-              this.dialogRef.close(response);
-              this.sweetAlertService.showSuccess('Creacion exitosa', 'assets/icons/check.gif');
-            },
-            error => {              
-              this.sweetAlertService.hideLoading();
-              console.error('Error al agregar el transporte:', error);
-            }
-          );
-        
-          this.dialogRef.close();
+        this.sweetAlertService.showLoading('Creando transporte...', '', 'assets/icons/loadingData.gif');
+        this.apiService.createTransport(payload).subscribe(
+          response => {
+            this.sweetAlertService.hideLoading();
+            this.transportUpload.notifyHotelUpdated();
+            this.dialogRef.close(response);
+            this.sweetAlertService.showSuccess('Creación exitosa', 'assets/icons/check.gif');
+          },
+          error => {
+            this.sweetAlertService.hideLoading();
+            console.error('Error al agregar el transporte:', error);
+          }
+        );
       }
     });
   }
@@ -195,5 +174,33 @@ export class AddTransportComponent {
         this.dialogRef.close();
       }
     });
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.transporteForm.get(controlName);
+    if (control && control.errors) {
+      if (control.hasError('required')) {
+        return 'Campo obligatorio';
+      }
+      if (control.hasError('pattern') && controlName === 'transporte') {
+        return 'El transporte debe ser "Vuelo" o "Crucero"';
+      }
+      if (control.hasError('minlength')) {
+        return `Debe tener al menos ${control.errors['minlength']?.requiredLength} caracteres`;
+      }
+      if (control.hasError('maxlength')) {
+        return `No puede tener más de ${control.errors['maxlength']?.requiredLength} caracteres`;
+      }
+      if (control.hasError('pattern')) {
+        return 'Formato inválido';
+      }
+      if (control.hasError('email')) {
+        return 'Email inválido';
+      }
+    }
+    if (this.transporteForm.hasError('dateRangeInvalid')) {
+      return 'La fecha de inicio debe ser menor que la de fin';
+    }
+    return '';
   }
 }

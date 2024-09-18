@@ -27,7 +27,8 @@ export class AddPaquetesComponent implements OnInit{
     { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', formControlName: 'departureDate'},
     { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha', formControlName: 'returnDate' },
     { placeholderNumber: 'Cantidad de pasajero', typeNumber: 'number', number: 'Pasajeros:',formControlName: 'numberOfPeople'},
-    { placeholder: 'Origen', type: 'text', text: 'Origen',formControlName:'origin' },
+    { placeholder: 'Nombre paquete', type: 'text', text: 'Nombre del paquete:',formControlName:'namePackage' },
+    { placeholder: 'Origen', type: 'text', text: 'Origen:',formControlName:'origin' },
     { placeholder: 'Destino', type: 'text', text: 'Destino:', formControlName: 'destination' },
   ];
 
@@ -66,6 +67,7 @@ export class AddPaquetesComponent implements OnInit{
       seekerHotel: ['', [Validators.required]],
       departureDate: ['', [Validators.required]],
       returnDate: ['', [Validators.required]],
+      namePackage: ['',[Validators.required]],
       numberOfPeople: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
       origin: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       destination: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(255)]],

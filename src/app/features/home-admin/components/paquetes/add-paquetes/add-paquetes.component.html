@@ -12,11 +12,9 @@
       </div>
     </div>
   
-    <section class="inputs">
       <div class="input-container">
-        <div class="input-row">
-          <div class="input" *ngFor="let input of inputs; let i = index" [ngClass]="{'hidden': i >= 3}">
-            <app-text 
+        <div class="input" *ngFor="let input of inputs; let i = index">
+          <app-text 
               *ngIf="input.text" 
               [text]="input.text" 
               [style]="'textHotelUpdate'">
@@ -64,58 +62,6 @@
             </app-error-text>   
           </div>
         </div>
-        <div class="input-row">
-          <div class="input" *ngFor="let input of inputs; let i = index" [ngClass]="{'hidden': i < 3}">
-            <app-text 
-              *ngIf="input.text" 
-              [text]="input.text" 
-              [style]="'textHotelUpdate'">
-            </app-text>
-    
-            <app-input-text 
-              *ngIf="input.placeholder" 
-              [placeholder]="input.placeholder" [type]="input.type" 
-              [style]="'inputUpdateHotel'" 
-              [formControl]="getFormControl(input.formControlName)">
-            </app-input-text>
-    
-            <app-input-date
-              *ngIf="input.dateStar" 
-              src="assets/icons/date.png" 
-              [txt]="input.dateStar" 
-              [style]="'dateUpdateHotel'"
-              [formControl]="getFormControl(input.formControlName)">
-            </app-input-date>
-    
-            <app-input-date 
-              *ngIf="input.dateFinish" 
-              src="assets/icons/date.png" 
-              [txt]="input.dateFinish" 
-              [style]="'dateUpdateHotel'"
-              [formControl]="getFormControl(input.formControlName)">
-            </app-input-date>
-    
-            <app-text *ngIf="input.number" [text]="input.number" [style]="'textHotelUpdate'"></app-text>
-            <app-image-input-text 
-              *ngIf="input.placeholderNumber" 
-              [styleIcon]="'iconAddTransport'" 
-              [styleinput]="'addTransport'" 
-              [type]="input.typeNumber" 
-              src="assets/icons/peopple.png" 
-              alt="Search Icon" 
-              [placeholder]="input.placeholderNumber" 
-              [formControl]="getFormControl(input.formControlName)">
-            </app-image-input-text>
-    
-            <app-error-text 
-              *ngIf="isControlInvalid(input.formControlName)"
-              [text]="getErrorMessage(input.formControlName)" 
-              [style]="'textErrorAddHotel'">
-            </app-error-text>   
-          </div>
-        </div>
-      </div>
-    </section>    
     
     <section class="description">
       <div style="position: relative;">

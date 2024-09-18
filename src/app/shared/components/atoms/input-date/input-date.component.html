@@ -8,7 +8,7 @@
       matInput 
       [matDatepicker]="picker" 
       [formControl]="control" 
-      [min]="getCurrentDate()" 
+      [min]="disableMinDate ? null : getCurrentDate()" 
       [disabled]="disabled" 
       class="hidden-input"
       (dateChange)="onDateChange($event)"

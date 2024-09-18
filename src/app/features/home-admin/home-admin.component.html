@@ -22,8 +22,13 @@
     <app-proveedoresa-adviser></app-proveedoresa-adviser>
   </ng-container>
 
+  <ng-container *ngIf="selection === 'Ventas'">
+    <app-das-boart></app-das-boart>
+  </ng-container>
+
   <!-- Contenido para otras condiciones -->
-  <ng-container *ngIf="selection !== 'Servicios' && selection !== 'Proveedores'">
+  <ng-container *ngIf="selection !== 'Servicios' && selection !== 'Proveedores' && selection !== 'Ventas'" >
     <app-empty-status></app-empty-status>
   </ng-container>
+
 </div>

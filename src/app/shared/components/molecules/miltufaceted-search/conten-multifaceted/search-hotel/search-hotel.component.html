@@ -1,11 +1,12 @@
-<div class="hotel-search">
+<div [class]="style">
     <app-subtitle [style]="'subtitle-principal'" text="¡Busca tu hotel soñado!"></app-subtitle>
 
     <section class="inputs" *ngFor="let hotel of contenHotel">
         <div class="text">
             <app-subtitle [style]="'subtitle-secundary'" [text]="hotel.destination"></app-subtitle>
             <app-image-input-text 
-              [styleinput]="'input-text'" 
+              [styleinput]="styleInputText" 
+              [styleIcon]="styleInputIcon"
               type="text" 
               src="assets/icons/ubication.png" 
               alt="Search Icon" 
@@ -21,7 +22,7 @@
             <app-subtitle [style]="'subtitle-secundary'" [text]="hotel.dates ? hotel.dates : ''"></app-subtitle>
             <div class="dates">
               <app-input-date 
-              [style]="'input-text-wrapper'"
+              [style]="styleDate"
                 class="date1" 
                 src="assets/icons/date.png" 
                 [txt]="ida " 
@@ -29,7 +30,7 @@
                 [control]="idaControl">
               </app-input-date>
               <app-input-date 
-              [style]="'input-text-wrapper'"
+              [style]="styleDate"
                 src="assets/icons/date.png" 
                 [txt]="vuelta" 
                 [submitted]="submitted"
@@ -43,7 +44,7 @@
               <div class="text">
                 <app-subtitle [style]="'subtitle-secundary'" [text]="hotel.rooms ? hotel.rooms : ''"></app-subtitle>
                 <app-image-input-text 
-                  [styleinput]="'input-number'" 
+                  [styleinput]="styleInputNumber" 
                   type="number" 
                   src="assets/icons/rooms.png" 
                   alt="Search Icon" 
@@ -59,7 +60,7 @@
             <div class="text">
               <app-subtitle [style]="'subtitle-secundary'" [text]="hotel.peopple ? hotel.peopple : ''"></app-subtitle>
               <app-image-input-text 
-                [styleinput]="'input-number'" 
+                [styleinput]="styleInputNumber" 
                 type="number" 
                 src="assets/icons/peopple.png" 
                 alt="Search Icon" 

@@ -1,11 +1,12 @@
-<div class="crusero-search"  *ngFor="let crusero of contenCruseros">
+<div [class]="style"  *ngFor="let crusero of contenCruseros">
     <app-subtitle [style]="'subtitle-principal'" text="¡Busca tu crusero soñado!"></app-subtitle>
 
     <section class="inputs">
         <div class="text">
             <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.destination"></app-subtitle>
             <app-image-input-text 
-              [styleinput]="'input-text'" 
+              [styleinput]="styleInputText" 
+              [styleIcon]="styleInputIcon"
               type="text" 
               src="assets/icons/ubication.png" 
               alt="Search Icon" 
@@ -22,7 +23,7 @@
                 <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.exit ? crusero.exit : ''"></app-subtitle>
                 <div class="dates">
                   <app-input-date 
-                  [style]="'input-text-wrapper'"
+                    [style]="styleDate"
                     class="date1" 
                     src="assets/icons/date.png" 
                     [txt]="monthExit" 
@@ -36,7 +37,7 @@
                 <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.duration ? crusero.duration : ''"></app-subtitle>
                 <div class="dates">
                   <app-input-date 
-                  [style]="'input-text-wrapper'"
+                    [style]="styleDate"
                     class="date1" 
                     src="assets/icons/date.png" 
                     [txt]="monthDuration" 
@@ -50,7 +51,8 @@
           <div class="text">
             <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.port"></app-subtitle>
             <app-image-input-text 
-              [styleinput]="'input-text'" 
+              [styleinput]="styleInputText" 
+              [styleIcon]="styleInputIcon"
               type="text" 
               src="assets/icons/ubication.png" 
               alt="Search Icon" 
@@ -65,7 +67,8 @@
           <div class="text">
             <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.boat"></app-subtitle>
             <app-image-input-text 
-              [styleinput]="'input-text'" 
+              [styleinput]="styleInputText" 
+              [styleIcon]="styleInputIcon"
               type="text" 
               src="assets/icons/boat.png" 
               alt="boat" 
@@ -85,7 +88,7 @@
           <div class="text">
               <app-subtitle [style]="'subtitle-secundary'" [text]="crusero.naviera"></app-subtitle>
               <app-image-input-text 
-                [styleinput]="'input-text-naviera'" 
+                [styleinput]="styleNaviera" 
                 type="text" 
                 src="assets/icons/boat.png" 
                 alt="boat" 

@@ -122,6 +122,12 @@ export class RegisterFormComponent implements OnInit {
 
   logInWithGoogle() {
     this.authGoogleService.login();
+    this.loadData();
+  }
+
+  loadData(){
+    const user = sessionStorage.getItem('id_token_claims_obj');
+    console.log('data user auth google: ', user); 
   }
 
   isPasswordError(field: string): boolean {

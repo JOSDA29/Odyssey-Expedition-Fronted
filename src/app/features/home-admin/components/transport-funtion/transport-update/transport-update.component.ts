@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from '../../../../../core/services/api.service';
 import { loadComponent } from '../../../../../core/services/hotel-update-service.service';
 import { updateTransport } from '../../../../../core/models/transport/updateTransport';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-transport-update',
@@ -16,16 +17,19 @@ export class TransportUpdateComponent {
   cargado: boolean = false
   selectedFile: File | null = null;
 
+  transporteForm!: FormGroup;
+  submitted = false;
+
   @Input() inputs = [
-    { placeholder: 'Numero de seguimiento', type: 'text', text: 'Segimiento: ', dateStart: '', dateFinish: '',isReadOnly:true },
-    { placeholder: 'Ingrese el tipo', type: 'text', text: 'Transporte:', dateStart: '', dateFinish: '',isReadOnly:true },
-    { placeholder: 'Ingrese la compañia', type: 'text', text: 'Compañia:', dateStart: '', dateFinish: '',isReadOnly:true },
-    { placeholder: '', type: '', text: 'Fecha de llegada :', dateStart: 'Fecha', dateFinish: '',isReadOnly:false },
-    { placeholder: '', type: '', text: 'Fecha de salida:', dateStart: '', dateFinish: 'Fecha',isReadOnly:false },
-    { placeholderNumber: 'Cantidad de pasajero', typeNumber: 'number', number: 'Pasajeros:',isReadOnly:false},
-    { placeholder: 'Ingrese el origen', type: 'text', text: 'Origen:', dateStart: '', dateFinish: '',isReadOnly:false },
-    { placeholder: 'Ingrese el destino', type: 'text', text: 'Destino:', dateStart: '', dateFinish: '',isReadOnly:false },
-    { placeholder: 'Valor instancia', type: 'number', text: 'Precio:', dateStart: '', dateFinish: '',isReadOnly:false },
+    { placeholder: 'Numero de seguimiento', type: 'text', text: 'Segimiento: ', dateStar: '', dateFinish: '',list:false,formControlName:'trackNumber',isReadOnly:true },
+    { placeholder: 'Ingrese el tipo', type: 'text', text: 'Transporte:', dateStar: '', dateFinish: '',list:false,formControlName:'transporttype',isReadOnly:true },
+    { placeholder: 'Ingrese la compañia', type: 'text', text: 'Compañia:', dateStar: '', dateFinish: '',list:false,formControlName:'company',isReadOnly:true },
+    { placeholder: '', type: '', text: 'Fecha de salida:', dateStar: 'Fecha', dateFinish: '',list:false,formControlName:'departureDate', isReadOnly:false },
+    { placeholder: '', type: '', text: 'Fecha de llegada :', dateStar: '', dateFinish: 'Fecha',list:false,formControlName:'arrivalDate', isReadOnly:false },
+    { placeholderNumber: 'Cantidad de pasajero', typeNumber: 'number', number: 'Pasajeros:',list:false,formControlName:'numberOfPeople', isReadOnly:false },
+    { placeholder: 'Ingrese el origen', type: 'text', text: 'Origen:', dateStar: '', dateFinish: '',list:true,formControlName:'origin', isReadOnly:false },
+    { placeholder: 'Ingrese el destino', type: 'text', text: 'Destino:', dateStar: '', dateFinish: '',list:true,formControlName:'destination',isReadOnly:false },
+    { placeholder: 'Valor instancia', type: 'number', text: 'Precio:', dateStar: '', dateFinish: '',list:false,formControlName:'price', isReadOnly:false },
   ];
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -34,6 +38,7 @@ export class TransportUpdateComponent {
   errorMessages: string[] = [];
 
   constructor(
+    private fb: FormBuilder,
     private sweetAlertService: SweetAlertService,
     public dialogRef: MatDialogRef<TransportUpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -45,9 +50,6 @@ export class TransportUpdateComponent {
     this.inputValues = this.inputs.map(() => ({ value: '',  dateStart: '', dateFinish: '' }));
   }
 
-  triggerFileInput(): void {
-    this.fileInput.nativeElement.click();
-  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -70,68 +72,74 @@ export class TransportUpdateComponent {
     } else {
       console.error('No ID provided');
     }
+
+    this.transporteForm = this.fb.group({
+      trackNumber: ['', [Validators.required, Validators.minLength(5)]],
+      transporttype: ['', [Validators.required, Validators.pattern(/^(vuelo|crucero)$/)]], // Se mantiene el patrón original
+      company: ['', [Validators.required]],
+      departureDate: ['', [Validators.required]],
+      arrivalDate: ['', [Validators.required]],
+      numberOfPeople: ['', [Validators.required, Validators.min(1), Validators.max(12)]],
+      origin: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      destination: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      price: ['', [Validators.required]]
+    }, {
+      validators: this.dateRangeValidator
+    });
+  
+    // Escuchar cambios en el campo 'transporte' y convertir a minúsculas automáticamente
+    this.transporteForm.get('transporte')?.valueChanges.subscribe((value: string) => {
+      const lowerCaseValue = value?.toLowerCase() || '';
+      this.transporteForm.get('transporte')?.setValue(lowerCaseValue, { emitEvent: false });
+    });
+
     this.cdr.detectChanges();
   }  
 
-  getInputValues(): updateTransport {
-    const transportID = this.transportId;
-    const arrivalDate = this.inputValues[3]?.dateStart || '';
-    const departureDate = this.inputValues[4]?.dateFinish || '';
-    const numberOfPeople = this.inputValues[5]?.number || 0;
-    const origin = this.inputValues[6]?.value || '';
-    const destination = this.inputValues[7]?.value || '';
-    const price = this.inputValues[8]?.value || 0;
-    
-    this.errorMessages = [];
-  
-    if (!arrivalDate) {
-      this.errorMessages[3] = 'Campo obligatorio';
-    } else if (new Date(arrivalDate) < new Date(departureDate)) {
-      this.errorMessages[3] = 'La fecha de llegada debe ser mayor a la de salida';
+    // Validador personalizado para verificar la fecha de inicio y fin
+    dateRangeValidator(group: AbstractControl): { [key: string]: boolean } | null {
+      const dateStar = group.get('dateStar')?.value;
+      const dateFinish = group.get('dateFinish')?.value;
+      
+      if (dateStar && dateFinish && new Date(dateStar) >= new Date(dateFinish)) {
+        return { dateRangeInvalid: true };
+      }
+      return null;
+    }
+
+    getFormControl(controlName: string): FormControl {
+      const control = this.transporteForm.get(controlName);
+      if (!control) {
+        throw new Error(`Control with name '${controlName}' not found in the form`);
+      }
+      return control as FormControl;
     }
   
-    if (!departureDate) {
-      this.errorMessages[4] = 'Campo obligatorio';
+    isControlInvalid(controlName: string): boolean {
+      const control = this.transporteForm.get(controlName);
+      return control?.touched && control?.invalid || false;
     }
   
-    if (!numberOfPeople) {
-      this.errorMessages[5] = 'Campo obligatorio';
+    triggerFileInput(): void {
+      this.fileInput.nativeElement.click();
     }
-  
-    if (!origin) {
-      this.errorMessages[6] = 'Campo obligatorio';
-    } else if (origin.length < 10 || origin.length >= 20) {
-      this.errorMessages[6] = 'El origen debe tener entre 10 y 20 caracteres.';
-    }
-  
-    if (!destination) {
-      this.errorMessages[7] = 'Campo obligatorio';
-    } else if (destination.length < 10 || destination.length >= 20) {
-      this.errorMessages[7] = 'El destino debe tener entre 10 y 20 caracteres.';
-    }
-  
-    if (!price) {
-      this.errorMessages[8] = 'Campo obligatorio';
-    }
-  
-    // Si hay errores, lanzar excepción
-    if (this.errorMessages.some(error => error)) {
-      console.log('Errores encontrados:', this.errorMessages);
-      throw new Error('Datos inválidos');
-    }
-  
-    // Debugging: Log final object
+
+
+ getInputValues(): updateTransport {
+    const { transporttype, company, origin, destination, arrivalDate, departureDate, numberOfPeople, price, trackNumber } = this.transporteForm.value;
     return {
-      transportID,
+      transportID: this.transportId,
+      transporttype,
+      company,
       origin,
       destination,
       arrivalDate,
       departureDate,
       numberOfPeople,
       price,
-      state: true,
+      state: this.data.item?.state,
+      trackNumber
     };
-  
   }
   
 
@@ -145,21 +153,24 @@ export class TransportUpdateComponent {
         if (data && data.length > 0) {
           const transport = data[0];
   
+
           const startDateFormatted = new Date(transport.departuredate).toLocaleDateString('en-CA');
           const endDateFormatted = new Date(transport.arrivaldate).toLocaleDateString('en-CA');
   
-          console.log('data of transport:', startDateFormatted, endDateFormatted);
+          console.log('data of transport:', startDateFormatted, endDateFormatted, transport);
   
-          this.inputValues[0].value = transport.tracknumber || '';
-          this.inputValues[1].value = transport.transporttype || '';
-          this.inputValues[2].value = transport.company || '';
-          this.inputValues[3].dateStart = endDateFormatted; 
-          this.inputValues[4].dateFinish = startDateFormatted;           
-          this.inputValues[5].number = transport.numberofpeople || ''; 
-          this.inputValues[6].value = transport.origin || '';
-          this.inputValues[7].value = transport.destination || '';
-          this.inputValues[8].value = transport.price || '';
-  
+          this.transporteForm.patchValue({
+            trackNumber:transport.tracknumber || '',
+            transporttype: transport.transporttype || '',
+            company: transport.company || '',
+            departureDate: startDateFormatted,
+            arrivalDate: endDateFormatted,
+            numberOfPeople:transport.numberofpeople || '',
+            origin: transport.origin || '',
+            destination: transport.destination || '',
+            price: transport.price || 0,
+          })
+
           this.srcImg = transport.imageurl || this.srcImg;
           this.cdr.detectChanges();
         }
@@ -173,13 +184,14 @@ export class TransportUpdateComponent {
   
 
   saveData(): void {
-    const payload = this.getInputValues();
-    console.log('Datos a enviar:', payload); // Depuración
-  
-    if (!payload.destination || payload.destination.length < 5 || payload.destination.length > 255) {
-      this.sweetAlertService.showError('La ciudad de ubicación debe contener entre 5 y 255 caracteres');
+    if (this.transporteForm.invalid) {
+      this.submitted = true;
+      this.transporteForm.markAllAsTouched();
       return;
     }
+
+    const payload = this.getInputValues();
+    console.log('Datos a enviar:', payload); // Depuración
   
     // Confirmación y llamada al API
     this.sweetAlertService.showConfirmation(
@@ -246,4 +258,33 @@ export class TransportUpdateComponent {
       }
     });
 }
+
+getErrorMessage(controlName: string): string {
+  const control = this.transporteForm.get(controlName);
+  if (control && control.errors) {
+    if (control.hasError('required')) {
+      return 'Campo obligatorio';
+    }
+    if (control.hasError('pattern') && controlName === 'transporte') {
+      return 'El transporte debe ser "Vuelo" o "Crucero"';
+    }
+    if (control.hasError('minlength')) {
+      return `Debe tener al menos ${control.errors['minlength']?.requiredLength} caracteres`;
+    }
+    if (control.hasError('maxlength')) {
+      return `No puede tener más de ${control.errors['maxlength']?.requiredLength} caracteres`;
+    }
+    if (control.hasError('pattern')) {
+      return 'Formato inválido';
+    }
+    if (control.hasError('email')) {
+      return 'Email inválido';
+    }
+  }
+  if (this.transporteForm.hasError('dateRangeInvalid')) {
+    return 'La fecha de inicio debe ser menor que la de fin';
+  }
+  return '';
+}
+
 }

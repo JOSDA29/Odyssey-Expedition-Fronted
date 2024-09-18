@@ -105,6 +105,7 @@
             <app-image-input-text 
               [styleinput]="styleInputText" 
               type="text" 
+              [styleIcon]="styleInputIcon"
               src="assets/icons/ubication.png" 
               alt="Search Icon" 
               [placeholder]="tramoorigin"
@@ -120,6 +121,7 @@
             <app-image-input-text 
               [styleinput]="styleInputText" 
               type="text" 
+              [styleIcon]="styleInputIcon"
               src="assets/icons/ubication.png" 
               alt="Search Icon" 
               [placeholder]="tramodestination"
@@ -165,10 +167,10 @@
 
   
     <div class="footer">
-      <div class="text">
+      <div>
         <app-subtitle [style]="'subtitle-secundary'" [text]="conten.peopple ? conten.peopple : ''"></app-subtitle>
         <app-image-input-text 
-          [styleinput]="'input-number'" 
+          [styleinput]="styleInputNumber" 
           type="number" 
           src="assets/icons/peopple.png" 
           alt="Search Icon" 

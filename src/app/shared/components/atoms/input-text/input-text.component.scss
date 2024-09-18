@@ -67,6 +67,17 @@
   margin-top: 0.4rem;
 }
 
+.input-naviera-searchSpesific{
+  padding-left: 2.5rem; 
+  width: 13rem; 
+  height: 3.063rem; 
+  border-color: $color-borders;
+  box-sizing: border-box;
+  border-radius: 5px; 
+  font-size: $text-normal; 
+  margin-top: 0.4rem;
+}
+
 .input-number {
   width: 12.5rem; 
   height: 4.063rem; 
@@ -172,6 +183,28 @@
   font-size: 16px;
 }
 
+.suggestions-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  max-height: 100px;
+  overflow-y: auto;
+  background: white;
+  position: absolute;
+  scrollbar-width: none;
+  width: 24.7%;
+  z-index: 1000;
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+}
 @media (min-width: 352px) and (max-width: 480px) {
   .input-register{ 
     width: 70vw;
@@ -188,14 +221,11 @@
     width: 80vw;
     height: 3.063rem; 
   }
-  .input-number2{
+  .input-number, .input-number2{
     width: 37vw;
     height: 3.063rem;
   }
-  .input-number{
-    width: 11.5rem;
-    height: 3.063rem;
-  }
+
   .inputIA{
     width: 70vw;
     height: 3rem;

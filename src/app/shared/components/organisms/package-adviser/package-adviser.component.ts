@@ -27,11 +27,11 @@ export class PackageAdviserComponent {
   inputValues: any[] = [];
 
   @Input() inputs = [
-    { tex: 'Id:', input: 'Buscar por id', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Origen:', input: 'Buscar por origen', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Destino:', input: 'Buscar por destino', type: 'text', dateStar:'',dateFinish:'',},
-    { tex: 'Fecha salida:', input: '', type: '', dateStar:'Fecha salida',dateFinish:'',},
-    { tex: 'Fecha llegada:', input: '', type: '', dateStar:'',dateFinish:'Fecha llegada',},
+    { tex: 'Id:', input: 'Buscar por id', type: 'text', dateStar:'',dateFinish:'',list:false},
+    { tex: 'Origen:', input: 'Buscar por origen', type: 'text', dateStar:'',dateFinish:'',list:true},
+    { tex: 'Destino:', input: 'Buscar por destino', type: 'text', dateStar:'',dateFinish:'',list:true},
+    { tex: 'Fecha salida:', input: '', type: '', dateStar:'Fecha salida',dateFinish:'',list:false},
+    { tex: 'Fecha llegada:', input: '', type: '', dateStar:'',dateFinish:'Fecha llegada',list:false},
   ]
 
   @Input()  buttons = [

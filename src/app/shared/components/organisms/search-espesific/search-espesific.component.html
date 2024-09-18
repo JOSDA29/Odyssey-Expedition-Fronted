@@ -5,7 +5,7 @@
       [checkboxes]="checkContens" 
       textbutton="Buscar">
     </app-conten-multifaceted>
-    <app-search-hotel *ngIf="nuberMenu === 1" [contenHotel]="contenHotel"></app-search-hotel>
-    <app-search-paquetes *ngIf="nuberMenu === 2" [contenPaquete]="contenPaquete"></app-search-paquetes>
-    <app-search-cruseros *ngIf="nuberMenu === 3" [contenCruseros]="contenCruseros"></app-search-cruseros>
+    <app-search-hotel [style]="'conten-searchSpasific'" [styleInputText]="'input-shearSpesific'" [styleInputIcon]="'icon-shearSpesific'" [styleInputNumber]="'input-number-searchSpesific'" [styleDate]="'input-text-wrapper-search'" *ngIf="nuberMenu === 1" [contenHotel]="contenHotel"></app-search-hotel>
+    <app-search-paquetes [style]="'conten-searchSpasific'" [styleInputText]="'input-shearSpesific'" [styleInputIcon]="'icon-shearSpesific'" [styleInputNumber]="'input-number-searchSpesific'" [styleDate]="'input-text-wrapper-search'" *ngIf="nuberMenu === 2" [contenPaquete]="contenPaquete"></app-search-paquetes>
+    <app-search-cruseros [style]="'conten-searchSpasific'" [styleInputText]="'input-shearSpesific'" [styleInputIcon]="'icon-shearSpesific'" [styleInputNumber]="'input-number-searchSpesific'" [styleDate]="'input-text-wrapper-search'" [styleNaviera]="'input-naviera-searchSpesific'" *ngIf="nuberMenu === 3" [contenCruseros]="contenCruseros"></app-search-cruseros>
   </div>

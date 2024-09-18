@@ -20,6 +20,7 @@ export class InputDateComponent implements ControlValueAccessor, OnChanges {
   @Input() alt: string = '';
   @Input() txt: string = ''; // El texto que deseas mostrar
   @Input() style: string = 'input-text-wrapper';
+  @Input() disableMinDate: boolean = false;  // Nueva propiedad de entrada para deshabilitar la fecha mínima
   @Input() submitted: boolean = false;
   @Input() disabled: boolean = false;
   @Input() control: FormControl = new FormControl(); // Control reactivo del formulario
@@ -108,8 +109,10 @@ export class InputDateComponent implements ControlValueAccessor, OnChanges {
     return regex.test(dateString);
   }
 
-  // Método para formatear la fecha
   formatDate(date: Date): string {
-    return formatDate(date, 'yyyy-MM-dd', 'en-US');
+    // Verifica si hay una diferencia horaria y ajústala manualmente
+    const adjustedDate = new Date(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
+    return formatDate(adjustedDate, 'yyyy-MM-dd', 'en-US');
   }
+  
 }

@@ -1,0 +1,25 @@
+@import '../../../../../styles/variables.scss';
+
+.conten-dasbo {
+    max-width: 100rem;
+    margin: 0 auto; // Centra el contenido si es necesario
+
+    .conten {
+        display: grid; // Usa grid para organizar los elementos
+        grid-template-columns: repeat(4, 1fr); // Crea 4 columnas de igual ancho
+        gap: 1rem; // Espacio entre los elementos
+        width: 100%; // Asegúrate de que ocupe el ancho completo
+        max-height: 83vh; // Altura máxima para el scroll
+        overflow-y: auto; // Habilita el scroll vertical si el contenido excede la altura
+    }
+
+    .table {
+        border-radius: 20px;
+        background-color: $color-table;
+        display: flex; // Si quieres centrar el texto dentro del elemento
+        align-items: center;
+        justify-content: center;
+        text-align: center; // Centra el texto dentro del elemento
+        padding: 1rem; // Espaciado interno
+    }
+}

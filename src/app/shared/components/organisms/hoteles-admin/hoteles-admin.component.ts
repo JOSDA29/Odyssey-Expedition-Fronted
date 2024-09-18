@@ -32,9 +32,9 @@ export class HotelesAdminComponent implements OnInit {
   ];
 
   @Input() inputs = [
-    { tex: 'Nombre:', input: 'Buscar por nombre', type: 'text' },
-    { tex: 'Ubicación:', input: 'Buscar por ubicacion', type: 'text' },
-    { tex: 'ID:', input: 'Buscar por id', type: 'text' },
+    { tex: 'Nombre:', input: 'Buscar por nombre', type: 'text',list:true },
+    { tex: 'Ubicación:', input: 'Buscar por ubicacion', type: 'text',list:true },
+    { tex: 'ID:', input: 'Buscar por id', type: 'text',list:false },
   ];
   @Input() buttons = [
     { textButon: 'Buscar', srcButon: 'assets/icons/lupa.png', altButon: 'lupa', configModal: { addService: null } },

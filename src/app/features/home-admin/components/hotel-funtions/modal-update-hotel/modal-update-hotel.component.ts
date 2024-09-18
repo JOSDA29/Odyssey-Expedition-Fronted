@@ -21,14 +21,14 @@ export class ModalUpdateHotelComponent implements OnInit {
   hotelDescription: string = '';
 
   inputs = [
-    { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ', formControlName: 'name' },
-    { placeholder: 'Destino', type: 'text', text: 'Destino:', formControlName: 'destination' },
-    { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', formControlName: 'startDate' },
-    { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha', formControlName: 'endDate' },
-    { placeholder: 'Cantidad de personas', type: 'number', text: 'Número de personas:', max: 12, formControlName: 'numberOfPeople' },
-    { placeholder: 'Habitación', type: 'text', text: 'Habitación:', formControlName: 'room' },
-    { placeholder: 'Locación', type: 'text', text: 'Locación:', formControlName: 'location' },
-    { placeholder: 'Precio', type: 'number', text: 'Precio:', formControlName: 'price' },
+    { placeholder: 'Nombre hotel', type: 'text', text: 'Nombre hotel: ', formControlName: 'name',list:true },
+    { placeholder: 'Destino', type: 'text', text: 'Destino:', formControlName: 'destination',list:true },
+    { placeholder: '', type: '', text: 'Fecha de inicio:', dateStar: 'Fecha', formControlName: 'startDate',list:false },
+    { placeholder: '', type: '', text: 'Fecha de fin:', dateStar: '', dateFinish: 'Fecha', formControlName: 'endDate',list:false },
+    { placeholder: 'Cantidad de personas', type: 'number', text: 'Número de personas:', max: 12, formControlName: 'numberOfPeople',list:false },
+    { placeholder: 'Habitación', type: 'text', text: 'Habitación:', formControlName: 'room',list:false },
+    { placeholder: 'Locación', type: 'text', text: 'Locación:', formControlName: 'location',list:false },
+    { placeholder: 'Precio', type: 'number', text: 'Precio:', formControlName: 'price',list:false },
   ];
 
   @ViewChild('fileInput') fileInput!: ElementRef;

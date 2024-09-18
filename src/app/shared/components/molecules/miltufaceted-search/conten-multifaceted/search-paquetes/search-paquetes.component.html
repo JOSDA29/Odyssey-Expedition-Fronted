@@ -1,4 +1,4 @@
-<div class="paquetes-search">
+<div [class]="style">
     <app-subtitle [style]="'subtitle-principal'" text="¡Busca tu paquete soñado!"></app-subtitle>
 
     <section class="inputs" *ngFor="let paquete of contenPaquete">
@@ -6,7 +6,8 @@
       <div class="text">
         <app-subtitle [style]="'subtitle-secundary'" [text]="paquete.origin"></app-subtitle>
         <app-image-input-text 
-          [styleinput]="'input-text2'" 
+          [styleinput]="styleInputText" 
+          [styleIcon]="styleInputIcon"
           type="text" 
           src="assets/icons/ubication.png" 
           alt="Search Icon" 
@@ -21,7 +22,8 @@
         <div class="text">
             <app-subtitle [style]="'subtitle-secundary'" [text]="paquete.destination"></app-subtitle>
             <app-image-input-text 
-              [styleinput]="'input-text2'" 
+              [styleinput]="styleInputText" 
+              [styleIcon]="styleInputIcon"
               type="text" 
               src="assets/icons/ubication.png" 
               alt="Search Icon" 
@@ -41,14 +43,14 @@
                 src="assets/icons/date.png" 
                 [txt]="ida" 
                 [submitted]="submitted"
-                [style]="'input-text-wrapper2'"
+                [style]="styleDate"
                 [control]="idaControl">
               </app-input-date>
               <app-input-date 
                 src="assets/icons/date.png" 
                 [txt]="vuelta" 
                 [submitted]="submitted"
-                [style]="'input-text-wrapper2'"
+                [style]="styleDate"
                 [control]="vueltaControl"> 
               </app-input-date>
             </div>      
@@ -59,7 +61,7 @@
               <div class="text">
                 <app-subtitle [style]="'subtitle-secundary'" [text]="paquete.rooms ? paquete.rooms : ''"></app-subtitle>
                 <app-image-input-text 
-                  [styleinput]="'input-number2'" 
+                  [styleinput]="styleInputNumber" 
                   type="number" 
                   src="assets/icons/rooms.png" 
                   alt="Search Icon" 
@@ -75,7 +77,7 @@
             <div class="text">
               <app-subtitle [style]="'subtitle-secundary'" [text]="paquete.peopple ? paquete.peopple : ''"></app-subtitle>
               <app-image-input-text 
-                [styleinput]="'input-number2'" 
+                [styleinput]="styleInputNumber" 
                 type="number" 
                 src="assets/icons/peopple.png" 
                 alt="Search Icon" 

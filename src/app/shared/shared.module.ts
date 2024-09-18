@@ -90,6 +90,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { SearchEspesificComponent } from './components/organisms/search-espesific/search-espesific.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DasBoartComponent } from './components/organisms/das-boart/das-boart.component';
 
 
 @NgModule({
@@ -177,6 +179,7 @@ import { SearchEspesificComponent } from './components/organisms/search-espesifi
     EditPaqueteComponent,
     ViewPaqueteComponent,
     SearchEspesificComponent,
+    DasBoartComponent,
   ],
   imports: [
     CommonModule,
@@ -187,7 +190,8 @@ import { SearchEspesificComponent } from './components/organisms/search-espesifi
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   exports:[
     ModalUpdateHotelComponent,

@@ -33,6 +33,43 @@
     }
 }
 
+.conten-searchSpasific{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color:$background-light-contens ;
+    border: solid 1px $color-borders;
+    border-radius: 10px;
+    padding: 2rem 1.5rem;
+    height: 70vh;
+    .inputs{
+        display: flex;
+        flex-direction: column;
+    }
+    .text{
+        margin: 2em 0rem 0rem 0rem;
+        .dates{
+            display: flex;
+            .date1{
+                margin-right: 1.5rem;
+            }
+        }
+    }
+        .footer{
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+    
+    .error-message {
+        position: absolute;
+    }
+    app-button{
+        margin: 2rem auto auto;
+    }
+}
+
 
 @media (min-width: 352px) and (max-width: 480px) {
     .hotel-search{

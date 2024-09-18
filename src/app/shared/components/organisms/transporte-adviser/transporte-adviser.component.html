@@ -10,12 +10,14 @@
                           [(ngModel)]="inputValues[i].value" 
                           [placeholder]="input.input" 
                           [type]="input.type" 
+                          [list]="input.list"
                           [style]="'inputAdmin'">
           </app-input-text>
           <app-input-date 
   *ngIf="input.dateStar" 
   src="assets/icons/date.png" 
   [txt]="input.dateStar" 
+  [disableMinDate]="true"
   [style]="'dateUpdateTransport'"
   [(ngModel)]="inputValues[i].dateStart">
 </app-input-date>
@@ -24,6 +26,7 @@
   *ngIf="input.dateFinish" 
   src="assets/icons/date.png" 
   [txt]="input.dateFinish" 
+  [disableMinDate]="true"
   [style]="'dateUpdateTransport'"
   [(ngModel)]="inputValues[i].dateFinish">
 </app-input-date>

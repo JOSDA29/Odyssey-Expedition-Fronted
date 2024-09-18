@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalUpdateHotelComponent } from './components/hotel-funtions/modal-update-hotel/modal-update-hotel.component';
+import { ApiService } from '../../core/services/api.service';
 
 @Component({
   selector: 'app-home-admin',

@@ -44,7 +44,8 @@
         [styleIcon]="'sheartIA'"
         placeholder="Escribe tu pregunta"
         (textChanged)="onUserInputChange($event)"
-        (enterPressed)="onEnterPressed()">
+        (enterPressed)="onEnterPressed()"
+        [list]="false">
       </app-image-input-text>
     </section>
   </ng-container>

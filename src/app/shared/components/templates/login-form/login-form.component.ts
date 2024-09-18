@@ -181,8 +181,6 @@ export class LoginFormComponent implements OnInit {
           }
         }
       );
-    } else {
-      alert('Por favor, complete el formulario correctamente');
     }
   }
   

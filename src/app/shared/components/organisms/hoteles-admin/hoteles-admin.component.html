@@ -9,6 +9,7 @@
           <app-input-text *ngIf="input.input && input.type" 
                           [placeholder]="input.input" 
                           [type]="input.type" 
+                          [list]="input.list"
                           [(ngModel)]="inputValues[i].value"
                           [style]="'inputAdmin'">
           </app-input-text>

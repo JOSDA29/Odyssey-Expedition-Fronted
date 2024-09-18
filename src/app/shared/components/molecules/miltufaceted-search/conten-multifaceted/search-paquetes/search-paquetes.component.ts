@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { searchPaquete } from '../../../../../../core/models/paquetes/searchPaquetes';
+import { SearchServiceService } from '../../../../../../core/services/search-service.service';
+import { Router } from '@angular/router';
+import { ApiService } from '../../../../../../core/services/api.service';
 
 @Component({
   selector: 'app-search-paquetes',
@@ -7,9 +11,16 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrl: './search-paquetes.component.scss'
 })
 export class SearchPaquetesComponent implements OnInit {
+  @Input() style : 'paquetes-search' | 'conten-searchSpasific' = 'paquetes-search';
+  @Input() styleInputText: 'input-text2' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-text2';
+  @Input() styleInputIcon: 'input-icon' | 'icon-shearSpesific' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
+  @Input() styleInputNumber: 'input-number2' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-number2';
+  @Input() styleDate: 'input-text-wrapper2' | 'input-text-wrapper-search' = 'input-text-wrapper2';
   @Input() textbutton: string = '';
   ida: string = 'Ida'
   vuelta: string = 'Vuelta'
+
+
   @Input() contenPaquete: { 
     section?: string | null,
     origin: string,
@@ -25,7 +36,12 @@ export class SearchPaquetesComponent implements OnInit {
   submitted = false;
 
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private route: Router,
+    private searchServiceService: SearchServiceService<any>,
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -37,6 +53,17 @@ export class SearchPaquetesComponent implements OnInit {
       peopple: ['', Validators.required],
     });
 
+    const savedData = sessionStorage.getItem('SearchDataP');
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      // Update form values
+      this.form.patchValue({
+        ...parsedData,
+      });
+      this.ida = parsedData.ida || '';
+      this.vuelta = parsedData.vuelta || 'Vuelta';
+
+    }
   }
 
   get originControl(): FormControl {
@@ -74,7 +101,24 @@ export class SearchPaquetesComponent implements OnInit {
     this.submitted = true;
     this.validateForm();
     if (this.form.valid) {
-      // Realizar la acción del botón
+      const searchCriteria: searchPaquete = {
+        origin: this.originControl.value,
+        destination: this.destinationControl.value,
+        departureDate: this.idaControl.value,
+        returnDate: this.vueltaControl.value,
+      }
+      sessionStorage.setItem('SearchDataP', JSON.stringify(this.form.value));
+
+      this.apiService.filterPaquetes(searchCriteria).subscribe(
+        (response)=>{
+          this.searchServiceService.updateSearchResults(response);
+          this.route.navigate(['/resultSearch']);
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+      console.log('Form is invalid',this.form.value);
     }
   }
 

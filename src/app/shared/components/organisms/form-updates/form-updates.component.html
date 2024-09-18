@@ -2,13 +2,13 @@
   <section class="header">
     <div class="text">
       <app-subtitle [text]="title" [style]="'subtitle-register'"></app-subtitle>
-      <app-text [text]="info" [style]="'text-nostros-profile'"></app-text>
+      <app-text [text]="info" [style]="'text-nostros-profile'" ></app-text>
     </div>
     <app-subtitle text="Cancelar" [style]="'textCancelar'" (click)="onCancel()"></app-subtitle>
   </section>
   <form>
     <div class="inputs">
-      <app-input-text [style]="'input-update'" [(ngModel)]="newText" name="newText" placeholder="Escribir..."></app-input-text>
+      <app-input-text [style]="'input-update'" [(ngModel)]="newText" name="newText" placeholder="Escribir..." [list]="false"></app-input-text>
       <app-button [style]="'search-button'" text="Guardar" (click)="onSave()"></app-button>
     </div>
     <div *ngIf="errorMessage" class="error-message">

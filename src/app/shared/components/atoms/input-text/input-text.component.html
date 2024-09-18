@@ -1,10 +1,18 @@
-<input 
-  [type]="type" 
-  [placeholder]="placeholder" 
-  [ngClass]="[style, isReadOnly ? 'isReadOnly':'']" 
-  [formControl]="control" 
-  (keydown.enter)="onEnter($event)"
-  [attr.readonly]="isReadOnly ? true : null"
-  [min]="1"
-  [max]="max"
-/>
+<div>
+  <input 
+    [type]="type" 
+    [placeholder]="placeholder" 
+    [ngClass]="[style, isReadOnly ? 'isReadOnly':'']" 
+    [formControl]="control" 
+    (keydown.enter)="onEnter($event)"
+    [attr.readonly]="isReadOnly ? true : null"
+    [min]="1"
+    [max]="max"
+  />
+  <!-- Lista de sugerencias -->
+  <ul *ngIf="list && suggestions.length > 0" class="suggestions-list">
+    <li *ngFor="let suggestion of suggestions" (click)="selectSuggestion(suggestion)">
+      {{ suggestion.display_name }}
+    </li>
+  </ul>
+</div>
