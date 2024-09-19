@@ -24,6 +24,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { AngularFireModule } from '@angular/fire/compat';
+import {environment} from '../environments/environment';
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { MatIconModule } from '@angular/material/icon';
     HttpClientModule,
     RouterModule,
     ClientProfileModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     OAuthModule.forRoot(),
     MatDatepickerModule,
     MatNativeDateModule,

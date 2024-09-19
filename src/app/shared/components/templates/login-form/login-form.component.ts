@@ -55,7 +55,7 @@ export class LoginFormComponent implements OnInit {
   }[] = [];
 
   logInWithGoogle() {
-    this.authGoogleService.login();
+    this.authGoogleService.loginWithGoogle();
   }
 
   loginForm!: FormGroup;

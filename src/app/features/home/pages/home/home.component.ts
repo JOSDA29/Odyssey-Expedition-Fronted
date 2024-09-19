@@ -11,7 +11,7 @@ import { authGoogle } from '../../../../core/models/authGoogle/authGogle';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  user: any;
+  user: any = null;
   showContent: boolean = true;
 
   constructor(
@@ -28,30 +28,44 @@ export class HomeComponent implements OnInit {
       this.showContent = false;
     }
 
-    // Cargar el perfil del usuario si la página ya se recargó
     this.loadUserProfile();
+
+    // Cargar el perfil del usuario si la página ya se recargó
+    this.authGoogleService.getAuthState().subscribe(user => {
+      if (user) {
+        this.authGoogleService.getUserInfo().then(info => {
+          if (info) {
+            this.user = info;
+            this.loadUserProfile(); // Cargar el perfil después de obtener la info del usuario
+          } else {
+            console.error('No se pudo obtener la información del usuario.');
+          }
+        });
+      } else {
+        console.error('Usuario no autenticado.');
+      }
+    });
   }
 
   async loadUserProfile() {
-    const reloadFlag = localStorage.getItem('hasSentUserData');
-    if (reloadFlag === 'reloading') {
-      localStorage.setItem('hasSentUserData', 'true'); // Evitar futuras recargas
-      // Evitar recargar la página para mantener el estado actual
+    if (!this.user) {
+      console.error('No se ha cargado la información del usuario.');
       return;
     }
-
+  
     try {
-      // Obtener y procesar el perfil del usuario desde el servicio
-      const profile = await this.authGoogleService.getProfile();
       const dataUser: authGoogle = {
-        firstName: profile.given_name,
-        lastName: profile.family_name,
-        email: profile.email,
+        firstName: this.user.firstName,
+        lastName: this.user.lastName,
+        email: this.user.email,
       };
-
+  
+      console.log('Datos del usuario a enviar al backend:', dataUser);
+  
       // Enviar datos al backend
       this.apiService.authGoogle(dataUser).subscribe(
         (response) => {
+          console.log('Respuesta del backend:', response);
           const AccessToken = response.token;
           localStorage.setItem('token', AccessToken);
           this.handleUserState();
@@ -60,14 +74,11 @@ export class HomeComponent implements OnInit {
           console.error('Error en la autenticación con Google:', error);
         }
       );
-
-      // Evitar futuras recargas
-      localStorage.setItem('hasSentUserData', 'reloading');
-
     } catch (error) {
       console.error('Error al obtener el perfil del usuario:', error);
     }
   }
+  
 
   handleUserState() {
     this.apiService.getUserInfo().subscribe((userInfo) => {
@@ -91,7 +102,7 @@ export class HomeComponent implements OnInit {
                   console.error('Error al actualizar el estado del cliente:', error);
                 }
               );
-            }else{
+            } else {
               sessionStorage.clear();
               localStorage.clear();
             }

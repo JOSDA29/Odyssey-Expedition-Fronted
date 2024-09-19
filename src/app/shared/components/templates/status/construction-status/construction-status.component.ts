@@ -18,7 +18,7 @@ export class ConstructionStatusComponent implements OnInit {
   }
 
   showData() {
-    const data: any = JSON.stringify(this.authGoogleService.getProfile());
+    const data: any = JSON.stringify(this.authGoogleService.getUserInfo());
     const dataParser = JSON.parse(data);
     console.log(data);
     console.log(dataParser.given_name);

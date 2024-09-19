@@ -20,7 +20,7 @@ import { authGoogle } from '../models/authGoogle/authGogle';
 })
 export class ApiService {
 
-  private apiUrl = 'https://3mnzl4rc-10240.use.devtunnels.ms'; 
+  private apiUrl = 'http://localhost:10240'; 
 
   constructor(
     private http: HttpClient,

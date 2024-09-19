@@ -57,7 +57,7 @@ export class NavBarComponent implements OnInit {
   toggleProfileMenu(event: MouseEvent) {
     event.stopPropagation(); // Detiene la propagación del evento de clic
 
-    const isLoggedIn = localStorage.getItem('token') !== null || this.authGoogleService.isAuthenticated();
+    const isLoggedIn = localStorage.getItem('token') !== null || !this.authGoogleService.getAuthState();
 
     if (isLoggedIn) {
       // Si está logueado, alterna la visibilidad del menú del perfil
@@ -70,9 +70,9 @@ export class NavBarComponent implements OnInit {
 
   openLoginModal(): void {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const isLoggedInGoogle = this.authGoogleService.isAuthenticated();
+    const isLoggedInGoogle = this.authGoogleService.getAuthState();
   
-    if ((isLoggedIn === 'true' && this.state) || isLoggedInGoogle) {
+    if ((isLoggedIn === 'true' && this.state) || !isLoggedInGoogle) {
       // Si está logueado, solo muestra el menú de perfil sin redirigir
       this.profileMenuOpen = true; // Aseguramos que el menú del perfil esté abierto
     } else {

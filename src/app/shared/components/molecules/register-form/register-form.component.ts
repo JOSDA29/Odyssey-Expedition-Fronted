@@ -121,7 +121,7 @@ export class RegisterFormComponent implements OnInit {
   }
 
   logInWithGoogle() {
-    this.authGoogleService.login();
+    this.authGoogleService.loginWithGoogle();
     this.loadData();
   }
 
