@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ButtonComponent {
 @Input() text:string = '';
 @Input() type: string = '';
-@Input() style:'share-button' | 'addService' | 'saveHotel' |'button-Admin' | 'button-disaible' | 'search-button' | 'disaible-button' | 'button-cancel' | 'other-button' | 'registerGoogle' = 'share-button';
+@Input() style:'share-button' | 'addService' | 'espesificSearch' | 'saveHotel' |'button-Admin' | 'button-disaible' | 'search-button' | 'disaible-button' | 'button-cancel' | 'other-button' | 'registerGoogle' = 'share-button';
 @Input() isSelected: boolean = false;
 @Input() disabled: boolean = false;
 @Output() clickEvent = new EventEmitter<void>();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { SearchServiceService } from '../../../../core/services/search-service.service';
 import { HotelData } from '../../../../core/models/hotel/hotelData';
 import { getTransport } from '../../../../core/models/transport/getTransports';
@@ -12,6 +12,8 @@ export class SearchPageComponent implements OnInit {
 
   nuberMenu: number = 0;
   encontrado: boolean = true;
+  showSearchEspesific = false;
+  isMobile = false;
 
   public paquetes: getTransport[] = [];
   public vuelos: getTransport[] = []; 
@@ -22,11 +24,27 @@ export class SearchPageComponent implements OnInit {
     private searchServiceService: SearchServiceService<any> 
   ) { 
     this.slecction();
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+    this.isMobile = window.innerWidth <= 480; // Cambia el límite de pixeles según la medida que desees
+  }
+
+  // Detectar cambios en el tamaño de la pantalla
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = window.innerWidth <= 480;
+  }
+
+  toggleSearchEspesific() {
+    if (this.isMobile) {
+      this.showSearchEspesific = !this.showSearchEspesific;
+    }
   }
 
   slecction() {
     const storedValue = sessionStorage.getItem('secetionSearch');
-    console.log(storedValue);
     this.nuberMenu = storedValue ? Number(storedValue) : 0;
   }
 

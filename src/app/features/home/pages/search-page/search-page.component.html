@@ -1,9 +1,13 @@
 <app-principal-navbar></app-principal-navbar>
-<app-secondary-navbar [showLinks]="false"></app-secondary-navbar>
+<app-secondary-navbar [showLinks]="false" ></app-secondary-navbar>
 <div class="contenPage">
-    <div class="contenSearch">
-        <app-search-espesific></app-search-espesific>
-    </div>
+  <div class="contenSearch" [ngClass]="{ 'active': isMobile }">
+    <app-button (click)="toggleSearchEspesific()" [text]="'Buscar un nuevo paisaje'" [style]="'espesificSearch'"></app-button>
+    <app-search-espesific class="search-espesific1"></app-search-espesific>
+    
+    <app-search-espesific class="search-espesific2" *ngIf="showSearchEspesific && isMobile"></app-search-espesific>
+  </div>
+  
     <div class="contenCards">
         <ng-container *ngFor="let vuelo of vuelos">
           <app-card-hotel *ngIf="vuelo.state !== false && encontrado"

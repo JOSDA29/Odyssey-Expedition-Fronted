@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, INJECTOR, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, INJECTOR, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApiService } from '../../../../../core/services/api.service';
 import { searchFligth } from '../../../../../core/models/transport/searchFligths';
@@ -11,6 +11,11 @@ import { SearchServiceService } from '../../../../../core/services/search-servic
   styleUrls: ['./conten-multifaceted.component.scss']
 })
 export class ContenMultifacetedComponent implements OnInit {
+  
+
+  @Output() searchCompleted = new EventEmitter<void>(); 
+
+  @Input() botonClose: boolean = false;
   @Input() min: number = 2;
   @Input() max: number = 6;
   @Input() style : 'conten-multifaceted' | 'conten-searchSpasific' = 'conten-multifaceted';
@@ -129,7 +134,6 @@ export class ContenMultifacetedComponent implements OnInit {
         departureDate: this.form.value.ida || '', 
       };
   
-      console.log('Datos de búsqueda: ', searchCriteria);
   
       // Crear una copia de los valores del formulario
       const formValueCopy = { ...this.form.value };
@@ -146,6 +150,7 @@ export class ContenMultifacetedComponent implements OnInit {
         (response) => {
           this.searchServiceService.updateSearchResults(response);
           this.route.navigate(['/resultSearch']);
+          this.searchCompleted.emit();
         },
         (error) => {
           console.error('Error:', error);
@@ -164,7 +169,6 @@ export class ContenMultifacetedComponent implements OnInit {
     }));
     this.checkMenu = selectedIndex;
   
-    console.log('checkMenu:', this.checkMenu);
   
     // Actualiza las validaciones en función del valor de checkMenu
     this.updateFormValidators();
@@ -178,7 +182,6 @@ export class ContenMultifacetedComponent implements OnInit {
       }
     }
   
-    console.log('vuelta:', this.vuelta);
   }
 
   updateFormValidators(): void {
@@ -210,5 +213,8 @@ export class ContenMultifacetedComponent implements OnInit {
     if (this.tramos.length > this.min) {
       this.tramos.splice(index, 1);
     }
+  }
+  close(){
+    this.searchCompleted.emit();
   }
 }

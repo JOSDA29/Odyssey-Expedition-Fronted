@@ -14,7 +14,6 @@ export class SearchServiceService <T> {
 
   // Método para actualizar los resultados de búsqueda
   updateSearchResults(results: T): void {
-    console.log('Actualizando resultados de búsqueda:', results);
     this.searchResultsSubject.next(results);
   }
 

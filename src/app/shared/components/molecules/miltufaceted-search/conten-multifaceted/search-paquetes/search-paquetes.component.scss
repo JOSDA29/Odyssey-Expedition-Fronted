@@ -91,6 +91,48 @@
             margin: 2rem auto auto;
         }
     }
+
+    .conten-searchSpasific{ 
+        top: 9rem;
+        right: 0px;
+        position: absolute;
+        padding: 3rem 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        align-items: center;
+        width: 97vw;
+        height: 37rem;
+        z-index: 1000;
+        app-icon{
+            position: absolute;
+            top: 2%;
+            right: 3%;
+        }
+        .inputs{
+            display: flex;
+            flex-direction: column;
+        }
+        .text{
+            margin: 1.5em 0rem 0rem 0rem;
+            .dates{
+                display: flex;
+                justify-content: space-between;
+                .date1{
+                    margin-right: 1.5rem;
+                }
+            }
+        }
+            .footer{
+                width: 80vw;
+            }
+        
+        .error-message {
+            position: absolute;
+        }
+        app-button{
+            margin: 2rem auto auto;
+        }
+    }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {

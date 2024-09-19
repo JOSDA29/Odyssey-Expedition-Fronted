@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class PrincipalFooterComponent {
   approachLinks = [
     { text: 'Preguntas frecuentes', url: '#' },
-    { text: 'Contactactenos', url: '#' }
+    { text: 'Contactenos', url: '#' }
   ];
 
   informationLinks = [

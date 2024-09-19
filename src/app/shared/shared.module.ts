@@ -221,7 +221,7 @@ import { DasBoartComponent } from './components/organisms/das-boart/das-boart.co
     TextAreaComponent,
     PrincipalNavbarComponent,
     SearchEspesificComponent,
-    CardHotelComponent
+    CardHotelComponent,
   ]
 })
 export class SharedModule { }

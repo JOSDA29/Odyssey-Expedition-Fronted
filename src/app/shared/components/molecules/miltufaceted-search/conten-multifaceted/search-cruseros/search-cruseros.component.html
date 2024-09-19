@@ -1,4 +1,5 @@
 <div [class]="style"  *ngFor="let crusero of contenCruseros">
+    <app-icon *ngIf="botonClose == true" src="assets/icons/close.png" alt="" [style]="'icon-close'" (click)="close()"></app-icon>
     <app-subtitle [style]="'subtitle-principal'" text="¡Busca tu crusero soñado!"></app-subtitle>
 
     <section class="inputs">

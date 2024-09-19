@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { SearchServiceService } from '../../../../core/services/search-service.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-search-espesific',
   templateUrl: './search-espesific.component.html',
-  styleUrl: './search-espesific.component.scss'
+  styleUrls: ['./search-espesific.component.scss']
 })
-export class SearchEspesificComponent {
+export class SearchEspesificComponent implements OnInit {
+  botonClose = false
+  isMobile= false;
   contenSection = [
     {
       title: '¡Busca tu vuelo soñado!',
@@ -41,7 +42,7 @@ export class SearchEspesificComponent {
   contenPaquete = [
     {
       section: null,
-      origin: 'Ogigen:',
+      origin: 'Origen:',
       destination: 'Destino:',
       dates: 'Fechas:',
       ida: 'Ida',
@@ -69,11 +70,22 @@ export class SearchEspesificComponent {
     this.slecction();
   }
 
+  ngOnInit() {
+    // Inicializar isMobile cuando el componente se carga por primera vez
+    this.isMobile = window.innerWidth <= 480;
+    this.botonClose = window.innerWidth <= 480;
+  }
+
   slecction() {
     const storedValue = sessionStorage.getItem('secetionSearch');
     this.nuberMenu = storedValue ? Number(storedValue) : 0;
+    console.log(this.nuberMenu);
   }
 
 
-
+  onSearchCompleted() {
+    if (this.isMobile) {
+      this.nuberMenu = -1;  
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../../../../core/services/api.service';
 import { updateHotel } from '../../../../../../core/models/hotel/updateHotel';
@@ -12,12 +12,14 @@ import { SearchServiceService } from '../../../../../../core/services/search-ser
 })
 export class SearchHotelComponent implements OnInit {
 
+  @Output() searchCompleted = new EventEmitter<void>(); 
+  @Input() botonClose: boolean = false;
+
   @Input() style : 'hotel-search' | 'conten-searchSpasific' = 'hotel-search';
   @Input() styleInputText: 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-text';
   @Input() styleInputIcon: 'input-icon' | 'icon-shearSpesific' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
   @Input() styleInputNumber: 'input-number' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-number';
   @Input() styleDate: 'input-text-wrapper' | 'input-text-wrapper-search' = 'input-text-wrapper';
-  
   @Input() textbutton: string = '';
   ida: string = 'Ida';
   vuelta: string = 'Vuelta';
@@ -107,6 +109,7 @@ export class SearchHotelComponent implements OnInit {
         (response) => {
           this.hotels = response
           this.searchServiceService.updateSearchResults(response);
+          this.searchCompleted.emit();
           this.route.navigate(['/resultSearch']); // Asegúrate de que esta ruta sea correcta
         },
         (error) => {
@@ -114,6 +117,10 @@ export class SearchHotelComponent implements OnInit {
         }
       );      
     }
+  }
+
+  close(){
+    this.searchCompleted.emit();
   }
 
 }

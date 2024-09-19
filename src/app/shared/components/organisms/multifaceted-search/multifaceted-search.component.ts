@@ -47,7 +47,7 @@ export class MultifacetedSearchComponent implements OnInit {
   contenPaquete = [
     {
       section: null,
-      origin: 'Ogigen:',
+      origin: 'Origen:',
       destination: 'Destino:',
       dates: 'Fechas:',
       rooms: 'Habitaciones:',

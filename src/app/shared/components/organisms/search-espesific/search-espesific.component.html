@@ -1,11 +1,50 @@
 <div class="content">
-    <app-conten-multifaceted [style]="'conten-searchSpasific'" [styleInputText]="'input-shearSpesific'" [styleInputIcon]="'icon-shearSpesific'" [styleInputNumber]="'input-number-searchSpesific'" [styleDate]="'input-text-wrapper-search'"
-      *ngIf="nuberMenu === 0" 
-      [contensSection]="contenSection" 
-      [checkboxes]="checkContens" 
-      textbutton="Buscar">
-    </app-conten-multifaceted>
-    <app-search-hotel [style]="'conten-searchSpasific'" [styleInputText]="'input-shearSpesific'" [styleInputIcon]="'icon-shearSpesific'" [styleInputNumber]="'input-number-searchSpesific'" [styleDate]="'input-text-wrapper-search'" *ngIf="nuberMenu === 1" [contenHotel]="contenHotel"></app-search-hotel>
-    <app-search-paquetes [style]="'conten-searchSpasific'" [styleInputText]="'input-shearSpesific'" [styleInputIcon]="'icon-shearSpesific'" [styleInputNumber]="'input-number-searchSpesific'" [styleDate]="'input-text-wrapper-search'" *ngIf="nuberMenu === 2" [contenPaquete]="contenPaquete"></app-search-paquetes>
-    <app-search-cruseros [style]="'conten-searchSpasific'" [styleInputText]="'input-shearSpesific'" [styleInputIcon]="'icon-shearSpesific'" [styleInputNumber]="'input-number-searchSpesific'" [styleDate]="'input-text-wrapper-search'" [styleNaviera]="'input-naviera-searchSpesific'" *ngIf="nuberMenu === 3" [contenCruseros]="contenCruseros"></app-search-cruseros>
-  </div>
+  <app-conten-multifaceted
+    [style]="'conten-searchSpasific'"
+    [styleInputText]="'input-shearSpesific'"
+    [styleInputIcon]="'icon-shearSpesific'"
+    [styleInputNumber]="'input-number-searchSpesific'"
+    [styleDate]="'input-text-wrapper-search'"
+    *ngIf="nuberMenu === 0"
+    [contensSection]="contenSection"
+    [checkboxes]="checkContens"
+    textbutton="Buscar"
+    (searchCompleted)="onSearchCompleted()"
+    [botonClose]="botonClose"
+    >
+  </app-conten-multifaceted>
+  <app-search-hotel
+    [style]="'conten-searchSpasific'"
+    [styleInputText]="'input-shearSpesific'"
+    [styleInputIcon]="'icon-shearSpesific'"
+    [styleInputNumber]="'input-number-searchSpesific'"
+    [styleDate]="'input-text-wrapper-search'"
+    *ngIf="nuberMenu === 1"
+    [contenHotel]="contenHotel"
+    [botonClose]="botonClose"
+    (searchCompleted)="onSearchCompleted()"
+  ></app-search-hotel>
+  <app-search-paquetes
+    [style]="'conten-searchSpasific'"
+    [styleInputText]="'input-shearSpesific'"
+    [styleInputIcon]="'icon-shearSpesific'"
+    [styleInputNumber]="'input-number-searchSpesific'"
+    [styleDate]="'input-text-wrapper-search'"
+    *ngIf="nuberMenu === 2"
+    [contenPaquete]="contenPaquete"
+    (searchCompleted)="onSearchCompleted()"
+    [botonClose]="botonClose"
+  ></app-search-paquetes>
+  <app-search-cruseros
+    [style]="'conten-searchSpasific'"
+    [styleInputText]="'input-shearSpesific'"
+    [styleInputIcon]="'icon-shearSpesific'"
+    [styleInputNumber]="'input-number-searchSpesific'"
+    [styleDate]="'input-text-wrapper-search'"
+    [styleNaviera]="'input-naviera-searchSpesific'"
+    [contenCruseros]="contenCruseros"
+    *ngIf="nuberMenu === 3"
+    (searchCompleted)="onSearchCompleted()"
+    [botonClose]="botonClose"
+  ></app-search-cruseros>
+</div>

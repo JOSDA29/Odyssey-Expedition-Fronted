@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { searchFligth } from '../../../../../../core/models/transport/searchFligths';
 import { SearchServiceService } from '../../../../../../core/services/search-service.service';
@@ -11,7 +11,10 @@ import { ApiService } from '../../../../../../core/services/api.service';
   styleUrl: './search-cruseros.component.scss'
 })
 export class SearchCruserosComponent implements OnInit{
-  
+
+  @Output() searchCompleted = new EventEmitter();
+  @Input() botonClose: boolean = false;
+
   @Input() style : 'crusero-search' | 'conten-searchSpasific' = 'crusero-search';
   @Input() styleInputText: 'input-text' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-text';
   @Input() styleInputIcon: 'input-icon' | 'icon-shearSpesific' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
@@ -117,6 +120,7 @@ export class SearchCruserosComponent implements OnInit{
         (response) => {
           this.searchServiceService.updateSearchResults(response);
           this.route.navigate(['/resultSearch']);
+          this.searchCompleted.emit();
         },
         (error) => {
           console.error('Error:', error);
@@ -124,6 +128,10 @@ export class SearchCruserosComponent implements OnInit{
       );
       console.log('Form is invalid',this.form.value);
     }
+  }
+
+  close(){
+    this.searchCompleted.emit();
   }
 
 }

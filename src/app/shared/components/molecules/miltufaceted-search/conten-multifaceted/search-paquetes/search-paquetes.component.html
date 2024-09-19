@@ -1,4 +1,5 @@
 <div [class]="style">
+    <app-icon *ngIf="botonClose == true" src="assets/icons/close.png" alt="" [style]="'icon-close'" (click)="close()"></app-icon>
     <app-subtitle [style]="'subtitle-principal'" text="¡Busca tu paquete soñado!"></app-subtitle>
 
     <section class="inputs" *ngFor="let paquete of contenPaquete">

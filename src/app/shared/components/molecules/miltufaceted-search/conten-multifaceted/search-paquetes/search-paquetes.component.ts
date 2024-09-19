@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { searchPaquete } from '../../../../../../core/models/paquetes/searchPaquetes';
 import { SearchServiceService } from '../../../../../../core/services/search-service.service';
@@ -11,6 +11,9 @@ import { ApiService } from '../../../../../../core/services/api.service';
   styleUrl: './search-paquetes.component.scss'
 })
 export class SearchPaquetesComponent implements OnInit {
+  @Output() searchCompleted = new EventEmitter<void>();
+  @Input() botonClose: boolean = false;
+
   @Input() style : 'paquetes-search' | 'conten-searchSpasific' = 'paquetes-search';
   @Input() styleInputText: 'input-text2' | 'input-text' | 'input-number-searchSpesific' | 'input-shearSpesific' = 'input-text2';
   @Input() styleInputIcon: 'input-icon' | 'icon-shearSpesific' | 'iconAddTransport' | 'boat' | 'input-icon-room' | 'sheartIA' = 'input-icon';
@@ -112,6 +115,7 @@ export class SearchPaquetesComponent implements OnInit {
       this.apiService.filterPaquetes(searchCriteria).subscribe(
         (response)=>{
           this.searchServiceService.updateSearchResults(response);
+          this.searchCompleted.emit();
           this.route.navigate(['/resultSearch']);
         },
         (error) => {
@@ -120,6 +124,10 @@ export class SearchPaquetesComponent implements OnInit {
       );
       console.log('Form is invalid',this.form.value);
     }
+  }
+
+  close(){
+    this.searchCompleted.emit();
   }
 
 }

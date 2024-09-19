@@ -38,13 +38,12 @@
 .conten-searchSpasific{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     background-color:$background-light-contens ;
     border: solid 1px $color-borders;
     border-radius: 10px;
     padding:  2rem 1.5rem;
-    height: 85vh;
+    height: 81vh;
     .inputs{
         display: flex;
         flex-direction: column;
@@ -83,6 +82,34 @@
         text-align: center;
         align-items: center;
 
+        .inputs{
+            flex-direction: column;
+            width: 80vw;
+        }
+
+        .text{
+            margin-right:0rem ;
+        }
+        .footer{
+            width: 80vw;
+        }
+    }
+    .conten-searchSpasific{
+        top: 9rem;
+        right: 0px;
+        position: absolute;
+        padding: 3rem 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        align-items: center;
+        width: 97vw;
+        height: 40rem;
+        z-index: 1000;
+        app-icon{
+            position: absolute;
+            top: 2%;
+            right: 3%;
+        }
         .inputs{
             flex-direction: column;
             width: 80vw;
