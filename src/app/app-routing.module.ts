@@ -45,15 +45,14 @@ const routes: Routes = [
     component: DisableProfileComponent,
   },
   {
-    path: 'errorpage',
-    component: ErrorStatusComponent
-  },
-  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full'
+  },
+  {
+    path: 'errorpage',
+    component: ErrorStatusComponent
   }
-  
 ];
 
 @NgModule({
