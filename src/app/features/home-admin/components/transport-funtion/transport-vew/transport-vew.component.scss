@@ -49,13 +49,16 @@
     }
     
     .inputs {
-        margin: 2rem auto;
+        margin: 2rem 0rem;
         display: grid;
         grid-template-columns: repeat(3, 1fr); 
-        gap: 1rem 5rem;
+        gap: 2rem 7rem;
         .read-only-text {
             color: #fc0000; /* Color para modo solo lectura */
           }
+    }
+    .inputs .input:nth-child(10) {
+        grid-column: 2; /* Esto mueve el décimo input a la tercera columna */
     }
     .description {
         width: 90%;

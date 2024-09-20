@@ -1,0 +1,14 @@
+@import '../../../../../styles/variables.scss';
+
+.conten{
+    border-top: solid 1.5px #b0afaf;
+    width: 78%;
+    left: 22%;
+    height: 6.25rem;
+    background-color: $background-light-contens;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

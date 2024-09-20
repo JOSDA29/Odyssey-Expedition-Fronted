@@ -4,6 +4,7 @@ import { Client } from '../../../models/profile-info.model';
 import { ErrorHandlingService } from '../../../../../core/services/error-handling.service';
 import { Router } from '@angular/router';
 import { SweetAlertService } from '../../../../../core/services/sweet-alert.service';
+import { AuthGoogleService } from '../../../../../core/services/auth-google.service';
 
 @Component({
   selector: 'app-disable-profile',
@@ -17,6 +18,7 @@ export class DisableProfileComponent {
     private errorHandlingService: ErrorHandlingService,
     private router: Router,
     private sweetAlertService:SweetAlertService,
+    private authGoogleService: AuthGoogleService,
   ){}
 
   textButton = 'Continuar';
@@ -160,6 +162,7 @@ export class DisableProfileComponent {
           this.sweetAlertService.showSuccess('Cuenta desactivada','assets/icons/check.gif')
           localStorage.clear();
           sessionStorage.clear();
+          this.authGoogleService.logout();
         },
         (error) => {
           console.error('Error al cambiar el estado:', error);

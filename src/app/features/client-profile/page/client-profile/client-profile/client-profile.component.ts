@@ -12,7 +12,6 @@ export class ClientProfileComponent implements OnInit {
   conten = [
     { title: 'Datos personales', text: 'Proporciona tus datos personales e indícanos cómo podemos ponernos en contacto contigo', altIcon: 'icon-personal', srcIcon: '', link: '/personalInfo', textUpdate: '', isEditing: false },
     { title: 'Inicio sesión y seguridad', text: 'Actualiza la contraseña y protege tu cuenta', altIcon: 'icon-contact', srcIcon: '', link: '/register', textUpdate: '', isEditing: false },
-    { title: 'Historial de reservas', text: 'Revisa todas la reservas que haz realizado hasta el momento', altIcon: 'icon-contact', srcIcon: '', link: '/', textUpdate: '', isEditing: false }
   ];
 
   constructor(private apiService: ApiService) { }

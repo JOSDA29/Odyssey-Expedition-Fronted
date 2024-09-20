@@ -59,13 +59,10 @@ export class HomeComponent implements OnInit {
         lastName: this.user.lastName,
         email: this.user.email,
       };
-  
-      console.log('Datos del usuario a enviar al backend:', dataUser);
-  
+    
       // Enviar datos al backend
       this.apiService.authGoogle(dataUser).subscribe(
         (response) => {
-          console.log('Respuesta del backend:', response);
           const AccessToken = response.token;
           localStorage.setItem('token', AccessToken);
           this.handleUserState();

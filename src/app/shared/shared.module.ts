@@ -92,6 +92,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { SearchEspesificComponent } from './components/organisms/search-espesific/search-espesific.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DasBoartComponent } from './components/organisms/das-boart/das-boart.component';
+import { ViewServiceComponent } from './components/atoms/view-service/view-service.component';
+import { FooterComponent } from './components/atoms/footer/footer.component';
+import { HotelBookingModalComponent } from './components/organisms/hotel-booking-modal/hotel-booking-modal.component';
 
 
 @NgModule({
@@ -180,6 +183,9 @@ import { DasBoartComponent } from './components/organisms/das-boart/das-boart.co
     ViewPaqueteComponent,
     SearchEspesificComponent,
     DasBoartComponent,
+    ViewServiceComponent,
+    FooterComponent,
+    HotelBookingModalComponent,
   ],
   imports: [
     CommonModule,
@@ -222,6 +228,8 @@ import { DasBoartComponent } from './components/organisms/das-boart/das-boart.co
     PrincipalNavbarComponent,
     SearchEspesificComponent,
     CardHotelComponent,
+    ViewServiceComponent,
+    FooterComponent
   ]
 })
 export class SharedModule { }

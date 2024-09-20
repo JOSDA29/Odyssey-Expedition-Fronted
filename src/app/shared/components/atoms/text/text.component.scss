@@ -179,6 +179,14 @@
   font-weight: $font-weight-extralight
 }
 
+.text-footer-component{
+  font-size: $text-normal;
+  font-family: $font-family-poppins;
+  font-weight: $font-weight-light;
+  letter-spacing: $global-spacing;
+  color: $color-info;
+}
+
 @media (min-width: 352px) and (max-width: 480px) {
   .disaible{
     font-size: $text-normal;

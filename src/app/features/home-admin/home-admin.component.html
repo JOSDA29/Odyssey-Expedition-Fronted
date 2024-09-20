@@ -26,9 +26,6 @@
     <app-das-boart></app-das-boart>
   </ng-container>
 
-  <!-- Contenido para otras condiciones -->
-  <ng-container *ngIf="selection !== 'Servicios' && selection !== 'Proveedores' && selection !== 'Ventas'" >
-    <app-empty-status></app-empty-status>
-  </ng-container>
+  <app-footer *ngIf="selection === '' || 'Inicio'"></app-footer>
 
 </div>

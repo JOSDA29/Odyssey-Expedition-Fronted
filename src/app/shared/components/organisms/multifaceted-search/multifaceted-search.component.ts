@@ -92,7 +92,6 @@ export class MultifacetedSearchComponent implements OnInit {
 
   onMenuSelected(selectedIndex: number) {
     this.nuberMenu = selectedIndex;
-    console.log(this.nuberMenu);
     sessionStorage.setItem('secetionSearch', `${this.nuberMenu}`);
   }
 }

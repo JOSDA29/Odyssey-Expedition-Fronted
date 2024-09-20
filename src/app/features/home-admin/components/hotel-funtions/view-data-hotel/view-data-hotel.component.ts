@@ -99,11 +99,4 @@ export class ViewDataHotelComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  createFormControl(placeholder: string): FormControl {
-    const control = new FormControl('');
-    if (this.isReadOnly) {
-      control.setValue(placeholder);
-    }
-    return control;
-  }
 }

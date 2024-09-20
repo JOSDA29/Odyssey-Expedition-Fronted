@@ -9,6 +9,11 @@
     background-color: $background-light-contens;
     padding: 2rem 0rem;
     overflow-y: auto;
+    app-icon{
+        position: absolute;
+        top: 3%;
+        right: 3%;
+    }
 
     header{
         width: 100%;
@@ -79,11 +84,11 @@
 
 
     .input-container {
-        margin: 2rem auto;
+        margin: 2rem 0;
         display: grid;
         grid-template-columns: repeat(3, 1fr); 
-        gap: 1rem 2rem;
-      }
+        gap: 2rem 5rem;
+    }
       
     .description{
         .custom-textarea {
@@ -109,6 +114,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr; /* La primera columna será más pequeña */
         gap: 3rem; /* Espacio entre las columnas */
+        margin-bottom: 3rem;
     }
 
     .addServices{

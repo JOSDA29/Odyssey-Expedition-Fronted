@@ -153,6 +153,11 @@ export class ApiService {
     return this.http.post<any>(`${this.apiUrl}/package/addTransport`, dataHotel)
   }
 
+  getService(id: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/package/getServices`, { params: { id } });
+  }
+  
+
   ///////////// FILTERS /////////////
   
   filterHotels(filters: any): Observable<any> {
@@ -198,6 +203,11 @@ export class ApiService {
 
   authGoogle(profile: authGoogle): Observable<authGoogle> {
     return this.http.post<authGoogle>(`${this.apiUrl}/auth-google`,profile)
+  }
+
+
+  transation(data: any): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/transaction/create`,data);
   }
 
 }

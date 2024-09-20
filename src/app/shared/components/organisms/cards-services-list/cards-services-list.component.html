@@ -9,7 +9,8 @@
                     [departure]="transport.origin"
                     [price]="transport.price"
                     [src]="transport.imageurl"
-                    [type]="transport.transporttype">
+                    [type]="transport.transporttype"
+                    [id]="transport.transportID">
                 </app-card-hotel>
             </ng-container>
         </div>
@@ -44,7 +45,8 @@
                     [src]="transport.imageurl"
                     [desde]="'Paga a 4 cuotas desde*'"
                     [noches]="transport.nights + ' noches'"
-                    [type]="transport.transporttype">
+                    [type]="transport.transporttype"
+                    [id]="transport.transportID">
                 </app-card-hotel>
             </ng-container>
         </div>

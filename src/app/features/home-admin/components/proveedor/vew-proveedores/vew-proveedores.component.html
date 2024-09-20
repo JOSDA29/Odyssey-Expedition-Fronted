@@ -6,25 +6,22 @@
         <ng-container *ngIf="input.text">
           <app-text [text]="input.text" [style]="'textHotelUpdate'"></app-text>
         </ng-container>
-  
-        <app-input-text 
-        [placeholder]="input.placeholder" 
-        [type]="input.type"
-        [isReadOnly]="input.isReadOnly"
-        [style]="'inputUpdateHotel'">
-      </app-input-text>
+      
+      <app-view-service
+      *ngIf="input.placeholder"
+      [text]="input.placeholder"
+      ></app-view-service>
   
       </div>
     </section>
   
     <section class="description">
-      <div style="position: relative;">
-        <app-text-area title="Horario de atención: "
-                       [placeholder]="horarioAtencion" 
-                       [(placeholder)]="horarioAtencion" 
-                       [style]="'containerProveedor'"
-                       [isReadOnly]="isReadOnly">
-        </app-text-area>
+      <div>
+        <app-text [text]="'Horario de atención:'" [style]="'textHotelUpdate'"></app-text>  
+
+        <app-view-service
+        [text]="horarioAtencion"
+        ></app-view-service>
 
       </div>
     </section>

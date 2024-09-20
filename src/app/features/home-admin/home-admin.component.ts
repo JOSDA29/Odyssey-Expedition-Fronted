@@ -32,16 +32,6 @@ export class HomeAdminComponent {
       selector: 'Proveedores',
       srcSelector: 'assets/icons/personas.png',
       altSelector: 'Icono de Paquetes'
-    },
-    {
-      selector: 'Preguntas Frecuentes',
-      srcSelector: 'assets/icons/pregunta.png',
-      altSelector: 'Icono de Servicios'
-    },
-    {
-      selector: 'Nosotros',
-      srcSelector: 'assets/icons/nosotros.png',
-      altSelector: 'Icono de Servicios'
     }
   ];
 

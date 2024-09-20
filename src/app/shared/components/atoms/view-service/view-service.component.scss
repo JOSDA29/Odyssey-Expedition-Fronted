@@ -1,0 +1,14 @@
+@import '../../../../../styles/variables.scss';
+
+
+.container{
+    margin-top: .5rem;
+    border-top:solid 1px $button-shared-color;
+    padding: 0.5rem 0rem 0rem;
+    p{
+        font-family: $font-family-poppins;
+        color: $color-info;
+        font-size: $link-normal;
+        font-weight: $font-weight-extralight;
+    }
+}
